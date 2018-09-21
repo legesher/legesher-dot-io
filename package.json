@@ -1,0 +1,20 @@
+{
+  "name": "legasher-dot-io",
+  "version": "0.0.0",
+  "description": "Website for Legesher - bridging the gap of language in code",
+  "keywords": [
+    "translator",
+    "legesher",
+    "website",
+    "open-source",
+    "language"
+  ],
+  "repository": "https://github.com/madipfaff/legasher-dot-io",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "devDependencies": {
+    "less": "^3.8.1"
+  }
+}
