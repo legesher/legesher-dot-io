@@ -75,6 +75,16 @@ input::-moz-focus-inner {
 	padding: 0;
 }
 
+input::selection {
+	color: @legesher-coral-main;
+  background: @legesher-blue-light;
+}
+
+input::-moz-selection {
+	color: @legesher-coral-main;
+  background: @legesher-blue-light;
+}
+
 input, select, textarea {
 	-moz-appearance: none;
 	-webkit-appearance: none;
@@ -325,7 +335,7 @@ input, select, textarea {
 /* Type */
 
 	body, input, select, textarea {
-		color: rgba(255, 255, 255, 0.75);
+		color: @legesher-black-75;
 		font-family: "Oswald", sans-serif;
 		font-size: 16pt;
 		font-weight: 400;
@@ -403,7 +413,7 @@ input, select, textarea {
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #fff;
+		color: @legesher-black;
 		font-weight: 700;
 		line-height: 1em;
 		margin: 0 0 1em 0;
@@ -466,7 +476,7 @@ input, select, textarea {
 	code {
 		background: rgba(255, 255, 255, 0.125);
 		border-radius: 6px;
-		border: solid 2px rgba(255, 255, 255, 0.35);
+		border: solid 2px @legesher-black-50;
 		font-family: "Courier New", monospace;
 		font-size: 0.9em;
 		margin: 0 0.25em;
@@ -489,7 +499,7 @@ input, select, textarea {
 
 	hr {
 		border: 0;
-		border-bottom: solid 2px rgba(255, 255, 255, 0.35);
+		border-bottom: solid 2px @legesher-black-50;
 		margin: 2em 0;
 	}
 
@@ -504,7 +514,7 @@ input, select, textarea {
 	}
 
 	header p {
-		color: rgba(255, 255, 255, 0.5);
+		color: @legesher-black-50;
 		position: relative;
 		margin: 0 0 1.5em 0;
 	}
@@ -799,8 +809,8 @@ input, select, textarea {
 		background-color: transparent;
 		border-radius: 6px;
 		border: none;
-		border: solid 2px rgba(255, 255, 255, 0.35);
-		color: inherit;
+		border: solid 2px @legesher-black-50;
+		color: @legesher-blue-main;
 		display: block;
 		outline: 0;
 		padding: 0 1em;
@@ -880,7 +890,7 @@ input, select, textarea {
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {
 			text-decoration: none;
-			color: rgba(255, 255, 255, 0.75);
+			color: @legesher-black-75;
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1em;
@@ -904,7 +914,7 @@ input, select, textarea {
 			input[type="radio"] + label:before {
 				background: rgba(255, 255, 255, 0.125);
 				border-radius: 6px;
-				border: solid 2px rgba(255, 255, 255, 0.35);
+				border: solid 2px @legesher-black-50;
 				content: '';
 				display: inline-block;
 				height: 1.65em;
@@ -939,27 +949,27 @@ input, select, textarea {
 	}
 
 	::-webkit-input-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: @legesher-black-25 !important;
 		opacity: 1.0;
 	}
 
 	:-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: @legesher-black-25 !important;
 		opacity: 1.0;
 	}
 
 	::-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: @legesher-black-25 !important;
 		opacity: 1.0;
 	}
 
 	:-ms-input-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: @legesher-black-25 !important;
 		opacity: 1.0;
 	}
 
 	.formerize-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: @legesher-black-25 !important;
 		opacity: 1.0;
 	}
 
@@ -981,7 +991,7 @@ input, select, textarea {
 		background-color: @legesher-blue-main;
 		border-radius: 6px;
 		border: 0;
-		color: #ffffff !important;
+		color: @legesher-black-75 !important;
 		cursor: pointer;
 		display: inline-block;
 		font-weight: 700;
@@ -1133,7 +1143,7 @@ input, select, textarea {
 		-ms-transition: opacity 0.5s ease-in-out;
 		transition: opacity 0.5s ease-in-out;
 		bottom: 4em;
-		color: rgba(255, 255, 255, 0.5);
+		color: @legesher-black-25;
 		left: 4em;
 		opacity: 0.5;
 		position: absolute;
