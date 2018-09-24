@@ -1051,6 +1051,7 @@ input, select, textarea {
     font-family: "Luna", sans-serif;
     font-size: 5.25em;
 		margin: 0 0 0.55em 0;
+    display: inline-block;
 	}
 
 	#header p {
@@ -1062,15 +1063,31 @@ input, select, textarea {
 		color: inherit;
 	}
 
+  #header img {
+    height: auto;
+    width: 250px;
+    margin-bottom: -5em;
+    margin-left: -2em;
+  }
+
 	@media screen and (max-width: 736px) {
 
 		#header h1 {
-			font-size: 2em;
+			font-size: 3em;
 		}
 
 		#header p {
 			font-size: 1em;
+      margin-top: 4em;
+      margin-bottom: 0;
 		}
+
+    #header img {
+      height: auto;
+      width: 250px;
+      margin-bottom: -5em;
+      margin-left: 0;
+    }
 
 	}
 
