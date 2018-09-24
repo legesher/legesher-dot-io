@@ -71,7 +71,7 @@ For e.g. 'http://blahblah.us1.list-manage.com/subscribe/post-json?u=5afsdhfuhdsi
                         console.log("in successCallback here");
                         label.removeClass('error').addClass('valid');
                         email.removeClass('error').addClass('valid');
-                        spanMessage.innerHTML = msg;
+                        document.getElementById('form-message').innerHTML = msg;
                         spanMessage.removeClass('invisible').addClass('success').addClass('visible');
 
 
@@ -80,7 +80,7 @@ For e.g. 'http://blahblah.us1.list-manage.com/subscribe/post-json?u=5afsdhfuhdsi
                         msg = " Oops! Something went wrong. Please try again.";
                         email.removeClass('valid').addClass('error');
                         label.removeClass('valid').addClass('error');
-                        spanMessage.innerHTML = msg;
+                        document.getElementById('form-message').innerHTML = msg;
                         spanMessage.removeClass('invisible').addClass('failure').addClass('visible');
 
                         var index = -1;
