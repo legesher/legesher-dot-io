@@ -80,7 +80,6 @@ For e.g. 'http://blahblah.us1.list-manage.com/subscribe/post-json?u=5afsdhfuhdsi
                         msg = " Oops! Something went wrong. Please try again.";
                         email.removeClass('valid').addClass('error');
                         label.removeClass('valid').addClass('error');
-                        document.getElementById('form-message').innerHTML = msg;
                         spanMessage.removeClass('invisible').addClass('failure').addClass('visible');
 
                         var index = -1;
@@ -103,6 +102,7 @@ For e.g. 'http://blahblah.us1.list-manage.com/subscribe/post-json?u=5afsdhfuhdsi
                             index = -1;
                             msg = resp.msg;
                         }
+                        document.getElementById('form-message').innerHTML = msg;
                         console.log("this is the message: ", msg);
                     }
 
