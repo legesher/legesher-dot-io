@@ -76,13 +76,13 @@ input::-moz-focus-inner {
 }
 
 input::selection {
-	color: @legesher-coral-main;
-  background: @legesher-blue-light;
+	color: @legesher-black-75;
+  background: @legesher-yellow-light;
 }
 
 input::-moz-selection {
-	color: @legesher-coral-main;
-  background: @legesher-blue-light;
+	color: @legesher-black-75;
+  background: @legesher-yellow-light;
 }
 
 input, select, textarea {
@@ -146,7 +146,7 @@ input, select, textarea {
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		background-color: @legesher-yellow;
+		background-color: @legesher-blue-egg;
 		padding: 6em 4em 4em 4em;
 	}
 
@@ -389,13 +389,13 @@ input, select, textarea {
 		-ms-transition: border-bottom-color 0.2s ease, color 0.2s ease;
 		transition: border-bottom-color 0.2s ease, color 0.2s ease;
 		border-bottom: dotted 1px rgba(255, 255, 255, 0.25);
-		color: @legesher-blue-main;
+		color: @legesher-yellow;
 		text-decoration: none;
 	}
 
 		a:hover {
 			border-bottom-color: transparent;
-			color: @legesher-blue-main !important;
+			color: @legesher-yellow !important;
 			text-decoration: none;
 		}
 
@@ -674,7 +674,7 @@ input, select, textarea {
 			}
 
 			form .message.success {
-				color: @legesher-blue-main;
+				color: @legesher-yellow;
 			}
 
 				form .message.success:before {
@@ -838,7 +838,7 @@ input, select, textarea {
 			-ms-animation: focus 0.1s;
 			animation: focus 0.1s;
 			background-color: rgba(255, 255, 255, 0.125);
-			border-color: @legesher-blue-main;
+			border-color: @legesher-yellow;
 		}
 
 	select {
@@ -930,16 +930,16 @@ input, select, textarea {
 
 		input[type="checkbox"]:checked + label:before,
 		input[type="radio"]:checked + label:before {
-			background: @legesher-blue-main;
-			border-color: @legesher-blue-main;
+			background: @legesher-yellow;
+			border-color: @legesher-yellow;
 			color: #ffffff;
 			content: '\f00c';
 		}
 
 		input[type="checkbox"]:focus + label:before,
 		input[type="radio"]:focus + label:before {
-			border-color: @legesher-blue-main;
-			box-shadow: 0 0 0 2px @legesher-blue-main;
+			border-color: @legesher-yellow;
+			box-shadow: 0 0 0 2px @legesher-yellow;
 		}
 
 	input[type="checkbox"] + label:before {
@@ -990,7 +990,7 @@ input, select, textarea {
 		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-		background-color: @legesher-blue-main;
+		background-color: @legesher-yellow;
 		border-radius: 6px;
 		border: 0;
 		color: @legesher-black-75 !important;
@@ -1010,7 +1010,7 @@ input, select, textarea {
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: @legesher-blue-shadow;
+			background-color: @legesher-yellow-shadow;
 		}
 
 		input[type="submit"]:active,
@@ -1067,7 +1067,6 @@ input, select, textarea {
     height: auto;
     width: 250px;
     margin-bottom: -5em;
-    margin-left: -2em;
   }
 
 	@media screen and (max-width: 736px) {
@@ -1086,7 +1085,6 @@ input, select, textarea {
       height: auto;
       width: 250px;
       margin-bottom: -5em;
-      margin-left: 0;
     }
 
 	}
