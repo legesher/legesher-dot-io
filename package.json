@@ -9,7 +9,7 @@
     "open-source",
     "language"
   ],
-  "repository": "https://github.com/madipfaff/legasher-dot-io",
+  "repository": "https://github.com/madiedgar/legasher-dot-io",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
