@@ -1,2 +1,3 @@
-# Legasher-Dot-Com
-Website for all things related to the Legasher project
+# [Legesher.io](https://legesher.io)
+
+Legesher's project website :tada:
