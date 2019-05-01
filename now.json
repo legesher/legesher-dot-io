@@ -2,13 +2,5 @@
   "version": 2,
   "public": false,
   "name": "legesher",
-  "alias": ["legesher", "legesher.io", "www.legesher.io"],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "status": 301,
-      "headers": { "Location": "https://legesher.io/$1" }
-    }
-  ]
+  "alias": ["legesher"]
 }
-

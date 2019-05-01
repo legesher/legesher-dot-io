@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "alias": ["www.legesher.io"],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "status": 301,
+      "headers": { "Location": "https://legesher.io/$1" }
+    }
+  ]
+}
