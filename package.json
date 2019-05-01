@@ -1,5 +1,5 @@
 {
-  "name": "legasher-dot-io",
+  "name": "legaeher-dot-io",
   "version": "0.0.0",
   "description": "Website for Legesher - bridging the gap of language in code",
   "keywords": [
@@ -9,7 +9,7 @@
     "open-source",
     "language"
   ],
-  "repository": "https://github.com/madiedgar/legasher-dot-io",
+  "repository": "https://github.com/madiedgar/legesher-dot-io",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
