@@ -1,0 +1,13 @@
+.fab, .far {
+  font-size: 20px;
+}
+
+.button-primary {
+  background: linear-gradient(65deg, #92ecf5 0, #69dbf5 100%);
+}
+
+.button-primary:hover {
+  background: linear-gradient(65deg, #8af5ff 0, #61e2ff 100%);
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImN1c3RvbS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UsMkRBQTJEO0FBQzdEOztBQUVBO0VBQ0UsMkRBQTJEO0FBQzdEIiwiZmlsZSI6ImN1c3RvbS5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZmFiLCAuZmFyIHtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uYnV0dG9uLXByaW1hcnkge1xuICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoNjVkZWcsICM5MmVjZjUgMCwgIzY5ZGJmNSAxMDAlKTtcbn1cblxuLmJ1dHRvbi1wcmltYXJ5OmhvdmVyIHtcbiAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDY1ZGVnLCAjOGFmNWZmIDAsICM2MWUyZmYgMTAwJSk7XG59XG4iXX0= */
