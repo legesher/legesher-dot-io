@@ -17,9 +17,10 @@
     cursor: pointer;
     justify-content: center;
     padding: 16px 32px;
-	height: 48px;
+	  height: 48px;
     text-align: center;
     white-space: nowrap;
+    width: 100%;
 
     &:active {
         outline: 0;
