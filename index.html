@@ -42,6 +42,7 @@
     <!-- SCRIPTS -->
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/6f4999131288a850ad71d6e54/c4240b825437b04bbeaa7d2d5.js");</script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 </head>
 <body class="is-boxed has-animations">
@@ -51,9 +52,9 @@
                 <div class="site-header-inner">
                     <div class="brand header-brand">
                         <h1 class="m-0">
-                          <a href="https://github.com/madiedgar/legesher/">
+                          <a href="https://github.com/legesher/">
                             <title>Legesher's Peggy</title>
-                            <img src="src/img/Peggy-HeadshotAlpha@4x.png" height="50" width="50">
+                            <img src="src/img/EggPeggyGrey.png" height="50" width="50">
                           </a>
                         </h1>
                     </div>
@@ -66,15 +67,22 @@
                 <div class="container-sm">
                     <div class="hero-inner">
                         <h1 class="hero-title h2-mobile mt-0 is-revealing">Legesher</h1>
-                        <p class="hero-paragraph is-revealing">Code in your native language, because innovation and creativity shouldn't be lost in translation.</p>
-                        <div class="hero-form newsletter-form field field-grouped is-revealing">
-                            <div class="control control-expanded">
-                                <input class="input" type="email" name="email" placeholder="Your best email&hellip;">
-                            </div>
-                            <div class="control">
-                                <a class="button button-primary button-block button-shadow" href="#">Get early access</a>
-                            </div>
-                        </div>
+                        <h5 class="definition"><code><i>[ le&middot;ga&middot;shEr ]</i>   &nbsp;&nbsp;  to act as a bridge; to connect.</code></h5>
+                        <p class="hero-paragraph is-revealing">The bridge between the words we speak and the code we write.</p>
+                        <!-- NEW FORM -->
+                        <form action="https://withmadico.us19.list-manage.com/subscribe/post-json?u=6f4999131288a850ad71d6e54&amp;id=c75cd847f2&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate">
+                          <div class="hero-form newsletter-form field field-grouped is-revealing">
+                              <div class="control control-expanded">
+                                  <input class="input email" type="email" name="EMAIL" placeholder="Your best email&hellip;" id="mailchimp-email" required>
+                                  <span id="form-message"></span>
+                              </div>
+
+                              <div class="control">
+                                  <input type="submit" value="Get early access" name="subscribe" class="button button-primary button-block button-shadow" id="mc-embedded-subscribe">
+                              </div>
+                          </div>
+                        </form>
+                        <!-- END OF NEW FORM  -->
                         <div class="hero-browser">
                             <div class="bubble-3 is-revealing">
                                 <svg width="427" height="286" viewBox="0 0 427 286" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -205,7 +213,8 @@
                                         </svg>
                                     </div>
                                     <h3 class="feature-title">Develop</h3>
-                                    <p class="text-sm">Our purpose is to remove the spoken language barrier in developing code. The best part? It's free to use our tools!</p>
+                                    <p class="text-sm">Innovation and creativity should never be lost in translation, that’s why we created Legesher!
+                                    </br></br>If you can’t fly yet, then you should “run” with our developer tools, as they take the alternate way around the spoken language barrier in developing code.</p>
                                 </div>
                             </div>
                             <div class="feature is-revealing">
@@ -219,7 +228,8 @@
                                         </svg>
                                     </div>
                                     <h3 class="feature-title">Learn</h3>
-                                    <p class="text-sm">Not sure where or how to start? We have tutorials on how to get started with Legesher as well as introductions to programming!</p>
+                                    <p class="text-sm">Let's face it - learning code is just as difficult as learning a new language.
+                                    </br></br>We're continually adding multilingual tutorials to our repository that includes introductions to programming, #OpenSource how-to’s and the Legesher fundamentals!</p>
                                 </div>
                             </div>
                         </div>
@@ -237,7 +247,9 @@
 
                                     </div>
                                     <h3 class="feature-title">Contribute</h3>
-                                    <p class="text-sm">Legesher is an open source project, meaning you have the opportunity to contribute to the future of development with our tools. If you speak another language or develop in one, we'd love your contribution. Other talents? We'll show you that you don't need to know tech to be a part of our mission!</p>
+                                    <p class="text-sm">Legesher is an <i>open source project</i>, meaning you have the opportunity to influence the future of development with our tools. If you speak another language or develop in one, we could really use your contribution!
+                                    </br></br>Honestly, if you’re here and still reading, (even if you know zilch about tech) we’d love you to be a part of our mission!
+                                    </p>
                                 </div>
                             </div>
                             <div class="feature is-revealing">
@@ -252,7 +264,8 @@
                                         </svg>
                                     </div>
                                     <h3 class="feature-title">Support</h3>
-                                    <p class="text-sm">We're always wanting to add new spoken and programming languages to our repository. Please share our mission.</p>
+                                    <p class="text-sm">We're always wanting to add new spoken and programming languages to our repository. Please lege-<u>share</u> our mission.
+                                    </br></br>From beginners learning how to code to collaborating with diverse teams around the world, Legesher connects us all.</p>
                                 </div>
                             </div>
                         </div>
@@ -265,16 +278,21 @@
                     <div class="newsletter-inner section-inner">
                         <div class="newsletter-header text-center is-revealing">
                             <h2 class="section-title mt-0">Stay in the know</h2>
-                            <p class="section-paragraph">Legesher will be launching our beta version soon, and we'd love for you to be able to use it first!</p>
+                            <p class="section-paragraph">Legesher will be hatching beta soon. Sign up for updates on when Legesher will be welcomeed into this world - and how you can help!</p>
                         </div>
+                        <!-- NEW FORM -->
+                        <form action="https://withmadico.us19.list-manage.com/subscribe/post-json?u=6f4999131288a850ad71d6e54&amp;id=c75cd847f2&c=?" method="get" id="mc-embedded-subscribe-form-footer" name="mc-embedded-subscribe-form" class="validate">
                         <div class="footer-form newsletter-form field field-grouped is-revealing">
                             <div class="control control-expanded">
-                                <input class="input" type="email" name="email" placeholder="Your best email&hellip;">
+                              <input class="input email" type="email" name="EMAIL" placeholder="Your best email&hellip;" id="mailchimp-email-footer" required>
+                              <span id="form-message-footer"></span>
                             </div>
                             <div class="control">
-                                <a class="button button-primary button-block button-shadow" href="#">Get early access</a>
+                              <input type="submit" value="Get early access" name="subscribe" class="button button-primary button-block button-shadow" id="mc-embedded-subscribe-footer">
                             </div>
                         </div>
+                      </form>
+                        <!-- NEW FORM END -->
                     </div>
                 </div>
             </section>
@@ -284,9 +302,9 @@
             <div class="container">
                 <div class="site-footer-inner">
                     <div class="brand footer-brand">
-                        <a href="https://github.com/madiedgar/legesher/">
+                        <a href="https://github.com/legesher/">
                           <title>Legesher's Peggy</title>
-                          <img src="src/img/Peggy-HeadshotAlpha@4x.png" height="30" width="30">
+                          <img src="src/img/EggPeggyCoral.png" height="50" width="50">
                         </a>
                     </div>
                     <ul class="footer-links list-reset">
@@ -327,5 +345,6 @@
     </div>
 
     <script src="dist/js/main.min.js"></script>
+    <script src="src/js/ajax-mailchimp.js"></script>
 </body>
 </html>
