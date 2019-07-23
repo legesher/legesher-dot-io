@@ -1,5 +1,6 @@
 {
   "version": 2,
   "public": false,
-  "name": "legesher"
+  "name": "legesher",
+  "alias": ["legesher.io"]
 }
