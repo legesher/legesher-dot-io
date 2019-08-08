@@ -1,17 +1,25 @@
-//  HEADER EMAIL
-
 $(document).ready(function () {
-  var $form = $('#mc-embedded-subscribe-form')
-  if ($form.length > 0) {
+  //  HEADER EMAIL
+  var $headerForm = $('#mc-embedded-subscribe-form')
+  if ($headerForm.length > 0) {
     $('form input[type="submit"]').bind('click', function (event) {
       if (event) event.preventDefault()
-      register($form)
+      registerHeader($headerForm)
+    })
+  }
+
+  // FOOTER EMAIL
+  var $footerForm = $('#mc-embedded-subscribe-form-footer')
+  if ($footerForm.length > 0) {
+    $('form input[type="submit"]').bind('click', function (event) {
+      if (event) event.preventDefault()
+      registerFooter($footerForm)
     })
   }
 })
 
-function register($form) {
-  $('#mc-embedded-subscribe').val('Sending...');
+function registerHeader ($form) {
+  $('#mc-embedded-subscribe').val('Sending...')
 
   // Changed the dataType from json to jsonp
   $.ajax({
@@ -23,12 +31,13 @@ function register($form) {
     contentType: 'application/json; charset=utf-8',
     error: function (err) {
       alert('Could not connect to the registration server. Please try again later.')
+      console.log(err)
     },
     success: function (data) {
       $('#mc-embedded-subscribe').val('Get Early Access')
       if (data.result === 'success') {
         // Yeahhhh Success
-        console.log("SUCCESS EMAIL HAS BEEN SUBSCRIBED!!")
+        console.log('SUCCESS EMAIL HAS BEEN SUBSCRIBED!!')
         console.log(data.msg)
         $('#mailchimp-email').css('borderColor', '#69dbf5')
         $('#form-message').css('color', '#69dbf5')
@@ -45,19 +54,8 @@ function register($form) {
   })
 };
 
-// FOOTER EMAIL
-$(document).ready(function () {
-  var $form = $('#mc-embedded-subscribe-form-footer')
-  if ($form.length > 0) {
-    $('form input[type="submit"]').bind('click', function (event) {
-      if (event) event.preventDefault()
-      register($form)
-    })
-  }
-})
-
-function register($form) {
-  $('#mc-embedded-subscribe-footer').val('Sending...');
+function registerFooter ($form) {
+  $('#mc-embedded-subscribe-footer').val('Sending...')
 
   // Changed the dataType from json to jsonp
   $.ajax({
@@ -69,12 +67,13 @@ function register($form) {
     contentType: 'application/json; charset=utf-8',
     error: function (err) {
       alert('Could not connect to the registration server. Please try again later.')
+      console.log(err)
     },
     success: function (data) {
       $('#mc-embedded-subscribe-footer').val('Get Early Access')
       if (data.result === 'success') {
         // Yeahhhh Success
-        console.log("SUCCESS EMAIL HAS BEEN SUBSCRIBED!!")
+        console.log('SUCCESS EMAIL HAS BEEN SUBSCRIBED!!')
         console.log(data.msg)
         $('#mailchimp-email-footer').css('borderColor', '#69dbf5')
         $('#form-message-footer').css('color', '#69dbf5')
