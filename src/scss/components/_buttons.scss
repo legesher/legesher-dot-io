@@ -79,12 +79,12 @@
 }
 
 .button-primary {
-    background: mix(color(primary, 3), color(primary, 1));
-    background: linear-gradient(65deg, color(primary, 3) 0, color(primary, 1) 100%);
+    background: mix(color(additional, 4), color(additional, 5));
+    background: linear-gradient(65deg, color(additional, 4) 0, color(additional, 5) 100%);
 
     &:hover {
-        background: lighten(mix(color(primary, 3), color(primary, 1)), 1%);
-        background: linear-gradient(65deg, lighten(color(primary, 3), 1%) 0, lighten(color(primary, 1), 1%) 100%);
+        background: lighten(mix(color(additional, 4), color(additional, 5)), 1%);
+        background: linear-gradient(65deg, lighten(color(additional, 4), 1%) 0, lighten(color(additional, 5), 1%) 100%);
     }
 }
 
