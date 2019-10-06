@@ -64,6 +64,26 @@
 # Contributing
 ❤️Legesher relies on the passionate members of its community (both developer and non-developer alike) to keep delivering impactful tools to people all over the world.
 
+**🌟 Add your name to our website!**  
+Before you open the pull request for your changes, add your name to our website!
+
+**1️⃣ Navigate to and open index.html**
+
+**2️⃣ Scroll down to the contributors section** 
+```
+<section class="contributors section">
+```
+
+**3️⃣ Did you do technical work or non-technical?**
+If was technical put your name under the column with the chip svg icon!
+```
+<div class="contributors-column technical">
+```
+If was non-technical put your name under the column with the lightbulb svg icon!
+```
+<div class="contributors-column non-technical">
+```
+
 Before contributing, be sure to consult Legesher's [contribution guidelines](https://github.com/legesher/legesher/blob/master/CONTRIBUTING.md) and [language conventions](https://github.com/legesher/legesher/blob/master/.github/language-conventions.md). As a member of our community, you must abide by our [Code Of Conduct](https://github.com/legesher/legesher/blob/master/CODE_OF_CONDUCT.md).
 
 ## Installation

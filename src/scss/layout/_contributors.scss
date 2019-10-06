@@ -1,0 +1,38 @@
+.contributors-wrapper {
+    display: flex;
+    margin: 15px;
+    background-color: white;
+}
+
+.contributors-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 10%;
+}
+
+.contributors-column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    height: auto;
+}
+
+.vi-primary {
+    fill: #7ae1f2;
+}
+
+.vi-accent {
+    fill: #FD8879;
+    fill-rule: evenodd;
+}
+
+.vi-prop {
+    fill: #fff;
+}
+
+.technical svg, .non-technical svg {
+    margin: auto;
+}
