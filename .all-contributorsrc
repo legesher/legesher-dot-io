@@ -1,0 +1,79 @@
+{
+  "projectName": "legesher-dot-io",
+  "projectOwner": "madiedgar",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "types": {
+    "marketing": {
+      "symbol": "💌",
+      "description": "Marketing - People who help in marketing the repo/project"
+    }
+  },
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "atom",
+  "contributors": [
+    {
+      "login": "madiedgar",
+      "name": "Madison (Pfaff) Edgar",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7844510?v=4",
+      "profile": "http://withmadi.co",
+      "contributions": [
+        "projectManagement",
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "darkfadr",
+      "name": "Ashley Narcisse",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4950673?v=4",
+      "profile": "https://ashleynarcisse.com",
+      "contributions": [
+        "code",
+        "infra"
+      ]
+    },
+    {
+      "login": "sosaheri",
+      "name": "Heriberto Sosa",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/12928783?v=4",
+      "profile": "http://www.larepaweb.com.ve",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "marissap",
+      "name": "Marissa",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/20907831?v=4",
+      "profile": "http://mphul.codes",
+      "contributions": [
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "MythreyaK",
+      "name": "Mythreya Kuricheti",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/26112391?v=4",
+      "profile": "http://mythreya.dev",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Navneet78",
+      "name": "navneet78",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/40426543?v=4",
+      "profile": "https://github.com/Navneet78",
+      "contributions": [
+        "marketing"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
