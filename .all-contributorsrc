@@ -44,6 +44,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "marissap",
+      "name": "Marissa",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/20907831?v=4",
+      "profile": "http://mphul.codes",
+      "contributions": [
+        "code",
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7
