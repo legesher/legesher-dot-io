@@ -23,6 +23,7 @@
     "imagemin": "imagemin src/images/* -o dist/images"
   },
   "devDependencies": {
+    "all-contributors-cli": "^6.9.2",
     "autoprefixer": "^9.6.1",
     "eslint": "^5.2.0",
     "eslint-config-standard": "^12.0.0",
