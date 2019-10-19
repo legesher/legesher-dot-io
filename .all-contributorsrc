@@ -25,6 +25,15 @@
         "projectManagement",
         "code"
       ]
+    },
+    {
+      "login": "darkfadr",
+      "name": "Ashley Narcisse",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4950673?v=4",
+      "profile": "https://ashleynarcisse.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
