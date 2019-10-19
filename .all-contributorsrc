@@ -55,6 +55,15 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "MythreyaK",
+      "name": "Mythreya Kuricheti",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/26112391?v=4",
+      "profile": "http://mythreya.dev",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7
