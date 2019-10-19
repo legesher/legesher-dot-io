@@ -144,6 +144,7 @@ Meet our [community](https://github.com/legesher/legesher/tree/master/community)
   <tr>
     <td align="center"><a href="http://withmadi.co"><img src="https://avatars0.githubusercontent.com/u/7844510?v=4" width="100px;" alt="Madison (Pfaff) Edgar"/><br /><sub><b>Madison (Pfaff) Edgar</b></sub></a><br /><a href="#projectManagement-madiedgar" title="Project Management">📆</a> <a href="https://github.com/madiedgar/legesher-dot-io/commits?author=madiedgar" title="Code">💻</a></td>
     <td align="center"><a href="https://ashleynarcisse.com"><img src="https://avatars2.githubusercontent.com/u/4950673?v=4" width="100px;" alt="Ashley Narcisse"/><br /><sub><b>Ashley Narcisse</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=darkfadr" title="Code">💻</a> <a href="#infra-darkfadr" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="http://www.larepaweb.com.ve"><img src="https://avatars0.githubusercontent.com/u/12928783?v=4" width="100px;" alt="Heriberto Sosa"/><br /><sub><b>Heriberto Sosa</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=sosaheri" title="Documentation">📖</a></td>
   </tr>
 </table>
 

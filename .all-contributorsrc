@@ -35,6 +35,15 @@
         "code",
         "infra"
       ]
+    },
+    {
+      "login": "sosaheri",
+      "name": "Heriberto Sosa",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/12928783?v=4",
+      "profile": "http://www.larepaweb.com.ve",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
