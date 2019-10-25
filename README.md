@@ -2,7 +2,7 @@
 
 <h1 align="center"><a href="https://legesher.io">Legesher's Website</a></h1>
 <blockquote align="center">💻 Code in any programming language using your native written ✏️language.</blockquote>
-<p align="center">Programming with <b>Legesher</b>'s dev tools empowers any developer to create without losing the art of innovation 💡, creativity 🎨, or collaboration 🤝 in translation. </p>
+<p align="center">Programming with <b><i>Legesher</i></b>'s dev tools empowers any developer to create without losing the art of <i>innovation</i> 💡, <i>creativity</i> 🎨, or <i>collaboration</i> 🤝 in translation. </p>
 
 <!-- DEVELOPMENT BADGES -->
 <p align="center" style="margin-bottom: 5px; margin-top: 5px;">
