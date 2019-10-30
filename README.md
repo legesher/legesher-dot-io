@@ -129,6 +129,9 @@ Legesher Developer Tools might be useful to you if:
 | [`legesher`](https://github.com/legesher/legesher)                                       | Git integration to collaborate with code and others in other languages                                    |
 | [`legesher-pride`](https://github.com/legesher/legesher-pride)                           | a non-programmer's dream to contributing to open source by sharing what they know and learning what's new |
 
+## License
+This repository is licensed under the [GNU General Public License v3.0](https://github.com/legesher/legesher-dot-io/blob/master/LICENSE).
+
 ## The Community
 
 A message from our [founder, Madi](https://www.instagram.com/withmadico/):
