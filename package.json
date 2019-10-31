@@ -12,8 +12,8 @@
     "url": "https://bitbucket.org/pasqualevitiello/ava/issues"
   },
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html",
+    "start": "parcel index.html dreamteam.html",
+    "build": "parcel build index.html dreamteam.html",
     "test": "run-s lint:*",
     "clean": "rimraf dist",
     "p": "run-p serve",
