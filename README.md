@@ -152,6 +152,7 @@ Meet our [community](https://github.com/legesher/legesher/tree/master/community)
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/rtkimz"><img src="https://avatars1.githubusercontent.com/u/19673981?v=4" width="100px;" alt="rtkimz"/><br /><sub><b>rtkimz</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=rtkimz" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.irfansener.com"><img src="https://avatars3.githubusercontent.com/u/2094635?v=4" width="100px;" alt="İrfan Şener"/><br /><sub><b>İrfan Şener</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=irfansener" title="Documentation">📖</a></td>
   </tr>
 </table>
 
