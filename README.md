@@ -153,7 +153,7 @@ Meet our [community](https://github.com/legesher/legesher/tree/master/community)
   <tr>
     <td align="center"><a href="https://github.com/rtkimz"><img src="https://avatars1.githubusercontent.com/u/19673981?v=4" width="100px;" alt="rtkimz"/><br /><sub><b>rtkimz</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=rtkimz" title="Code">💻</a></td>
     <td align="center"><a href="http://www.irfansener.com"><img src="https://avatars3.githubusercontent.com/u/2094635?v=4" width="100px;" alt="İrfan Şener"/><br /><sub><b>İrfan Şener</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=irfansener" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/shahkv95"><img src="https://avatars0.githubusercontent.com/u/35930270?v=4" width="100px;" alt="Kush_Shah"/><br /><sub><b>Kush_Shah</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=shahkv95" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/shahkv95"><img src="https://avatars0.githubusercontent.com/u/35930270?v=4" width="100px;" alt="Kush_Shah"/><br /><sub><b>Kush_Shah</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=shahkv95" title="Documentation">📖</a> <a href="https://github.com/madiedgar/legesher-dot-io/issues?q=author%3Ashahkv95" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/aortizoj15"><img src="https://avatars3.githubusercontent.com/u/36532821?v=4" width="100px;" alt="Alexis Ortiz Ojeda"/><br /><sub><b>Alexis Ortiz Ojeda</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=aortizoj15" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/ajtrichards"><img src="https://avatars3.githubusercontent.com/u/528976?v=4" width="100px;" alt="Alex Richards"/><br /><sub><b>Alex Richards</b></sub></a><br /><a href="#ideas-ajtrichards" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/Mudit152001"><img src="https://avatars1.githubusercontent.com/u/56552658?v=4" width="100px;" alt="Mudit152001"/><br /><sub><b>Mudit152001</b></sub></a><br /><a href="#ideas-Mudit152001" title="Ideas, Planning, & Feedback">🤔</a></td>
@@ -163,7 +163,6 @@ Meet our [community](https://github.com/legesher/legesher/tree/master/community)
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 _This project follows the [all-contributors](https://allcontributors.org/) specification. Contributions of any kind are welcome and recognized. ✨_
