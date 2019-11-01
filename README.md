@@ -148,12 +148,12 @@ Meet our [community](https://github.com/legesher/legesher/tree/master/community)
     <td align="center"><a href="http://mphul.codes"><img src="https://avatars1.githubusercontent.com/u/20907831?v=4" width="100px;" alt="Marissa"/><br /><sub><b>Marissa</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=marissap" title="Code">💻</a> <a href="#design-marissap" title="Design">🎨</a></td>
     <td align="center"><a href="http://mythreya.dev"><img src="https://avatars1.githubusercontent.com/u/26112391?v=4" width="100px;" alt="Mythreya Kuricheti"/><br /><sub><b>Mythreya Kuricheti</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/issues?q=author%3AMythreyaK" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/Navneet78"><img src="https://avatars1.githubusercontent.com/u/40426543?v=4" width="100px;" alt="navneet78"/><br /><sub><b>navneet78</b></sub></a><br /><a href="#marketing-Navneet78" title="Marketing - People who help in marketing the repo/project">💌</a></td>
+    <td align="center"><a href="http://babrauskas.me"><img src="https://avatars3.githubusercontent.com/u/19313864?v=4" width="100px;" alt="Federico Babrauskas"/><br /><sub><b>Federico Babrauskas</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=fedebabrauskas" title="Documentation">📖</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 _This project follows the [all-contributors](https://allcontributors.org/) specification. Contributions of any kind are welcome and recognized. ✨_

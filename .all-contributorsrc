@@ -73,6 +73,15 @@
       "contributions": [
         "marketing"
       ]
+    },
+    {
+      "login": "fedebabrauskas",
+      "name": "Federico Babrauskas",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/19313864?v=4",
+      "profile": "http://babrauskas.me",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
