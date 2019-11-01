@@ -25,7 +25,7 @@
     <!-- <a href="https://github.com/legesher/legesher/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/legesher/legesher?style=flat-square&color=f58977&labelColor=black" /></a> -->
     <a href="#the-community" alt="All Contributors">
-        <img src="https://img.shields.io/badge/all_contributors-6-black?style=flat-square&color=f58977&labelColor=black" /></a>
+        <img src="https://img.shields.io/badge/all_contributors-14-black?style=flat-square&color=f58977&labelColor=black" /></a>
     <a href="https://streamlabs.com/withmadico/tip" alt="Backers on Github">
         <img src="https://img.shields.io/badge/sponsors-4-black?style=flat-square&color=f58977&labelColor=black" /></a>
     <a href="https://instagram.com/withmadico" alt="Sponsors on Github">
@@ -148,12 +148,21 @@ Meet our [community](https://github.com/legesher/legesher/tree/master/community)
     <td align="center"><a href="http://mphul.codes"><img src="https://avatars1.githubusercontent.com/u/20907831?v=4" width="100px;" alt="Marissa"/><br /><sub><b>Marissa</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=marissap" title="Code">💻</a> <a href="#design-marissap" title="Design">🎨</a></td>
     <td align="center"><a href="http://mythreya.dev"><img src="https://avatars1.githubusercontent.com/u/26112391?v=4" width="100px;" alt="Mythreya Kuricheti"/><br /><sub><b>Mythreya Kuricheti</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/issues?q=author%3AMythreyaK" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/Navneet78"><img src="https://avatars1.githubusercontent.com/u/40426543?v=4" width="100px;" alt="navneet78"/><br /><sub><b>navneet78</b></sub></a><br /><a href="#marketing-Navneet78" title="Marketing - People who help in marketing the repo/project">💌</a></td>
+    <td align="center"><a href="http://babrauskas.me"><img src="https://avatars3.githubusercontent.com/u/19313864?v=4" width="100px;" alt="Federico Babrauskas"/><br /><sub><b>Federico Babrauskas</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=fedebabrauskas" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/rtkimz"><img src="https://avatars1.githubusercontent.com/u/19673981?v=4" width="100px;" alt="rtkimz"/><br /><sub><b>rtkimz</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=rtkimz" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.irfansener.com"><img src="https://avatars3.githubusercontent.com/u/2094635?v=4" width="100px;" alt="İrfan Şener"/><br /><sub><b>İrfan Şener</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=irfansener" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/shahkv95"><img src="https://avatars0.githubusercontent.com/u/35930270?v=4" width="100px;" alt="Kush_Shah"/><br /><sub><b>Kush_Shah</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=shahkv95" title="Documentation">📖</a> <a href="https://github.com/madiedgar/legesher-dot-io/issues?q=author%3Ashahkv95" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/aortizoj15"><img src="https://avatars3.githubusercontent.com/u/36532821?v=4" width="100px;" alt="Alexis Ortiz Ojeda"/><br /><sub><b>Alexis Ortiz Ojeda</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=aortizoj15" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ajtrichards"><img src="https://avatars3.githubusercontent.com/u/528976?v=4" width="100px;" alt="Alex Richards"/><br /><sub><b>Alex Richards</b></sub></a><br /><a href="#ideas-ajtrichards" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/Mudit152001"><img src="https://avatars1.githubusercontent.com/u/56552658?v=4" width="100px;" alt="Mudit152001"/><br /><sub><b>Mudit152001</b></sub></a><br /><a href="#ideas-Mudit152001" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="http://mercode.org"><img src="https://avatars1.githubusercontent.com/u/40173707?v=4" width="100px;" alt="Tan Siret G. AKINCI"/><br /><sub><b>Tan Siret G. AKINCI</b></sub></a><br /><a href="#ideas-Yutyo" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 _This project follows the [all-contributors](https://allcontributors.org/) specification. Contributions of any kind are welcome and recognized. ✨_

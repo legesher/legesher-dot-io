@@ -73,6 +73,79 @@
       "contributions": [
         "marketing"
       ]
+    },
+    {
+      "login": "fedebabrauskas",
+      "name": "Federico Babrauskas",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/19313864?v=4",
+      "profile": "http://babrauskas.me",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "rtkimz",
+      "name": "rtkimz",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/19673981?v=4",
+      "profile": "https://github.com/rtkimz",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "irfansener",
+      "name": "İrfan Şener",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2094635?v=4",
+      "profile": "http://www.irfansener.com",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "shahkv95",
+      "name": "Kush_Shah",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/35930270?v=4",
+      "profile": "https://github.com/shahkv95",
+      "contributions": [
+        "doc",
+        "bug"
+      ]
+    },
+    {
+      "login": "aortizoj15",
+      "name": "Alexis Ortiz Ojeda",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/36532821?v=4",
+      "profile": "https://github.com/aortizoj15",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ajtrichards",
+      "name": "Alex Richards",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/528976?v=4",
+      "profile": "https://github.com/ajtrichards",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "Mudit152001",
+      "name": "Mudit152001",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/56552658?v=4",
+      "profile": "https://github.com/Mudit152001",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "Yutyo",
+      "name": "Tan Siret G. AKINCI",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/40173707?v=4",
+      "profile": "http://mercode.org",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
