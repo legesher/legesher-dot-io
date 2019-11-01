@@ -118,6 +118,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ajtrichards",
+      "name": "Alex Richards",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/528976?v=4",
+      "profile": "https://github.com/ajtrichards",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
