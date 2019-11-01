@@ -150,6 +150,9 @@ Meet our [community](https://github.com/legesher/legesher/tree/master/community)
     <td align="center"><a href="https://github.com/Navneet78"><img src="https://avatars1.githubusercontent.com/u/40426543?v=4" width="100px;" alt="navneet78"/><br /><sub><b>navneet78</b></sub></a><br /><a href="#marketing-Navneet78" title="Marketing - People who help in marketing the repo/project">💌</a></td>
     <td align="center"><a href="http://babrauskas.me"><img src="https://avatars3.githubusercontent.com/u/19313864?v=4" width="100px;" alt="Federico Babrauskas"/><br /><sub><b>Federico Babrauskas</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=fedebabrauskas" title="Documentation">📖</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/rtkimz"><img src="https://avatars1.githubusercontent.com/u/19673981?v=4" width="100px;" alt="rtkimz"/><br /><sub><b>rtkimz</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/commits?author=rtkimz" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
