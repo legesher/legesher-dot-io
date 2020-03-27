@@ -23,6 +23,7 @@
     "imagemin": "imagemin src/images/* -o dist/images"
   },
   "devDependencies": {
+    "acorn": ">=6.4.1",
     "all-contributors-cli": "^6.9.3",
     "autoprefixer": "^9.7.0",
     "eslint": "^5.2.0",
@@ -32,6 +33,7 @@
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^4.0.0",
     "imagemin-cli": "^5.0.0",
+    "minimist": "^1.2.5",
     "npm-run-all": "^4.1.3",
     "parcel-bundler": "^1.12.4",
     "postcss-cli": "^6.1.3",
