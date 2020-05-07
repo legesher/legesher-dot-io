@@ -26,10 +26,10 @@
         <img src="https://img.shields.io/github/contributors/legesher/legesher?style=flat-square&color=f58977&labelColor=black" /></a> -->
     <a href="#the-community" alt="All Contributors">
         <img src="https://img.shields.io/badge/all_contributors-14-black?style=flat-square&color=f58977&labelColor=black" /></a>
-    <a href="https://streamlabs.com/withmadico/tip" alt="Backers on Github">
-        <img src="https://img.shields.io/badge/sponsors-4-black?style=flat-square&color=f58977&labelColor=black" /></a>
-    <a href="https://instagram.com/withmadico" alt="Sponsors on Github">
-        <img src="https://img.shields.io/badge/sponsor-@withmadico-black?style=flat-square&color=f58977&labelColor=black" /></a>
+    <a href="https://github.com/sponsors/madiedgar" alt="Backers on Github">
+        <img src="https://img.shields.io/badge/sponsors-5-black?style=flat-square&color=f58977&labelColor=black" /></a>
+    <a href="https://github.com/sponsors/madiedgar" alt="Sponsors on Github">
+        <img src="https://img.shields.io/badge/sponsor-@madiedgar-black?style=flat-square&color=f58977&labelColor=black" /></a>
 
 </p>
 <!-- SOCIAL BADGES -->
@@ -66,7 +66,7 @@
 
 ❤️Legesher relies on the passionate members of its community (both developer and non-developer alike) to keep delivering impactful tools to people all over the world.
 
-Before contributing, be sure to consult Legesher's [contribution guidelines](https://github.com/legesher/legesher/blob/master/CONTRIBUTING.md) and [language conventions](https://github.com/legesher/legesher/blob/master/LANGUAGE_CONVENTIONS.md). As a member of our community, you must abide by our [Code Of Conduct](https://github.com/legesher/legesher/blob/master/CODE_OF_CONDUCT.md).
+Before contributing, be sure to consult Legesher's [contribution guidelines](https://docs.legesher.io/the-official-things/contributing-guidelines) and [language conventions](https://docs.legesher.io/legesher-translations/translation-guide). As a member of our community, you must abide by our [Code Of Conduct](https://docs.legesher.io/the-official-things/code-of-conduct).
 
 ## Installation
 
@@ -125,11 +125,12 @@ Legesher Developer Tools might be useful to you if:
 | [`language-legesher-python`](https://github.com/legesher/language-legesher-python)       | Atom's programming language binding to allow syntax highlighting, code folding etc. to a specific grammar |
 | [`legesher-translations`](https://github.com/legesher/legesher-translations)             | Host and API of all the language translations for written languages for code keywords / concepts          |
 | [`legesher-dot-io`](https://github.com/legesher/legesher-dot-io)                         | Legesher's public [website](https://legesher.io)                                                          |
-| [`legesher-docs`](https://github.com/legesher/legesher-docs)                             | Legesher's documentation hub. Will be transitioning to a documentation host soon.                         |
+| [`legesher-docs`](https://github.com/legesher/legesher-docs)                             | [Legesher's official documentation](https://docs.legesher.io).                                            |
 | [`legesher`](https://github.com/legesher/legesher)                                       | Git integration to collaborate with code and others in other languages                                    |
 | [`legesher-pride`](https://github.com/legesher/legesher-pride)                           | a non-programmer's dream to contributing to open source by sharing what they know and learning what's new |
 
 ## License
+
 This repository is licensed under the [GNU General Public License v3.0](https://github.com/legesher/legesher-dot-io/blob/master/LICENSE).
 
 ## The Community
@@ -138,7 +139,7 @@ A message from our [founder, Madi](https://www.instagram.com/withmadico/):
 
 > It is truly a blessing to be surrounded by a community of passionate, driven individuals who love sharing their gifts to creating better products together. Your contribution means the world to me, and keeps me motivated to continue creating. This wouldn't be possible without you. From the bottom of my heart, 💛 THANK YOU!
 
-Meet our [community](https://github.com/legesher/legesher/tree/master/community) (full of contributors, backers, sponsors, and supporters) that give a little piece of their heart to this project. Thank you so much. ([emoji key](https://allcontributors.org/docs/en/emoji-key))
+Meet our community (full of contributors, backers, sponsors, and supporters) that give a little piece of their heart to this project. Thank you so much. ([emoji key](https://allcontributors.org/docs/en/emoji-key))
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -166,6 +167,7 @@ Meet our [community](https://github.com/legesher/legesher/tree/master/community)
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 _This project follows the [all-contributors](https://allcontributors.org/) specification. Contributions of any kind are welcome and recognized. ✨_
