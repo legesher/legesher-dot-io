@@ -11,12 +11,6 @@
     min-height: 100vh;
 }
 
-.boxed-container {
-    max-width: 1680px;
-    margin: 0 auto;
-    @include shadow;
-}
-
 main {
     flex: 1 0 auto;
 }
