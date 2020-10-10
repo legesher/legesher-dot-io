@@ -2,7 +2,8 @@ $(document).ready(function () {
   //  HEADER EMAIL
   var $headerForm = $('#mc-embedded-subscribe-form')
   if ($headerForm.length > 0) {
-    $('form input[type="submit"]').bind('click', function (event) {
+    $('#mc-embedded-subscribe').bind('click', function (event) {
+      console.log('click on header')
       if (event) event.preventDefault()
       registerHeader($headerForm)
     })
@@ -11,7 +12,8 @@ $(document).ready(function () {
   // FOOTER EMAIL
   var $footerForm = $('#mc-embedded-subscribe-form-footer')
   if ($footerForm.length > 0) {
-    $('form input[type="submit"]').bind('click', function (event) {
+    $('#mc-embedded-subscribe-footer').bind('click', function (event) {
+      console.log('click on footer')
       if (event) event.preventDefault()
       registerFooter($footerForm)
     })
