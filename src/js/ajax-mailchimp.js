@@ -20,6 +20,15 @@ $(document).ready(function () {
   }
 })
 
+// format the response text from mailchimp api
+function formatDisplayMsg (msg) {
+  let pattern = /[0-9]+ [-]/
+  if (pattern.test(msg)) {
+    msg = msg.split('-')[1].trim()
+  }
+  return msg
+}
+
 function registerHeader ($form) {
   $('#mc-embedded-subscribe').val('Sending...')
 
@@ -50,7 +59,7 @@ function registerHeader ($form) {
         console.log(data.msg)
         $('#mailchimp-email').css('borderColor', '#ff8976')
         $('#form-message').css('color', '#ff8976')
-        $('#form-message').html(data.msg)
+        $('#form-message').html(formatDisplayMsg(data.msg))
       }
     }
   })
@@ -86,7 +95,7 @@ function registerFooter ($form) {
         console.log(data.msg)
         $('#mailchimp-email-footer').css('borderColor', '#ff8976')
         $('#form-message-footer').css('color', '#ff8976')
-        $('#form-message-footer').html(data.msg)
+        $('#form-message-footer').html(formatDisplayMsg(data.msg))
       }
     }
   })
