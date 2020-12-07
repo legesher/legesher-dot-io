@@ -146,6 +146,33 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "srivastavaayu",
+      "name": "Aayush Srivastava",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/49818988?v=4",
+      "profile": "https://github.com/srivastavaayu",
+      "contributions": [
+        "content"
+      ]
+    },
+    {
+      "login": "jaebirds",
+      "name": "jaebirds",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25286658?v=4",
+      "profile": "https://github.com/jaebirds",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "ARUNMOHANRAJ471",
+      "name": "Arun Mohan Raj",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/24914964?v=4",
+      "profile": "https://arunmohanraj.tech/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7
