@@ -165,6 +165,7 @@ Meet our community (full of contributors, backers, sponsors, and supporters) tha
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/srivastavaayu"><img src="https://avatars3.githubusercontent.com/u/49818988?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aayush Srivastava</b></sub></a><br /><a href="#content-srivastavaayu" title="Content">🖋</a></td>
+    <td align="center"><a href="https://github.com/jaebirds"><img src="https://avatars3.githubusercontent.com/u/25286658?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jaebirds</b></sub></a><br /><a href="https://github.com/madiedgar/legesher-dot-io/issues?q=author%3Ajaebirds" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
