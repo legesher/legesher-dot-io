@@ -1,21 +1,37 @@
 $(document).ready(function () {
   //  HEADER EMAIL
   var $headerForm = $('#mc-embedded-subscribe-form')
+  var $headerEmail = $('#mailchimp-email')
   if ($headerForm.length > 0) {
     $('#mc-embedded-subscribe').bind('click', function (event) {
       console.log('click on header')
       if (event) event.preventDefault()
-      registerHeader($headerForm)
+      if (validateEmailAddress($headerEmail.val())) {
+        registerHeader($headerForm)
+      } else {
+        // notify user for invalid email
+        $('#mailchimp-email').css('borderColor', '#ff8976')
+        $('#form-message').css('color', '#ff8976')
+        $('#form-message').html(formatDisplayMsg('Invalid Email Address'))
+      }
     })
   }
 
   // FOOTER EMAIL
   var $footerForm = $('#mc-embedded-subscribe-form-footer')
+  var $footerEmail = $('#mailchimp-email-footer')
   if ($footerForm.length > 0) {
     $('#mc-embedded-subscribe-footer').bind('click', function (event) {
       console.log('click on footer')
       if (event) event.preventDefault()
-      registerFooter($footerForm)
+      if (validateEmailAddress($footerEmail.val())) {
+        registerFooter($footerForm)
+      } else {
+        // notify user for invalid email
+        $('#mailchimp-email-footer').css('borderColor', '#ff8976')
+        $('#form-message-footer').css('color', '#ff8976')
+        $('#form-message-footer').html(formatDisplayMsg('Invalid Email Address'))
+      }
     })
   }
 })
@@ -100,3 +116,9 @@ function registerFooter ($form) {
     }
   })
 };
+
+function validateEmailAddress (email) {
+  // regular expression for a valid email
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return re.test(String(email).toLowerCase())
+}
