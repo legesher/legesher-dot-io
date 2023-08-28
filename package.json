@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "parcel index.html dreamteam.html",
-    "build": "parcel build index.html dreamteam.html",
+    "build": "parcel build --no-minify index.html dreamteam.html",
     "test": "run-s lint:*",
     "clean": "rimraf dist",
     "p": "run-p serve",
@@ -42,5 +42,8 @@
     "stylelint": "^13.13.1"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/ava#readme",
-  "main": ".eslintrc.js"
+  "main": ".eslintrc.js",
+  "dependencies": {
+    "vercel": "^32.1.0"
+  }
 }
