@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Newsletter from './Newsletter.astro';
 ---
 
-<section class="py-24 bg-gradient-to-r from-brand-purple/20 to-brand-blue/20">
+<section class="py-24 bg-gradient-to-r from-brand-coral/20 to-brand-cyan/20">
   <div class="container mx-auto px-4">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6">
@@ -39,6 +39,6 @@ import Newsletter from './Newsletter.astro';
 
 <style>
   section {
-    background: linear-gradient(135deg, hsl(var(--primary)/0.1), hsl(var(--primary)/0.2));
+    background: theme('colors.brand.cyan', 0.1);
   }
 </style> 

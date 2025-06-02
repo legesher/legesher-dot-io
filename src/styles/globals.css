@@ -7,83 +7,83 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: theme('colors.brand.light-gray');
+    --foreground: theme('colors.brand.gray');
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: theme('colors.brand.light-gray');
+    --card-foreground: theme('colors.brand.gray');
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: theme('colors.brand.light-gray');
+    --popover-foreground: theme('colors.brand.gray');
 
-    --primary: 262 83% 58%;
-    --primary-foreground: 210 40% 98%;
+    --primary: theme('colors.brand.cyan');
+    --primary-foreground: theme('colors.brand.light-cyan');
 
-    --secondary: 217 91% 60%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: theme('colors.brand.coral');
+    --secondary-foreground: theme('colors.brand.light-coral');
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: theme('colors.brand.light-gray');
+    --muted-foreground: theme('colors.brand.gray');
 
-    --accent: 262 83% 96%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: theme('colors.brand.yellow');
+    --accent-foreground: theme('colors.brand.light-yellow');
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: theme('colors.brand.coral');
+    --destructive-foreground: theme('colors.brand.light-coral');
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 262 83% 58%;
+    --border: theme('colors.brand.light-gray');
+    --input: theme('colors.brand.light-gray');
+    --ring: theme('colors.brand.cyan');
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: theme('colors.brand.light-gray');
+    --sidebar-foreground: theme('colors.brand.gray');
+    --sidebar-primary: theme('colors.brand.cyan');
+    --sidebar-primary-foreground: theme('colors.brand.light-gray');
+    --sidebar-accent: theme('colors.brand.coral');
+    --sidebar-accent-foreground: theme('colors.brand.gray');
+    --sidebar-border: theme('colors.brand.light-gray');
+    --sidebar-ring: theme('colors.brand.cyan');
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: theme('colors.brand.gray');
+    --foreground: theme('colors.brand.light-gray');
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: theme('colors.brand.gray');
+    --card-foreground: theme('colors.brand.light-gray');
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: theme('colors.brand.gray');
+    --popover-foreground: theme('colors.brand.light-gray');
 
-    --primary: 262 83% 68%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: theme('colors.brand.cyan');
+    --primary-foreground: theme('colors.brand.gray');
 
-    --secondary: 217 91% 60%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: theme('colors.brand.cyan');
+    --secondary-foreground: theme('colors.brand.gray');
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: theme('colors.brand.gray');
+    --muted-foreground: theme('colors.brand.light-gray');
 
-    --accent: 262 83% 20%;
-    --accent-foreground: 210 40% 98%;
+    --accent: theme('colors.brand.coral');
+    --accent-foreground: theme('colors.brand.light-gray');
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: theme('colors.brand.coral');
+    --destructive-foreground: theme('colors.brand.light-gray');
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 262 83% 68%;
+    --border: theme('colors.brand.gray');
+    --input: theme('colors.brand.gray');
+    --ring: theme('colors.brand.cyan');
     
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: theme('colors.brand.gray');
+    --sidebar-foreground: theme('colors.brand.light-gray');
+    --sidebar-primary: theme('colors.brand.cyan');
+    --sidebar-primary-foreground: theme('colors.brand.light-gray');
+    --sidebar-accent: theme('colors.brand.coral');
+    --sidebar-accent-foreground: theme('colors.brand.light-gray');
+    --sidebar-border: theme('colors.brand.gray');
+    --sidebar-ring: theme('colors.brand.cyan');
   }
 }
 
@@ -130,15 +130,15 @@ pre, code {
 
 /* Gradient utilities */
 .hero-gradient {
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%);
+  background: linear-gradient(90deg, theme('colors.brand.cyan') 0%, theme('colors.brand.cyan') 100%);
 }
 
 .feature-gradient {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%);
+  background: linear-gradient(135deg, theme('colors.brand.cyan') 0%, theme('colors.brand.cyan') 100%);
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, #8B5CF6 0%, #0EA5E9 100%);
+  background: linear-gradient(90deg, theme('colors.brand.cyan') 0%, theme('colors.brand.cyan') 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -146,27 +146,27 @@ pre, code {
 
 /* Button styles */
 .primary-button {
-  @apply font-medium bg-gradient-to-r from-brand-purple to-brand-blue text-white transition-all duration-200 shadow-lg hover:shadow-xl rounded-xl;
+  @apply font-medium bg-brand-cyan text-white transition-all duration-200 shadow-lg hover:shadow-xl rounded-xl;
 }
 
 .primary-button:hover {
-  @apply from-brand-purple/90 to-brand-blue/90;
+  @apply bg-brand-cyan/90;
 }
 
 .primary-button:active {
-  @apply from-brand-purple/80 to-brand-blue/80;
+  @apply bg-brand-cyan/80;
 }
 
 .secondary-button {
-  @apply font-medium border-2 border-brand-purple text-brand-purple transition-all duration-200 rounded-xl;
-  box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.2);
+  @apply font-medium border-2 border-brand-cyan text-brand-cyan transition-all duration-200 rounded-xl bg-white;
+  box-shadow: 0 4px 14px 0 theme('colors.brand.cyan', 0.2);
 }
 
 .secondary-button:hover {
-  @apply bg-brand-purple/20;
-  box-shadow: 0 6px 20px 0 rgba(139, 92, 246, 0.3);
+  @apply bg-brand-cyan/10;
+  box-shadow: 0 6px 20px 0 theme('colors.brand.cyan', 0.3);
 }
 
 .secondary-button:active {
-  @apply bg-brand-purple/30;
+  @apply bg-brand-cyan/20;
 }

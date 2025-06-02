@@ -29,8 +29,8 @@ import CodeEditor from './CodeEditor.astro';
       </div>
       <div class="md:w-1/2 animate-float">
         <div class="relative">
-          <div class="absolute -top-10 -left-10 w-40 h-40 bg-brand-purple/10 rounded-full blur-3xl"></div>
-          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-blue/10 rounded-full blur-3xl"></div>
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-brand-coral/10 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-cyan/10 rounded-full blur-3xl"></div>
           <CodeEditor />
         </div>
       </div>
@@ -40,57 +40,63 @@ import CodeEditor from './CodeEditor.astro';
 
 <style>
   .hero-gradient {
-    background: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)/0.8));
+    background: 
+      radial-gradient(
+        circle at right,
+        theme('colors.brand.cyan', 0.15) 0%,
+        theme('colors.brand.cyan', 0.1) 10%,
+        theme('colors.brand.cyan', 0.05) 30%,
+        transparent 70%
+      ),
+      white;
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #36b49f, #DBFF75);
+    background: linear-gradient(135deg, theme('colors.brand.coral'), theme('colors.brand.light-coral'), theme('colors.brand.background-coral'));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .primary-button {
-    @apply font-medium bg-gradient-to-r from-brand-purple to-brand-blue text-white transition-all duration-200 shadow-lg hover:shadow-xl;
+    @apply font-medium bg-gradient-to-r from-brand-coral to-brand-light-coral text-white transition-all duration-200 shadow-lg hover:shadow-xl;
   }
 
   .primary-button:hover {
-    @apply from-brand-purple/90 to-brand-blue/90;
+    @apply from-brand-light-coral/90 to-brand-background-coral/90;
   }
 
   .primary-button:active {
-    @apply from-brand-purple/80 to-brand-blue/80;
+    @apply from-brand-coral/80 to-brand-light-coral/80;
   }
 
   .secondary-button {
-    @apply font-medium border-2 border-brand-purple text-brand-purple transition-all duration-200 rounded-xl;
-    box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.2);
+    @apply font-medium border-2 border-brand-cyan text-brand-cyan transition-all duration-200 rounded-xl;
+    box-shadow: 0 4px 14px 0 theme('colors.brand.cyan', 0.2);
   }
 
   .secondary-button:hover {
-    @apply bg-brand-purple/20;
-    box-shadow: 0 6px 20px 0 rgba(139, 92, 246, 0.3);
+    @apply bg-brand-cyan/20;
+    box-shadow: 0 6px 20px 0 theme('colors.brand.cyan', 0.3);
   }
 
   .secondary-button:active {
-    @apply bg-brand-purple/30;
+    @apply bg-brand-cyan/30;
   }
 </style>
 
 <div class="relative">
   <!-- Background decoration -->
   <div class="absolute inset-0 -z-10 mx-0 max-w-none overflow-hidden">
-    <div class="absolute left-1/2 top-0 ml-[-38rem] h-[25rem] w-[81.25rem] dark:[mask-image:linear-gradient(white,transparent)]">
-      <div class="absolute inset-0 bg-gradient-to-r from-[#36b49f] to-[#DBFF75] opacity-40 [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:from-[#36b49f]/30 dark:to-[#DBFF75]/30 dark:opacity-100">
-        <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-50%] h-[200%] w-full skew-y-[-18deg] fill-black/40 stroke-black/50 mix-blend-overlay dark:fill-white/2.5 dark:stroke-white/5">
-          <defs>
-            <pattern id="e813992c-7d03-4cc4-a2bd-151760b470a0" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="100%">
-              <path d="M.5 56V.5H72" fill="none" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" stroke-width="0" fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
-        </svg>
-      </div>
+    <div class="absolute inset-0 bg-brand-cyan opacity-40 [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:bg-brand-cyan/30 dark:opacity-100">
+      <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-50%] h-[200%] w-full skew-y-[-18deg] fill-black/40 stroke-black/50 mix-blend-overlay dark:fill-white/2.5 dark:stroke-white/5">
+        <defs>
+          <pattern id="e813992c-7d03-4cc4-a2bd-151760b470a0" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="100%">
+            <path d="M.5 56V.5H72" fill="none" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" stroke-width="0" fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
+      </svg>
     </div>
   </div>
 
@@ -99,7 +105,7 @@ import CodeEditor from './CodeEditor.astro';
     <div class="mx-auto max-w-2xl lg:max-w-4xl lg:px-12">
       <h1 class="font-display text-5xl font-bold tracking-tighter text-primary sm:text-7xl">
         <span class="block text-center">Code in Your</span>
-        <span class="block text-center bg-gradient-to-r from-[#36b49f] to-[#DBFF75] bg-clip-text text-transparent">Language</span>
+        <span class="block text-center bg-gradient-to-r from-brand-coral to-brand-cyan bg-clip-text text-transparent">Language</span>
       </h1>
       <p class="mt-6 text-center text-lg text-muted-foreground">
         Legesher bridges the gap between human languages and programming languages. 

@@ -1,9 +1,13 @@
-<header class="py-4 bg-white">
+---
+import { Code } from 'lucide-react';
+---
+
+<header class="py-4 fixed w-full top-0 z-50 transition-colors duration-200" id="main-header">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <a href="/" class="flex items-center space-x-2">
-          <div class="h-8 w-8 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue"></div>
+          <img src="/Peggy-Headshot.svg" alt="Legesher Logo" class="h-8 w-8">
           <span class="font-bold text-xl">Legesher</span>
         </a>
       </div>
@@ -15,12 +19,32 @@
         <a href="/docs" class="text-sm font-medium hover:text-primary transition-colors">Docs</a>
       </nav>
       <div class="flex items-center space-x-4">
-        <a href="#" class="text-sm font-medium hover:text-primary transition-colors">Log in</a>
+        <a href="https://github.com/legesher" class="text-sm font-medium hover:text-primary transition-colors" aria-label="View Legesher on GitHub"><Code className="h-5 w-5" /></a>
         <a href="#" class="text-sm font-medium hover:text-primary transition-colors">Get Started</a>
       </div>
     </div>
   </div>
 </header>
+
+<script>
+  const header = document.getElementById('main-header');
+  
+  function updateHeader() {
+    if (window.scrollY > 0) {
+      header.classList.add('bg-white');
+      header.classList.remove('bg-transparent');
+    } else {
+      header.classList.remove('bg-white');
+      header.classList.add('bg-transparent');
+    }
+  }
+
+  // Initial check
+  updateHeader();
+  
+  // Add scroll event listener
+  window.addEventListener('scroll', updateHeader);
+</script>
 
 <style>
   nav {

@@ -53,9 +53,16 @@ export default {
           foreground: 'hsl(var(--card-foreground))'
         },
         brand: {
-          purple: '#8B5CF6',
-          'light-purple': '#D6BCFA',
-          blue: '#0EA5E9',
+          cyan: '#6cc5e0',
+          'light-cyan': '#90d7eb',
+          'background-cyan': '#E8F6FD',
+          coral: '#ec6756',
+          'light-coral': '#f58b78',
+          'background-coral': '#FABDB3',
+          gray: '#b1b1b1',
+          'light-gray': '#f6f6f6',
+          yellow: '#F6F16F',
+          'light-yellow': '#F6F19F',
         },
       },
       borderRadius: {
