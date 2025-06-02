@@ -1,0 +1,55 @@
+---
+import { Laptop, BookOpen, Lightbulb, Handshake } from 'lucide-react';
+
+const features = [
+  {
+    icon: Laptop,
+    title: "Creation",
+    description: "Our platform understands and responds in over 100 languages, making it truly global."
+  },
+  {
+    icon: BookOpen,
+    title: "Education",
+    description: "Our AI understands cultural nuances and idioms specific to each language."
+  },
+  {
+    icon: Lightbulb,
+    title: "Innovation",
+    description: "Instant translation that preserves the meaning and context of the original text."
+  },
+  {
+    icon: Handshake,
+    title: "Collaboration",
+    description: "Find information in your language, regardless of the content's original language."
+  }
+];
+---
+
+<section id="features" class="py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Breaking Language Barriers</h2>
+      <p class="text-lg text-muted-foreground">
+        Our technology understands the unique aspects of every language, making digital interactions feel natural and familiar.
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {features.map((feature) => (
+        <div class="p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors">
+          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+            <feature.icon className="w-6 h-6 text-primary" />
+          </div>
+          <h3 class="text-xl font-semibold mb-2">{feature.title}</h3>
+          <p class="text-muted-foreground">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-gradient {
+    background: linear-gradient(135deg, hsl(var(--background)), hsl(var(--background)/0.8));
+  }
+</style> 

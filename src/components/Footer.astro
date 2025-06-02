@@ -1,0 +1,62 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-50 pt-16 pb-8">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div>
+        <h3 class="font-semibold mb-4">Product</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Features</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Pricing</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">API</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Documentation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-4">Company</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">About</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Careers</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Blog</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-4">Resources</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Community</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Support</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-4">Legal</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Privacy</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Terms</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Security</a></li>
+          <li><a href="#" class="text-muted-foreground hover:text-primary transition-colors">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <div class="flex items-center space-x-2 mb-4 md:mb-0">
+        <div class="h-8 w-8 rounded-full bg-gradient-to-r from-brand-purple to-brand-blue"></div>
+        <span class="font-bold text-xl">Legesher</span>
+      </div>
+      <div class="text-sm text-muted-foreground">
+        © {currentYear} Legesher. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)/0.8));
+  }
+</style> 

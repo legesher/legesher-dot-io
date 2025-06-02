@@ -1,0 +1,271 @@
+---
+interface Props {
+  initialLanguage?: string;
+}
+
+const { initialLanguage = "en" } = Astro.props;
+---
+
+<div class="relative bg-[#1E1E1E] rounded-xl shadow-xl border border-gray-800">
+  <!-- Editor Header -->
+  <div class="flex items-center justify-between px-4 py-2 bg-[#252526] rounded-t-xl border-b border-gray-800">
+    <!-- Window Controls and File Tab -->
+    <div class="flex items-end space-x-2">
+      <div class="flex items-center space-x-2">
+        <div class="h-3 w-3 rounded-full bg-red-500"></div>
+        <div class="h-3 w-3 rounded-full bg-yellow-500"></div>
+        <div class="h-3 w-3 rounded-full bg-green-500"></div>
+      </div>
+      <div class="px-3 py-1 bg-[#1E1E1E] rounded-t-md border border-gray-800 border-b-0 -mb-2">
+        <span class="text-xs text-gray-400" id="file-name">hello_world.py</span>
+      </div>
+    </div>
+
+    <!-- Language Indicator -->
+    <div class="flex items-center space-x-2">
+      <div class="px-2 py-1 bg-[#2D2D2D] rounded-md">
+        <div class="text-xs text-gray-400" id="language-indicator">English</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editor Content -->
+  <div class="p-6">
+    <div class="space-y-2 font-mono text-sm">
+      <div class="flex">
+        <div class="text-purple-400" id="var-keyword">message</div>
+        <div class="text-gray-400 pl-1">=</div>
+        <div class="text-yellow-400" id="hello-world-text">"Hello, World!"</div>
+      </div>
+      <div class="flex">
+        <div class="text-purple-400" id="print-keyword">print</div>
+        <div class="text-gray-400">(</div>
+        <div class="text-blue-400" id="var-name">message</div>
+        <div class="text-gray-400">)</div>
+      </div>
+      <div class="flex">
+        <div class="text-purple-400" id="func-keyword">def</div>
+        <div class="text-gray-400 pl-1" id="func-name">greet</div>
+        <div class="text-gray-400">(</div>
+        <div class="text-blue-400" id="param-name">person</div>
+        <div class="text-gray-400">)</div>
+        <div class="text-gray-400">:</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-purple-400" id="return-keyword">return</div>
+        <div class="text-gray-400 pl-1" id="f-string">f</div>
+        <div class="text-yellow-400" id="greeting-text">"Hello, " + person + "!"</div>
+      </div>
+      <div class="flex">
+        <div class="text-blue-400" id="user-name">user_name</div>
+        <div class="text-gray-400 pl-1">=</div>
+        <div class="text-yellow-400" id="name-value">"Alice"</div>
+      </div>
+      <div class="flex">
+        <div class="text-purple-400" id="print-keyword-2">print</div>
+        <div class="text-gray-400">(</div>
+        <div class="text-blue-400" id="func-call">greet</div>
+        <div class="text-gray-400">(</div>
+        <div class="text-blue-400" id="var-name-2">user_name</div>
+        <div class="text-gray-400">)</div>
+        <div class="text-gray-400">)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const languages = [
+    {
+      code: "en",
+      displayName: "English",
+      fileName: "hello_world.py",
+      varKeyword: "message",
+      printKeyword: "print",
+      funcKeyword: "def",
+      funcName: "greet",
+      paramName: "person",
+      returnKeyword: "return",
+      fString: "f",
+      helloWorld: "Hello, World!",
+      greeting: "Hello, " + "person" + "!",
+      userName: "user_name",
+      nameValue: "Alice"
+    },
+    {
+      code: "es",
+      displayName: "Español",
+      fileName: "hola_mundo.py",
+      varKeyword: "mensaje",
+      printKeyword: "imprimir",
+      funcKeyword: "definir",
+      funcName: "saludar",
+      paramName: "persona",
+      returnKeyword: "devolver",
+      fString: "f",
+      helloWorld: "¡Hola Mundo!",
+      greeting: "¡Hola, " + "persona" + "!",
+      userName: "nombre_usuario",
+      nameValue: "Alicia"
+    },
+    {
+      code: "zh",
+      displayName: "中文",
+      fileName: "你好_世界.py",
+      varKeyword: "消息",
+      printKeyword: "打印",
+      funcKeyword: "定义",
+      funcName: "问候",
+      paramName: "人",
+      returnKeyword: "返回",
+      fString: "f",
+      helloWorld: "你好，世界！",
+      greeting: "你好，" + "人" + "！",
+      userName: "用户名",
+      nameValue: "爱丽丝"
+    },
+    {
+      code: "ar",
+      displayName: "العربية",
+      fileName: "مرحبا_بالعالم.py",
+      varKeyword: "رسالة",
+      printKeyword: "اطبع",
+      funcKeyword: "عرّف",
+      funcName: "تحية",
+      paramName: "شخص",
+      returnKeyword: "أرجع",
+      fString: "f",
+      helloWorld: "مرحبا بالعالم!",
+      greeting: "مرحبا، " + "شخص" + "!",
+      userName: "اسم_المستخدم",
+      nameValue: "أليس"
+    }
+  ];
+
+  let currentIndex = 0;
+  
+  interface CodeElements {
+    languageIndicator: HTMLElement | null;
+    fileName: HTMLElement | null;
+    varKeyword: HTMLElement | null;
+    printKeyword: HTMLElement | null;
+    funcKeyword: HTMLElement | null;
+    funcName: HTMLElement | null;
+    paramName: HTMLElement | null;
+    returnKeyword: HTMLElement | null;
+    fString: HTMLElement | null;
+    helloWorld: HTMLElement | null;
+    greeting: HTMLElement | null;
+    userName: HTMLElement | null;
+    nameValue: HTMLElement | null;
+    printKeyword2: HTMLElement | null;
+    funcCall: HTMLElement | null;
+    varName: HTMLElement | null;
+    varName2: HTMLElement | null;
+  }
+
+  let elements: CodeElements = {
+    languageIndicator: null,
+    fileName: null,
+    varKeyword: null,
+    printKeyword: null,
+    funcKeyword: null,
+    funcName: null,
+    paramName: null,
+    returnKeyword: null,
+    fString: null,
+    helloWorld: null,
+    greeting: null,
+    userName: null,
+    nameValue: null,
+    printKeyword2: null,
+    funcCall: null,
+    varName: null,
+    varName2: null
+  };
+
+  function initializeElements() {
+    elements = {
+      languageIndicator: document.getElementById('language-indicator'),
+      fileName: document.getElementById('file-name'),
+      varKeyword: document.getElementById('var-keyword'),
+      printKeyword: document.getElementById('print-keyword'),
+      funcKeyword: document.getElementById('func-keyword'),
+      funcName: document.getElementById('func-name'),
+      paramName: document.getElementById('param-name'),
+      returnKeyword: document.getElementById('return-keyword'),
+      fString: document.getElementById('f-string'),
+      helloWorld: document.getElementById('hello-world-text'),
+      greeting: document.getElementById('greeting-text'),
+      userName: document.getElementById('user-name'),
+      nameValue: document.getElementById('name-value'),
+      printKeyword2: document.getElementById('print-keyword-2'),
+      funcCall: document.getElementById('func-call'),
+      varName: document.getElementById('var-name'),
+      varName2: document.getElementById('var-name-2')
+    };
+  }
+
+  function updateText() {
+    const lang = languages[currentIndex];
+    
+    // Fade out all elements
+    Object.values(elements).forEach(el => {
+      if (el) el.style.opacity = '0';
+    });
+    
+    setTimeout(() => {
+      // Update all elements
+      if (elements.languageIndicator) elements.languageIndicator.textContent = lang.displayName;
+      if (elements.fileName) {
+        elements.fileName.textContent = lang.fileName;
+        // Set RTL for Arabic
+        if (lang.code === "ar") {
+          elements.fileName.style.direction = "rtl";
+        } else {
+          elements.fileName.style.direction = "ltr";
+        }
+      }
+      if (elements.varKeyword) elements.varKeyword.textContent = lang.varKeyword;
+      if (elements.printKeyword) elements.printKeyword.textContent = lang.printKeyword;
+      if (elements.funcKeyword) elements.funcKeyword.textContent = lang.funcKeyword;
+      if (elements.funcName) elements.funcName.textContent = lang.funcName;
+      if (elements.paramName) elements.paramName.textContent = lang.paramName;
+      if (elements.returnKeyword) elements.returnKeyword.textContent = lang.returnKeyword;
+      if (elements.fString) elements.fString.textContent = lang.fString;
+      if (elements.helloWorld) elements.helloWorld.textContent = `"${lang.helloWorld}"`;
+      if (elements.greeting) elements.greeting.textContent = `"${lang.greeting}"`;
+      if (elements.userName) elements.userName.textContent = lang.userName;
+      if (elements.nameValue) elements.nameValue.textContent = `"${lang.nameValue}"`;
+      if (elements.printKeyword2) elements.printKeyword2.textContent = lang.printKeyword;
+      if (elements.funcCall) elements.funcCall.textContent = lang.funcName;
+      if (elements.varName) elements.varName.textContent = lang.varKeyword;
+      if (elements.varName2) elements.varName2.textContent = lang.userName;
+      
+      // Fade in all elements
+      Object.values(elements).forEach(el => {
+        if (el) el.style.opacity = '1';
+      });
+      
+      // Move to next language
+      currentIndex = (currentIndex + 1) % languages.length;
+    }, 500);
+  }
+
+  // Wait for DOM to be fully loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeElements();
+    
+    // Initial delay before starting the animation
+    setTimeout(() => {
+      // Update text every 5 seconds
+      setInterval(updateText, 5000);
+    }, 2000);
+  });
+</script>
+
+<style>
+  #language-indicator, #file-name, #var-keyword, #print-keyword, #func-keyword, #func-name, #param-name, #return-keyword, #f-string, #hello-world-text, #greeting-text, #user-name, #name-value, #print-keyword-2, #func-call, #var-name, #var-name-2 {
+    transition: opacity 0.5s ease-in-out;
+  }
+</style> 
