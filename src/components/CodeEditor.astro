@@ -12,12 +12,12 @@ const { initialLanguage = "en" } = Astro.props;
     <!-- Window Controls and File Tab -->
     <div class="flex items-end space-x-2">
       <div class="flex items-center space-x-2">
-        <div class="h-3 w-3 rounded-full bg-red-500"></div>
-        <div class="h-3 w-3 rounded-full bg-yellow-500"></div>
-        <div class="h-3 w-3 rounded-full bg-green-500"></div>
+        <div class="h-3 w-3 rounded-full bg-red-400"></div>
+        <div class="h-3 w-3 rounded-full bg-brand-yellow"></div>
+        <div class="h-3 w-3 rounded-full bg-emerald-400"></div>
       </div>
       <div class="px-3 py-1 bg-[#1E1E1E] rounded-t-md border border-gray-800 border-b-0 -mb-2">
-        <span class="text-xs text-gray-400" id="file-name">hello_world.py</span>
+        <span class="text-xs text-gray-400" id="file-name">welcome_user.py</span>
       </div>
     </div>
 
@@ -28,47 +28,71 @@ const { initialLanguage = "en" } = Astro.props;
       </div>
     </div>
   </div>
-
+  
   <!-- Editor Content -->
   <div class="p-6">
     <div class="space-y-2 font-mono text-sm">
       <div class="flex">
-        <div class="text-purple-400" id="var-keyword">message</div>
-        <div class="text-gray-400 pl-1">=</div>
-        <div class="text-yellow-400" id="hello-world-text">"Hello, World!"</div>
-      </div>
-      <div class="flex">
-        <div class="text-purple-400" id="print-keyword">print</div>
-        <div class="text-gray-400">(</div>
-        <div class="text-blue-400" id="var-name">message</div>
-        <div class="text-gray-400">)</div>
-      </div>
-      <div class="flex">
         <div class="text-purple-400" id="func-keyword">def</div>
-        <div class="text-gray-400 pl-1" id="func-name">greet</div>
-        <div class="text-gray-400">(</div>
-        <div class="text-blue-400" id="param-name">person</div>
-        <div class="text-gray-400">)</div>
+        <div class="text-blue-400 pl-1" id="func-name">welcome_user</div>
+        <div class="text-red-400">(</div>
+        <div class="text-red-300" id="param-name">name</div>
+        <div class="text-gray-400">:</div>
+        <div class="text-purple-400" id="type-hint">str</div>
+        <div class="text-red-400">)</div>
         <div class="text-gray-400">:</div>
       </div>
       <div class="flex pl-4">
+        <div class="text-green-400" id="docstring">"""</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-green-400" id="docstring-text">This function welcomes the user by name. If the user's name is not provided, the function will ask the user for their name.</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-green-400" id="docstring-end">"""</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-gray-400" id="comment"># Ask the user for their name</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-red-300" id="var-name">name</div>
+        <div class="text-teal-400 pl-1"> = </div>
+        <div class="text-blue-400" id="input-func">input</div>
+        <div class="text-red-400">(</div>
+        <div class="text-green-400" id="prompt-text">"What's your name? "</div>
+        <div class="text-red-400">)</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-gray-400" id="comment-2"># Print a welcome message</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-blue-400" id="print-keyword">print</div>
+        <div class="text-red-400">(</div>
+        <div class="text-green-400" id="f-string">f</div>
+        <div class="text-green-400" id="welcome-text">"Hello, &#123;name&#125;! Welcome to Legesher!"</div>
+        <div class="text-red-400">)</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-gray-400" id="comment-3"># Return the user's name</div>
+      </div>
+      <div class="flex pl-4">
         <div class="text-purple-400" id="return-keyword">return</div>
-        <div class="text-gray-400 pl-1" id="f-string">f</div>
-        <div class="text-yellow-400" id="greeting-text">"Hello, " + person + "!"</div>
+        <div class="text-red-300 pl-1" id="return-var">name</div>
+      </div>
+      <div class="flex pl-4"></div>
+      <div class="flex">
+        <div class="text-yellow-300" id="var-name-2">name</div>
+        <div class="text-teal-400 pl-1">=</div>
+        <div class="text-green-400" id="name-value">"Peggy"</div>
       </div>
       <div class="flex">
-        <div class="text-blue-400" id="user-name">user_name</div>
-        <div class="text-gray-400 pl-1">=</div>
-        <div class="text-yellow-400" id="name-value">"Alice"</div>
-      </div>
-      <div class="flex">
-        <div class="text-purple-400" id="print-keyword-2">print</div>
-        <div class="text-gray-400">(</div>
-        <div class="text-blue-400" id="func-call">greet</div>
-        <div class="text-gray-400">(</div>
-        <div class="text-blue-400" id="var-name-2">user_name</div>
-        <div class="text-gray-400">)</div>
-        <div class="text-gray-400">)</div>
+        <div class="text-blue-400" id="print-keyword-2">print</div>
+        <div class="text-red-400">(</div>
+        <div class="text-blue-400" id="func-call">welcome_user</div>
+        <div class="text-orange-400">(</div>
+        <div class="text-yellow-300" id="var-name-3">name</div>
+        <div class="text-orange-400">)</div>
+        <div class="text-red-400">)</div>
       </div>
     </div>
   </div>
@@ -79,66 +103,86 @@ const { initialLanguage = "en" } = Astro.props;
     {
       code: "en",
       displayName: "English",
-      fileName: "hello_world.py",
-      varKeyword: "message",
-      printKeyword: "print",
+      fileName: "welcome_user.py",
       funcKeyword: "def",
-      funcName: "greet",
-      paramName: "person",
-      returnKeyword: "return",
+      funcName: "welcome_user",
+      paramName: "name",
+      typeHint: "str",
+      docstring: "This function welcomes the user by name. If the user's name is not provided, the function will ask the user for their name.",
+      comment1: "# Ask the user for their name",
+      inputFunc: "input",
+      promptText: "What's your name? ",
+      comment2: "# Print a welcome message",
+      printKeyword: "print",
       fString: "f",
-      helloWorld: "Hello, World!",
-      greeting: "Hello, " + "person" + "!",
-      userName: "user_name",
-      nameValue: "Alice"
+      welcomeText: "Hello, &#123;name&#125;! Welcome to Legesher!",
+      comment3: "# Return the user's name",
+      returnKeyword: "return",
+      returnVar: "name",
+      nameValue: "Peggy"
     },
     {
       code: "es",
       displayName: "Español",
-      fileName: "hola_mundo.py",
-      varKeyword: "mensaje",
-      printKeyword: "imprimir",
+      fileName: "bienvenida_usuario.py",
       funcKeyword: "definir",
-      funcName: "saludar",
-      paramName: "persona",
-      returnKeyword: "devolver",
+      funcName: "bienvenida_usuario",
+      paramName: "nombre",
+      typeHint: "str",
+      docstring: "Esta función da la bienvenida al usuario por su nombre. Si no se proporciona el nombre del usuario, la función pedirá al usuario su nombre.",
+      comment1: "# Preguntar al usuario su nombre",
+      inputFunc: "entrada",
+      promptText: "¿Cómo te llamas? ",
+      comment2: "# Imprimir mensaje de bienvenida",
+      printKeyword: "imprimir",
       fString: "f",
-      helloWorld: "¡Hola Mundo!",
-      greeting: "¡Hola, " + "persona" + "!",
-      userName: "nombre_usuario",
-      nameValue: "Alicia"
+      welcomeText: "¡Hola, &#123;nombre&#125;! ¡Bienvenido a Legesher!",
+      comment3: "# Devolver el nombre del usuario",
+      returnKeyword: "devolver",
+      returnVar: "nombre",
+      nameValue: "Peggy"
     },
     {
       code: "zh",
       displayName: "中文",
-      fileName: "你好_世界.py",
-      varKeyword: "消息",
-      printKeyword: "打印",
+      fileName: "欢迎用户.py",
       funcKeyword: "定义",
-      funcName: "问候",
-      paramName: "人",
-      returnKeyword: "返回",
+      funcName: "欢迎用户",
+      paramName: "名字",
+      typeHint: "字符串",
+      docstring: "此函数通过名字欢迎用户。如果未提供用户名字，函数将询问用户的名字。",
+      comment1: "# 询问用户的名字",
+      inputFunc: "输入",
+      promptText: "你叫什么名字？",
+      comment2: "# 打印欢迎信息",
+      printKeyword: "打印",
       fString: "f",
-      helloWorld: "你好，世界！",
-      greeting: "你好，" + "人" + "！",
-      userName: "用户名",
-      nameValue: "爱丽丝"
+      welcomeText: "你好，&#123;名字&#125;！欢迎来到Legesher！",
+      comment3: "# 返回用户的名字",
+      returnKeyword: "返回",
+      returnVar: "名字",
+      nameValue: "佩吉"
     },
     {
       code: "ar",
       displayName: "العربية",
-      fileName: "مرحبا_بالعالم.py",
-      varKeyword: "رسالة",
-      printKeyword: "اطبع",
+      fileName: "ترحيب_المستخدم.py",
       funcKeyword: "عرّف",
-      funcName: "تحية",
-      paramName: "شخص",
-      returnKeyword: "أرجع",
+      funcName: "ترحيب_المستخدم",
+      paramName: "الاسم",
+      typeHint: "نص",
+      docstring: "هذه الدالة ترحب بالمستخدم باسمه. إذا لم يتم تقديم اسم المستخدم، ستطلب الدالة من المستخدم إدخال اسمه.",
+      comment1: "# اسأل المستخدم عن اسمه",
+      inputFunc: "إدخال",
+      promptText: "ما هو اسمك؟ ",
+      comment2: "# اطبع رسالة الترحيب",
+      printKeyword: "اطبع",
       fString: "f",
-      helloWorld: "مرحبا بالعالم!",
-      greeting: "مرحبا، " + "شخص" + "!",
-      userName: "اسم_المستخدم",
-      nameValue: "أليس"
+      welcomeText: "مرحباً، &#123;الاسم&#125;! أهلاً بك في Legesher!",
+      comment3: "# أرجع اسم المستخدم",
+      returnKeyword: "أرجع",
+      returnVar: "الاسم",
+      nameValue: "بيغي"
     }
   ];
 
@@ -147,62 +191,80 @@ const { initialLanguage = "en" } = Astro.props;
   interface CodeElements {
     languageIndicator: HTMLElement | null;
     fileName: HTMLElement | null;
-    varKeyword: HTMLElement | null;
-    printKeyword: HTMLElement | null;
     funcKeyword: HTMLElement | null;
     funcName: HTMLElement | null;
     paramName: HTMLElement | null;
-    returnKeyword: HTMLElement | null;
+    typeHint: HTMLElement | null;
+    docstring: HTMLElement | null;
+    docstringText: HTMLElement | null;
+    docstringEnd: HTMLElement | null;
+    comment1: HTMLElement | null;
+    inputFunc: HTMLElement | null;
+    promptText: HTMLElement | null;
+    comment2: HTMLElement | null;
+    printKeyword: HTMLElement | null;
     fString: HTMLElement | null;
-    helloWorld: HTMLElement | null;
-    greeting: HTMLElement | null;
-    userName: HTMLElement | null;
+    welcomeText: HTMLElement | null;
+    comment3: HTMLElement | null;
+    returnKeyword: HTMLElement | null;
+    returnVar: HTMLElement | null;
     nameValue: HTMLElement | null;
     printKeyword2: HTMLElement | null;
     funcCall: HTMLElement | null;
     varName: HTMLElement | null;
-    varName2: HTMLElement | null;
   }
 
   let elements: CodeElements = {
     languageIndicator: null,
     fileName: null,
-    varKeyword: null,
-    printKeyword: null,
     funcKeyword: null,
     funcName: null,
     paramName: null,
-    returnKeyword: null,
+    typeHint: null,
+    docstring: null,
+    docstringText: null,
+    docstringEnd: null,
+    comment1: null,
+    inputFunc: null,
+    promptText: null,
+    comment2: null,
+    printKeyword: null,
     fString: null,
-    helloWorld: null,
-    greeting: null,
-    userName: null,
+    welcomeText: null,
+    comment3: null,
+    returnKeyword: null,
+    returnVar: null,
     nameValue: null,
     printKeyword2: null,
     funcCall: null,
-    varName: null,
-    varName2: null
+    varName: null
   };
 
   function initializeElements() {
     elements = {
       languageIndicator: document.getElementById('language-indicator'),
       fileName: document.getElementById('file-name'),
-      varKeyword: document.getElementById('var-keyword'),
-      printKeyword: document.getElementById('print-keyword'),
       funcKeyword: document.getElementById('func-keyword'),
       funcName: document.getElementById('func-name'),
       paramName: document.getElementById('param-name'),
-      returnKeyword: document.getElementById('return-keyword'),
+      typeHint: document.getElementById('type-hint'),
+      docstring: document.getElementById('docstring'),
+      docstringText: document.getElementById('docstring-text'),
+      docstringEnd: document.getElementById('docstring-end'),
+      comment1: document.getElementById('comment'),
+      inputFunc: document.getElementById('input-func'),
+      promptText: document.getElementById('prompt-text'),
+      comment2: document.getElementById('comment-2'),
+      printKeyword: document.getElementById('print-keyword'),
       fString: document.getElementById('f-string'),
-      helloWorld: document.getElementById('hello-world-text'),
-      greeting: document.getElementById('greeting-text'),
-      userName: document.getElementById('user-name'),
+      welcomeText: document.getElementById('welcome-text'),
+      comment3: document.getElementById('comment-3'),
+      returnKeyword: document.getElementById('return-keyword'),
+      returnVar: document.getElementById('return-var'),
       nameValue: document.getElementById('name-value'),
       printKeyword2: document.getElementById('print-keyword-2'),
       funcCall: document.getElementById('func-call'),
-      varName: document.getElementById('var-name'),
-      varName2: document.getElementById('var-name-2')
+      varName: document.getElementById('var-name-3')
     };
   }
 
@@ -226,21 +288,25 @@ const { initialLanguage = "en" } = Astro.props;
           elements.fileName.style.direction = "ltr";
         }
       }
-      if (elements.varKeyword) elements.varKeyword.textContent = lang.varKeyword;
-      if (elements.printKeyword) elements.printKeyword.textContent = lang.printKeyword;
       if (elements.funcKeyword) elements.funcKeyword.textContent = lang.funcKeyword;
       if (elements.funcName) elements.funcName.textContent = lang.funcName;
       if (elements.paramName) elements.paramName.textContent = lang.paramName;
-      if (elements.returnKeyword) elements.returnKeyword.textContent = lang.returnKeyword;
+      if (elements.typeHint) elements.typeHint.textContent = lang.typeHint;
+      if (elements.docstringText) elements.docstringText.textContent = lang.docstring;
+      if (elements.comment1) elements.comment1.textContent = lang.comment1;
+      if (elements.inputFunc) elements.inputFunc.textContent = lang.inputFunc;
+      if (elements.promptText) elements.promptText.textContent = lang.promptText;
+      if (elements.comment2) elements.comment2.textContent = lang.comment2;
+      if (elements.printKeyword) elements.printKeyword.textContent = lang.printKeyword;
       if (elements.fString) elements.fString.textContent = lang.fString;
-      if (elements.helloWorld) elements.helloWorld.textContent = `"${lang.helloWorld}"`;
-      if (elements.greeting) elements.greeting.textContent = `"${lang.greeting}"`;
-      if (elements.userName) elements.userName.textContent = lang.userName;
-      if (elements.nameValue) elements.nameValue.textContent = `"${lang.nameValue}"`;
+      if (elements.welcomeText) elements.welcomeText.textContent = lang.welcomeText;
+      if (elements.comment3) elements.comment3.textContent = lang.comment3;
+      if (elements.returnKeyword) elements.returnKeyword.textContent = lang.returnKeyword;
+      if (elements.returnVar) elements.returnVar.textContent = lang.returnVar;
+      if (elements.nameValue) elements.nameValue.textContent = lang.nameValue;
       if (elements.printKeyword2) elements.printKeyword2.textContent = lang.printKeyword;
       if (elements.funcCall) elements.funcCall.textContent = lang.funcName;
-      if (elements.varName) elements.varName.textContent = lang.varKeyword;
-      if (elements.varName2) elements.varName2.textContent = lang.userName;
+      if (elements.varName) elements.varName.textContent = lang.paramName;
       
       // Fade in all elements
       Object.values(elements).forEach(el => {
@@ -265,7 +331,7 @@ const { initialLanguage = "en" } = Astro.props;
 </script>
 
 <style>
-  #language-indicator, #file-name, #var-keyword, #print-keyword, #func-keyword, #func-name, #param-name, #return-keyword, #f-string, #hello-world-text, #greeting-text, #user-name, #name-value, #print-keyword-2, #func-call, #var-name, #var-name-2 {
+  #language-indicator, #file-name, #func-keyword, #func-name, #param-name, #type-hint, #docstring, #docstring-text, #docstring-end, #comment, #input-func, #prompt-text, #comment-2, #print-keyword, #f-string, #welcome-text, #comment-3, #return-keyword, #return-var, #name-value, #print-keyword-2, #func-call, #var-name-3 {
     transition: opacity 0.5s ease-in-out;
   }
 </style> 
