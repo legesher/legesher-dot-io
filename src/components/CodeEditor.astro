@@ -59,7 +59,9 @@ const { initialLanguage = "en" } = Astro.props;
         <div class="text-teal-400 pl-1"> = </div>
         <div class="text-blue-400" id="input-func">input</div>
         <div class="text-red-400">(</div>
-        <div class="text-green-400" id="prompt-text">"What's your name? "</div>
+        <div class="text-green-400">"</div>
+        <div class="text-green-400" id="prompt-text">What's your name? </div>
+        <div class="text-green-400">"</div>
         <div class="text-red-400">)</div>
       </div>
       <div class="flex pl-4">
@@ -69,7 +71,13 @@ const { initialLanguage = "en" } = Astro.props;
         <div class="text-blue-400" id="print-keyword">print</div>
         <div class="text-red-400">(</div>
         <div class="text-green-400" id="f-string">f</div>
-        <div class="text-green-400" id="welcome-text">"Hello, &#123;name&#125;! Welcome to Legesher!"</div>
+        <div class="text-green-400" id="welcome-text">"
+          <span id="welcome-prefix" class="text-content">Hello, </span>
+          <span class="text-orange-400 syntax">&#123;</span>
+          <span class="text-red-300 syntax" id="f-string-var">name</span>
+          <span class="text-orange-400 syntax">&#125;</span>
+          <span id="welcome-suffix" class="text-content">! Welcome to Legesher!</span>
+        "</div>
         <div class="text-red-400">)</div>
       </div>
       <div class="flex pl-4">
@@ -81,7 +89,7 @@ const { initialLanguage = "en" } = Astro.props;
       </div>
       <div class="flex pl-4"></div>
       <div class="flex">
-        <div class="text-yellow-300" id="var-name-2">name</div>
+        <div class="text-yellow-300" id="username-declaration">userName</div>
         <div class="text-teal-400 pl-1">=</div>
         <div class="text-green-400" id="name-value">"Peggy"</div>
       </div>
@@ -90,7 +98,7 @@ const { initialLanguage = "en" } = Astro.props;
         <div class="text-red-400">(</div>
         <div class="text-blue-400" id="func-call">welcome_user</div>
         <div class="text-orange-400">(</div>
-        <div class="text-yellow-300" id="var-name-3">name</div>
+        <div class="text-yellow-300" id="username-argument">userName</div>
         <div class="text-orange-400">)</div>
         <div class="text-red-400">)</div>
       </div>
@@ -115,11 +123,13 @@ const { initialLanguage = "en" } = Astro.props;
       comment2: "# Print a welcome message",
       printKeyword: "print",
       fString: "f",
-      welcomeText: "Hello, &#123;name&#125;! Welcome to Legesher!",
+      welcomePrefix: "Hello, ",
+      welcomeSuffix: "! Welcome to Legesher!",
       comment3: "# Return the user's name",
       returnKeyword: "return",
       returnVar: "name",
-      nameValue: "Peggy"
+      nameValue: "Peggy",
+      userName: "userName"
     },
     {
       code: "es",
@@ -136,11 +146,13 @@ const { initialLanguage = "en" } = Astro.props;
       comment2: "# Imprimir mensaje de bienvenida",
       printKeyword: "imprimir",
       fString: "f",
-      welcomeText: "¡Hola, &#123;nombre&#125;! ¡Bienvenido a Legesher!",
+      welcomePrefix: "¡Hola, ",
+      welcomeSuffix: "! ¡Bienvenido a Legesher!",
       comment3: "# Devolver el nombre del usuario",
       returnKeyword: "devolver",
       returnVar: "nombre",
-      nameValue: "Peggy"
+      nameValue: "Peggy",
+      userName: "nombreUsuario"
     },
     {
       code: "zh",
@@ -156,12 +168,14 @@ const { initialLanguage = "en" } = Astro.props;
       promptText: "你叫什么名字？",
       comment2: "# 打印欢迎信息",
       printKeyword: "打印",
-      fString: "f",
-      welcomeText: "你好，&#123;名字&#125;！欢迎来到Legesher！",
+      fString: "格",
+      welcomePrefix: "你好，",
+      welcomeSuffix: "！欢迎来到Legesher！",
       comment3: "# 返回用户的名字",
       returnKeyword: "返回",
       returnVar: "名字",
-      nameValue: "佩吉"
+      nameValue: "佩吉",
+      userName: "用户名"
     },
     {
       code: "ar",
@@ -177,12 +191,14 @@ const { initialLanguage = "en" } = Astro.props;
       promptText: "ما هو اسمك؟ ",
       comment2: "# اطبع رسالة الترحيب",
       printKeyword: "اطبع",
-      fString: "f",
-      welcomeText: "مرحباً، &#123;الاسم&#125;! أهلاً بك في Legesher!",
+      fString: "ت",
+      welcomePrefix: "مرحباً، ",
+      welcomeSuffix: "! أهلاً بك في Legesher!",
       comment3: "# أرجع اسم المستخدم",
       returnKeyword: "أرجع",
       returnVar: "الاسم",
-      nameValue: "بيغي"
+      nameValue: "بيغي",
+      userName: "اسم_المستخدم"
     }
   ];
 
@@ -212,6 +228,11 @@ const { initialLanguage = "en" } = Astro.props;
     printKeyword2: HTMLElement | null;
     funcCall: HTMLElement | null;
     varName: HTMLElement | null;
+    usernameDeclaration: HTMLElement | null;
+    usernameArgument: HTMLElement | null;
+    welcomePrefix: HTMLElement | null;
+    welcomeSuffix: HTMLElement | null;
+    fStringVar: HTMLElement | null;
   }
 
   let elements: CodeElements = {
@@ -237,7 +258,12 @@ const { initialLanguage = "en" } = Astro.props;
     nameValue: null,
     printKeyword2: null,
     funcCall: null,
-    varName: null
+    varName: null,
+    usernameDeclaration: null,
+    usernameArgument: null,
+    welcomePrefix: null,
+    welcomeSuffix: null,
+    fStringVar: null
   };
 
   function initializeElements() {
@@ -264,7 +290,12 @@ const { initialLanguage = "en" } = Astro.props;
       nameValue: document.getElementById('name-value'),
       printKeyword2: document.getElementById('print-keyword-2'),
       funcCall: document.getElementById('func-call'),
-      varName: document.getElementById('var-name-3')
+      varName: document.getElementById('var-name'),
+      usernameDeclaration: document.getElementById('username-declaration'),
+      usernameArgument: document.getElementById('username-argument'),
+      welcomePrefix: document.getElementById('welcome-prefix'),
+      welcomeSuffix: document.getElementById('welcome-suffix'),
+      fStringVar: document.getElementById('f-string-var')
     };
   }
 
@@ -284,8 +315,14 @@ const { initialLanguage = "en" } = Astro.props;
         // Set RTL for Arabic
         if (lang.code === "ar") {
           elements.fileName.style.direction = "rtl";
+          document.querySelectorAll('.text-content').forEach(el => {
+            (el as HTMLElement).style.direction = 'rtl';
+          });
         } else {
           elements.fileName.style.direction = "ltr";
+          document.querySelectorAll('.text-content').forEach(el => {
+            (el as HTMLElement).style.direction = 'ltr';
+          });
         }
       }
       if (elements.funcKeyword) elements.funcKeyword.textContent = lang.funcKeyword;
@@ -299,7 +336,8 @@ const { initialLanguage = "en" } = Astro.props;
       if (elements.comment2) elements.comment2.textContent = lang.comment2;
       if (elements.printKeyword) elements.printKeyword.textContent = lang.printKeyword;
       if (elements.fString) elements.fString.textContent = lang.fString;
-      if (elements.welcomeText) elements.welcomeText.textContent = lang.welcomeText;
+      if (elements.welcomePrefix) elements.welcomePrefix.textContent = lang.welcomePrefix;
+      if (elements.welcomeSuffix) elements.welcomeSuffix.textContent = lang.welcomeSuffix;
       if (elements.comment3) elements.comment3.textContent = lang.comment3;
       if (elements.returnKeyword) elements.returnKeyword.textContent = lang.returnKeyword;
       if (elements.returnVar) elements.returnVar.textContent = lang.returnVar;
@@ -307,6 +345,11 @@ const { initialLanguage = "en" } = Astro.props;
       if (elements.printKeyword2) elements.printKeyword2.textContent = lang.printKeyword;
       if (elements.funcCall) elements.funcCall.textContent = lang.funcName;
       if (elements.varName) elements.varName.textContent = lang.paramName;
+      if (elements.usernameDeclaration) elements.usernameDeclaration.textContent = lang.userName;
+      if (elements.usernameArgument) elements.usernameArgument.textContent = lang.userName;
+      if (elements.welcomePrefix) elements.welcomePrefix.textContent = lang.welcomePrefix;
+      if (elements.welcomeSuffix) elements.welcomeSuffix.textContent = lang.welcomeSuffix;
+      if (elements.fStringVar) elements.fStringVar.textContent = lang.paramName;
       
       // Fade in all elements
       Object.values(elements).forEach(el => {
@@ -331,7 +374,16 @@ const { initialLanguage = "en" } = Astro.props;
 </script>
 
 <style>
-  #language-indicator, #file-name, #func-keyword, #func-name, #param-name, #type-hint, #docstring, #docstring-text, #docstring-end, #comment, #input-func, #prompt-text, #comment-2, #print-keyword, #f-string, #welcome-text, #comment-3, #return-keyword, #return-var, #name-value, #print-keyword-2, #func-call, #var-name-3 {
+  #language-indicator, #file-name, #func-keyword, #func-name, #param-name, #type-hint, #docstring, #docstring-text, #docstring-end, #comment, #input-func, #prompt-text, #comment-2, #print-keyword, #f-string, #welcome-prefix, #welcome-suffix #comment-3, #return-keyword, #return-var, #name-value, #print-keyword-2, #func-call, #var-name, #username-declaration, #username-argument {
     transition: opacity 0.5s ease-in-out;
+  }
+
+  .syntax {
+    direction: ltr !important;
+    display: inline-block;
+  }
+
+  .text-content {
+    display: inline-block;
   }
 </style> 
