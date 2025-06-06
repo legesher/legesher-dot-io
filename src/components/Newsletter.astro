@@ -9,23 +9,77 @@ import { Button } from "@/components/ui/button";
       <p class="text-lg text-muted-foreground mb-8">
         Subscribe to our newsletter to get the latest updates on Legesher and the future of programming.
       </p>
-      <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-        <input
-          type="email"
-          placeholder="Enter your email"
-          class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
-          required
-        />
-        <Button type="submit" className="whitespace-nowrap">
+      <form id="newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            required
+          />
+        </div>
+        <Button 
+          type="submit" 
+          className="whitespace-nowrap bg-brand-yellow hover:bg-brand-light-yellow text-black font-semibold transition-colors"
+        >
           Subscribe
         </Button>
       </form>
-      <p class="text-sm text-muted-foreground mt-4">
+      <p id="form-message" class="text-sm text-muted-foreground mt-4">
         We respect your privacy. Unsubscribe at any time.
       </p>
     </div>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('newsletter-form');
+  const messageElement = document.getElementById('form-message');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get('email');
+    const firstName = formData.get('firstName');
+
+    try {
+      console.log('Submitting form data:', { email, firstName });
+      
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, firstName }),
+      });
+
+      const data = await response.json();
+      console.log('Response data:', data);
+
+      if (response.ok) {
+        messageElement!.textContent = data.message || 'Successfully subscribed!';
+        messageElement!.className = 'text-sm text-green-600 mt-4';
+        (e.target as HTMLFormElement).reset();
+      } else {
+        const errorMessage = data.message || data.detail || 'Failed to subscribe. Please try again.';
+        messageElement!.textContent = errorMessage;
+        messageElement!.className = 'text-sm text-red-600 mt-4';
+      }
+    } catch (error) {
+      console.error('Subscription error:', error);
+      messageElement!.textContent = 'An error occurred. Please try again.';
+      messageElement!.className = 'text-sm text-red-600 mt-4';
+    }
+  });
+</script>
 
 <style>
   section {

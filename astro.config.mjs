@@ -10,5 +10,5 @@ export default defineConfig({
     mdx(),
   ],
   site: 'https://legesher.io',
-  output: 'static',
+  output: 'server',
 }); 
