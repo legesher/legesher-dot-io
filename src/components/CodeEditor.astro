@@ -202,8 +202,6 @@ const { initialLanguage = "en" } = Astro.props;
     }
   ];
 
-  let currentIndex = 0;
-  
   interface CodeElements {
     languageIndicator: HTMLElement | null;
     fileName: HTMLElement | null;
@@ -299,77 +297,55 @@ const { initialLanguage = "en" } = Astro.props;
     };
   }
 
-  function updateText() {
-    const lang = languages[currentIndex];
+  function setLanguage(langCode: string) {
+    const lang = languages.find(l => l.code === langCode) || languages[0];
     
-    // Fade out all elements
-    Object.values(elements).forEach(el => {
-      if (el) el.style.opacity = '0';
-    });
-    
-    setTimeout(() => {
-      // Update all elements
-      if (elements.languageIndicator) elements.languageIndicator.textContent = lang.displayName;
-      if (elements.fileName) {
-        elements.fileName.textContent = lang.fileName;
-        // Set RTL for Arabic
-        if (lang.code === "ar") {
-          elements.fileName.style.direction = "rtl";
-          document.querySelectorAll('.text-content').forEach(el => {
-            (el as HTMLElement).style.direction = 'rtl';
-          });
-        } else {
-          elements.fileName.style.direction = "ltr";
-          document.querySelectorAll('.text-content').forEach(el => {
-            (el as HTMLElement).style.direction = 'ltr';
-          });
-        }
+    if (elements.languageIndicator) elements.languageIndicator.textContent = lang.displayName;
+    if (elements.fileName) {
+      elements.fileName.textContent = lang.fileName;
+      if (lang.code === "ar") {
+        elements.fileName.style.direction = "rtl";
+        document.querySelectorAll('.text-content').forEach(el => {
+          (el as HTMLElement).style.direction = 'rtl';
+        });
+      } else {
+        elements.fileName.style.direction = "ltr";
+        document.querySelectorAll('.text-content').forEach(el => {
+          (el as HTMLElement).style.direction = 'ltr';
+        });
       }
-      if (elements.funcKeyword) elements.funcKeyword.textContent = lang.funcKeyword;
-      if (elements.funcName) elements.funcName.textContent = lang.funcName;
-      if (elements.paramName) elements.paramName.textContent = lang.paramName;
-      if (elements.typeHint) elements.typeHint.textContent = lang.typeHint;
-      if (elements.docstringText) elements.docstringText.textContent = lang.docstring;
-      if (elements.comment1) elements.comment1.textContent = lang.comment1;
-      if (elements.inputFunc) elements.inputFunc.textContent = lang.inputFunc;
-      if (elements.promptText) elements.promptText.textContent = lang.promptText;
-      if (elements.comment2) elements.comment2.textContent = lang.comment2;
-      if (elements.printKeyword) elements.printKeyword.textContent = lang.printKeyword;
-      if (elements.fString) elements.fString.textContent = lang.fString;
-      if (elements.welcomePrefix) elements.welcomePrefix.textContent = lang.welcomePrefix;
-      if (elements.welcomeSuffix) elements.welcomeSuffix.textContent = lang.welcomeSuffix;
-      if (elements.comment3) elements.comment3.textContent = lang.comment3;
-      if (elements.returnKeyword) elements.returnKeyword.textContent = lang.returnKeyword;
-      if (elements.returnVar) elements.returnVar.textContent = lang.returnVar;
-      if (elements.nameValue) elements.nameValue.textContent = lang.nameValue;
-      if (elements.printKeyword2) elements.printKeyword2.textContent = lang.printKeyword;
-      if (elements.funcCall) elements.funcCall.textContent = lang.funcName;
-      if (elements.varName) elements.varName.textContent = lang.paramName;
-      if (elements.usernameDeclaration) elements.usernameDeclaration.textContent = lang.userName;
-      if (elements.usernameArgument) elements.usernameArgument.textContent = lang.userName;
-      if (elements.welcomePrefix) elements.welcomePrefix.textContent = lang.welcomePrefix;
-      if (elements.welcomeSuffix) elements.welcomeSuffix.textContent = lang.welcomeSuffix;
-      if (elements.fStringVar) elements.fStringVar.textContent = lang.paramName;
-      
-      // Fade in all elements
-      Object.values(elements).forEach(el => {
-        if (el) el.style.opacity = '1';
-      });
-      
-      // Move to next language
-      currentIndex = (currentIndex + 1) % languages.length;
-    }, 500);
+    }
+    if (elements.funcKeyword) elements.funcKeyword.textContent = lang.funcKeyword;
+    if (elements.funcName) elements.funcName.textContent = lang.funcName;
+    if (elements.paramName) elements.paramName.textContent = lang.paramName;
+    if (elements.typeHint) elements.typeHint.textContent = lang.typeHint;
+    if (elements.docstringText) elements.docstringText.textContent = lang.docstring;
+    if (elements.comment1) elements.comment1.textContent = lang.comment1;
+    if (elements.inputFunc) elements.inputFunc.textContent = lang.inputFunc;
+    if (elements.promptText) elements.promptText.textContent = lang.promptText;
+    if (elements.comment2) elements.comment2.textContent = lang.comment2;
+    if (elements.printKeyword) elements.printKeyword.textContent = lang.printKeyword;
+    if (elements.fString) elements.fString.textContent = lang.fString;
+    if (elements.welcomePrefix) elements.welcomePrefix.textContent = lang.welcomePrefix;
+    if (elements.welcomeSuffix) elements.welcomeSuffix.textContent = lang.welcomeSuffix;
+    if (elements.comment3) elements.comment3.textContent = lang.comment3;
+    if (elements.returnKeyword) elements.returnKeyword.textContent = lang.returnKeyword;
+    if (elements.returnVar) elements.returnVar.textContent = lang.returnVar;
+    if (elements.nameValue) elements.nameValue.textContent = lang.nameValue;
+    if (elements.printKeyword2) elements.printKeyword2.textContent = lang.printKeyword;
+    if (elements.funcCall) elements.funcCall.textContent = lang.funcName;
+    if (elements.varName) elements.varName.textContent = lang.paramName;
+    if (elements.usernameDeclaration) elements.usernameDeclaration.textContent = lang.userName;
+    if (elements.usernameArgument) elements.usernameArgument.textContent = lang.userName;
+    if (elements.welcomePrefix) elements.welcomePrefix.textContent = lang.welcomePrefix;
+    if (elements.welcomeSuffix) elements.welcomeSuffix.textContent = lang.welcomeSuffix;
+    if (elements.fStringVar) elements.fStringVar.textContent = lang.paramName;
   }
 
   // Wait for DOM to be fully loaded
   document.addEventListener('DOMContentLoaded', () => {
     initializeElements();
-    
-    // Initial delay before starting the animation
-    setTimeout(() => {
-      // Update text every 5 seconds
-      setInterval(updateText, 5000);
-    }, 2000);
+    setLanguage('{initialLanguage}');
   });
 </script>
 

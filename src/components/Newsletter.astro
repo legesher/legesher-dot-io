@@ -5,9 +5,19 @@ import { Button } from "@/components/ui/button";
 <section class="py-24 bg-gray-50">
   <div class="container mx-auto px-4">
     <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay Updated</h2>
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-64 h-64 rounded-full bg-brand-yellow/10 blur-2xl"></div>
+        </div>
+        <img 
+          src="/EggPeggyGrey.38a3d5dc.png" 
+          alt="Hatching egg" 
+          class="mx-auto mb-8 w-40 md:w-48 lg:w-56 relative animate-float" 
+        />
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay In The Know</h2>
       <p class="text-lg text-muted-foreground mb-8">
-        Subscribe to our newsletter to get the latest updates on Legesher and the future of programming.
+        Legesher will be hatching beta soon. Subscribe to our newsletter for updates on when Legesher will be welcomed into this world - and how you can help!
       </p>
       <form id="newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto">
         <div class="flex flex-col sm:flex-row gap-4">
@@ -15,26 +25,26 @@ import { Button } from "@/components/ui/button";
             type="text"
             name="firstName"
             placeholder="First Name"
-            class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="flex-1 px-4 py-2 rounded-lg border-2 border-gray-200 bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:border-brand-yellow focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 focus:outline-none transition-all duration-200"
             required
           />
           <input
             type="email"
             name="email"
-            placeholder="Enter your email"
-            class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            placeholder="Enter your best email"
+            class="flex-1 px-4 py-2 rounded-lg border-2 border-gray-200 bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:border-brand-yellow focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 focus:outline-none transition-all duration-200"
             required
           />
         </div>
         <Button 
           type="submit" 
-          className="whitespace-nowrap bg-brand-yellow hover:bg-brand-light-yellow text-black font-semibold transition-colors"
+          className="yellow-button"
         >
           Subscribe
         </Button>
       </form>
       <p id="form-message" class="text-sm text-muted-foreground mt-4">
-        We respect your privacy. Unsubscribe at any time.
+        We greatly respect your privacy. Unsubscribe at any time.
       </p>
     </div>
   </div>
@@ -84,5 +94,31 @@ import { Button } from "@/components/ui/button";
 <style>
   section {
     background: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)/0.8));
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-2px) rotate(1deg);
+    }
+    50% {
+      transform: translateY(0px) rotate(-1deg);
+    }
+    75% {
+      transform: translateY(-1px) rotate(0.5deg);
+    }
+    85% {
+      transform: translateY(-3px) rotate(-0.5deg);
+    }
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+    transform-origin: center bottom;
   }
 </style> 
