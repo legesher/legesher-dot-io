@@ -49,24 +49,3 @@ import { Code } from 'lucide-react';
   // Add scroll event listener
   window.addEventListener('scroll', updateHeader);
 </script>
-
-<style>
-  nav {
-    border-bottom: 1px solid hsl(var(--border));
-  }
-
-  .nav-link {
-    position: relative;
-    transform-origin: center;
-  }
-
-  .nav-link.top:hover {
-    transform: scale(1.05);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  }
-
-  .nav-link.scrolled:hover {
-    transform: scale(1.05);
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  }
-</style>

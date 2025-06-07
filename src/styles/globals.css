@@ -130,15 +130,23 @@ pre, code {
 
 /* Gradient utilities */
 .hero-gradient {
-  background: linear-gradient(90deg, theme('colors.brand.cyan') 0%, theme('colors.brand.cyan') 100%);
+  background: 
+    radial-gradient(
+      circle at right,
+      theme('colors.brand.cyan', 0.15) 0%,
+      theme('colors.brand.cyan', 0.1) 10%,
+      theme('colors.brand.cyan', 0.05) 30%,
+      transparent 70%
+    ),
+    white;
 }
 
 .feature-gradient {
-  background: linear-gradient(135deg, theme('colors.brand.cyan') 0%, theme('colors.brand.cyan') 100%);
+  background: linear-gradient(135deg, theme('colors.brand.coral') 0%, theme('colors.brand.light-coral') 70%, theme('colors.brand.background-coral') 100%);
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, theme('colors.brand.cyan') 0%, theme('colors.brand.cyan') 100%);
+  background: linear-gradient(135deg, theme('colors.brand.cyan'), theme('colors.brand.light-cyan'), theme('colors.brand.light-coral'), theme('colors.brand.coral'));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -150,6 +158,22 @@ pre, code {
     @apply bg-gradient-to-r from-brand-coral to-brand-light-coral text-white transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
     transform-origin: center;
     will-change: transform;
+  }
+
+  /* Header Navigation Styles */
+  .nav-link {
+    @apply relative;
+    transform-origin: center;
+  }
+
+  .nav-link.top:hover {
+    @apply transform scale-105;
+    text-shadow: 0 0 2px theme('colors.brand.light-gray');
+  }
+
+  .nav-link.scrolled:hover {
+    @apply transform scale-105;
+    text-shadow: 0 0 2px theme('colors.brand.cyan');
   }
 
   .primary-button:hover {
@@ -209,4 +233,90 @@ pre, code {
     @apply bg-black/10;
     transform: scale(0.95);
   }
+
+  /* Footer Social Links */
+  .footer-social-link {
+    @apply inline-flex items-center text-brand-coral hover:text-brand-cyan transition-all duration-300;
+  }
+
+  /* Code Editor Styles */
+  .code-editor-element {
+    @apply transition-opacity duration-500 ease-in-out;
+  }
+
+  .code-editor-syntax {
+    @apply inline-block;
+    direction: ltr !important;
+  }
+
+  .code-editor-text {
+    @apply inline-block;
+  }
+
+  .code-editor-container {
+    @apply relative bg-[#1E1E1E] rounded-xl shadow-xl border border-gray-800;
+  }
+
+  .code-editor-header {
+    @apply flex items-center justify-between px-4 py-2 bg-[#252526] rounded-t-xl border-b border-gray-800;
+  }
+
+  .code-editor-window-controls {
+    @apply flex items-end space-x-2;
+  }
+
+  .code-editor-control-button {
+    @apply h-3 w-3 rounded-full;
+  }
+
+  .code-editor-file-tab {
+    @apply px-3 py-1 bg-[#1E1E1E] rounded-t-md border border-gray-800 border-b-0 -mb-2;
+  }
+
+  .code-editor-language-indicator {
+    @apply px-2 py-1 bg-[#2D2D2D] rounded-md;
+  }
+
+  .code-editor-content {
+    @apply p-6;
+  }
+
+  .code-editor-line {
+    @apply space-y-2 font-noto-mono text-sm;
+  }
+}
+
+/* Newsletter Styles */
+.newsletter-section {
+  background: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)/0.8));
+}
+
+@keyframes newsletter-float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  75% {
+    transform: translateY(-1px) rotate(0.5deg);
+  }
+  85% {
+    transform: translateY(-3px) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.newsletter-float {
+  animation: newsletter-float 4s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.newsletter-input {
+  @apply flex-1 px-4 py-2 rounded-lg border-2 border-gray-200 bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:border-brand-yellow focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 focus:outline-none transition-all duration-200;
 }

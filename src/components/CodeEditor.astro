@@ -1,106 +1,98 @@
----
-interface Props {
-  initialLanguage?: string;
-}
-
-const { initialLanguage = "en" } = Astro.props;
----
-
-<div class="relative bg-[#1E1E1E] rounded-xl shadow-xl border border-gray-800">
+<div class="code-editor-container">
   <!-- Editor Header -->
-  <div class="flex items-center justify-between px-4 py-2 bg-[#252526] rounded-t-xl border-b border-gray-800">
+  <div class="code-editor-header">
     <!-- Window Controls and File Tab -->
-    <div class="flex items-end space-x-2">
+    <div class="code-editor-window-controls">
       <div class="flex items-center space-x-2">
-        <div class="h-3 w-3 rounded-full bg-red-400"></div>
-        <div class="h-3 w-3 rounded-full bg-brand-yellow"></div>
-        <div class="h-3 w-3 rounded-full bg-emerald-400"></div>
+        <div class="code-editor-control-button bg-red-400"></div>
+        <div class="code-editor-control-button bg-brand-yellow"></div>
+        <div class="code-editor-control-button bg-emerald-400"></div>
       </div>
-      <div class="px-3 py-1 bg-[#1E1E1E] rounded-t-md border border-gray-800 border-b-0 -mb-2">
-        <span class="text-xs text-gray-400 font-noto-mono" id="file-name">welcome_user.py</span>
+      <div class="code-editor-file-tab">
+        <span class="text-xs text-gray-400 font-noto-mono code-editor-element" id="file-name">welcome_user.py</span>
       </div>
     </div>
 
     <!-- Language Indicator -->
     <div class="flex items-center space-x-2">
-      <div class="px-2 py-1 bg-[#2D2D2D] rounded-md">
-        <div class="text-xs text-gray-400 font-noto-mono" id="language-indicator">English</div>
+      <div class="code-editor-language-indicator">
+        <div class="text-xs text-gray-400 font-noto-mono code-editor-element" id="language-indicator">English</div>
       </div>
     </div>
   </div>
   
   <!-- Editor Content -->
-  <div class="p-6">
-    <div class="space-y-2 font-noto-mono text-sm">
+  <div class="code-editor-content">
+    <div class="code-editor-line">
       <div class="flex">
-        <div class="text-purple-400" id="func-keyword">def</div>
-        <div class="text-blue-400 pl-1" id="func-name">welcome_user</div>
-        <div class="text-red-400">(</div>
-        <div class="text-red-300" id="param-name">name</div>
-        <div class="text-gray-400">:</div>
-        <div class="text-purple-400" id="type-hint">str</div>
-        <div class="text-red-400">)</div>
-        <div class="text-gray-400">:</div>
+        <div class="text-purple-400 code-editor-element" id="func-keyword">def</div>
+        <div class="text-blue-400 pl-1 code-editor-element" id="func-name">welcome_user</div>
+        <div class="text-red-400 code-editor-element">(</div>
+        <div class="text-red-300 code-editor-element" id="param-name">name</div>
+        <div class="text-gray-400 code-editor-element">:</div>
+        <div class="text-purple-400 code-editor-element" id="type-hint">str</div>
+        <div class="text-red-400 code-editor-element">)</div>
+        <div class="text-gray-400 code-editor-element">:</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-green-400" id="docstring">"""</div>
+        <div class="text-green-400 code-editor-element" id="docstring">"""</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-green-400" id="docstring-text">This function welcomes the user by name. If the user's name is not provided, the function will ask the user for their name.</div>
+        <div class="text-green-400 code-editor-element" id="docstring-text">This function welcomes the user by name. If the user's name is not provided, the function will ask the user for their name.</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-green-400" id="docstring-end">"""</div>
+        <div class="text-green-400 code-editor-element" id="docstring-end">"""</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-gray-400" id="comment"># Ask the user for their name</div>
+        <div class="text-gray-400 code-editor-element" id="comment"># Ask the user for their name</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-red-300" id="var-name">name</div>
-        <div class="text-teal-400 pl-1"> = </div>
-        <div class="text-blue-400" id="input-func">input</div>
-        <div class="text-red-400">(</div>
-        <div class="text-green-400">"</div>
-        <div class="text-green-400" id="prompt-text">What's your name? </div>
-        <div class="text-green-400">"</div>
-        <div class="text-red-400">)</div>
+        <div class="text-red-300 code-editor-element" id="var-name">name</div>
+        <div class="text-teal-400 pl-1 code-editor-element"> = </div>
+        <div class="text-blue-400 code-editor-element" id="input-func">input</div>
+        <div class="text-red-400 code-editor-element">(</div>
+        <div class="text-green-400 code-editor-element">"</div>
+        <div class="text-green-400 code-editor-element" id="prompt-text">What's your name? </div>
+        <div class="text-green-400 code-editor-element">"</div>
+        <div class="text-red-400 code-editor-element">)</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-gray-400" id="comment-2"># Print a welcome message</div>
+        <div class="text-gray-400 code-editor-element" id="comment-2"># Print a welcome message</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-blue-400" id="print-keyword">print</div>
-        <div class="text-red-400">(</div>
-        <div class="text-green-400" id="f-string">f</div>
-        <div class="text-green-400" id="welcome-text">"
-          <span id="welcome-prefix" class="text-content">Hello, </span>
-          <span class="text-orange-400 syntax">&#123;</span>
-          <span class="text-red-300 syntax" id="f-string-var">name</span>
-          <span class="text-orange-400 syntax">&#125;</span>
-          <span id="welcome-suffix" class="text-content">! Welcome to Legesher!</span>
+        <div class="text-blue-400 code-editor-element" id="print-keyword">print</div>
+        <div class="text-red-400 code-editor-element">(</div>
+        <div class="text-green-400 code-editor-element" id="f-string">f</div>
+        <div class="text-green-400 code-editor-element" id="welcome-text">"
+          <span id="welcome-prefix" class="text-content code-editor-text">Hello, </span>
+          <span class="text-orange-400 syntax code-editor-syntax">&#123;</span>
+          <span class="text-red-300 syntax code-editor-syntax" id="f-string-var">name</span>
+          <span class="text-orange-400 syntax code-editor-syntax">&#125;</span>
+          <span id="welcome-suffix" class="text-content code-editor-text">! Welcome to Legesher!</span>
         "</div>
-        <div class="text-red-400">)</div>
+        <div class="text-red-400 code-editor-element">)</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-gray-400" id="comment-3"># Return the user's name</div>
+        <div class="text-gray-400 code-editor-element" id="comment-3"># Return the user's name</div>
       </div>
       <div class="flex pl-4">
-        <div class="text-purple-400" id="return-keyword">return</div>
-        <div class="text-red-300 pl-1" id="return-var">name</div>
+        <div class="text-purple-400 code-editor-element" id="return-keyword">return</div>
+        <div class="text-red-300 pl-1 code-editor-element" id="return-var">name</div>
       </div>
       <div class="flex pl-4"></div>
       <div class="flex">
-        <div class="text-yellow-300" id="username-declaration">userName</div>
-        <div class="text-teal-400 pl-1">=</div>
-        <div class="text-green-400" id="name-value">"Peggy"</div>
+        <div class="text-yellow-300 code-editor-element" id="username-declaration">userName</div>
+        <div class="text-teal-400 pl-1 code-editor-element">=</div>
+        <div class="text-green-400 code-editor-element" id="name-value">"Peggy"</div>
       </div>
       <div class="flex">
-        <div class="text-blue-400" id="print-keyword-2">print</div>
-        <div class="text-red-400">(</div>
-        <div class="text-blue-400" id="func-call">welcome_user</div>
-        <div class="text-orange-400">(</div>
-        <div class="text-yellow-300" id="username-argument">userName</div>
-        <div class="text-orange-400">)</div>
-        <div class="text-red-400">)</div>
+        <div class="text-blue-400 code-editor-element" id="print-keyword-2">print</div>
+        <div class="text-red-400 code-editor-element">(</div>
+        <div class="text-blue-400 code-editor-element" id="func-call">welcome_user</div>
+        <div class="text-orange-400 code-editor-element">(</div>
+        <div class="text-yellow-300 code-editor-element" id="username-argument">userName</div>
+        <div class="text-orange-400 code-editor-element">)</div>
+        <div class="text-red-400 code-editor-element">)</div>
       </div>
     </div>
   </div>
@@ -370,19 +362,4 @@ const { initialLanguage = "en" } = Astro.props;
       setInterval(updateText, 5000);
     }, 2000);
   });
-</script>
-
-<style>
-  #language-indicator, #file-name, #func-keyword, #func-name, #param-name, #type-hint, #docstring, #docstring-text, #docstring-end, #comment, #input-func, #prompt-text, #comment-2, #print-keyword, #f-string, #welcome-prefix, #welcome-suffix #comment-3, #return-keyword, #return-var, #name-value, #print-keyword-2, #func-call, #var-name, #username-declaration, #username-argument {
-    transition: opacity 0.5s ease-in-out;
-  }
-
-  .syntax {
-    direction: ltr !important;
-    display: inline-block;
-  }
-
-  .text-content {
-    display: inline-block;
-  }
-</style> 
+</script> 
