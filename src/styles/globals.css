@@ -145,28 +145,68 @@ pre, code {
 }
 
 /* Button styles */
-.primary-button {
-  @apply font-medium bg-brand-cyan text-white transition-all duration-200 shadow-lg hover:shadow-xl rounded-xl;
-}
+@layer components {
+  .primary-button {
+    @apply bg-gradient-to-r from-brand-coral to-brand-light-coral text-white transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
+    transform-origin: center;
+    will-change: transform;
+  }
 
-.primary-button:hover {
-  @apply bg-brand-cyan/90;
-}
+  .primary-button:hover {
+    @apply from-brand-coral to-brand-light-coral opacity-90;
+    transform: scale(1.05);
+  }
 
-.primary-button:active {
-  @apply bg-brand-cyan/80;
-}
+  .primary-button:active {
+    @apply from-brand-coral to-brand-light-coral opacity-80;
+    transform: scale(0.95);
+  }
 
-.secondary-button {
-  @apply font-medium border-2 border-brand-cyan text-brand-cyan transition-all duration-200 rounded-xl bg-white;
-  box-shadow: 0 4px 14px 0 theme('colors.brand.cyan', 0.2);
-}
+  .secondary-button {
+    @apply bg-gradient-to-r from-brand-cyan to-brand-light-cyan text-white transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
+    transform-origin: center;
+    will-change: transform;
+  }
 
-.secondary-button:hover {
-  @apply bg-brand-cyan/10;
-  box-shadow: 0 6px 20px 0 theme('colors.brand.cyan', 0.3);
-}
+  .secondary-button:hover {
+    @apply from-brand-cyan to-brand-light-cyan opacity-90;
+    transform: scale(1.05);
+  }
 
-.secondary-button:active {
-  @apply bg-brand-cyan/20;
+  .secondary-button:active {
+    @apply from-brand-cyan to-brand-light-cyan opacity-80;
+    transform: scale(0.95);
+  }
+
+  .yellow-button {
+    @apply bg-gradient-to-r from-brand-yellow to-brand-light-yellow text-black transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .yellow-button:hover {
+    @apply from-brand-yellow to-brand-light-yellow opacity-90;
+    transform: scale(1.05);
+  }
+
+  .yellow-button:active {
+    @apply from-brand-yellow to-brand-light-yellow opacity-80;
+    transform: scale(0.95);
+  }
+
+  .outline-button {
+    @apply border-2 border-black text-black bg-transparent transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .outline-button:hover {
+    @apply bg-black/5;
+    transform: scale(1.05);
+  }
+
+  .outline-button:active {
+    @apply bg-black/10;
+    transform: scale(0.95);
+  }
 }
