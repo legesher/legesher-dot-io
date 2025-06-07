@@ -12,30 +12,34 @@ import { Code } from 'lucide-react';
         </a>
       </div>
       <nav class="hidden md:flex space-x-6 justify-center">
-        <a href="#features" class="text-sm font-medium hover:text-primary transition-colors">Features</a>
-        <a href="#how-it-works" class="text-sm font-medium hover:text-primary transition-colors">How It Works</a>
-        <a href="#testimonials" class="text-sm font-medium hover:text-primary transition-colors">Testimonials</a>
-        <a href="#pricing" class="text-sm font-medium hover:text-primary transition-colors">Pricing</a>
-        <a href="/docs" class="text-sm font-medium hover:text-primary transition-colors">Docs</a>
+        <a href="https://github.com/legesher/" class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">Roadmap</a>
+        <a href="https://join.slack.com/t/legesherinc/shared_invite/zt-370xpp6b9-LYxWVIOF7ujVH5kYnwaGbQ" class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">Community</a>
+        <a href="/docs" class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">Docs</a>
+        <a href="mailto:hello@legesher.com" class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">Contact</a>
       </nav>
-      <div class="flex items-center space-x-4">
-        <a href="https://github.com/legesher" class="text-sm font-medium hover:text-primary transition-colors" aria-label="View Legesher on GitHub"><Code className="h-5 w-5" /></a>
-        <a href="#" class="text-sm font-medium hover:text-primary transition-colors">Get Started</a>
-      </div>
     </div>
   </div>
 </header>
 
 <script>
   const header = document.getElementById('main-header');
+  const navLinks = document.querySelectorAll('.nav-link');
   
   function updateHeader() {
     if (window.scrollY > 0) {
       header.classList.add('bg-white');
       header.classList.remove('bg-transparent');
+      navLinks.forEach(link => {
+        link.classList.add('scrolled');
+        link.classList.remove('top');
+      });
     } else {
       header.classList.remove('bg-white');
       header.classList.add('bg-transparent');
+      navLinks.forEach(link => {
+        link.classList.remove('scrolled');
+        link.classList.add('top');
+      });
     }
   }
 
@@ -49,5 +53,20 @@ import { Code } from 'lucide-react';
 <style>
   nav {
     border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .nav-link {
+    position: relative;
+    transform-origin: center;
+  }
+
+  .nav-link.top:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+
+  .nav-link.scrolled:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
   }
 </style>
