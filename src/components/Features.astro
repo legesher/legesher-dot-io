@@ -36,8 +36,8 @@ const features = [
     
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
       {features.map((feature) => (
-        <div class="p-6 rounded-xl bg-brand-background-coral/20 border border-border hover:border-primary/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:bg-brand-background-coral/30">
-          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+        <div class="p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_theme(colors.brand.coral)]">
+          <div class="w-12 h-12 rounded-lg bg-brand-background-coral/80 flex items-center justify-center mb-4">
             <feature.icon className="w-6 h-6 text-primary" />
           </div>
           <h3 class="text-xl font-semibold mb-2">{feature.title}</h3>
@@ -50,6 +50,6 @@ const features = [
 
 <style>
   .feature-gradient {
-    background: linear-gradient(135deg, hsl(var(--background)), hsl(var(--background)/0.8));
+    background: linear-gradient(135deg, theme('colors.brand.background-coral') 0%, theme('colors.brand.background-coral') 100%);
   }
 </style> 
