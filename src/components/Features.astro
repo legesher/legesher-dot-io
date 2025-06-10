@@ -1,26 +1,26 @@
 ---
-import { Laptop, BookOpen, Lightbulb, Handshake } from 'lucide-react';
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 
 const features = [
   {
-    icon: Laptop,
+    icon: "💻",
     title: "Creation",
-    description: "Innovation, creativity, and collaboration should never be lost in translation, that\’s why we created Legesher! If you can’t fly yet, then you should “run” with our developer tools, as they take the alternate way around the spoken language barrier in developing code."
+    description: "Legesher lets developers write code using keywords, syntax, and documentation in their own language—without changing how the program runs. Whether you're building a web app or contributing to open source, you can create using the language that feels most natural to you. This feature makes it easier for beginners to start coding and for experienced devs to prototype ideas faster without switching cognitive gears. Code becomes more intuitive, expressive, and accessible—because creation starts with clarity."
   },
   {
-    icon: BookOpen,
+    icon: "📚",
     title: "Education",
-    description: "Let's face it - learning code is just as difficult as learning a new language. We're continually adding multilingual tutorials to our repository that includes introductions to programming, #OpenSource how-to’s and the Legesher fundamentals!"
+    description: "Legesher's language-localized development environment is a game-changer for educators and learners alike. Students can learn core programming concepts in their native tongue, while teachers can present materials and exercises that align with their learners' cultural and linguistic context. From syntax translation to localized documentation and error messages, Legesher helps demystify code—making programming education inclusive, engaging, and effective in any language."
   },
   {
-    icon: Lightbulb,
+    icon: "💡",
     title: "Innovation",
-    description: "We're always wanting to add new spoken and programming languages to our repository. Please lege-share our mission. From beginners learning how to code to collaborating with diverse teams around the world, Legesher connects us all."
+    description: "By enabling developers to code in their native language, Legesher invites a broader and more diverse group of creators into the world of software development. This leads to richer ideas, more relevant innovations, and unexpected breakthroughs. Our platform helps teams and communities tap into underrepresented voices and regions—bringing new perspectives into tech and driving innovation that reflects the full spectrum of human experience."
   },
   {
-    icon: Handshake,
+    icon: "🤝",
     title: "Collaboration",
-    description: "Legesher is an open source project, meaning you have the opportunity to influence the future of development with our tools. If you speak another language or develop in one, we could really use your contribution!"
+    description: "Legesher enables multilingual collaboration by providing translation layers between codebases. Developers can work together in different languages while still understanding each other's contributions clearly. This feature is ideal for international teams, open-source contributors, and remote dev groups working across borders. By removing language as a blocker, Legesher fosters inclusive, efficient, and truly global teamwork."
   }
 ];
 ---
@@ -36,14 +36,24 @@ const features = [
     
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
       {features.map((feature) => (
-        <div class="p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_theme(colors.brand.coral)]">
-          <div class="w-12 h-12 rounded-lg bg-brand-background-coral/80 flex items-center justify-center mb-4">
-            <feature.icon className="w-6 h-6 text-primary" />
-          </div>
-          <h3 class="text-xl font-semibold mb-2">{feature.title}</h3>
-          <p class="text-muted-foreground">{feature.description}</p>
-        </div>
+        <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/50">
+          <CardHeader>
+            <div class="w-12 h-12 rounded-lg bg-brand-background-coral/80 flex items-center justify-center mb-4 text-2xl group-hover:bg-brand-background-coral transition-colors duration-300">
+              {feature.icon}
+            </div>
+            <CardTitle>{feature.title}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription className="text-base">{feature.description}</CardDescription>
+          </CardContent>
+        </Card>
       ))}
     </div>
   </div>
-</section> 
+</section>
+
+<style>
+  .feature-card {
+    position: relative;
+  }
+</style>
