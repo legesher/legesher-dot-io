@@ -11,4 +11,9 @@ export default defineConfig({
   ],
   site: 'https://legesher.io',
   output: 'server',
+  server: {
+    headers: {
+      'X-Frame-Options': 'DENY'
+    }
+  }
 }); 

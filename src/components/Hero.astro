@@ -58,8 +58,10 @@ import '@/styles/globals.css';
   <div class="container relative pt-20 sm:pt-24 lg:pt-32">
     <div class="mx-auto max-w-2xl lg:max-w-4xl lg:px-12">
       <h1 class="font-display text-5xl font-bold tracking-tighter text-primary sm:text-7xl">
-        <span class="block text-center">Code in Your</span>
-        <span class="block text-center bg-gradient-to-r from-brand-coral to-brand-background-coral bg-clip-text text-transparent pb-1">Language</span>
+        <span class="block text-center">Code in</span>
+        <div class="flex justify-center items-center min-h-[1.5em]">
+          <span class="bg-gradient-to-r from-brand-coral to-brand-background-coral bg-clip-text text-transparent pb-1 language-cycler w-[300px]"></span>
+        </div>
       </h1>
       <p class="mt-6 text-center text-lg text-muted-foreground">
         Legesher bridges the gap between human languages and programming languages. 
@@ -75,4 +77,64 @@ import '@/styles/globals.css';
       </div>
     </div>
   </div>
-</div> 
+</div>
+
+<style>
+  .language-cycler {
+    display: inline-block;
+    position: relative;
+    min-width: 200px;
+    text-align: center;
+    line-height: 1.2;
+    padding: 0.2em 0;
+    width: 300px;
+  }
+
+  .typing {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+  }
+</style>
+
+<script>
+  const languages = ["English", "عربي", "Español", "日本語", "한국어", "हिन्दी", "Français"];
+  const languageElement = document.querySelector('.language-cycler') as HTMLElement;
+  let currentIndex = 0;
+
+  async function typeText(element: HTMLElement, text: string) {
+    // Keep the element's width consistent by using a non-breaking space
+    element.textContent = '\u00A0';
+
+    // Type the text with variable timing for more natural feel
+    for (let i = 0; i < text.length; i++) {
+      element.textContent = text.substring(0, i + 1);
+      // Random delay between 50ms and 150ms for more natural typing
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50));
+    }
+
+    // Wait before erasing
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Erase the text with variable timing
+    for (let i = text.length; i > 0; i--) {
+      element.textContent = text.substring(0, i - 1) + '\u00A0';
+      // Random delay between 30ms and 80ms for more natural erasing
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 50 + 30));
+    }
+  }
+
+  async function updateLanguage() {
+    if (languageElement) {
+      await typeText(languageElement, languages[currentIndex]);
+      currentIndex = (currentIndex + 1) % languages.length;
+    }
+  }
+
+  // Initial update
+  updateLanguage();
+  
+  // Update every 5 seconds (giving more time for the complete animation)
+  setInterval(updateLanguage, 5000);
+</script> 

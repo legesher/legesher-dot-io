@@ -8,13 +8,16 @@
         <div class="code-editor-control-button bg-brand-yellow"></div>
         <div class="code-editor-control-button bg-emerald-400"></div>
       </div>
-      <div class="code-editor-file-tab">
+      <div class="code-editor-file-tab ltr-file-tab">
         <span class="text-xs text-gray-400 font-noto-mono code-editor-element" id="file-name">welcome_user.py</span>
       </div>
     </div>
 
     <!-- Language Indicator -->
     <div class="flex items-center space-x-2">
+      <div class="code-editor-file-tab rtl-file-tab hidden">
+        <span class="text-xs text-gray-400 font-noto-mono code-editor-element" id="file-name-rtl">welcome_user.py</span>
+      </div>
       <div class="code-editor-language-indicator">
         <div class="text-xs text-gray-400 font-noto-mono code-editor-element" id="language-indicator">English</div>
       </div>
@@ -24,7 +27,7 @@
   <!-- Editor Content -->
   <div class="code-editor-content">
     <div class="code-editor-line">
-      <div class="flex">
+      <div class="flex code-editor-line-content">
         <div class="text-purple-400 code-editor-element" id="func-keyword">def</div>
         <div class="text-blue-400 pl-1 code-editor-element" id="func-name">welcome_user</div>
         <div class="text-red-400 code-editor-element">(</div>
@@ -107,7 +110,7 @@
       funcKeyword: "definir",
       funcName: "bienvenida_usuario",
       paramName: "nombre",
-      typeHint: "str",
+      typeHint: "cad",
       docstring: "Esta función da la bienvenida al usuario por su nombre. Si no se proporciona el nombre del usuario, la función pedirá al usuario su nombre.",
       comment1: "# Preguntar al usuario su nombre",
       inputFunc: "entrada",
@@ -304,16 +307,52 @@
       if (elements.languageIndicator) elements.languageIndicator.textContent = lang.displayName;
       if (elements.fileName) {
         elements.fileName.textContent = lang.fileName;
+        const rtlFileName = document.getElementById('file-name-rtl');
+        if (rtlFileName) rtlFileName.textContent = lang.fileName;
+        
+        // Set RTL for Arabic language
         if (lang.code === "ar") {
           elements.fileName.style.direction = "rtl";
-          document.querySelectorAll('.text-content').forEach(el => {
+          document.querySelectorAll('.code-editor-line').forEach(line => {
+            (line as HTMLElement).setAttribute('dir', 'rtl');
+          });
+          document.querySelectorAll('.code-editor-element').forEach(el => {
             (el as HTMLElement).style.direction = 'rtl';
           });
+          
+          // Show RTL file tab and hide LTR file tab
+          const ltrFileTab = document.querySelector('.ltr-file-tab');
+          const rtlFileTab = document.querySelector('.rtl-file-tab');
+          if (ltrFileTab) ltrFileTab.classList.add('hidden');
+          if (rtlFileTab) rtlFileTab.classList.remove('hidden');
+          
+          // Adjust language indicator position
+          const languageIndicator = document.querySelector('.code-editor-language-indicator');
+          if (languageIndicator) {
+            (languageIndicator as HTMLElement).style.marginLeft = '0';
+            (languageIndicator as HTMLElement).style.marginRight = 'auto';
+          }
         } else {
           elements.fileName.style.direction = "ltr";
-          document.querySelectorAll('.text-content').forEach(el => {
+          document.querySelectorAll('.code-editor-line').forEach(line => {
+            (line as HTMLElement).setAttribute('dir', 'ltr');
+          });
+          document.querySelectorAll('.code-editor-element').forEach(el => {
             (el as HTMLElement).style.direction = 'ltr';
           });
+          
+          // Show LTR file tab and hide RTL file tab
+          const ltrFileTab = document.querySelector('.ltr-file-tab');
+          const rtlFileTab = document.querySelector('.rtl-file-tab');
+          if (ltrFileTab) ltrFileTab.classList.remove('hidden');
+          if (rtlFileTab) rtlFileTab.classList.add('hidden');
+          
+          // Reset language indicator position
+          const languageIndicator = document.querySelector('.code-editor-language-indicator');
+          if (languageIndicator) {
+            (languageIndicator as HTMLElement).style.marginLeft = 'auto';
+            (languageIndicator as HTMLElement).style.marginRight = '0';
+          }
         }
       }
       if (elements.funcKeyword) elements.funcKeyword.textContent = lang.funcKeyword;
@@ -362,4 +401,89 @@
       setInterval(updateText, 5000);
     }, 2000);
   });
-</script> 
+</script>
+
+<style>
+  .code-editor-container {
+    /* Remove hardcoded direction */
+  }
+
+  .code-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .code-editor-window-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.5s ease;
+  }
+
+  .code-editor-file-tab {
+    transition: all 0.5s ease;
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.25rem;
+  }
+
+  .ltr-file-tab {
+    margin-left: 1rem;
+  }
+
+  .rtl-file-tab {
+    margin-right: 1rem;
+  }
+
+  .code-editor-language-indicator {
+    transition: all 0.5s ease;
+  }
+
+  .code-editor-line {
+    transition: all 0.5s ease;
+  }
+
+  .code-editor-line-content {
+    transition: all 0.5s ease;
+    display: flex;
+  }
+
+  .code-editor-line[dir="rtl"] {
+    text-align: right;
+  }
+
+  .code-editor-line[dir="ltr"] {
+    text-align: left;
+  }
+
+  .code-editor-element {
+    transition: all 0.5s ease;
+  }
+
+  /* RTL specific styles */
+  [dir="rtl"] .code-editor-line .code-editor-line-content {
+    direction: rtl;
+    flex-direction: row-reverse;
+  }
+
+  [dir="ltr"] .code-editor-line .code-editor-line-content {
+    direction: ltr;
+    flex-direction: row;
+  }
+
+  [dir="rtl"] .code-editor-element {
+    unicode-bidi: bidi-override;
+  }
+
+  /* Ensure first line is properly aligned in RTL */
+  [dir="rtl"] .code-editor-line:first-child {
+    text-align: right;
+  }
+
+  [dir="rtl"] .code-editor-line:first-child .code-editor-line-content {
+    justify-content: flex-end;
+  }
+</style> 
