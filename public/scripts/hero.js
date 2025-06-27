@@ -1,8 +1,8 @@
-const languages = ["English", "عربي", "Español", "日本語", "한국어", "हिन्दी", "Français"];
-const languageElement = document.querySelector('.language-cycler') as HTMLElement;
+const heroLanguages = ["English", "عربي", "Español", "日本語", "한국어", "हिन्दी", "Français"];
+const languageElement = document.querySelector('.language-cycler');
 let currentIndex = 0;
 
-async function typeText(element: HTMLElement, text: string) {
+async function typeText(element, text) {
   // Keep the element's width consistent by using a non-breaking space
   element.textContent = '\u00A0';
 
@@ -26,8 +26,8 @@ async function typeText(element: HTMLElement, text: string) {
 
 async function updateLanguage() {
   if (languageElement) {
-    await typeText(languageElement, languages[currentIndex]);
-    currentIndex = (currentIndex + 1) % languages.length;
+    await typeText(languageElement, heroLanguages[currentIndex]);
+    currentIndex = (currentIndex + 1) % heroLanguages.length;
   }
 }
 

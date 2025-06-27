@@ -93,66 +93,35 @@ const languages = [
 }
 ];
 
-interface CodeElements {
-languageIndicator: HTMLElement | null;
-fileName: HTMLElement | null;
-funcKeyword: HTMLElement | null;
-funcName: HTMLElement | null;
-paramName: HTMLElement | null;
-typeHint: HTMLElement | null;
-docstring: HTMLElement | null;
-docstringText: HTMLElement | null;
-docstringEnd: HTMLElement | null;
-comment1: HTMLElement | null;
-inputFunc: HTMLElement | null;
-promptText: HTMLElement | null;
-comment2: HTMLElement | null;
-printKeyword: HTMLElement | null;
-fString: HTMLElement | null;
-welcomeText: HTMLElement | null;
-comment3: HTMLElement | null;
-returnKeyword: HTMLElement | null;
-returnVar: HTMLElement | null;
-nameValue: HTMLElement | null;
-printKeyword2: HTMLElement | null;
-funcCall: HTMLElement | null;
-varName: HTMLElement | null;
-usernameDeclaration: HTMLElement | null;
-usernameArgument: HTMLElement | null;
-welcomePrefix: HTMLElement | null;
-welcomeSuffix: HTMLElement | null;
-fStringVar: HTMLElement | null;
-}
-
-let elements: CodeElements = {
-languageIndicator: null,
-fileName: null,
-funcKeyword: null,
-funcName: null,
-paramName: null,
-typeHint: null,
-docstring: null,
-docstringText: null,
-docstringEnd: null,
-comment1: null,
-inputFunc: null,
-promptText: null,
-comment2: null,
-printKeyword: null,
-fString: null,
-welcomeText: null,
-comment3: null,
-returnKeyword: null,
-returnVar: null,
-nameValue: null,
-printKeyword2: null,
-funcCall: null,
-varName: null,
-usernameDeclaration: null,
-usernameArgument: null,
-welcomePrefix: null,
-welcomeSuffix: null,
-fStringVar: null
+let elements = {
+    languageIndicator: null,
+    fileName: null,
+    funcKeyword: null,
+    funcName: null,
+    paramName: null,
+    typeHint: null,
+    docstring: null,
+    docstringText: null,
+    docstringEnd: null,
+    comment1: null,
+    inputFunc: null,
+    promptText: null,
+    comment2: null,
+    printKeyword: null,
+    fString: null,
+    welcomeText: null,
+    comment3: null,
+    returnKeyword: null,
+    returnVar: null,
+    nameValue: null,
+    printKeyword2: null,
+    funcCall: null,
+    varName: null,
+    usernameDeclaration: null,
+    usernameArgument: null,
+    welcomePrefix: null,
+    welcomeSuffix: null,
+    fStringVar: null
 };
 
 let currentIndex = 0;
@@ -240,7 +209,7 @@ const currentState = getCurrentDomState();
 Object.entries(elements).forEach(([key, el]) => {
     if (!el) return;
     if (virtualState[key] !== undefined && virtualState[key] !== currentState[key]) {
-    (el as HTMLElement).style.opacity = '0';
+        el.style.opacity = '0';
     }
 });
 
@@ -249,8 +218,8 @@ setTimeout(() => {
     Object.entries(elements).forEach(([key, el]) => {
     if (!el) return;
     if (virtualState[key] !== undefined && virtualState[key] !== currentState[key]) {
-        (el as HTMLElement).textContent = virtualState[key];
-        (el as HTMLElement).style.opacity = '1';
+        el.textContent = virtualState[key];
+        el.style.opacity = '1';
     }
     });
 
@@ -258,41 +227,41 @@ setTimeout(() => {
     if (lang.code !== lastLangCode) {
     if (elements.fileName) {
         const rtlFileName = document.getElementById('file-name-rtl');
-        if (rtlFileName) (rtlFileName as HTMLElement).textContent = lang.fileName;
+        if (rtlFileName) rtlFileName.textContent = lang.fileName;
 
         if (lang.code === "ar") {
-        (elements.fileName as HTMLElement).style.direction = "rtl";
+        elements.fileName.style.direction = "rtl";
         document.querySelectorAll('.code-editor-line').forEach(line => {
-            (line as HTMLElement).setAttribute('dir', 'rtl');
+            line.setAttribute('dir', 'rtl');
         });
         document.querySelectorAll('.code-editor-element').forEach(el => {
-            (el as HTMLElement).style.direction = 'rtl';
+            el.style.direction = 'rtl';
         });
         const ltrFileTab = document.querySelector('.ltr-file-tab');
         const rtlFileTab = document.querySelector('.rtl-file-tab');
-        if (ltrFileTab) (ltrFileTab as HTMLElement).classList.add('hidden');
-        if (rtlFileTab) (rtlFileTab as HTMLElement).classList.remove('hidden');
+        if (ltrFileTab) ltrFileTab.classList.add('hidden');
+        if (rtlFileTab) rtlFileTab.classList.remove('hidden');
         const languageIndicator = document.querySelector('.code-editor-language-indicator');
         if (languageIndicator) {
-            (languageIndicator as HTMLElement).style.marginLeft = '0';
-            (languageIndicator as HTMLElement).style.marginRight = 'auto';
+            languageIndicator.style.marginLeft = '0';
+            languageIndicator.style.marginRight = 'auto';
         }
         } else {
-        (elements.fileName as HTMLElement).style.direction = "ltr";
+        elements.fileName.style.direction = "ltr";
         document.querySelectorAll('.code-editor-line').forEach(line => {
-            (line as HTMLElement).setAttribute('dir', 'ltr');
+            line.setAttribute('dir', 'ltr');
         });
         document.querySelectorAll('.code-editor-element').forEach(el => {
-            (el as HTMLElement).style.direction = 'ltr';
+            el.style.direction = 'ltr';
         });
         const ltrFileTab = document.querySelector('.ltr-file-tab');
         const rtlFileTab = document.querySelector('.rtl-file-tab');
-        if (ltrFileTab) (ltrFileTab as HTMLElement).classList.remove('hidden');
-        if (rtlFileTab) (rtlFileTab as HTMLElement).classList.add('hidden');
+        if (ltrFileTab) ltrFileTab.classList.remove('hidden');
+        if (rtlFileTab) rtlFileTab.classList.add('hidden');
         const languageIndicator = document.querySelector('.code-editor-language-indicator');
         if (languageIndicator) {
-            (languageIndicator as HTMLElement).style.marginLeft = 'auto';
-            (languageIndicator as HTMLElement).style.marginRight = '0';
+            languageIndicator.style.marginLeft = 'auto';
+            languageIndicator.style.marginRight = '0';
         }
         }
     }
