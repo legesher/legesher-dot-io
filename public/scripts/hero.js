@@ -14,7 +14,7 @@ async function typeText(element, text) {
   }
 
   // Wait before erasing
-  await new Promise(resolve => setTimeout(resolve, 1500));
+  await new Promise(resolve => setTimeout(resolve, 1000)); // Shorter pause
 
   // Erase the text with variable timing
   for (let i = text.length; i > 0; i--) {
@@ -24,8 +24,9 @@ async function typeText(element, text) {
   }
 }
 
-async function updateLanguage() {
-  if (languageElement) {
+async function cycleLanguages() {
+  if (!languageElement) return;
+  while (true) {
     await typeText(languageElement, heroLanguages[heroCurrentIndex]);
     heroCurrentIndex = (heroCurrentIndex + 1) % heroLanguages.length;
   }
@@ -34,10 +35,5 @@ async function updateLanguage() {
 // Set the initial language immediately
 if (languageElement) {
   languageElement.textContent = heroLanguages[heroCurrentIndex];
+  cycleLanguages();
 }
-
-// Initial update
-updateLanguage();
-
-// Update every 2 seconds (quicker animation)
-setInterval(updateLanguage, 2000);
