@@ -78,6 +78,19 @@ export const POST: APIRoute = async ({ request }) => {
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
+    // Format validation for email and firstName
+    if (!EMAIL_REGEX.test(data.email.trim())) {
+      return new Response(
+        JSON.stringify({ message: 'Invalid email format' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    if (!NAME_REGEX.test(data.firstName.trim())) {
+      return new Response(
+        JSON.stringify({ message: 'Invalid first name format' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Subscribe to newsletter
     const response = await fetch('https://api.buttondown.email/v1/subscribers', {
