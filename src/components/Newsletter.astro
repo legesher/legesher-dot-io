@@ -1,0 +1,54 @@
+---
+import { Button } from "@/components/ui/button";
+---
+
+<section class="py-24 bg-gray-50 newsletter-section" id="newsletter">
+  <div class="container mx-auto px-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-64 h-64 rounded-full bg-brand-yellow/10 blur-2xl"></div>
+        </div>
+        <img 
+          src="/EggPeggyGrey.38a3d5dc.png" 
+          alt="Hatching egg" 
+          class="mx-auto mb-8 w-40 md:w-48 lg:w-56 relative newsletter-float" 
+        />
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay In The Know</h2>
+      <p class="text-lg text-muted-foreground mb-8">
+        Here's your invitation to participate in shaping our digital future—not just consuming it.
+        Legesher will be hatching beta soon. Subscribe to our newsletter for updates on when Legesher will be welcomed into this world - and how you can help!
+      </p>
+      <form id="newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            class="newsletter-input"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            class="newsletter-input"
+            required
+          />
+        </div>
+        <Button 
+          type="submit" 
+          className="yellow-button"
+        >
+          Subscribe
+        </Button>
+      </form>
+      <p id="form-message" class="text-sm text-muted-foreground mt-4">
+        We greatly respect your privacy. Unsubscribe at any time.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script src="/scripts/newsletter.js" is:inline></script> 

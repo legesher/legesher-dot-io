@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: theme('colors.brand.light-gray');
+    --foreground: theme('colors.brand.gray');
+
+    --card: theme('colors.brand.light-gray');
+    --card-foreground: theme('colors.brand.gray');
+
+    --popover: theme('colors.brand.light-gray');
+    --popover-foreground: theme('colors.brand.gray');
+
+    --primary: theme('colors.brand.cyan');
+    --primary-foreground: theme('colors.brand.light-cyan');
+
+    --secondary: theme('colors.brand.coral');
+    --secondary-foreground: theme('colors.brand.light-coral');
+
+    --muted: theme('colors.brand.light-gray');
+    --muted-foreground: theme('colors.brand.gray');
+
+    --accent: theme('colors.brand.yellow');
+    --accent-foreground: theme('colors.brand.light-yellow');
+
+    --destructive: theme('colors.brand.coral');
+    --destructive-foreground: theme('colors.brand.light-coral');
+
+    --border: theme('colors.brand.light-gray');
+    --input: theme('colors.brand.light-gray');
+    --ring: theme('colors.brand.cyan');
+
+    --radius: 0.5rem;
+
+    --sidebar-background: theme('colors.brand.light-gray');
+    --sidebar-foreground: theme('colors.brand.gray');
+    --sidebar-primary: theme('colors.brand.cyan');
+    --sidebar-primary-foreground: theme('colors.brand.light-gray');
+    --sidebar-accent: theme('colors.brand.coral');
+    --sidebar-accent-foreground: theme('colors.brand.gray');
+    --sidebar-border: theme('colors.brand.light-gray');
+    --sidebar-ring: theme('colors.brand.cyan');
+  }
+
+  .dark {
+    --background: theme('colors.brand.gray');
+    --foreground: theme('colors.brand.light-gray');
+
+    --card: theme('colors.brand.gray');
+    --card-foreground: theme('colors.brand.light-gray');
+
+    --popover: theme('colors.brand.gray');
+    --popover-foreground: theme('colors.brand.light-gray');
+
+    --primary: theme('colors.brand.cyan');
+    --primary-foreground: theme('colors.brand.gray');
+
+    --secondary: theme('colors.brand.cyan');
+    --secondary-foreground: theme('colors.brand.gray');
+
+    --muted: theme('colors.brand.gray');
+    --muted-foreground: theme('colors.brand.light-gray');
+
+    --accent: theme('colors.brand.coral');
+    --accent-foreground: theme('colors.brand.light-gray');
+
+    --destructive: theme('colors.brand.coral');
+    --destructive-foreground: theme('colors.brand.light-gray');
+
+    --border: theme('colors.brand.gray');
+    --input: theme('colors.brand.gray');
+    --ring: theme('colors.brand.cyan');
+    
+    --sidebar-background: theme('colors.brand.gray');
+    --sidebar-foreground: theme('colors.brand.light-gray');
+    --sidebar-primary: theme('colors.brand.cyan');
+    --sidebar-primary-foreground: theme('colors.brand.light-gray');
+    --sidebar-accent: theme('colors.brand.coral');
+    --sidebar-accent-foreground: theme('colors.brand.light-gray');
+    --sidebar-border: theme('colors.brand.gray');
+    --sidebar-ring: theme('colors.brand.cyan');
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont,
+      'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif,
+      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  }
+}
+
+/* Font utility classes */
+.font-mono {
+  font-family: 'Noto Sans Mono', monospace;
+}
+
+.font-display {
+  font-family: 'Noto Sans Display', sans-serif;
+}
+
+.font-arabic {
+  font-family: 'Noto Sans Arabic', sans-serif;
+}
+
+/* Code block styling */
+pre, code {
+  font-family: 'Noto Sans Mono', monospace;
+}
+
+/* Font weights */
+.font-thin { font-weight: 100; }
+.font-extralight { font-weight: 200; }
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+.font-black { font-weight: 900; }
+
+/* Gradient utilities */
+.hero-gradient {
+  background: 
+    radial-gradient(
+      circle at right,
+      theme('colors.brand.cyan', 0.15) 0%,
+      theme('colors.brand.cyan', 0.1) 10%,
+      theme('colors.brand.cyan', 0.05) 30%,
+      transparent 70%
+    ),
+    white;
+}
+
+.feature-gradient {
+  background: linear-gradient(135deg, theme('colors.brand.coral') 0%, theme('colors.brand.light-coral') 70%, theme('colors.brand.background-coral') 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, theme('colors.brand.cyan'), theme('colors.brand.light-cyan'), theme('colors.brand.light-coral'), theme('colors.brand.coral'));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button styles */
+@layer components {
+  .primary-button {
+    @apply bg-gradient-to-r from-brand-coral to-brand-light-coral text-white transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  /* Header Navigation Styles */
+  .nav-link {
+    @apply relative;
+    transform-origin: center;
+  }
+
+  .nav-link.top:hover {
+    @apply transform scale-105;
+    text-shadow: 0 0 2px theme('colors.brand.light-gray');
+  }
+
+  .nav-link.scrolled:hover {
+    @apply transform scale-105;
+    text-shadow: 0 0 2px theme('colors.brand.cyan');
+  }
+
+  .primary-button:hover {
+    @apply from-brand-coral to-brand-light-coral opacity-90;
+    transform: scale(1.05);
+  }
+
+  .primary-button:active {
+    @apply from-brand-coral to-brand-light-coral opacity-80;
+    transform: scale(0.95);
+  }
+
+  .secondary-button {
+    @apply bg-gradient-to-r from-brand-cyan to-brand-light-cyan text-white transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .secondary-button:hover {
+    @apply from-brand-cyan to-brand-light-cyan opacity-90;
+    transform: scale(1.05);
+  }
+
+  .secondary-button:active {
+    @apply from-brand-cyan to-brand-light-cyan opacity-80;
+    transform: scale(0.95);
+  }
+
+  .yellow-button {
+    @apply bg-gradient-to-r from-brand-yellow to-brand-light-yellow text-black transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .yellow-button:hover {
+    @apply from-brand-yellow to-brand-light-yellow opacity-90;
+    transform: scale(1.05);
+  }
+
+  .yellow-button:active {
+    @apply from-brand-yellow to-brand-light-yellow opacity-80;
+    transform: scale(0.95);
+  }
+
+  .outline-button {
+    @apply border-2 border-black text-black bg-transparent transition-all duration-700 ease-in-out shadow-lg hover:shadow-xl font-semibold !rounded-none;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .outline-button:hover {
+    @apply bg-black/5;
+    transform: scale(1.05);
+  }
+
+  .outline-button:active {
+    @apply bg-black/10;
+    transform: scale(0.95);
+  }
+
+  /* Footer Social Links */
+  .footer-social-link {
+    @apply inline-flex items-center text-brand-coral hover:text-brand-cyan transition-all duration-300;
+  }
+
+  /* Code Editor Styles */
+  .code-editor-element {
+    @apply transition-opacity duration-500 ease-in-out;
+  }
+
+  .code-editor-syntax {
+    @apply inline-block;
+    direction: ltr !important;
+  }
+
+  .code-editor-text {
+    @apply inline-block;
+  }
+
+  .code-editor-container {
+    @apply relative bg-[#1E1E1E] rounded-xl shadow-xl border border-gray-800;
+  }
+
+  .code-editor-header {
+    @apply flex items-center justify-between px-4 py-2 bg-[#252526] rounded-t-xl border-b border-gray-800;
+  }
+
+  .code-editor-window-controls {
+    @apply flex items-end space-x-2;
+  }
+
+  .code-editor-control-button {
+    @apply h-3 w-3 rounded-full;
+  }
+
+  .code-editor-file-tab {
+    @apply px-3 py-1 bg-[#1E1E1E] rounded-t-md border border-gray-800 border-b-0 -mb-2;
+  }
+
+  .code-editor-language-indicator {
+    @apply px-2 py-1 bg-[#2D2D2D] rounded-md;
+  }
+
+  .code-editor-content {
+    @apply p-6;
+  }
+
+  .code-editor-line {
+    @apply space-y-2 font-noto-mono text-sm;
+  }
+}
+
+/* Newsletter Styles */
+.newsletter-section {
+  background: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)/0.8));
+}
+
+@keyframes newsletter-float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  75% {
+    transform: translateY(-1px) rotate(0.5deg);
+  }
+  85% {
+    transform: translateY(-3px) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.newsletter-float {
+  animation: newsletter-float 4s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.newsletter-input {
+  @apply flex-1 px-4 py-2 rounded-lg border-2 border-gray-200 bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:border-brand-yellow focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 focus:outline-none transition-all duration-200;
+}

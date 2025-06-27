@@ -1,0 +1,189 @@
+<div class="code-editor-container">
+  <!-- Editor Header -->
+  <div class="code-editor-header">
+    <!-- Window Controls and File Tab -->
+    <div class="code-editor-window-controls">
+      <div class="flex items-center space-x-2">
+        <div class="code-editor-control-button bg-red-400"></div>
+        <div class="code-editor-control-button bg-brand-yellow"></div>
+        <div class="code-editor-control-button bg-emerald-400"></div>
+      </div>
+      <div class="code-editor-file-tab ltr-file-tab">
+        <span class="text-xs text-gray-400 font-noto-mono code-editor-element" id="file-name">welcome_user.py</span>
+      </div>
+    </div>
+
+    <!-- Language Indicator -->
+    <div class="flex items-center space-x-2">
+      <div class="code-editor-file-tab rtl-file-tab hidden">
+        <span class="text-xs text-gray-400 font-noto-mono code-editor-element" id="file-name-rtl">welcome_user.py</span>
+      </div>
+      <div class="code-editor-language-indicator">
+        <div class="text-xs text-gray-400 font-noto-mono code-editor-element" id="language-indicator">English</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Editor Content -->
+  <div class="code-editor-content">
+    <div class="code-editor-line">
+      <div class="flex code-editor-line-content">
+        <div class="text-purple-400 code-editor-element" id="func-keyword">def</div>
+        <div class="text-blue-400 pl-1 code-editor-element" id="func-name">welcome_user</div>
+        <div class="text-red-400 code-editor-element">(</div>
+        <div class="text-red-300 code-editor-element" id="param-name">name</div>
+        <div class="text-gray-400 code-editor-element">:</div>
+        <div class="text-purple-400 code-editor-element" id="type-hint">str</div>
+        <div class="text-red-400 code-editor-element">)</div>
+        <div class="text-gray-400 code-editor-element">:</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-green-400 code-editor-element" id="docstring">"""</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-green-400 code-editor-element" id="docstring-text">This function welcomes the user by name. If the user's name is not provided, the function will ask the user for their name.</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-green-400 code-editor-element" id="docstring-end">"""</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-gray-400 code-editor-element" id="comment"># Ask the user for their name</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-red-300 code-editor-element" id="var-name">name</div>
+        <div class="text-teal-400 pl-1 code-editor-element"> = </div>
+        <div class="text-blue-400 code-editor-element" id="input-func">input</div>
+        <div class="text-red-400 code-editor-element">(</div>
+        <div class="text-green-400 code-editor-element">"</div>
+        <div class="text-green-400 code-editor-element" id="prompt-text">What's your name? </div>
+        <div class="text-green-400 code-editor-element">"</div>
+        <div class="text-red-400 code-editor-element">)</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-gray-400 code-editor-element" id="comment-2"># Print a welcome message</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-blue-400 code-editor-element" id="print-keyword">print</div>
+        <div class="text-red-400 code-editor-element">(</div>
+        <div class="text-green-400 code-editor-element" id="f-string">f</div>
+        <div class="text-green-400 code-editor-element" id="welcome-text">"
+          <span id="welcome-prefix" class="text-content code-editor-text">Hello, </span>
+          <span class="text-orange-400 syntax code-editor-syntax">&#123;</span>
+          <span class="text-red-300 syntax code-editor-syntax" id="f-string-var">name</span>
+          <span class="text-orange-400 syntax code-editor-syntax">&#125;</span>
+          <span id="welcome-suffix" class="text-content code-editor-text">! Welcome to Legesher!</span>
+        "</div>
+        <div class="text-red-400 code-editor-element">)</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-gray-400 code-editor-element" id="comment-3"># Return the user's name</div>
+      </div>
+      <div class="flex pl-4">
+        <div class="text-purple-400 code-editor-element" id="return-keyword">return</div>
+        <div class="text-red-300 pl-1 code-editor-element" id="return-var">name</div>
+      </div>
+      <div class="flex pl-4"></div>
+      <div class="flex">
+        <div class="text-yellow-300 code-editor-element" id="username-declaration">userName</div>
+        <div class="text-teal-400 pl-1 code-editor-element">=</div>
+        <div class="text-green-400 code-editor-element" id="name-value">"Peggy"</div>
+      </div>
+      <div class="flex">
+        <div class="text-blue-400 code-editor-element" id="print-keyword-2">print</div>
+        <div class="text-red-400 code-editor-element">(</div>
+        <div class="text-blue-400 code-editor-element" id="func-call">welcome_user</div>
+        <div class="text-orange-400 code-editor-element">(</div>
+        <div class="text-yellow-300 code-editor-element" id="username-argument">userName</div>
+        <div class="text-orange-400 code-editor-element">)</div>
+        <div class="text-red-400 code-editor-element">)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/scripts/code-editor.js" is:inline></script>
+
+<style>
+  .code-editor-container {
+    /* Remove hardcoded direction */
+  }
+
+  .code-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .code-editor-window-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.5s ease;
+  }
+
+  .code-editor-file-tab {
+    transition: all 0.5s ease;
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.25rem;
+  }
+
+  .ltr-file-tab {
+    margin-left: 1rem;
+  }
+
+  .rtl-file-tab {
+    margin-right: 1rem;
+  }
+
+  .code-editor-language-indicator {
+    transition: all 0.5s ease;
+  }
+
+  .code-editor-line {
+    transition: all 0.5s ease;
+  }
+
+  .code-editor-line-content {
+    transition: all 0.5s ease;
+    display: flex;
+  }
+
+  .code-editor-line[dir="rtl"] {
+    text-align: right;
+  }
+
+  .code-editor-line[dir="ltr"] {
+    text-align: left;
+  }
+
+  .code-editor-element {
+    transition: all 0.5s ease;
+  }
+
+  /* RTL specific styles */
+  [dir="rtl"] .code-editor-line .code-editor-line-content {
+    direction: rtl;
+    flex-direction: row-reverse;
+  }
+
+  [dir="ltr"] .code-editor-line .code-editor-line-content {
+    direction: ltr;
+    flex-direction: row;
+  }
+
+  [dir="rtl"] .code-editor-element {
+    unicode-bidi: bidi-override;
+  }
+
+  /* Ensure first line is properly aligned in RTL */
+  [dir="rtl"] .code-editor-line:first-child {
+    text-align: right;
+  }
+
+  [dir="rtl"] .code-editor-line:first-child .code-editor-line-content {
+    justify-content: flex-end;
+  }
+</style> 

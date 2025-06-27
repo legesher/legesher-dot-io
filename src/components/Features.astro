@@ -1,0 +1,59 @@
+---
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+
+const features = [
+  {
+    icon: "💻",
+    title: "Creation",
+    description: "Legesher's language-localized development environment lets developers write code using keywords, syntax, and documentation in their own language—without changing how the program runs. Whether you're building a web app or contributing to open source, you can create using the language that feels most natural to you. This feature makes it easier for beginners to start coding and for experienced devs to prototype ideas faster without switching cognitive gears. Code becomes more intuitive, expressive, and accessible—because creation starts with clarity."
+  },
+  {
+    icon: "📚",
+    title: "Education",
+    description: "Legesher is a game-changer for educators and learners alike. Students can learn core programming concepts in their native tongue, while teachers can present materials and exercises that align with their learners' cultural and linguistic context. From syntax translation to localized documentation and error messages, Legesher helps demystify code—making programming education inclusive, engaging, and effective in any language."
+  },
+  {
+    icon: "💡",
+    title: "Innovation",
+    description: "When developers can think and code in their native language, they approach problems differently. Legesher removes the cognitive overhead of translating ideas into English-based code, letting developers focus entirely on creative problem-solving. Features like localized API documentation, culturally-aware error handling, and region-specific code templates help developers build solutions that authentically reflect their local context and needs. This leads to faster ideation, more relevant solutions to regional challenges, and breakthrough approaches that emerge from different linguistic thinking patterns. When code can be as expressive as natural thought, innovation accelerates across cultures and communities."
+  },
+  {
+    icon: "🤝",
+    title: "Collaboration",
+    description: "Legesher enables multilingual collaboration by providing translation layers between codebases. Developers can work together in different languages while still understanding each other's contributions clearly. This feature is ideal for international teams, open-source contributors, and remote dev groups working across borders. By removing language as a blocker, Legesher fosters inclusive, efficient, and truly global teamwork."
+  }
+];
+---
+
+<section id="features" class="py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Bridging Language Barriers</h2>
+      <p class="text-lg text-muted-foreground">
+        Our open core solutions ensure that developers' best ideas don't get lost in translation. Legesher opens programming to the 96% of the world who have a heart language other than English. 
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {features.map((feature) => (
+        <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/50">
+          <CardHeader>
+            <div class="w-12 h-12 rounded-lg bg-brand-background-coral/80 flex items-center justify-center mb-4 text-2xl group-hover:bg-brand-background-coral transition-colors duration-300">
+              {feature.icon}
+            </div>
+            <CardTitle>{feature.title}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription className="text-base">{feature.description}</CardDescription>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-card {
+    position: relative;
+  }
+</style>

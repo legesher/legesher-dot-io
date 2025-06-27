@@ -1,6 +1,11 @@
 # Created by https://www.gitignore.io/api/node,sublimetext,windows,macos,sass
 
-dist
+# Astro
+.astro/
+dist/
+dist-ssr
+*.local
+
 ### macOS ###
 # General
 .DS_Store
@@ -37,6 +42,8 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Runtime data
 pids
@@ -170,5 +177,3 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/node,sublimetext,windows,macos,sass
-
-dist/
