@@ -93,6 +93,39 @@ const languages = [
 }
 ];
 
+/**
+ * Represents the UI elements used in the code editor.
+ * Each property corresponds to a specific part of the editor's interface.
+ * @typedef {Object} Elements
+ * @property {HTMLElement|null} languageIndicator - The element indicating the selected language.
+ * @property {HTMLElement|null} fileName - The element displaying the file name.
+ * @property {HTMLElement|null} funcKeyword - The element for the function keyword.
+ * @property {HTMLElement|null} funcName - The element for the function name.
+ * @property {HTMLElement|null} paramName - The element for the parameter name.
+ * @property {HTMLElement|null} typeHint - The element for the type hint.
+ * @property {HTMLElement|null} docstring - The element for the docstring.
+ * @property {HTMLElement|null} docstringText - The element for the docstring text.
+ * @property {HTMLElement|null} docstringEnd - The element for the end of the docstring.
+ * @property {HTMLElement|null} comment1 - The element for the first comment.
+ * @property {HTMLElement|null} inputFunc - The element for the input function.
+ * @property {HTMLElement|null} promptText - The element for the prompt text.
+ * @property {HTMLElement|null} comment2 - The element for the second comment.
+ * @property {HTMLElement|null} printKeyword - The element for the print keyword.
+ * @property {HTMLElement|null} fString - The element for the formatted string indicator.
+ * @property {HTMLElement|null} welcomeText - The element for the welcome text.
+ * @property {HTMLElement|null} comment3 - The element for the third comment.
+ * @property {HTMLElement|null} returnKeyword - The element for the return keyword.
+ * @property {HTMLElement|null} returnVar - The element for the return variable.
+ * @property {HTMLElement|null} nameValue - The element for the name value.
+ * @property {HTMLElement|null} printKeyword2 - The element for the second print keyword.
+ * @property {HTMLElement|null} funcCall - The element for the function call.
+ * @property {HTMLElement|null} varName - The element for the variable name.
+ * @property {HTMLElement|null} usernameDeclaration - The element for the username declaration.
+ * @property {HTMLElement|null} usernameArgument - The element for the username argument.
+ * @property {HTMLElement|null} welcomePrefix - The element for the welcome prefix.
+ * @property {HTMLElement|null} welcomeSuffix - The element for the welcome suffix.
+ * @property {HTMLElement|null} fStringVar - The element for the formatted string variable.
+ */
 let elements = {
     languageIndicator: null,
     fileName: null,
