@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
 import type { ReactNode } from "react";
 
@@ -40,7 +41,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, [addToast]);
 
   // NOTE: Implement the actual provider JSX in a .tsx file. This is just the logic/context.
-  return null;
+  return (
+    <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
+      {children}
+    </ToastContext.Provider>
+  );
 }
 
 // Hook
