@@ -1,5 +1,6 @@
 ---
 import '@/styles/globals.css';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
   title: string;
@@ -40,6 +41,8 @@ const {
     <meta name="twitter:creator" content="@legesherio" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <SpeedInsights />
   </head>
   <body class="min-h-screen bg-background antialiased relative">
     <slot />
