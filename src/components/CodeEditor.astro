@@ -260,6 +260,7 @@
   };
 
   let currentIndex = 0;
+  let lastLangCode = languages[0].code;
 
   function initializeElements() {
     elements = {
@@ -294,99 +295,114 @@
     };
   }
 
+  // Helper: get the current DOM state as a virtual object
+  function getCurrentDomState() {
+    const state = {};
+    Object.entries(elements).forEach(([key, el]) => {
+      if (el) state[key] = el.textContent;
+    });
+    return state;
+  }
+
+  // Helper: get the virtual state for a language
+  function getVirtualState(lang) {
+    return {
+      languageIndicator: lang.displayName,
+      fileName: lang.fileName,
+      funcKeyword: lang.funcKeyword,
+      funcName: lang.funcName,
+      paramName: lang.paramName,
+      typeHint: lang.typeHint,
+      docstringText: lang.docstring,
+      comment1: lang.comment1,
+      inputFunc: lang.inputFunc,
+      promptText: lang.promptText,
+      comment2: lang.comment2,
+      printKeyword: lang.printKeyword,
+      fString: lang.fString,
+      welcomePrefix: lang.welcomePrefix,
+      welcomeSuffix: lang.welcomeSuffix,
+      comment3: lang.comment3,
+      returnKeyword: lang.returnKeyword,
+      returnVar: lang.returnVar,
+      nameValue: lang.nameValue,
+      printKeyword2: lang.printKeyword,
+      funcCall: lang.funcName,
+      varName: lang.paramName,
+      usernameDeclaration: lang.userName,
+      usernameArgument: lang.userName,
+      fStringVar: lang.paramName,
+    };
+  }
+
   function updateText() {
     const lang = languages[currentIndex];
-    
-    // Fade out all elements
-    Object.values(elements).forEach(el => {
-      if (el) el.style.opacity = '0';
+    const virtualState = getVirtualState(lang);
+    const currentState = getCurrentDomState();
+
+    // Fade out only changed elements
+    Object.entries(elements).forEach(([key, el]) => {
+      if (!el) return;
+      if (virtualState[key] !== undefined && virtualState[key] !== currentState[key]) {
+        (el as HTMLElement).style.opacity = '0';
+      }
     });
-    
+
     setTimeout(() => {
-      // Update all elements
-      if (elements.languageIndicator) elements.languageIndicator.textContent = lang.displayName;
-      if (elements.fileName) {
-        elements.fileName.textContent = lang.fileName;
-        const rtlFileName = document.getElementById('file-name-rtl');
-        if (rtlFileName) rtlFileName.textContent = lang.fileName;
-        
-        // Set RTL for Arabic language
-        if (lang.code === "ar") {
-          elements.fileName.style.direction = "rtl";
-          document.querySelectorAll('.code-editor-line').forEach(line => {
-            (line as HTMLElement).setAttribute('dir', 'rtl');
-          });
-          document.querySelectorAll('.code-editor-element').forEach(el => {
-            (el as HTMLElement).style.direction = 'rtl';
-          });
-          
-          // Show RTL file tab and hide LTR file tab
-          const ltrFileTab = document.querySelector('.ltr-file-tab');
-          const rtlFileTab = document.querySelector('.rtl-file-tab');
-          if (ltrFileTab) ltrFileTab.classList.add('hidden');
-          if (rtlFileTab) rtlFileTab.classList.remove('hidden');
-          
-          // Adjust language indicator position
-          const languageIndicator = document.querySelector('.code-editor-language-indicator');
-          if (languageIndicator) {
-            (languageIndicator as HTMLElement).style.marginLeft = '0';
-            (languageIndicator as HTMLElement).style.marginRight = 'auto';
-          }
-        } else {
-          elements.fileName.style.direction = "ltr";
-          document.querySelectorAll('.code-editor-line').forEach(line => {
-            (line as HTMLElement).setAttribute('dir', 'ltr');
-          });
-          document.querySelectorAll('.code-editor-element').forEach(el => {
-            (el as HTMLElement).style.direction = 'ltr';
-          });
-          
-          // Show LTR file tab and hide RTL file tab
-          const ltrFileTab = document.querySelector('.ltr-file-tab');
-          const rtlFileTab = document.querySelector('.rtl-file-tab');
-          if (ltrFileTab) ltrFileTab.classList.remove('hidden');
-          if (rtlFileTab) rtlFileTab.classList.add('hidden');
-          
-          // Reset language indicator position
-          const languageIndicator = document.querySelector('.code-editor-language-indicator');
-          if (languageIndicator) {
-            (languageIndicator as HTMLElement).style.marginLeft = 'auto';
-            (languageIndicator as HTMLElement).style.marginRight = '0';
+      // Update only changed elements and fade in
+      Object.entries(elements).forEach(([key, el]) => {
+        if (!el) return;
+        if (virtualState[key] !== undefined && virtualState[key] !== currentState[key]) {
+          (el as HTMLElement).textContent = virtualState[key];
+          (el as HTMLElement).style.opacity = '1';
+        }
+      });
+
+      // Only update RTL/LTR logic if the language changes
+      if (lang.code !== lastLangCode) {
+        if (elements.fileName) {
+          const rtlFileName = document.getElementById('file-name-rtl');
+          if (rtlFileName) (rtlFileName as HTMLElement).textContent = lang.fileName;
+
+          if (lang.code === "ar") {
+            (elements.fileName as HTMLElement).style.direction = "rtl";
+            document.querySelectorAll('.code-editor-line').forEach(line => {
+              (line as HTMLElement).setAttribute('dir', 'rtl');
+            });
+            document.querySelectorAll('.code-editor-element').forEach(el => {
+              (el as HTMLElement).style.direction = 'rtl';
+            });
+            const ltrFileTab = document.querySelector('.ltr-file-tab');
+            const rtlFileTab = document.querySelector('.rtl-file-tab');
+            if (ltrFileTab) (ltrFileTab as HTMLElement).classList.add('hidden');
+            if (rtlFileTab) (rtlFileTab as HTMLElement).classList.remove('hidden');
+            const languageIndicator = document.querySelector('.code-editor-language-indicator');
+            if (languageIndicator) {
+              (languageIndicator as HTMLElement).style.marginLeft = '0';
+              (languageIndicator as HTMLElement).style.marginRight = 'auto';
+            }
+          } else {
+            (elements.fileName as HTMLElement).style.direction = "ltr";
+            document.querySelectorAll('.code-editor-line').forEach(line => {
+              (line as HTMLElement).setAttribute('dir', 'ltr');
+            });
+            document.querySelectorAll('.code-editor-element').forEach(el => {
+              (el as HTMLElement).style.direction = 'ltr';
+            });
+            const ltrFileTab = document.querySelector('.ltr-file-tab');
+            const rtlFileTab = document.querySelector('.rtl-file-tab');
+            if (ltrFileTab) (ltrFileTab as HTMLElement).classList.remove('hidden');
+            if (rtlFileTab) (rtlFileTab as HTMLElement).classList.add('hidden');
+            const languageIndicator = document.querySelector('.code-editor-language-indicator');
+            if (languageIndicator) {
+              (languageIndicator as HTMLElement).style.marginLeft = 'auto';
+              (languageIndicator as HTMLElement).style.marginRight = '0';
+            }
           }
         }
+        lastLangCode = lang.code;
       }
-      if (elements.funcKeyword) elements.funcKeyword.textContent = lang.funcKeyword;
-      if (elements.funcName) elements.funcName.textContent = lang.funcName;
-      if (elements.paramName) elements.paramName.textContent = lang.paramName;
-      if (elements.typeHint) elements.typeHint.textContent = lang.typeHint;
-      if (elements.docstringText) elements.docstringText.textContent = lang.docstring;
-      if (elements.comment1) elements.comment1.textContent = lang.comment1;
-      if (elements.inputFunc) elements.inputFunc.textContent = lang.inputFunc;
-      if (elements.promptText) elements.promptText.textContent = lang.promptText;
-      if (elements.comment2) elements.comment2.textContent = lang.comment2;
-      if (elements.printKeyword) elements.printKeyword.textContent = lang.printKeyword;
-      if (elements.fString) elements.fString.textContent = lang.fString;
-      if (elements.welcomePrefix) elements.welcomePrefix.textContent = lang.welcomePrefix;
-      if (elements.welcomeSuffix) elements.welcomeSuffix.textContent = lang.welcomeSuffix;
-      if (elements.comment3) elements.comment3.textContent = lang.comment3;
-      if (elements.returnKeyword) elements.returnKeyword.textContent = lang.returnKeyword;
-      if (elements.returnVar) elements.returnVar.textContent = lang.returnVar;
-      if (elements.nameValue) elements.nameValue.textContent = lang.nameValue;
-      if (elements.printKeyword2) elements.printKeyword2.textContent = lang.printKeyword;
-      if (elements.funcCall) elements.funcCall.textContent = lang.funcName;
-      if (elements.varName) elements.varName.textContent = lang.paramName;
-      if (elements.usernameDeclaration) elements.usernameDeclaration.textContent = lang.userName;
-      if (elements.usernameArgument) elements.usernameArgument.textContent = lang.userName;
-      if (elements.welcomePrefix) elements.welcomePrefix.textContent = lang.welcomePrefix;
-      if (elements.welcomeSuffix) elements.welcomeSuffix.textContent = lang.welcomeSuffix;
-      if (elements.fStringVar) elements.fStringVar.textContent = lang.paramName;
-      
-      // Fade in all elements
-      Object.values(elements).forEach(el => {
-        if (el) el.style.opacity = '1';
-      });
-      
-      // Move to next language
+
       currentIndex = (currentIndex + 1) % languages.length;
     }, 500);
   }
