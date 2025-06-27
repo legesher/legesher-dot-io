@@ -4,9 +4,11 @@ import type { APIRoute } from 'astro';
 export const prerender = false;
 
 // Rate limiting configuration
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in milliseconds
-const MAX_REQUESTS_PER_WINDOW = 5; // Maximum requests per hour per IP
-const ipRequestCounts = new Map<string, { count: number; timestamp: number }>();
+const RATE_LIMIT_WINDOW = 60 * 60; // 1 hour in seconds
+const MAX_REQUESTS_PER_WINDOW = 5;
+
+const UPSTASH_REDIS_REST_URL = import.meta.env.UPSTASH_REDIS_REST_URL;
+const UPSTASH_REDIS_REST_TOKEN = import.meta.env.UPSTASH_REDIS_REST_TOKEN;
 
 // Email validation regex
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -14,44 +16,27 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 // Name validation regex (supports international characters)
 const NAME_REGEX = /^[\p{L}\s\-']{2,50}$/u;
 
-// Rate limiting middleware
-function checkRateLimit(ip: string): { allowed: boolean; message?: string } {
-  const now = Date.now();
-  const userRequests = ipRequestCounts.get(ip);
-
-  if (!userRequests) {
-    ipRequestCounts.set(ip, { count: 1, timestamp: now });
+async function checkRateLimit(ip: string): Promise<{ allowed: boolean; message?: string }> {
+  if (!UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) {
+    // Fallback: allow all if Redis is not configured
     return { allowed: true };
   }
-
-  // Reset counter if window has passed
-  if (now - userRequests.timestamp > RATE_LIMIT_WINDOW) {
-    ipRequestCounts.set(ip, { count: 1, timestamp: now });
-    return { allowed: true };
+  const key = `rate_limit:${ip}`;
+  const res = await fetch(`${UPSTASH_REDIS_REST_URL}/incr/${key}`, {
+    headers: { Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}` },
+  });
+  const count = await res.json();
+  if (count === 1) {
+    // Set expiry on first request
+    await fetch(`${UPSTASH_REDIS_REST_URL}/expire/${key}/${RATE_LIMIT_WINDOW}`, {
+      headers: { Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}` },
+    });
   }
-
-  // Check if user has exceeded rate limit
-  if (userRequests.count >= MAX_REQUESTS_PER_WINDOW) {
-    return { 
-      allowed: false, 
-      message: 'Too many requests. Please try again later.' 
-    };
+  if (count > MAX_REQUESTS_PER_WINDOW) {
+    return { allowed: false, message: 'Too many requests. Please try again later.' };
   }
-
-  // Increment counter
-  userRequests.count++;
   return { allowed: true };
 }
-
-// Clean up old rate limit entries periodically
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, data] of ipRequestCounts.entries()) {
-    if (now - data.timestamp > RATE_LIMIT_WINDOW) {
-      ipRequestCounts.delete(ip);
-    }
-  }
-}, RATE_LIMIT_WINDOW);
 
 export const POST: APIRoute = async ({ request }) => {
   const BUTTONDOWN_API_KEY = import.meta.env.BUTTONDOWN_API_KEY;
@@ -65,10 +50,11 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     // Get client IP for rate limiting
-    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    const forwarded = request.headers.get('x-forwarded-for');
+    const ip = forwarded ? forwarded.split(',')[0].trim() : request.headers.get('x-real-ip') || 'unknown';
     
     // Check rate limit
-    const rateLimitCheck = checkRateLimit(ip);
+    const rateLimitCheck = await checkRateLimit(ip);
     if (!rateLimitCheck.allowed) {
       return new Response(
         JSON.stringify({ message: rateLimitCheck.message }),
