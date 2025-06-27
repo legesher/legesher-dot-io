@@ -31,8 +31,13 @@ async function updateLanguage() {
   }
 }
 
+// Set the initial language immediately
+if (languageElement) {
+  languageElement.textContent = heroLanguages[heroCurrentIndex];
+}
+
 // Initial update
 updateLanguage();
 
-// Update every 5 seconds (giving more time for the complete animation)
-setInterval(updateLanguage, 5000);
+// Update every 2 seconds (quicker animation)
+setInterval(updateLanguage, 2000);
