@@ -93,66 +93,68 @@ const languages = [
 }
 ];
 
-interface CodeElements {
-languageIndicator: HTMLElement | null;
-fileName: HTMLElement | null;
-funcKeyword: HTMLElement | null;
-funcName: HTMLElement | null;
-paramName: HTMLElement | null;
-typeHint: HTMLElement | null;
-docstring: HTMLElement | null;
-docstringText: HTMLElement | null;
-docstringEnd: HTMLElement | null;
-comment1: HTMLElement | null;
-inputFunc: HTMLElement | null;
-promptText: HTMLElement | null;
-comment2: HTMLElement | null;
-printKeyword: HTMLElement | null;
-fString: HTMLElement | null;
-welcomeText: HTMLElement | null;
-comment3: HTMLElement | null;
-returnKeyword: HTMLElement | null;
-returnVar: HTMLElement | null;
-nameValue: HTMLElement | null;
-printKeyword2: HTMLElement | null;
-funcCall: HTMLElement | null;
-varName: HTMLElement | null;
-usernameDeclaration: HTMLElement | null;
-usernameArgument: HTMLElement | null;
-welcomePrefix: HTMLElement | null;
-welcomeSuffix: HTMLElement | null;
-fStringVar: HTMLElement | null;
-}
-
-let elements: CodeElements = {
-languageIndicator: null,
-fileName: null,
-funcKeyword: null,
-funcName: null,
-paramName: null,
-typeHint: null,
-docstring: null,
-docstringText: null,
-docstringEnd: null,
-comment1: null,
-inputFunc: null,
-promptText: null,
-comment2: null,
-printKeyword: null,
-fString: null,
-welcomeText: null,
-comment3: null,
-returnKeyword: null,
-returnVar: null,
-nameValue: null,
-printKeyword2: null,
-funcCall: null,
-varName: null,
-usernameDeclaration: null,
-usernameArgument: null,
-welcomePrefix: null,
-welcomeSuffix: null,
-fStringVar: null
+/**
+ * Represents the UI elements used in the code editor.
+ * Each property corresponds to a specific part of the editor's interface.
+ * @typedef {Object} Elements
+ * @property {HTMLElement|null} languageIndicator - The element indicating the selected language.
+ * @property {HTMLElement|null} fileName - The element displaying the file name.
+ * @property {HTMLElement|null} funcKeyword - The element for the function keyword.
+ * @property {HTMLElement|null} funcName - The element for the function name.
+ * @property {HTMLElement|null} paramName - The element for the parameter name.
+ * @property {HTMLElement|null} typeHint - The element for the type hint.
+ * @property {HTMLElement|null} docstring - The element for the docstring.
+ * @property {HTMLElement|null} docstringText - The element for the docstring text.
+ * @property {HTMLElement|null} docstringEnd - The element for the end of the docstring.
+ * @property {HTMLElement|null} comment1 - The element for the first comment.
+ * @property {HTMLElement|null} inputFunc - The element for the input function.
+ * @property {HTMLElement|null} promptText - The element for the prompt text.
+ * @property {HTMLElement|null} comment2 - The element for the second comment.
+ * @property {HTMLElement|null} printKeyword - The element for the print keyword.
+ * @property {HTMLElement|null} fString - The element for the formatted string indicator.
+ * @property {HTMLElement|null} welcomeText - The element for the welcome text.
+ * @property {HTMLElement|null} comment3 - The element for the third comment.
+ * @property {HTMLElement|null} returnKeyword - The element for the return keyword.
+ * @property {HTMLElement|null} returnVar - The element for the return variable.
+ * @property {HTMLElement|null} nameValue - The element for the name value.
+ * @property {HTMLElement|null} printKeyword2 - The element for the second print keyword.
+ * @property {HTMLElement|null} funcCall - The element for the function call.
+ * @property {HTMLElement|null} varName - The element for the variable name.
+ * @property {HTMLElement|null} usernameDeclaration - The element for the username declaration.
+ * @property {HTMLElement|null} usernameArgument - The element for the username argument.
+ * @property {HTMLElement|null} welcomePrefix - The element for the welcome prefix.
+ * @property {HTMLElement|null} welcomeSuffix - The element for the welcome suffix.
+ * @property {HTMLElement|null} fStringVar - The element for the formatted string variable.
+ */
+let elements = {
+    languageIndicator: null,
+    fileName: null,
+    funcKeyword: null,
+    funcName: null,
+    paramName: null,
+    typeHint: null,
+    docstring: null,
+    docstringText: null,
+    docstringEnd: null,
+    comment1: null,
+    inputFunc: null,
+    promptText: null,
+    comment2: null,
+    printKeyword: null,
+    fString: null,
+    welcomeText: null,
+    comment3: null,
+    returnKeyword: null,
+    returnVar: null,
+    nameValue: null,
+    printKeyword2: null,
+    funcCall: null,
+    varName: null,
+    usernameDeclaration: null,
+    usernameArgument: null,
+    welcomePrefix: null,
+    welcomeSuffix: null,
+    fStringVar: null
 };
 
 let currentIndex = 0;
@@ -240,7 +242,7 @@ const currentState = getCurrentDomState();
 Object.entries(elements).forEach(([key, el]) => {
     if (!el) return;
     if (virtualState[key] !== undefined && virtualState[key] !== currentState[key]) {
-    (el as HTMLElement).style.opacity = '0';
+        el.style.opacity = '0';
     }
 });
 
@@ -249,8 +251,8 @@ setTimeout(() => {
     Object.entries(elements).forEach(([key, el]) => {
     if (!el) return;
     if (virtualState[key] !== undefined && virtualState[key] !== currentState[key]) {
-        (el as HTMLElement).textContent = virtualState[key];
-        (el as HTMLElement).style.opacity = '1';
+        el.textContent = virtualState[key];
+        el.style.opacity = '1';
     }
     });
 
@@ -258,41 +260,41 @@ setTimeout(() => {
     if (lang.code !== lastLangCode) {
     if (elements.fileName) {
         const rtlFileName = document.getElementById('file-name-rtl');
-        if (rtlFileName) (rtlFileName as HTMLElement).textContent = lang.fileName;
+        if (rtlFileName) rtlFileName.textContent = lang.fileName;
 
         if (lang.code === "ar") {
-        (elements.fileName as HTMLElement).style.direction = "rtl";
+        elements.fileName.style.direction = "rtl";
         document.querySelectorAll('.code-editor-line').forEach(line => {
-            (line as HTMLElement).setAttribute('dir', 'rtl');
+            line.setAttribute('dir', 'rtl');
         });
         document.querySelectorAll('.code-editor-element').forEach(el => {
-            (el as HTMLElement).style.direction = 'rtl';
+            el.style.direction = 'rtl';
         });
         const ltrFileTab = document.querySelector('.ltr-file-tab');
         const rtlFileTab = document.querySelector('.rtl-file-tab');
-        if (ltrFileTab) (ltrFileTab as HTMLElement).classList.add('hidden');
-        if (rtlFileTab) (rtlFileTab as HTMLElement).classList.remove('hidden');
+        if (ltrFileTab) ltrFileTab.classList.add('hidden');
+        if (rtlFileTab) rtlFileTab.classList.remove('hidden');
         const languageIndicator = document.querySelector('.code-editor-language-indicator');
         if (languageIndicator) {
-            (languageIndicator as HTMLElement).style.marginLeft = '0';
-            (languageIndicator as HTMLElement).style.marginRight = 'auto';
+            languageIndicator.style.marginLeft = '0';
+            languageIndicator.style.marginRight = 'auto';
         }
         } else {
-        (elements.fileName as HTMLElement).style.direction = "ltr";
+        elements.fileName.style.direction = "ltr";
         document.querySelectorAll('.code-editor-line').forEach(line => {
-            (line as HTMLElement).setAttribute('dir', 'ltr');
+            line.setAttribute('dir', 'ltr');
         });
         document.querySelectorAll('.code-editor-element').forEach(el => {
-            (el as HTMLElement).style.direction = 'ltr';
+            el.style.direction = 'ltr';
         });
         const ltrFileTab = document.querySelector('.ltr-file-tab');
         const rtlFileTab = document.querySelector('.rtl-file-tab');
-        if (ltrFileTab) (ltrFileTab as HTMLElement).classList.remove('hidden');
-        if (rtlFileTab) (rtlFileTab as HTMLElement).classList.add('hidden');
+        if (ltrFileTab) ltrFileTab.classList.remove('hidden');
+        if (rtlFileTab) rtlFileTab.classList.add('hidden');
         const languageIndicator = document.querySelector('.code-editor-language-indicator');
         if (languageIndicator) {
-            (languageIndicator as HTMLElement).style.marginLeft = 'auto';
-            (languageIndicator as HTMLElement).style.marginRight = '0';
+            languageIndicator.style.marginLeft = 'auto';
+            languageIndicator.style.marginRight = '0';
         }
         }
     }
