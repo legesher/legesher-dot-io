@@ -27,7 +27,7 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vercel/speed-insights": "^1.2.0",
-    "astro": "^5.7.14",
+    "astro": "^5.12.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "input-otp": "^1.4.2",
