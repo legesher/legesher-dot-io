@@ -6,6 +6,9 @@ dist/
 dist-ssr
 *.local
 
+# Vercel
+.vercel/
+
 ### macOS ###
 # General
 .DS_Store
