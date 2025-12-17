@@ -14,7 +14,7 @@ const UPSTASH_REDIS_REST_TOKEN = import.meta.env.UPSTASH_REDIS_REST_TOKEN;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 // Name validation regex (supports international characters)
-const NAME_REGEX = /^[\p{L}\s\-']{2,50}$/u;
+const NAME_REGEX = /^[\p{L}\s\-']{2,150}$/u;
 
 async function checkRateLimit(key: string): Promise<{ allowed: boolean; message?: string }> {
   if (!UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) {
