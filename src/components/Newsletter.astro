@@ -20,22 +20,38 @@ import { Button } from "@/components/ui/button";
         Here's your invitation to participate in shaping our digital future—not just consuming it.
         Legesher will be hatching beta soon. Subscribe to our newsletter for updates on when Legesher will be welcomed into this world - and how you can help!
       </p>
-      <form id="newsletter-form" class="flex flex-col gap-4 max-w-2xl mx-auto">
+      <form id="newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto text-left">
         <div class="flex flex-col sm:flex-row gap-4">
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            class="newsletter-input"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            class="newsletter-input"
-            required
-          />
+          <div class="flex-1">
+            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
+              First Name <span class="text-red-500">*</span>
+            </label>
+            <input
+              id="firstName"
+              type="text"
+              name="firstName"
+              placeholder="Enter your first name"
+              class="newsletter-input w-full"
+              maxlength="150"
+              required
+              aria-required="true"
+            />
+          </div>
+          <div class="flex-1">
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+              Email Address <span class="text-red-500">*</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              class="newsletter-input w-full"
+              maxlength="150"
+              required
+              aria-required="true"
+            />
+          </div>
         </div>
 
         <!-- Honeypot field for bot protection -->
@@ -49,81 +65,6 @@ import { Button } from "@/components/ui/button";
           aria-hidden="true"
         />
 
-        <!-- Language selection -->
-        <div class="flex flex-col gap-3 mt-4 text-left">
-          <label class="text-sm font-medium text-gray-700">
-            Which languages do you know or use? (Optional)
-          </label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Spanish" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Spanish (Español)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Mandarin" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Mandarin (中文)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Hindi" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Hindi (हिन्दी)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Portuguese" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Portuguese (Português)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Arabic" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Arabic (العربية)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Bengali" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Bengali (বাংলা)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Russian" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Russian (Русский)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Japanese" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Japanese (日本語)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="French" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>French (Français)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="German" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>German (Deutsch)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Korean" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Korean (한국어)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Vietnamese" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Vietnamese (Tiếng Việt)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Turkish" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Turkish (Türkçe)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Italian" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Italian (Italiano)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
-              <input type="checkbox" name="languages" value="Polish" class="rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow">
-              <span>Polish (Polski)</span>
-            </label>
-          </div>
-          <input
-            type="text"
-            name="languagesOther"
-            placeholder="Other languages (e.g., Swahili, Tamil, Catalan)"
-            class="newsletter-input mt-2"
-          />
-        </div>
-
         <Button
           type="submit"
           className="yellow-button mt-2"
@@ -132,7 +73,7 @@ import { Button } from "@/components/ui/button";
         </Button>
       </form>
       <p id="form-message" class="text-sm text-muted-foreground mt-4">
-        Check your email to confirm your subscription. By subscribing, you agree to receive newsletters. We collect your email, name, and optionally language preferences to improve our service. We greatly respect your privacy and you can unsubscribe at any time.
+        Check your email to confirm your subscription. By subscribing, you agree to receive newsletters. We greatly respect your privacy and you can unsubscribe at any time.
       </p>
     </div>
   </div>
@@ -148,6 +89,28 @@ import { Button } from "@/components/ui/button";
   /* Ensure smooth transitions */
   button[type="submit"] {
     transition: opacity 0.2s ease-in-out;
+  }
+
+  /* Input validation states */
+  .newsletter-input:focus {
+    outline: none;
+    border-color: #F7DC6F; /* brand-yellow */
+    ring: 2px;
+    ring-color: rgba(247, 220, 111, 0.2);
+  }
+
+  /* Show validation states only after user interaction */
+  .newsletter-input:invalid:not(:placeholder-shown) {
+    border-color: #EF4444; /* red-500 */
+  }
+
+  .newsletter-input:valid:not(:placeholder-shown) {
+    border-color: #10B981; /* green-500 */
+  }
+
+  /* Required field asterisk */
+  .text-red-500 {
+    color: #EF4444;
   }
 </style>
 

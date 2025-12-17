@@ -19,13 +19,6 @@ if (form && messageElement) {
     const firstName = formData.get('firstName');
     const website = formData.get('website'); // Honeypot field
 
-    // Extract language checkboxes
-    const languageCheckboxes = Array.from(
-      target.querySelectorAll('input[name="languages"]:checked')
-    ).map(cb => cb.value);
-
-    const languagesOther = formData.get('languagesOther');
-
     try {
       // Show loading state immediately
       if (submitButton) {
@@ -43,9 +36,7 @@ if (form && messageElement) {
         body: JSON.stringify({
           email,
           firstName,
-          website,
-          languages: languageCheckboxes,
-          languagesOther: languagesOther?.trim() || undefined
+          website
         }),
       });
 

@@ -7,14 +7,6 @@ export const prerender = false;
 const RATE_LIMIT_WINDOW = 60 * 60; // 1 hour in seconds
 const MAX_REQUESTS_PER_WINDOW = 5;
 
-// Language validation
-const MAX_LANGUAGES_SELECTED = 20;
-const ALLOWED_LANGUAGES = [
-  'Spanish', 'Mandarin', 'Hindi', 'Portuguese', 'Arabic', 'Bengali',
-  'Russian', 'Japanese', 'French', 'German', 'Korean', 'Vietnamese',
-  'Turkish', 'Italian', 'Polish'
-];
-
 const UPSTASH_REDIS_REST_URL = import.meta.env.UPSTASH_REDIS_REST_URL;
 const UPSTASH_REDIS_REST_TOKEN = import.meta.env.UPSTASH_REDIS_REST_TOKEN;
 
@@ -23,15 +15,6 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 // Name validation regex (supports international characters)
 const NAME_REGEX = /^[\p{L}\s\-']{2,50}$/u;
-
-// Sanitize text input to prevent XSS
-function sanitizeText(input: string): string {
-  return input
-    .replace(/<[^>]*>/g, '')  // Remove HTML tags
-    .replace(/[<>'"]/g, '')    // Remove additional XSS vectors
-    .trim()
-    .slice(0, 200);            // Limit length
-}
 
 async function checkRateLimit(key: string): Promise<{ allowed: boolean; message?: string }> {
   if (!UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) {
@@ -141,56 +124,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validate languages array if provided
-    if (data.languages !== undefined) {
-      if (!Array.isArray(data.languages)) {
-        return new Response(
-          JSON.stringify({ message: 'Invalid languages format' }),
-          { status: 400, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-
-      // Prevent DoS via huge arrays
-      if (data.languages.length > MAX_LANGUAGES_SELECTED) {
-        return new Response(
-          JSON.stringify({ message: 'Too many languages selected' }),
-          { status: 400, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-
-      // Ensure all entries are strings
-      if (!data.languages.every((lang: unknown) => typeof lang === 'string')) {
-        return new Response(
-          JSON.stringify({ message: 'Invalid language data' }),
-          { status: 400, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-
-      // Validate all selected languages are in allowed list
-      const invalidLangs = data.languages.filter((lang: string) => !ALLOWED_LANGUAGES.includes(lang));
-      if (invalidLangs.length > 0) {
-        return new Response(
-          JSON.stringify({ message: 'Invalid language selection' }),
-          { status: 400, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-    }
-
-    // Validate languagesOther is a string (if provided)
-    if (data.languagesOther !== undefined && typeof data.languagesOther !== 'string') {
-      return new Response(
-        JSON.stringify({ message: 'Invalid other languages format' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Sanitize "other languages" free text
-    let languagesOther = undefined;
-    if (data.languagesOther && typeof data.languagesOther === 'string') {
-      languagesOther = sanitizeText(data.languagesOther);
-      if (languagesOther.length === 0) languagesOther = undefined;
-    }
-
     // Subscribe to newsletter
     const response = await fetch('https://api.buttondown.email/v1/subscribers', {
       method: 'POST',
@@ -206,9 +139,7 @@ export const POST: APIRoute = async ({ request }) => {
         // Removed 'status: active' to enable double opt-in
         metadata: {
           source: 'website',
-          subscribed_at: new Date().toISOString(),
-          languages: data.languages || [],
-          languages_other: languagesOther
+          subscribed_at: new Date().toISOString()
         }
       }),
     });

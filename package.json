@@ -11,11 +11,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.0",
-    "@astrojs/react": "^4.3.0",
-    "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^5.1.5",
-    "@astrojs/vercel": "^8.0.4",
+    "@astrojs/vercel": "^8.2.11",
     "@radix-ui/react-hover-card": "^1.1.14",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-menubar": "^1.1.15",
@@ -27,7 +27,7 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vercel/speed-insights": "^1.2.0",
-    "astro": "^5.7.14",
+    "astro": "^5.16.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "input-otp": "^1.4.2",
@@ -45,6 +45,6 @@
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
-    "typescript": "^5.2.2"
+    "typescript": "^5.9.3"
   }
 }
