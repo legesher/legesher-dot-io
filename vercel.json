@@ -1,0 +1,24 @@
+{
+  "redirects": [
+    {
+      "source": "/go/slack",
+      "destination": "https://join.slack.com/t/legesher/shared_invite/zt-370xpp6b9-LYxWVIOF7ujVH5kYnwaGbQ",
+      "permanent": false
+    },
+    {
+      "source": "/go/github",
+      "destination": "https://github.com/legesher",
+      "permanent": true
+    },
+    {
+      "source": "/go/explorers",
+      "destination": "https://forms.gle/z3fKY9TcUPSaBDSRA",
+      "permanent": false
+    },
+    {
+      "source": "/go/survey",
+      "destination": "https://forms.gle/68A2X73LDT4ZwRPv8",
+      "permanent": false
+    }
+  ]
+}

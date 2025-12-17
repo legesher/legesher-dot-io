@@ -20,35 +20,98 @@ import { Button } from "@/components/ui/button";
         Here's your invitation to participate in shaping our digital future—not just consuming it.
         Legesher will be hatching beta soon. Subscribe to our newsletter for updates on when Legesher will be welcomed into this world - and how you can help!
       </p>
-      <form id="newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto">
+      <form id="newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto text-left">
         <div class="flex flex-col sm:flex-row gap-4">
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            class="newsletter-input"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            class="newsletter-input"
-            required
-          />
+          <div class="flex-1">
+            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
+              First Name <span class="text-red-500">*</span>
+            </label>
+            <input
+              id="firstName"
+              type="text"
+              name="firstName"
+              placeholder="Enter your first name"
+              class="newsletter-input w-full"
+              maxlength="150"
+              required
+              aria-required="true"
+            />
+          </div>
+          <div class="flex-1">
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+              Email Address <span class="text-red-500">*</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              class="newsletter-input w-full"
+              maxlength="150"
+              required
+              aria-required="true"
+            />
+          </div>
         </div>
-        <Button 
-          type="submit" 
-          className="yellow-button"
+
+        <!-- Honeypot field for bot protection -->
+        <input
+          type="text"
+          name="website"
+          value=""
+          style="position:absolute;left:-9999px"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+        />
+
+        <Button
+          type="submit"
+          className="yellow-button mt-2"
         >
           Subscribe
         </Button>
       </form>
       <p id="form-message" class="text-sm text-muted-foreground mt-4">
-        We greatly respect your privacy. Unsubscribe at any time.
+        Check your email to confirm your subscription. By subscribing, you agree to receive newsletters. We greatly respect your privacy and you can unsubscribe at any time.
       </p>
     </div>
   </div>
 </section>
+
+<style>
+  /* Disabled button styling */
+  button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Ensure smooth transitions */
+  button[type="submit"] {
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  /* Input validation states */
+  .newsletter-input:focus {
+    outline: none;
+    border-color: #F7DC6F; /* brand-yellow */
+    ring: 2px;
+    ring-color: rgba(247, 220, 111, 0.2);
+  }
+
+  /* Show validation states only after user interaction */
+  .newsletter-input:invalid:not(:placeholder-shown) {
+    border-color: #EF4444; /* red-500 */
+  }
+
+  .newsletter-input:valid:not(:placeholder-shown) {
+    border-color: #10B981; /* green-500 */
+  }
+
+  /* Required field asterisk */
+  .text-red-500 {
+    color: #EF4444;
+  }
+</style>
 
 <script src="/scripts/newsletter.js" is:inline></script> 
