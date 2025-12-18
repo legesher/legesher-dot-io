@@ -1,6 +1,17 @@
 {
   "name": "legesher-dot-io",
-  "version": "0.0.1",
+  "version": "2.0.0",
+  "description": "Official website for Legesher - code in any programming language using your native written language",
+  "author": "Madison Edgar <madi+github@legesher.com> (https://legesher.io)",
+  "license": "MIT",
+  "homepage": "https://legesher.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legesher/legesher-dot-io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/legesher/legesher-dot-io/issues"
+  },
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +19,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "contributors:generate": "all-contributors generate"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
@@ -42,6 +54,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "all-contributors-cli": "^6.26.1",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
