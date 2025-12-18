@@ -41,61 +41,15 @@
 
 ---
 
-## Found a Bug?
-
-[Open an issue](https://github.com/legesher/legesher-dot-io/issues/new?template=BUG_REPORT.md) and we'll help you get started. Each issue template includes setup instructions if you'd like to fix it yourself!
-
----
-
-## Project Structure
-
-```text
-legesher-dot-io/
-├── .github/                    # GitHub configuration files
-│   ├── workflows/              # GitHub Actions
-│   ├── CONTRIBUTING.md         # Contribution guidelines
-│   └── SECURITY.md             # Security policy
-├── public/                     # Static assets
-│   ├── images/                 # Images and graphics
-│   └── scripts/                # Client-side JavaScript
-├── src/
-│   ├── components/             # Reusable UI components
-│   ├── layouts/                # Page layouts
-│   ├── pages/                  # Astro pages & API routes
-│   │   └── api/                # API endpoints (newsletter, etc.)
-│   └── styles/                 # Global styles
-├── astro.config.mjs            # Astro configuration
-├── tailwind.config.ts          # Tailwind CSS configuration
-├── package.json                # Dependencies
-└── README.md                   # You are here!
-```
-
----
-
 ## Contributing
 
-We rely on passionate community members (both developers and non-developers) to keep delivering impactful tools worldwide.
+Found a bug or have an idea? [Open an issue](https://github.com/legesher/legesher-dot-io/issues/new/choose) — each template includes setup instructions if you'd like to contribute a fix yourself.
 
-Before contributing, please:
-1. Read our [Contributing Guidelines](.github/CONTRIBUTING.md)
-2. Review our [Code of Conduct](https://docs.legesher.io/the-official-things/code-of-conduct)
-3. Check out [open issues](https://github.com/legesher/legesher-dot-io/issues) or create a new one
-4. Look for issues labeled [`good first issue`](https://github.com/legesher/legesher-dot-io/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) if you're new!
-
-### Ways to Contribute
-
-- **Code** - Fix bugs, add features, improve performance
-- **Design** - UI/UX improvements, graphics, branding
-- **Documentation** - Improve guides, add translations
-- **Translations** - Help translate content into your language
-- **Bug Reports** - Report issues you encounter
-- **Ideas** - Suggest new features or improvements
+For guidelines, see [CONTRIBUTING.md](.github/CONTRIBUTING.md) and our [Code of Conduct](https://docs.legesher.io/the-official-things/code-of-conduct).
 
 ---
 
 ## Contributors
-
-Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -135,28 +89,8 @@ Thanks goes to these wonderful people:
 
 ---
 
-## Get in Touch
-
-- [Subscribe to our newsletter](https://buttondown.com/legesher)
-- [Join our Slack](https://legesher.io/go/slack)
-- [Follow us on X](https://x.com/legesherio)
-- [Follow us on Instagram](https://www.instagram.com/legesher/)
-- [Visit our website](https://legesher.io)
-
----
-
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License — see [LICENSE](LICENSE) for details.
 
----
-
-## Support
-
-If you find Legesher valuable, consider:
-- Starring this repository
-- [Sponsoring Legesher](https://github.com/sponsors/legesher)
-- Sharing Legesher with your network
-- Contributing to the project
-
-Together, we're making programming accessible to everyone, everywhere.
+[Sponsor Legesher](https://github.com/sponsors/legesher) | [Visit legesher.io](https://legesher.io)
