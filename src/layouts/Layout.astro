@@ -1,6 +1,7 @@
 ---
 import '@/styles/globals.css';
 import SpeedInsights from '@vercel/speed-insights/astro';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title: string;
@@ -25,7 +26,7 @@ const {
     <title>{title}</title>
 
     <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https: https://fonts.gstatic.com; connect-src 'self' https://api.buttondown.email;" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https: https://fonts.gstatic.com; connect-src 'self' https://api.buttondown.email https://va.vercel-scripts.com https://vitals.vercel-insights.com;" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains" />
@@ -43,6 +44,7 @@ const {
     <meta name="twitter:description" content={description} />
 
     <SpeedInsights />
+    <Analytics />
   </head>
   <body class="min-h-screen bg-background antialiased relative">
     <slot />
