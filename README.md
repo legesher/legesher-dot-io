@@ -1,4 +1,4 @@
-<img src="public/EggPeggy@4x.png" align="center" alt="Legesher Mascot - Peggy the Egg"/>
+<img src="public/website_hero.png" align="center" alt="Legesher - Programming in Any Language"/>
 
 <h1 align="center"><a href="https://legesher.io">Legesher.io</a></h1>
 <blockquote align="center">Legesher's public website: <a href="https://legesher.io">legesher.io</a></blockquote>
@@ -47,9 +47,7 @@ Found a bug or have an idea? [Open an issue](https://github.com/legesher/legeshe
 
 For guidelines, see [CONTRIBUTING.md](.github/CONTRIBUTING.md) and our [Code of Conduct](https://docs.legesher.io/the-official-things/code-of-conduct).
 
----
-
-## Contributors
+### Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
