@@ -133,11 +133,10 @@ export const POST: APIRoute = async ({ request }) => {
       },
       body: JSON.stringify({
         email_address: data.email.trim().toLowerCase(),
-        first_name: data.firstName.trim(),
         ip_address: ip !== 'unknown' ? ip : undefined,
         tags: ['website-subscriber'],
-        // Removed 'status: active' to enable double opt-in
         metadata: {
+          first_name: data.firstName.trim(),
           source: 'website',
           subscribed_at: new Date().toISOString()
         }
