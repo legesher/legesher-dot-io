@@ -148,8 +148,18 @@ export const POST: APIRoute = async ({ request }) => {
     if (response.status >= 400) {
       // Log error for debugging (without exposing user data)
       console.error('Buttondown API error:', {
-        status: response.status
+        status: response.status,
+        response: responseData
       });
+
+      // Handle specific ButtonDown errors
+      if (response.status === 400 && responseData?.email_address) {
+        // Email already subscribed or invalid
+        return new Response(
+          JSON.stringify({ message: responseData.email_address[0] || 'Unable to process subscription' }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
 
       return new Response(
         JSON.stringify({ message: 'Unable to process subscription at this time' }),
