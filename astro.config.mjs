@@ -12,7 +12,10 @@ export default defineConfig({
   ],
   site: 'https://legesher.io',
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: { enabled: true },
+    speedInsights: { enabled: true },
+  }),
   server: {
     headers: {
       'X-Frame-Options': 'DENY'
