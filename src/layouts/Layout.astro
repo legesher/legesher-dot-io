@@ -25,8 +25,7 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
 
-    <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https: https://fonts.gstatic.com; connect-src 'self' https://api.buttondown.email https://va.vercel-scripts.com https://vitals.vercel-insights.com;" />
+    <!-- Security Headers - CSP is managed by Astro experimental.csp in astro.config.mjs -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains" />
