@@ -284,6 +284,15 @@ pre, code {
   .code-editor-line {
     @apply space-y-2 font-noto-mono text-sm;
   }
+
+  /* Direction utilities for RTL/LTR switching */
+  .direction-rtl {
+    direction: rtl;
+  }
+
+  .direction-ltr {
+    direction: ltr;
+  }
 }
 
 /* Newsletter Styles */
