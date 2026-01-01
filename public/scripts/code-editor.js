@@ -242,7 +242,8 @@ const currentState = getCurrentDomState();
 Object.entries(elements).forEach(([key, el]) => {
     if (!el) return;
     if (virtualState[key] !== undefined && virtualState[key] !== currentState[key]) {
-        el.style.opacity = '0';
+        el.classList.add('opacity-0');
+        el.classList.remove('opacity-100');
     }
 });
 
@@ -252,7 +253,8 @@ setTimeout(() => {
     if (!el) return;
     if (virtualState[key] !== undefined && virtualState[key] !== currentState[key]) {
         el.textContent = virtualState[key];
-        el.style.opacity = '1';
+        el.classList.remove('opacity-0');
+        el.classList.add('opacity-100');
     }
     });
 
@@ -263,12 +265,14 @@ setTimeout(() => {
         if (rtlFileName) rtlFileName.textContent = lang.fileName;
 
         if (lang.code === "ar") {
-        elements.fileName.style.direction = "rtl";
+        elements.fileName.classList.add('direction-rtl');
+        elements.fileName.classList.remove('direction-ltr');
         document.querySelectorAll('.code-editor-line').forEach(line => {
             line.setAttribute('dir', 'rtl');
         });
         document.querySelectorAll('.code-editor-element').forEach(el => {
-            el.style.direction = 'rtl';
+            el.classList.add('direction-rtl');
+            el.classList.remove('direction-ltr');
         });
         const ltrFileTab = document.querySelector('.ltr-file-tab');
         const rtlFileTab = document.querySelector('.rtl-file-tab');
@@ -276,16 +280,18 @@ setTimeout(() => {
         if (rtlFileTab) rtlFileTab.classList.remove('hidden');
         const languageIndicator = document.querySelector('.code-editor-language-indicator');
         if (languageIndicator) {
-            languageIndicator.style.marginLeft = '0';
-            languageIndicator.style.marginRight = 'auto';
+            languageIndicator.classList.add('ml-0', 'mr-auto');
+            languageIndicator.classList.remove('ml-auto', 'mr-0');
         }
         } else {
-        elements.fileName.style.direction = "ltr";
+        elements.fileName.classList.add('direction-ltr');
+        elements.fileName.classList.remove('direction-rtl');
         document.querySelectorAll('.code-editor-line').forEach(line => {
             line.setAttribute('dir', 'ltr');
         });
         document.querySelectorAll('.code-editor-element').forEach(el => {
-            el.style.direction = 'ltr';
+            el.classList.add('direction-ltr');
+            el.classList.remove('direction-rtl');
         });
         const ltrFileTab = document.querySelector('.ltr-file-tab');
         const rtlFileTab = document.querySelector('.rtl-file-tab');
@@ -293,8 +299,8 @@ setTimeout(() => {
         if (rtlFileTab) rtlFileTab.classList.add('hidden');
         const languageIndicator = document.querySelector('.code-editor-language-indicator');
         if (languageIndicator) {
-            languageIndicator.style.marginLeft = 'auto';
-            languageIndicator.style.marginRight = '0';
+            languageIndicator.classList.add('ml-auto', 'mr-0');
+            languageIndicator.classList.remove('ml-0', 'mr-auto');
         }
         }
     }
