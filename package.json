@@ -40,7 +40,7 @@
     "@types/react-dom": "^18.2.15",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^1.2.0",
-    "astro": "^5.16.6",
+    "astro": "^5.16.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "input-otp": "^1.4.2",
