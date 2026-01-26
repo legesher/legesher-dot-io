@@ -19,6 +19,21 @@
       "source": "/go/survey",
       "destination": "https://forms.gle/68A2X73LDT4ZwRPv8",
       "permanent": false
+    },
+    {
+      "source": "/go/newsletter",
+      "destination": "https://buttondown.com/legesher",
+      "permanent": false
+    },
+    {
+      "source": "/go/instagram",
+      "destination": "https://instagram.com/legesher",
+      "permanent": false
+    },
+    {
+      "source": "/go/linkedin",
+      "destination": "https://www.linkedin.com/company/legesher",
+      "permanent": false
     }
   ]
 }
