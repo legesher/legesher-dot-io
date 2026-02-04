@@ -16,6 +16,11 @@
       "permanent": false
     },
     {
+      "source": "/go/vs-code-extension-survey",
+      "destination": "https://forms.gle/aCBHLvbQkgT813Du7",
+      "permanent": false
+    },
+    {
       "source": "/go/survey",
       "destination": "https://forms.gle/68A2X73LDT4ZwRPv8",
       "permanent": false
