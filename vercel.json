@@ -22,6 +22,11 @@
     },
     {
       "source": "/go/survey",
+      "destination": "https://forms.gle/iM3yLLLV1QNDSyRx6",
+      "permanent": false
+    },
+    {
+      "source": "/go/personal-background",
       "destination": "https://forms.gle/68A2X73LDT4ZwRPv8",
       "permanent": false
     },
