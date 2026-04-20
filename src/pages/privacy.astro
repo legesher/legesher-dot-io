@@ -69,10 +69,9 @@ const lastUpdated = 'April 20, 2026';
             <li>
               <strong>Newsletter Subscriptions:</strong> first name and email address, submitted through our
               newsletter form and processed by <a href="https://buttondown.com" rel="noopener"
-              >Buttondown</a>. When you submit the form, your IP address is also forwarded (server-side,
-              not from your browser) to Buttondown and to our rate-limiting service
-              (<a href="https://upstash.com/trust/privacy.pdf" rel="noopener">Upstash</a>) for spam
-              prevention. The IP is retained in our rate-limit cache for no longer than one hour.
+              >Buttondown</a>. When you submit the form, your IP address is also forwarded
+              (server-side, not from your browser) to Buttondown as part of the subscription
+              payload, which they may use for their own spam prevention and audit logs.
             </li>
             <li>
               <strong>Survey Responses:</strong> feedback provided through optional surveys we link to. Our surveys
@@ -219,9 +218,6 @@ const lastUpdated = 'April 20, 2026';
             </li>
             <li><a href="https://buttondown.com/legal/privacy" rel="noopener">Buttondown</a> &mdash; newsletter
               delivery
-            </li>
-            <li><a href="https://upstash.com/trust/privacy.pdf" rel="noopener">Upstash</a> &mdash; short-term IP
-              caching for newsletter rate limiting (1 hour)
             </li>
             <li><a href="https://policies.google.com/privacy" rel="noopener">Google Forms</a> &mdash; optional survey
               hosting
