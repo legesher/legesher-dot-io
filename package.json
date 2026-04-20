@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Official website for Legesher - code in any programming language using your native written language",
   "author": "Madison Edgar <madi+github@legesher.com> (https://legesher.io)",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "homepage": "https://legesher.io",
   "repository": {
     "type": "git",

@@ -89,6 +89,6 @@ For guidelines, see [CONTRIBUTING.md](.github/CONTRIBUTING.md) and our [Code of 
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+Apache License 2.0 — see [LICENSE](LICENSE) for details.
 
 [Sponsor Legesher](https://github.com/sponsors/legesher) | [Visit legesher.io](https://legesher.io)
