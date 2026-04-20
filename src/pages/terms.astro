@@ -1,0 +1,633 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const lastUpdated = 'April 20, 2026';
+---
+
+<Layout
+  title="Terms of Service — Legesher"
+  description="The rules for using www.legesher.io, Legesher's hosted services, datasets, curriculum, and brand. Our open-source code ships under Apache 2.0 and is not governed by these Terms."
+>
+  <Header />
+  <main class="pt-32 pb-20 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-2">Terms of Service</h1>
+        <p class="text-sm text-muted-foreground">
+          Legesher Inc (Delaware, USA) ·
+          <span>Last updated: {lastUpdated}</span>
+        </p>
+      </header>
+
+      <article class="prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
+        <section aria-labelledby="introduction">
+          <h2 id="introduction">1. Introduction</h2>
+          <p>
+            These Terms of Service (the &ldquo;<strong>Terms</strong>&rdquo;) are a legal contract between you
+            (&ldquo;you,&rdquo; &ldquo;your&rdquo;) and <strong>Legesher Inc</strong>, a Delaware corporation
+            (&ldquo;Legesher,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; &ldquo;our&rdquo;). They govern your use of
+            <a href="https://www.legesher.io">www.legesher.io</a>, our hosted services, any datasets or curriculum we
+            license, and the Legesher brand. By using the website or any of the services covered by these Terms, you
+            agree to be bound by them.
+          </p>
+          <p>
+            <strong>If you do not agree to these Terms, do not use the website or the covered services.</strong>
+          </p>
+          <p>
+            Our Privacy Policy lives at
+            <a href="/privacy">www.legesher.io/privacy</a> and is incorporated into these Terms by reference.
+          </p>
+        </section>
+
+        <section aria-labelledby="who-we-are">
+          <h2 id="who-we-are">2. Who We Are</h2>
+          <p>
+            Legesher operates globally through two sibling entities:
+          </p>
+          <ul>
+            <li><strong>Legesher Inc</strong> &mdash; a Delaware C-Corporation, United States. This entity is the
+              <strong>contracting party under these Terms</strong> and the entity against which claims arising from
+              these Terms may be brought.
+            </li>
+            <li><strong>Legesher Global Tech Limited</strong> &mdash; registered in the Dubai International Financial
+              Centre (DIFC), United Arab Emirates. Assists with global operations; not the contracting party under
+              these Terms.
+            </li>
+          </ul>
+          <p>
+            <strong>Commercial licensing inquiries:</strong>
+            <a href="mailto:sales@legesher.com">sales@legesher.com</a>
+          </p>
+          <p>
+            <strong>Legal / general contact:</strong>
+            <a href="mailto:hello@legesher.com">hello@legesher.com</a>
+          </p>
+          <p>
+            <strong>Privacy requests:</strong>
+            <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>
+          </p>
+        </section>
+
+        <section aria-labelledby="definitions">
+          <h2 id="definitions">3. Definitions</h2>
+          <ul>
+            <li>
+              <strong>&ldquo;Website&rdquo;</strong> means <a href="https://www.legesher.io">www.legesher.io</a> and its
+              subpages, excluding <a href="https://docs.legesher.io">docs.legesher.io</a> (which has its own terms and
+              is governed by the documentation site's licensing).
+            </li>
+            <li>
+              <strong>&ldquo;Open-Source Software&rdquo;</strong> means the Legesher VS Code extension code, language
+              pack code, core engine, and any other software we publish under the Apache License, Version 2.0 (the
+              &ldquo;Apache 2.0 License&rdquo;). The Apache 2.0 License governs the Open-Source Software; these Terms
+              do not restrict or replace the Apache 2.0 License.
+            </li>
+            <li>
+              <strong>&ldquo;Hosted Services&rdquo;</strong> means any online service we operate, including (when
+              launched) the Legesher Translation API and any hosted SaaS offerings. Hosted Services are governed by
+              these Terms plus any service-specific agreement presented to you at sign-up.
+            </li>
+            <li>
+              <strong>&ldquo;Curated Datasets&rdquo;</strong> means datasets we compile, package, and license
+              separately from the Open-Source Software. Examples include translation corpora sold for ML training and
+              research datasets offered under a commercial data license.
+            </li>
+            <li>
+              <strong>&ldquo;Curriculum&rdquo;</strong> means educational materials, lessons, and courses that we
+              license separately from the Open-Source Software, including for educational institutions.
+            </li>
+            <li>
+              <strong>&ldquo;Legesher Brand&rdquo;</strong> means the &ldquo;Legesher&rdquo; name, logo, trademarks,
+              and trade dress.
+            </li>
+            <li>
+              <strong>&ldquo;Commercial License&rdquo;</strong> means a paid license agreement with Legesher Inc
+              granting rights to use Hosted Services, Curated Datasets, or Curriculum beyond what these Terms allow
+              without payment.
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="scope">
+          <h2 id="scope">4. Scope of These Terms</h2>
+          <p><strong>These Terms govern:</strong></p>
+          <ul>
+            <li>Your use of the Website</li>
+            <li>Your use of Hosted Services (when launched)</li>
+            <li>Your use of Curated Datasets and Curriculum</li>
+            <li>Your use of the Legesher Brand</li>
+          </ul>
+          <p><strong>These Terms do NOT govern:</strong></p>
+          <ul>
+            <li>
+              <strong>The Open-Source Software.</strong> Our VS Code extension code, language pack code, and core
+              engine are published under the Apache License 2.0. You may use, modify, distribute, and build commercial
+              products from that code under the terms of the Apache 2.0 License, subject only to that license's
+              requirements. Nothing in these Terms restricts or adds to the Apache 2.0 License.
+            </li>
+            <li>
+              <strong>Third-party services we link to.</strong> GitHub, Buttondown, Google Forms, Slack, LinkedIn,
+              Instagram, and any other third parties have their own terms.
+            </li>
+            <li>
+              <strong>The documentation site</strong> (<a href="https://docs.legesher.io"
+              >docs.legesher.io</a>), which has its own licensing posture aligned with the Open-Source Software.
+            </li>
+          </ul>
+          <p>
+            If there is a conflict between these Terms and a service-specific agreement you have signed with Legesher
+            Inc (for example, a Commercial License), the service-specific agreement controls.
+          </p>
+        </section>
+
+        <section aria-labelledby="licensing-model">
+          <h2 id="licensing-model">5. Our Licensing Model</h2>
+          <p>
+            Legesher is an <strong>open-core</strong> project. The code is free and open source under the Apache 2.0
+            License. Hosted Services, Curated Datasets, and Curriculum are licensed commercially to fund the ongoing
+            development and community support of the open-source core.
+          </p>
+
+          <h3>5.1 What requires <em>no</em> license (free for all uses)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>License</th>
+                <th>Your rights</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>VS Code extension code</td>
+                <td>Apache 2.0</td>
+                <td>Use, modify, distribute, include in commercial products &mdash; subject only to Apache 2.0
+                  terms</td>
+              </tr>
+              <tr>
+                <td>Language pack code</td>
+                <td>Apache 2.0</td>
+                <td>Same</td>
+              </tr>
+              <tr>
+                <td>Core engine and CLI</td>
+                <td>Apache 2.0</td>
+                <td>Same</td>
+              </tr>
+              <tr>
+                <td>Browsing the Website</td>
+                <td>These Terms</td>
+                <td>Read content, subscribe to newsletter, fill surveys, contact us</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>5.2 What requires a Commercial License</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th>Tier</th>
+                <th>How to obtain</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Personal use of Hosted Services (when launched)</td>
+                <td>Personal &mdash; free</td>
+                <td>Sign up via the Website; no payment required</td>
+              </tr>
+              <tr>
+                <td>Educational institution use of Hosted Services, Curated Datasets, or Curriculum</td>
+                <td>Education &mdash; <strong>discounted paid license</strong></td>
+                <td><a href="mailto:sales@legesher.com">sales@legesher.com</a></td>
+              </tr>
+              <tr>
+                <td>Non-profit use of Hosted Services, Curated Datasets, or Curriculum</td>
+                <td>Non-profit &mdash; <strong>discounted paid license</strong></td>
+                <td><a href="mailto:sales@legesher.com">sales@legesher.com</a></td>
+              </tr>
+              <tr>
+                <td>Commercial / for-profit use of Hosted Services, Curated Datasets, or Curriculum</td>
+                <td>Commercial &mdash; full paid license</td>
+                <td><a href="mailto:sales@legesher.com">sales@legesher.com</a></td>
+              </tr>
+              <tr>
+                <td>Training or fine-tuning AI/ML models using Curated Datasets or Hosted Service outputs</td>
+                <td>Commercial &mdash; paid license</td>
+                <td><a href="mailto:sales@legesher.com">sales@legesher.com</a></td>
+              </tr>
+              <tr>
+                <td>Creating or distributing derivative datasets from Curated Datasets or Hosted Services</td>
+                <td>Commercial &mdash; paid license</td>
+                <td><a href="mailto:sales@legesher.com">sales@legesher.com</a></td>
+              </tr>
+              <tr>
+                <td>Using the Legesher Brand (name, logo) beyond fair reference</td>
+                <td>Trademark permission</td>
+                <td><a href="mailto:sales@legesher.com">sales@legesher.com</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>5.3 Apache 2.0 specifically allows AI training on the Open-Source Software</h3>
+          <p>
+            We want to be explicit: because the Open-Source Software is released under the Apache 2.0 License, you
+            may use it to train, fine-tune, or evaluate AI/ML models, and you may build commercial products from it,
+            without paying us or asking permission. The restriction in Section 5.2 on AI training applies to
+            <strong>Curated Datasets we license separately and the outputs of Hosted Services</strong>, not to the
+            publicly released Open-Source code.
+          </p>
+        </section>
+
+        <section aria-labelledby="acceptable-use">
+          <h2 id="acceptable-use">6. Acceptable Use of the Website</h2>
+          <p>When using the Website, you agree <strong>not</strong> to:</p>
+          <ul>
+            <li>
+              Violate any applicable law, regulation, or third-party right
+            </li>
+            <li>
+              Scrape, harvest, or systematically extract content from the Website for commercial redistribution
+              without a Commercial License (normal browsing, indexing by search engines, and personal note-taking are
+              fine)
+            </li>
+            <li>
+              Submit false, misleading, or harmful content via forms or surveys
+            </li>
+            <li>
+              Attempt to probe, scan, or test the vulnerability of the Website or circumvent any security feature
+            </li>
+            <li>
+              Interfere with or disrupt the Website, servers, or networks connected to the Website
+            </li>
+            <li>
+              Use the Website to distribute malware, spam, phishing attempts, or other harmful content
+            </li>
+            <li>
+              Impersonate any person or entity, or misrepresent your affiliation with any person or entity
+            </li>
+            <li>
+              Use the Website in any way that suggests official endorsement, partnership, or employment by Legesher
+              when none exists
+            </li>
+          </ul>
+          <p>
+            If you believe you've discovered a security vulnerability, please report it to
+            <a href="mailto:security@legesher.com">security@legesher.com</a> instead of publicly disclosing it.
+          </p>
+        </section>
+
+        <section aria-labelledby="commercial-licensing">
+          <h2 id="commercial-licensing">7. Commercial Licensing</h2>
+          <p>
+            Use of Hosted Services, Curated Datasets, or Curriculum beyond the Personal tier requires a written
+            Commercial License issued by Legesher Inc.
+          </p>
+
+          <h3>7.1 How to obtain a Commercial License</h3>
+          <ol>
+            <li>Email <a href="mailto:sales@legesher.com">sales@legesher.com</a> with:
+              <ul>
+                <li>Your name and the name of your organization</li>
+                <li>Your organization type (educational institution, non-profit, or commercial / for-profit)</li>
+                <li>A short description of the intended use</li>
+                <li>Expected scale (number of users, requests, dataset size, etc.)</li>
+              </ul>
+            </li>
+            <li>We will respond with pricing and a license agreement tailored to your tier.</li>
+            <li>
+              On signing and payment, your license becomes effective. Licenses are typically annual and auto-renewing
+              unless otherwise agreed.
+            </li>
+          </ol>
+
+          <h3>7.2 Education and non-profit discounts</h3>
+          <p>
+            Accredited educational institutions and registered non-profits receive a <strong>discounted rate</strong>
+            on the Commercial License price. A valid license is still required; the discount does not waive the
+            licensing requirement. Proof of accreditation or non-profit status may be requested.
+          </p>
+
+          <h3>7.3 What a Commercial License covers</h3>
+          <p>
+            Each Commercial License specifies the licensed activity (e.g., &ldquo;educational use of the Legesher
+            Translation API for up to 10,000 students&rdquo; or &ldquo;commercial access to the Python translation
+            dataset for ML training&rdquo;). Activities outside the scope of your license require a separate
+            agreement.
+          </p>
+          <p>
+            Nothing in a Commercial License changes your rights to the Open-Source Software under the Apache 2.0
+            License.
+          </p>
+        </section>
+
+        <section aria-labelledby="disclaimers">
+          <h2 id="disclaimers">8. Disclaimers</h2>
+
+          <h3 id="not-advice">8.1 Not Legal, Educational, or Professional Advice</h3>
+          <p>
+            Legesher is a technology provider, not an educational institution, law firm, translation service, or
+            accreditation body. Content on the Website, in Curriculum, or produced by Hosted Services is
+            <strong>for informational and developer purposes only</strong> and does not constitute legal,
+            educational, accreditation, financial, medical, or professional advice.
+          </p>
+          <p>
+            If you need such advice, consult a qualified professional. Legesher accepts no responsibility for
+            decisions made in reliance on its content, translations, or outputs.
+          </p>
+
+          <h3 id="translation-accuracy">8.2 Translation Accuracy</h3>
+          <p>
+            Legesher's translations are <strong>community-validated and continuously improving</strong>, generated
+            from a combination of community contributions, machine translation models, and curation. While we aim for
+            high quality, translations are <strong>best-effort</strong> and may contain errors, ambiguities, cultural
+            mismatches, or context-dependent inaccuracies.
+          </p>
+          <p>
+            <strong>We strongly recommend human review of all translations for mission-critical applications</strong>
+            &mdash; including but not limited to safety-critical systems, regulated industries (medical, legal,
+            financial), accessibility tooling, and any context where translation errors could cause real-world harm.
+          </p>
+          <p>
+            Legesher makes no warranty that any translation is accurate, complete, fit for a particular purpose, or
+            free from cultural bias.
+          </p>
+
+          <h3 id="open-source-vs-service">8.3 Open Source vs. Commercial Services</h3>
+          <p>
+            Legesher's Open-Source Software (VS Code extension, language pack code, core engine) is available under
+            the Apache 2.0 License and may be used freely for any purpose, including commercial use, derivative
+            works, and AI training, subject to the Apache 2.0 License terms. Please read the LICENSE file in the
+            Legesher repository for the full text.
+          </p>
+          <p>
+            Our <strong>Hosted Services, Curated Datasets, and Curriculum are separate offerings</strong> that are
+            not part of the Apache 2.0 release. They are licensed commercially. Please do not assume that a right
+            granted by Apache 2.0 over the Open-Source code extends to the Hosted Services, Datasets, or Curriculum
+            &mdash; it does not.
+          </p>
+          <p>
+            Use of the Legesher brand, logo, or trademarks is governed by trademark law and is not granted by the
+            Apache 2.0 License. Fair reference (describing the project, linking to us) is welcome; implying
+            endorsement, partnership, or ownership is not.
+          </p>
+
+          <h3 id="student-data">8.4 Student Data (Hosted API &mdash; forward-looking)</h3>
+          <p>
+            When Legesher's Hosted Translation API launches, it is designed to process translation requests
+            <strong>statelessly</strong>: the API receives a code snippet, returns a translation, and does
+            <strong>not store student code, source files, or request payloads</strong> beyond the transient
+            processing window needed to serve the response.
+          </p>
+          <p>
+            Educational institutions licensing the Hosted API for student use can therefore direct students to use
+            it without Legesher retaining student work product. Aggregated, non-identifying usage metrics (request
+            counts, language pair popularity, latency) may be retained for service improvement; no student code,
+            variable names, literal values, or personal identifiers are retained.
+          </p>
+          <p>
+            This section describes our design intent for the upcoming Hosted API. The exact data-handling commitments
+            for the Hosted API will be formalized in the API Service Agreement presented at sign-up. Until the Hosted
+            API launches, this disclaimer describes our forward-looking posture rather than a currently live service.
+          </p>
+        </section>
+
+        <section aria-labelledby="intellectual-property">
+          <h2 id="intellectual-property">9. Intellectual Property</h2>
+
+          <h3>9.1 Legesher's rights</h3>
+          <p>
+            The Website content, the Legesher Brand, Curated Datasets, and Curriculum are the exclusive intellectual
+            property of Legesher Inc, protected by copyright, trademark, and other applicable laws. These Terms grant
+            you no rights to any of those assets except the limited rights described above.
+          </p>
+          <p>
+            The <strong>Open-Source Software is governed by the Apache 2.0 License</strong>, not by this section.
+            Your rights to the Open-Source Software are those granted by the Apache 2.0 License, including the right
+            to modify, distribute, and use the code commercially.
+          </p>
+
+          <h3>9.2 Your content</h3>
+          <p>
+            Content you submit to the Website (for example, survey responses, newsletter feedback, contact-form
+            messages) remains yours. By submitting it, you grant Legesher a non-exclusive, worldwide, royalty-free
+            license to use it to operate and improve the Website and our services, to respond to you, and to publish
+            aggregated or anonymized insights derived from it.
+          </p>
+          <p>
+            Do not submit content that infringes any third-party right or violates any applicable law.
+          </p>
+
+          <h3>9.3 Feedback</h3>
+          <p>
+            If you send us feedback, suggestions, bug reports, or feature requests, you grant Legesher a perpetual,
+            irrevocable, worldwide, royalty-free license to use, implement, and publish that feedback without any
+            obligation to compensate or credit you. You are never required to submit feedback, and you can email
+            <a href="mailto:privacy@legesher.com">privacy@legesher.com</a> to opt out of any optional acknowledgment.
+          </p>
+
+          <h3>9.4 Use of the Legesher Brand</h3>
+          <p>
+            You may refer to &ldquo;Legesher&rdquo; by name in neutral, factual contexts (for example, writing
+            &ldquo;I use Legesher to code in Spanish&rdquo; or linking to our site). You may not use the Legesher
+            name or logo in any way that implies endorsement, sponsorship, or partnership without written permission
+            from Legesher Inc. Requests go to <a href="mailto:sales@legesher.com">sales@legesher.com</a>.
+          </p>
+        </section>
+
+        <section aria-labelledby="warranties">
+          <h2 id="warranties">10. Disclaimer of Warranties</h2>
+          <p>
+            <strong>THE WEBSITE, HOSTED SERVICES, CURATED DATASETS, CURRICULUM, AND OPEN-SOURCE SOFTWARE ARE PROVIDED
+            &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE,&rdquo; WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.</strong>
+          </p>
+          <p>
+            To the maximum extent permitted by applicable law, Legesher disclaims all warranties, whether express,
+            implied, statutory, or otherwise, including without limitation:
+          </p>
+          <ul>
+            <li><strong>Merchantability</strong> &mdash; no guarantee the services are fit for sale or use</li>
+            <li><strong>Fitness for a particular purpose</strong> &mdash; no guarantee the services meet your needs</li>
+            <li><strong>Non-infringement</strong> &mdash; no guarantee the services do not violate third-party rights</li>
+            <li><strong>Accuracy or reliability</strong> &mdash; no guarantee of correct, complete, or reliable operation
+              (see also Section 8.2 on translation accuracy)</li>
+            <li><strong>Security</strong> &mdash; no guarantee against vulnerabilities, breaches, or data loss</li>
+            <li><strong>Availability</strong> &mdash; no guarantee of uptime or continuous availability</li>
+            <li><strong>Compatibility</strong> &mdash; no guarantee of compatibility with all systems or configurations</li>
+          </ul>
+          <p>
+            You use the Website, Hosted Services, Curated Datasets, Curriculum, and Open-Source Software
+            <strong>entirely at your own risk</strong>. We strongly recommend maintaining backups of all important
+            code and data and reviewing translations before relying on them for critical applications.
+          </p>
+        </section>
+
+        <section aria-labelledby="liability">
+          <h2 id="liability">11. Limitation of Liability</h2>
+          <p>
+            <strong>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL LEGESHER INC, ITS
+            AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, OR LICENSORS BE LIABLE FOR ANY:</strong>
+          </p>
+          <ul>
+            <li>Indirect, incidental, special, consequential, or punitive damages</li>
+            <li>Loss of profits, revenue, business, or anticipated savings</li>
+            <li>Loss of data, use, goodwill, or other intangible losses</li>
+            <li>Business interruption or system failure</li>
+            <li>Cost of substitute software, services, or technology</li>
+            <li>Any other damages arising out of or related to these Terms or your use of the Website, Hosted
+              Services, Curated Datasets, Curriculum, or Open-Source Software</li>
+          </ul>
+          <p>
+            <strong>EVEN IF LEGESHER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</strong>
+          </p>
+          <p>
+            <strong>LEGESHER'S TOTAL CUMULATIVE LIABILITY TO YOU FOR ALL CLAIMS ARISING OUT OF OR RELATED TO THESE
+            TERMS SHALL NOT EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID LEGESHER UNDER A COMMERCIAL LICENSE IN THE
+            TWELVE MONTHS PRECEDING THE EVENT GIVING RISE TO THE CLAIM, OR (B) ONE HUNDRED U.S. DOLLARS (USD
+            $100).</strong>
+          </p>
+          <p>
+            Some jurisdictions do not allow the exclusion or limitation of certain damages. In such jurisdictions,
+            Legesher's liability is limited to the maximum extent permitted by applicable law.
+          </p>
+        </section>
+
+        <section aria-labelledby="indemnification">
+          <h2 id="indemnification">12. Indemnification</h2>
+          <p>
+            You agree to indemnify, defend, and hold harmless Legesher Inc, its affiliates, and their respective
+            officers, directors, employees, agents, and licensors from and against any and all claims, demands,
+            actions, losses, damages, liabilities, costs, and expenses (including reasonable attorneys' fees)
+            arising out of or related to:
+          </p>
+          <ul>
+            <li>Your use or misuse of the Website, Hosted Services, Curated Datasets, or Curriculum</li>
+            <li>Your violation of these Terms</li>
+            <li>Your violation of any applicable law or regulation</li>
+            <li>Your violation of any third-party right, including intellectual property rights</li>
+            <li>Any content you submit to or through the Website</li>
+          </ul>
+          <p>You agree to cooperate fully with Legesher in the defense of any claim subject to indemnification.</p>
+        </section>
+
+        <section aria-labelledby="changes">
+          <h2 id="changes">13. Changes to These Terms</h2>
+          <p>
+            We may update these Terms from time to time. When we make changes:
+          </p>
+          <ul>
+            <li>We will update the &ldquo;Last updated&rdquo; date at the top</li>
+            <li>
+              For material changes, we may notify you via email (if you are subscribed to our newsletter or have
+              otherwise provided us with an email address) or through a prominent notice on the Website
+            </li>
+          </ul>
+          <p>
+            Your continued use of the Website or covered services after changes take effect constitutes acceptance
+            of the updated Terms. If you do not agree, stop using the Website and covered services.
+          </p>
+        </section>
+
+        <section aria-labelledby="governing-law">
+          <h2 id="governing-law">14. Governing Law &amp; Dispute Resolution</h2>
+
+          <h3>14.1 Governing law</h3>
+          <p>
+            These Terms are governed by the laws of the <strong>State of Delaware, United States</strong>, without
+            regard to its conflict-of-laws principles. The United Nations Convention on Contracts for the
+            International Sale of Goods does not apply.
+          </p>
+
+          <h3>14.2 Informal resolution first</h3>
+          <p>
+            Before filing any legal action, please contact <a href="mailto:hello@legesher.com">hello@legesher.com</a>
+            (or <a href="mailto:sales@legesher.com">sales@legesher.com</a> for licensing disputes) to attempt
+            informal resolution. Many issues can be resolved quickly without formal proceedings.
+          </p>
+
+          <h3>14.3 Arbitration for U.S. users</h3>
+          <p>
+            If informal resolution fails and you are located in the United States, any dispute shall be resolved by
+            <strong>binding arbitration</strong> under the Consumer Arbitration Rules of the American Arbitration
+            Association (AAA). <strong>You agree to arbitrate disputes individually, not as part of any class
+            action.</strong> Arbitration takes place in Delaware unless both parties agree to another location or to
+            resolve the dispute remotely.
+          </p>
+
+          <h3>14.4 Courts for non-U.S. users</h3>
+          <p>
+            If you are located outside the United States, disputes may be resolved in courts of competent
+            jurisdiction. You and Legesher agree to submit to the non-exclusive jurisdiction of the courts of
+            Delaware for any disputes that cannot be resolved informally.
+          </p>
+
+          <h3>14.5 Injunctive relief</h3>
+          <p>
+            Notwithstanding the above, either party may seek injunctive or other equitable relief in any court of
+            competent jurisdiction to protect its intellectual property rights, trademarks, or confidential
+            information.
+          </p>
+        </section>
+
+        <section aria-labelledby="general">
+          <h2 id="general">15. General Provisions</h2>
+
+          <h3>15.1 Entire agreement</h3>
+          <p>
+            These Terms, together with the <a href="/privacy">Privacy Policy</a> and any Commercial License or
+            service-specific agreement you enter into with Legesher Inc, constitute the entire agreement between you
+            and Legesher regarding the Website and the covered services.
+          </p>
+
+          <h3>15.2 Severability</h3>
+          <p>
+            If any provision of these Terms is found invalid or unenforceable, the remaining provisions remain in
+            full effect.
+          </p>
+
+          <h3>15.3 No waiver</h3>
+          <p>
+            Failure to enforce any provision of these Terms does not waive that provision or any other.
+          </p>
+
+          <h3>15.4 Assignment</h3>
+          <p>
+            You may not assign or transfer these Terms without Legesher Inc's prior written consent. Legesher Inc
+            may assign these Terms freely, including in connection with a merger, acquisition, or sale of assets.
+          </p>
+
+          <h3>15.5 Export compliance</h3>
+          <p>
+            You agree to comply with all applicable export control laws and regulations when using the Website or
+            any covered service.
+          </p>
+
+          <h3>15.6 Contact</h3>
+          <p>Questions about these Terms or a Commercial License:</p>
+          <ul>
+            <li>Commercial licensing: <a href="mailto:sales@legesher.com">sales@legesher.com</a></li>
+            <li>General inquiries: <a href="mailto:hello@legesher.com">hello@legesher.com</a></li>
+            <li>Privacy: <a href="mailto:privacy@legesher.com">privacy@legesher.com</a></li>
+            <li>Security: <a href="mailto:security@legesher.com">security@legesher.com</a></li>
+          </ul>
+        </section>
+
+        <p class="text-sm text-muted-foreground mt-12">
+          <em>Effective date: {lastUpdated}</em>
+        </p>
+      </article>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* Keep heading anchors clear of the fixed header on in-page navigation */
+  :global(main h2[id]),
+  :global(main h3[id]) {
+    scroll-margin-top: 6rem;
+  }
+</style>
