@@ -8,10 +8,13 @@ interface Props {
   description?: string;
 }
 
-const { 
-  title, 
+const {
+  title,
   description = "Legesher is a bridge between the words we speak and the code we write, allowing creation, education, innovation and collaboration to not be lost in translation."
 } = Astro.props;
+
+// Canonical URL resolved against configured site (astro.config.mjs: site = 'https://legesher.io')
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://legesher.io').toString();
 ---
 
 <!DOCTYPE html>
@@ -23,6 +26,8 @@ const {
     <link rel="icon" type="image/png" href="/Peggy-Headshot@4x.png" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href={canonicalURL} />
     <title>{title}</title>
 
     <!-- Security Headers - CSP is managed by Astro experimental.csp in astro.config.mjs -->

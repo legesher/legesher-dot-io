@@ -28,7 +28,7 @@ export default defineConfig({
     react(),
     mdx(),
   ],
-  site: 'https://legesher.io',
+  site: 'https://www.legesher.io',
   output: 'server',
   adapter: vercel({
     webAnalytics: { enabled: true },
