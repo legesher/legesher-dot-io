@@ -65,21 +65,6 @@ import { Button } from "@/components/ui/button";
           aria-hidden="true"
         />
 
-        <label for="consent" class="flex items-start gap-2 text-sm text-muted-foreground mt-2">
-          <input
-            id="consent"
-            type="checkbox"
-            name="consent"
-            required
-            aria-required="true"
-            class="mt-1 flex-shrink-0"
-          />
-          <span class="text-left">
-            I agree to receive the Legesher newsletter and understand I can unsubscribe at any time.
-            See our <a href="/privacy" class="underline hover:text-brand-coral">Privacy Policy</a>.
-          </span>
-        </label>
-
         <Button
           type="submit"
           className="yellow-button mt-2"
@@ -88,7 +73,7 @@ import { Button } from "@/components/ui/button";
         </Button>
       </form>
       <p id="form-message" class="text-sm text-muted-foreground mt-4">
-        Check your email to confirm your subscription. You can unsubscribe at any time.
+        Check your email to confirm your subscription. By subscribing, you agree to receive newsletters. We greatly respect your privacy and you can unsubscribe at any time.
       </p>
     </div>
   </div>

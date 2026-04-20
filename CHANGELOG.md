@@ -18,7 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `/.well-known/security.txt` (RFC 9116) exposing `security@legesher.com` as the canonical vulnerability
   reporting contact
 - Canonical URL and `robots` meta tags on every page for consistent search-engine indexing
-- Explicit GDPR-style opt-in checkbox on the newsletter subscription form linking to the Privacy Policy
+- Astro `site` configured to `https://www.legesher.io` (matches the CNAME and the hostname used by
+  security.txt and the privacy/terms docs)
 
 ### Changed
 
