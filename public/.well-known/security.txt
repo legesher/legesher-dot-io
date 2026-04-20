@@ -1,0 +1,10 @@
+# Legesher security contact (RFC 9116)
+#
+# Report security issues to the contact below. Please do not open public
+# GitHub issues for security vulnerabilities.
+
+Contact: mailto:security@legesher.com
+Expires: 2027-04-20T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://www.legesher.io/.well-known/security.txt
+Policy: https://www.legesher.io/terms
