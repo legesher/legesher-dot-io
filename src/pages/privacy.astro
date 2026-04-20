@@ -153,39 +153,22 @@ const lastUpdated = 'April 20, 2026';
 
           <h3>We do not set cookies</h3>
           <p>
-            <strong>We set zero cookies on your browser.</strong> Our analytics
+            <strong>We set zero cookies on your browser, and we do not write to
+            <code>localStorage</code>, <code>sessionStorage</code>, or any other client-side
+            storage.</strong> Our analytics
             (<a href="https://vercel.com/docs/analytics/privacy-policy" rel="noopener"
-            >Vercel Web Analytics</a>) and hosting stack are cookieless, and we do not use cookies for
-            advertising, cross-site tracking, or behavioural profiling. Our newsletter form submits to
-            our own server-side endpoint and never loads third-party scripts in your browser, so
-            <a href="https://buttondown.com" rel="noopener">Buttondown</a> cannot set cookies through our
-            site either.
+            >Vercel Web Analytics</a>) and hosting stack are cookieless, and we do not use
+            cookies for advertising, cross-site tracking, or behavioural profiling. Our newsletter
+            form submits to our own server-side endpoint and never loads third-party scripts in
+            your browser, so <a href="https://buttondown.com" rel="noopener">Buttondown</a>
+            cannot set cookies through our site either.
           </p>
           <p>
             Because we set no cookies and use no cookie-based analytics, we do not display a cookie
             consent banner &mdash; none is required under GDPR or the ePrivacy Directive.
           </p>
-          <p>The only client-side storage we use is:</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Mechanism</th>
-                <th>Purpose</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Browser <code>localStorage</code></td>
-                <td>
-                  Remembers your light/dark theme preference across visits (if you change it). No
-                  personal data is stored; the value lives only in your browser and is never
-                  transmitted to us.
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
-          <h3>Fonts</h3>
+          <h3 id="fonts">Fonts</h3>
           <p>
             The website loads the Noto Sans font family from Google Fonts
             (<code>fonts.googleapis.com</code>). Google may receive your IP address when your browser requests these
@@ -223,7 +206,7 @@ const lastUpdated = 'April 20, 2026';
               hosting
             </li>
             <li><a href="https://policies.google.com/privacy" rel="noopener">Google Fonts</a> &mdash; web fonts (see
-              <a href="#cookies-and-tracking">Fonts</a>)
+              <a href="#fonts">Fonts</a>)
             </li>
           </ul>
           <p>
@@ -549,7 +532,6 @@ const lastUpdated = 'April 20, 2026';
 
 <style>
   /* Keep heading anchors clear of the fixed header on in-page navigation */
-  :global(main section[id]),
   :global(main h2[id]),
   :global(main h3[id]) {
     scroll-margin-top: 6rem;
