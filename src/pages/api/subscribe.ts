@@ -3,40 +3,11 @@ import type { APIRoute } from 'astro';
 // Enable server-side rendering for this endpoint
 export const prerender = false;
 
-// Rate limiting configuration
-const RATE_LIMIT_WINDOW = 60 * 60; // 1 hour in seconds
-const MAX_REQUESTS_PER_WINDOW = 5;
-
-const UPSTASH_REDIS_REST_URL = import.meta.env.UPSTASH_REDIS_REST_URL;
-const UPSTASH_REDIS_REST_TOKEN = import.meta.env.UPSTASH_REDIS_REST_TOKEN;
-
 // Email validation regex
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 // Name validation regex (supports international characters)
 const NAME_REGEX = /^[\p{L}\s\-']{2,150}$/u;
-
-async function checkRateLimit(key: string): Promise<{ allowed: boolean; message?: string }> {
-  if (!UPSTASH_REDIS_REST_URL || !UPSTASH_REDIS_REST_TOKEN) {
-    // Fallback: allow all if Redis is not configured
-    return { allowed: true };
-  }
-  const res = await fetch(`${UPSTASH_REDIS_REST_URL}/incr/${key}`, {
-    headers: { Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}` },
-  });
-  const data = await res.json();
-  const count = data.result || 0;
-  if (count === 1) {
-    // Set expiry on first request
-    await fetch(`${UPSTASH_REDIS_REST_URL}/expire/${key}/${RATE_LIMIT_WINDOW}`, {
-      headers: { Authorization: `Bearer ${UPSTASH_REDIS_REST_TOKEN}` },
-    });
-  }
-  if (count > MAX_REQUESTS_PER_WINDOW) {
-    return { allowed: false, message: 'Too many requests. Please try again later.' };
-  }
-  return { allowed: true };
-}
 
 export const POST: APIRoute = async ({ request }) => {
   const BUTTONDOWN_API_KEY = import.meta.env.BUTTONDOWN_API_KEY;
@@ -49,24 +20,9 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    // Get client IP for rate limiting
+    // Get client IP to forward to Buttondown (used by their spam prevention)
     const forwarded = request.headers.get('x-forwarded-for');
     const ip = forwarded ? forwarded.split(',')[0].trim() : request.headers.get('x-real-ip') || 'unknown';
-
-    // Check IP-based rate limit
-    const ipRateLimitCheck = await checkRateLimit(`rate_limit:${ip}`);
-    if (!ipRateLimitCheck.allowed) {
-      return new Response(
-        JSON.stringify({ message: ipRateLimitCheck.message }),
-        {
-          status: 429,
-          headers: {
-            'Content-Type': 'application/json',
-            'Retry-After': '3600'
-          }
-        }
-      );
-    }
 
     // Parse request data
     const data = await request.json();
@@ -92,21 +48,6 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(
         JSON.stringify({ message: 'Invalid submission' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Check email-based rate limit
-    const emailRateLimitCheck = await checkRateLimit(`rate_limit_email:${data.email.toLowerCase()}`);
-    if (!emailRateLimitCheck.allowed) {
-      return new Response(
-        JSON.stringify({ message: 'This email has been submitted recently. Please check your inbox.' }),
-        {
-          status: 429,
-          headers: {
-            'Content-Type': 'application/json',
-            'Retry-After': '3600'
-          }
-        }
       );
     }
 

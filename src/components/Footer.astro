@@ -43,8 +43,11 @@ const currentYear = new Date().getFullYear();
           <span class="sr-only">Instagram</span>
         </a>
       </div>
-      <div class="text-sm text-brand-gray">
-        © {currentYear} Legesher. All rights reserved.
+      <div class="text-sm text-brand-gray flex flex-col md:items-end gap-1">
+        <div class="flex items-center gap-4">
+          <a href="/privacy" class="hover:text-brand-cyan transition-colors duration-300">Privacy Policy</a>
+        </div>
+        <div>© {currentYear} Legesher. All rights reserved.</div>
       </div>
     </div>
   </div>
