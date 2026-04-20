@@ -69,7 +69,10 @@ const lastUpdated = 'April 20, 2026';
             <li>
               <strong>Newsletter Subscriptions:</strong> first name and email address, submitted through our
               newsletter form and processed by <a href="https://buttondown.com" rel="noopener"
-              >Buttondown</a>.
+              >Buttondown</a>. When you submit the form, your IP address is also forwarded (server-side,
+              not from your browser) to Buttondown and to our rate-limiting service
+              (<a href="https://upstash.com/trust/privacy.pdf" rel="noopener">Upstash</a>) for spam
+              prevention. The IP is retained in our rate-limit cache for no longer than one hour.
             </li>
             <li>
               <strong>Survey Responses:</strong> feedback provided through optional surveys we link to. Our surveys
@@ -149,12 +152,21 @@ const lastUpdated = 'April 20, 2026';
         <section aria-labelledby="cookies-and-tracking">
           <h2 id="cookies-and-tracking">Cookies and Tracking Technologies</h2>
 
-          <h3>What Cookies and Local Storage We Use</h3>
+          <h3>We do not set cookies</h3>
           <p>
-            Our analytics are <strong>cookieless</strong>. Vercel Web Analytics does not set cookies, and we do not
-            use cookies for advertising, cross-site tracking, or behavioural profiling.
+            <strong>We set zero cookies on your browser.</strong> Our analytics
+            (<a href="https://vercel.com/docs/analytics/privacy-policy" rel="noopener"
+            >Vercel Web Analytics</a>) and hosting stack are cookieless, and we do not use cookies for
+            advertising, cross-site tracking, or behavioural profiling. Our newsletter form submits to
+            our own server-side endpoint and never loads third-party scripts in your browser, so
+            <a href="https://buttondown.com" rel="noopener">Buttondown</a> cannot set cookies through our
+            site either.
           </p>
-          <p>The limited client-side storage we use is:</p>
+          <p>
+            Because we set no cookies and use no cookie-based analytics, we do not display a cookie
+            consent banner &mdash; none is required under GDPR or the ePrivacy Directive.
+          </p>
+          <p>The only client-side storage we use is:</p>
           <table>
             <thead>
               <tr>
@@ -164,18 +176,11 @@ const lastUpdated = 'April 20, 2026';
             </thead>
             <tbody>
               <tr>
-                <td>Local storage (theme preference)</td>
+                <td>Browser <code>localStorage</code></td>
                 <td>
-                  Remembers your light/dark theme choice across visits. No personal data; stored only in your
-                  browser.
-                </td>
-              </tr>
-              <tr>
-                <td>Third-party service cookies</td>
-                <td>
-                  If you choose to subscribe to our newsletter, Buttondown may set cookies in your browser when you
-                  submit the form. See <a href="https://buttondown.com/legal/privacy" rel="noopener">Buttondown's
-                  Privacy Policy</a>.
+                  Remembers your light/dark theme preference across visits (if you change it). No
+                  personal data is stored; the value lives only in your browser and is never
+                  transmitted to us.
                 </td>
               </tr>
             </tbody>
@@ -214,6 +219,9 @@ const lastUpdated = 'April 20, 2026';
             </li>
             <li><a href="https://buttondown.com/legal/privacy" rel="noopener">Buttondown</a> &mdash; newsletter
               delivery
+            </li>
+            <li><a href="https://upstash.com/trust/privacy.pdf" rel="noopener">Upstash</a> &mdash; short-term IP
+              caching for newsletter rate limiting (1 hour)
             </li>
             <li><a href="https://policies.google.com/privacy" rel="noopener">Google Forms</a> &mdash; optional survey
               hosting
@@ -320,8 +328,8 @@ const lastUpdated = 'April 20, 2026';
           </p>
         </section>
 
-        <section aria-labelledby="privacy-rights">
-          <h2 id="privacy-rights">Your Privacy Rights</h2>
+        <section aria-labelledby="gdpr-ccpa-compliance">
+          <h2 id="gdpr-ccpa-compliance">GDPR &amp; CCPA Compliance</h2>
           <p>Depending on your location, you may have certain rights regarding your personal information.</p>
 
           <h3>All Users</h3>
@@ -374,6 +382,12 @@ const lastUpdated = 'April 20, 2026';
             <li><strong>Portability:</strong> receive your data in a portable format</li>
             <li><strong>Object</strong> to certain processing activities</li>
             <li><strong>Withdraw consent</strong> at any time</li>
+            <li>
+              <strong>Lodge a complaint</strong> with a supervisory authority &mdash; for EEA
+              residents, your local Data Protection Authority; for UK residents, the
+              <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">Information
+              Commissioner's Office</a>
+            </li>
           </ul>
           <p><strong>Legal basis for processing (EEA/UK):</strong></p>
           <ul>
