@@ -60,5 +60,8 @@
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

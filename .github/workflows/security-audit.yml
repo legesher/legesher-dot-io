@@ -1,0 +1,55 @@
+name: Security Audit
+
+# Supply-chain audit: verifies that every installed package was published by its
+# claimed author (registry signatures + npm provenance attestations) and checks
+# for known vulnerabilities. Runs on PRs, pushes to main, and weekly.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 9 * * 1" # Mondays 09:00 UTC
+
+# Least-privilege: this job only needs to read the repo.
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      # Actions are pinned to full commit SHAs (not mutable tags) to defend
+      # against compromised-action supply-chain attacks. Dependabot keeps them
+      # current via .github/dependabot.yml (github-actions ecosystem).
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      # Install exactly what the lockfile pins, with integrity verification, and
+      # WITHOUT running any package lifecycle scripts (primary anti-worm defense).
+      - name: Install (locked, no scripts)
+        run: npm ci --ignore-scripts
+
+      # Hard gate: verify cryptographic registry signatures and provenance
+      # attestations for all installed packages. Fails if any package looks
+      # tampered with or was not published by its claimed author.
+      - name: Verify package provenance and signatures
+        run: npm audit signatures
+
+      # Hard gate: block on critical advisories (none currently).
+      - name: Audit (block on critical)
+        run: npm audit --audit-level=critical
+
+      # Informational: report high/moderate advisories. Currently non-blocking
+      # because of known, accepted advisories pending the Astro 5 -> 6 migration
+      # (@astrojs/vercel, path-to-regexp) and a dev-only tool chain
+      # (all-contributors-cli -> tmp). Flip `continue-on-error` to false once
+      # those are resolved to make high-severity advisories blocking.
+      - name: Audit (report high)
+        continue-on-error: true
+        run: npm audit --audit-level=high
