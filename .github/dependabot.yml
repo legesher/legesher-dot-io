@@ -1,0 +1,42 @@
+# Dependabot configuration.
+# Previously running on GitHub defaults; this makes the policy explicit.
+# Security updates are always raised immediately and individually by Dependabot,
+# regardless of the schedule/grouping below (which only governs version updates).
+version: 2
+updates:
+  # npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    # Group routine (non-major) version bumps to reduce PR noise. Majors stay
+    # separate so breaking changes get individual review (e.g. Astro 5 -> 6).
+    groups:
+      production-minor-patch:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      development-minor-patch:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions (keep SHA-pinned actions current via Dependabot)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Etc/UTC"
+    labels:
+      - "dependencies"
+      - "github-actions"
