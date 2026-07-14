@@ -35,6 +35,11 @@ jobs:
       - uses: actions/first-interaction@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          # first-interaction@v3 requires issue-message even when the job only
+          # ever fires for PRs; omitting it failed this check on EVERY pull
+          # request ("Input required and not supplied: issue_message").
+          issue-message: |
+            Thanks for opening your first issue here!
           pr-message: |
             Thanks for opening this pull request!
 
