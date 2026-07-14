@@ -28,6 +28,20 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      # The Astro integrations are version-locked to the Astro core, and React
+      # majors ride with @astrojs/react — shipped as six separate major PRs they
+      # are each individually build-breaking (exactly how #157-#169 piled up).
+      # One group = one coordinated, mergeable upgrade PR.
+      framework-majors:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+        update-types:
+          - "major"
 
   # GitHub Actions (keep SHA-pinned actions current via Dependabot)
   - package-ecosystem: "github-actions"
