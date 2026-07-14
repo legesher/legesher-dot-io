@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
+  @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
+  raised to >=22.12.0). One code change applied: CSP configuration graduated from
+  `experimental.csp` to `security.csp`.
+- Removed the `@astrojs/tailwind` integration (no release supports Astro 6); Tailwind 3 now
+  loads through the repo's existing `postcss.config.js`, which Astro/Vite picks up natively —
+  no CSS changes. The Tailwind 4 migration is deferred as its own project.
+
+### Security
+
+- **Cleared all 6 high and both moderate npm-audit advisories** (6 high / 2 moderate / 6 low →
+  0 / 0 / 4). Includes five Astro HIGHs — the `define:vars` XSS (GHSA-j687-52p2-xcff),
+  spread-props XSS, slot-name XSS, server-island replay, and SSRF — plus the `x-astro-path`
+  override via @astrojs/vercel 10. Scoped npm overrides pin `path-to-regexp` to the patched
+  6.3.0 (revisit at Astro 7) and `tmp` to ^0.2.6. The remaining 4 lows are the esbuild
+  dev-server advisory pinned by astro itself; no fix exists in the 6.x line.
+
 ### Added
 
 - Company-wide **Privacy Policy** at [/privacy](https://www.legesher.io/privacy) covering website, products,

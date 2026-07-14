@@ -1,11 +1,11 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
-  experimental: {
+  // CSP graduated from `experimental.csp` to `security.csp` in Astro 6.
+  security: {
     csp: {
       directives: [
         "default-src 'self'",
@@ -24,7 +24,10 @@ export default defineConfig({
     }
   },
   integrations: [
-    tailwind(),
+    // Tailwind 3 now runs through the root postcss.config.js (tailwindcss +
+    // autoprefixer), which Vite picks up natively; @astrojs/tailwind has no
+    // Astro 6-compatible release. globals.css already carries the @tailwind
+    // directives and is imported by Layout.astro.
     react(),
     mdx(),
   ],
