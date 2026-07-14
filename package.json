@@ -58,7 +58,7 @@
     "all-contributors-cli": "^6.26.1",
     "@tailwindcss/typography": "^0.5.20",
     "autoprefixer": "^10.5.2",
-    "postcss": "^8.5.16",
+    "postcss": "^8.5.19",
     "typescript": "^5.9.3"
   },
   "engines": {
