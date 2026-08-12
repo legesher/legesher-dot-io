@@ -1,16 +1,14 @@
 ---
 import { Menu, X } from 'lucide-react';
+import { LINKS } from '@/lib/links';
 
 // Single source for both the desktop nav and the mobile menu so the two can't
 // drift apart as links are added.
 const navLinks = [
-  { href: 'https://github.com/legesher/', label: 'Roadmap' },
-  {
-    href: 'https://join.slack.com/t/legesher/shared_invite/zt-370xpp6b9-LYxWVIOF7ujVH5kYnwaGbQ',
-    label: 'Community',
-  },
-  { href: 'https://docs.legesher.io/', label: 'Docs' },
-  { href: 'mailto:hello@legesher.com', label: 'Contact' },
+  { href: LINKS.github, label: 'Roadmap' },
+  { href: LINKS.slack, label: 'Community' },
+  { href: LINKS.docs, label: 'Docs' },
+  { href: LINKS.email, label: 'Contact' },
 ];
 ---
 

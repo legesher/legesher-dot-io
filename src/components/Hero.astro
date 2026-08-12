@@ -1,6 +1,7 @@
 ---
 import ButtonLink from './ButtonLink.astro';
 import CodeEditor from './CodeEditor.astro';
+import { LINKS } from '@/lib/links';
 import '@/styles/globals.css';
 ---
 
@@ -23,7 +24,7 @@ import '@/styles/globals.css';
             Get Updates
           </ButtonLink>
           <ButtonLink
-            href="https://github.com/legesher"
+            href={LINKS.github}
             target="_blank"
             rel="noopener noreferrer"
             variant="default"
@@ -72,7 +73,7 @@ import '@/styles/globals.css';
           Join our Newsletter
         </ButtonLink>
         <ButtonLink
-          href="https://github.com/legesher"
+          href={LINKS.github}
           target="_blank"
           rel="noopener noreferrer"
           variant="outline"
