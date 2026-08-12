@@ -40,16 +40,20 @@ const navLinks = [
         <X id="mobile-menu-icon-close" className="h-6 w-6 hidden" aria-hidden="true" />
       </button>
     </div>
-    <nav
-      id="mobile-menu"
-      class="hidden md:hidden bg-white border-t border-brand-gray/30 mt-4 pt-2 pb-2"
-      aria-label="Mobile"
-    >
-      {navLinks.map((link) => (
-        <a href={link.href} class="block px-2 py-3 text-sm font-medium hover:text-primary transition-colors duration-300">{link.label}</a>
-      ))}
-    </nav>
   </div>
+  <!-- Outside the padded container so the panel's background spans the full
+       header width; the inner container keeps links aligned with the logo. -->
+  <nav
+    id="mobile-menu"
+    class="hidden md:hidden bg-white border-t border-brand-gray/30 mt-4"
+    aria-label="Mobile"
+  >
+    <div class="container mx-auto px-4 py-2">
+      {navLinks.map((link) => (
+        <a href={link.href} class="block py-3 text-sm font-medium hover:text-primary transition-colors duration-300">{link.label}</a>
+      ))}
+    </div>
+  </nav>
 </header>
 
 <script src="/scripts/header.js" is:inline></script>
