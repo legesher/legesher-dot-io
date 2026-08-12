@@ -31,13 +31,13 @@ const navLinks = [
       <button
         type="button"
         id="mobile-menu-toggle"
-        class="md:hidden inline-flex items-center justify-center p-2 -mr-2 transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        class="group md:hidden inline-flex items-center justify-center p-2 -mr-2 transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
         aria-expanded="false"
         aria-controls="mobile-menu"
-        aria-label="Open menu"
+        aria-label="Menu"
       >
-        <Menu id="mobile-menu-icon-open" className="h-6 w-6" aria-hidden="true" />
-        <X id="mobile-menu-icon-close" className="h-6 w-6 hidden" aria-hidden="true" />
+        <Menu className="h-6 w-6 group-aria-expanded:hidden" aria-hidden="true" />
+        <X className="h-6 w-6 hidden group-aria-expanded:block" aria-hidden="true" />
       </button>
     </div>
   </div>

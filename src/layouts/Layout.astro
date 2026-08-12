@@ -14,16 +14,18 @@ interface Props {
 const {
   title,
   description = "Legesher is a bridge between the words we speak and the code we write, allowing creation, education, innovation and collaboration to not be lost in translation.",
-  image = '/website_hero.png',
-  imageAlt = 'The Legesher homepage, showing Python code written in Spanish.'
+  image = '/og-card.png',
+  imageAlt = 'Peggy, the Legesher flamingo.'
 } = Astro.props;
 
-// Canonical URL resolved against configured site (astro.config.mjs: site = 'https://www.legesher.io').
-// The fallback must match that value — www is canonical sitewide, per the CNAME.
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://www.legesher.io').toString();
+// www is canonical sitewide, per the CNAME. `site` is set in astro.config.mjs,
+// so this is defined on every build; the literal lives there, not here.
+const site = Astro.site;
+
+const canonicalURL = new URL(Astro.url.pathname, site).toString();
 
 // Social crawlers do not resolve relative image paths — these must be absolute.
-const socialImageURL = new URL(image, Astro.site ?? 'https://www.legesher.io').toString();
+const socialImageURL = new URL(image, site).toString();
 ---
 
 <!DOCTYPE html>

@@ -29,16 +29,13 @@ window.addEventListener('scroll', updateHeader);
 // the only header path to the site's links on a phone.
 const menuToggle = document.getElementById('mobile-menu-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
-const menuIconOpen = document.getElementById('mobile-menu-icon-open');
-const menuIconClose = document.getElementById('mobile-menu-icon-close');
 
 if (menuToggle && mobileMenu) {
+  // aria-expanded is the single source of truth: it drives assistive tech, the
+  // Menu/X icon swap (via group-aria-expanded in Header.astro), and isOpen().
   const setMenu = (open) => {
     mobileMenu.classList.toggle('hidden', !open);
-    if (menuIconOpen) menuIconOpen.classList.toggle('hidden', open);
-    if (menuIconClose) menuIconClose.classList.toggle('hidden', !open);
     menuToggle.setAttribute('aria-expanded', String(open));
-    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   };
 
   const isOpen = () => menuToggle.getAttribute('aria-expanded') === 'true';

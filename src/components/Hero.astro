@@ -15,10 +15,11 @@ import '@/styles/globals.css';
           Write code in your native language, collaborate globally, and make programming truly universal.
           Our AI-native, open source developer solutions bridge language gaps, rewriting who gets to write the future.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <!-- self-start: this row stacks below `sm`, and without it the CTAs
-               would stretch to full width instead of sizing to their label. -->
-          <ButtonLink href="#newsletter" variant="default" size="lg" class="secondary-button self-start">
+        <!-- items-start: this row stacks below `sm`, and the default `stretch`
+             would widen every CTA to the full column instead of sizing it to
+             its label. Set once here so it holds for CTAs added later. -->
+        <div class="flex flex-col sm:flex-row items-start gap-4">
+          <ButtonLink href="#newsletter" variant="default" size="lg" class="secondary-button">
             Get Updates
           </ButtonLink>
           <ButtonLink
@@ -27,7 +28,7 @@ import '@/styles/globals.css';
             rel="noopener noreferrer"
             variant="default"
             size="lg"
-            class="primary-button self-start"
+            class="primary-button"
           >
             View on GitHub
           </ButtonLink>

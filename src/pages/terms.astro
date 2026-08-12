@@ -6,9 +6,6 @@ import Footer from '../components/Footer.astro';
 import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
 
 const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
-
-// Static content — prerendered so it lands in the sitemap.
-export const prerender = true;
 ---
 
 <Layout

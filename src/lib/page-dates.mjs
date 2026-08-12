@@ -12,17 +12,12 @@ export const LAST_UPDATED = {
   terms: '2026-07-14',
 };
 
-/** '2026-08-10' -> 'August 10, 2026' */
+/** '2026-08-10' -> 'August 10, 2026'. The sitemap consumes the ISO form directly. */
 export function formatLastUpdated(iso) {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', {
+  return new Date(iso).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     timeZone: 'UTC',
   });
-}
-
-/** '2026-08-10' -> Date, for sitemap <lastmod>. */
-export function toDate(iso) {
-  return new Date(`${iso}T00:00:00Z`);
 }
