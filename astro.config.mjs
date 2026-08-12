@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
@@ -30,6 +31,10 @@ export default defineConfig({
     // directives and is imported by Layout.astro.
     react(),
     mdx(),
+    // Only emits entries for prerendered routes, so the static content pages
+    // each declare `export const prerender = true`. /api/subscribe stays
+    // server-rendered and is excluded automatically.
+    sitemap(),
   ],
   site: 'https://www.legesher.io',
   output: 'server',

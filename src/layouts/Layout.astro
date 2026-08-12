@@ -13,8 +13,9 @@ const {
   description = "Legesher is a bridge between the words we speak and the code we write, allowing creation, education, innovation and collaboration to not be lost in translation."
 } = Astro.props;
 
-// Canonical URL resolved against configured site (astro.config.mjs: site = 'https://legesher.io')
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://legesher.io').toString();
+// Canonical URL resolved against configured site (astro.config.mjs: site = 'https://www.legesher.io').
+// The fallback must match that value — www is canonical sitewide, per the CNAME.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://www.legesher.io').toString();
 ---
 
 <!DOCTYPE html>
