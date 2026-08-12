@@ -3,7 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-const lastUpdated = 'July 14, 2026';
+import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
+
+const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
 ---
 
 <Layout

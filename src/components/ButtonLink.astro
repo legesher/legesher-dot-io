@@ -1,0 +1,23 @@
+---
+// A link that looks like a button — rendered as a single <a>.
+//
+// Use this instead of wrapping <Button> in an <a>: nesting a <button> inside an
+// <a> is invalid HTML5 and breaks keyboard focus order and assistive tech.
+// Styling comes from the same `buttonVariants` the shadcn Button uses, so the
+// two stay visually identical.
+import type { HTMLAttributes } from 'astro/types';
+import type { VariantProps } from 'class-variance-authority';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+
+type Props = HTMLAttributes<'a'> &
+  VariantProps<typeof buttonVariants> & {
+    href: string;
+  };
+
+const { href, variant, size, class: className, ...rest } = Astro.props;
+---
+
+<a href={href} class={cn(buttonVariants({ variant, size, className }))} {...rest}>
+  <slot />
+</a>

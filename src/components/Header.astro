@@ -1,5 +1,15 @@
 ---
-import { Code } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { LINKS } from '@/lib/links';
+
+// Single source for both the desktop nav and the mobile menu so the two can't
+// drift apart as links are added.
+const navLinks = [
+  { href: LINKS.github, label: 'Roadmap' },
+  { href: LINKS.slack, label: 'Community' },
+  { href: LINKS.docs, label: 'Docs' },
+  { href: LINKS.email, label: 'Contact' },
+];
 ---
 
 <header class="py-4 fixed w-full top-0 z-50 transition-colors duration-200" id="main-header">
@@ -11,14 +21,37 @@ import { Code } from 'lucide-react';
           <span class="font-bold text-xl">Legesher</span>
         </a>
       </div>
-      <nav class="hidden md:flex space-x-6 justify-center">
-        <a href="https://github.com/legesher/" class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">Roadmap</a>
-        <a href="https://join.slack.com/t/legesherinc/shared_invite/zt-370xpp6b9-LYxWVIOF7ujVH5kYnwaGbQ" class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">Community</a>
-        <a href="https://docs.legesher.io/" class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">Docs</a>
-        <a href="mailto:hello@legesher.com" class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">Contact</a>
+      <nav class="hidden md:flex space-x-6 justify-center" aria-label="Main">
+        {navLinks.map((link) => (
+          <a href={link.href} class="text-sm font-medium hover:text-primary transition-all duration-300 nav-link">{link.label}</a>
+        ))}
       </nav>
+      <button
+        type="button"
+        id="mobile-menu-toggle"
+        class="group md:hidden inline-flex items-center justify-center p-2 -mr-2 transition-colors duration-300 hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Menu"
+      >
+        <Menu className="h-6 w-6 group-aria-expanded:hidden" aria-hidden="true" />
+        <X className="h-6 w-6 hidden group-aria-expanded:block" aria-hidden="true" />
+      </button>
     </div>
   </div>
+  <!-- Outside the padded container so the panel's background spans the full
+       header width; the inner container keeps links aligned with the logo. -->
+  <nav
+    id="mobile-menu"
+    class="hidden md:hidden bg-white border-t border-brand-gray/30 mt-4"
+    aria-label="Mobile"
+  >
+    <div class="container mx-auto px-4 py-2">
+      {navLinks.map((link) => (
+        <a href={link.href} class="block py-3 text-sm font-medium hover:text-primary transition-colors duration-300">{link.label}</a>
+      ))}
+    </div>
+  </nav>
 </header>
 
 <script src="/scripts/header.js" is:inline></script>

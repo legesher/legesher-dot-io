@@ -1,6 +1,7 @@
 ---
-import { Button } from "@/components/ui/button";
+import ButtonLink from './ButtonLink.astro';
 import CodeEditor from './CodeEditor.astro';
+import { LINKS } from '@/lib/links';
 import '@/styles/globals.css';
 ---
 
@@ -15,13 +16,23 @@ import '@/styles/globals.css';
           Write code in your native language, collaborate globally, and make programming truly universal.
           Our AI-native, open source developer solutions bridge language gaps, rewriting who gets to write the future.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#newsletter" class="inline-block">
-            <Button variant="default" size="lg" className="secondary-button">Get Updates</Button>
-          </a>
-          <a href="https://github.com/legesher" target="_blank" rel="noopener noreferrer" class="inline-block">
-            <Button variant="default" size="lg" className="primary-button">View on GitHub</Button>
-          </a>
+        <!-- items-start: this row stacks below `sm`, and the default `stretch`
+             would widen every CTA to the full column instead of sizing it to
+             its label. Set once here so it holds for CTAs added later. -->
+        <div class="flex flex-col sm:flex-row items-start gap-4">
+          <ButtonLink href="#newsletter" variant="default" size="lg" class="secondary-button">
+            Get Updates
+          </ButtonLink>
+          <ButtonLink
+            href={LINKS.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="default"
+            size="lg"
+            class="primary-button"
+          >
+            View on GitHub
+          </ButtonLink>
         </div>
         <div class="pt-6">
           <p class="text-sm text-muted-foreground">Code in your language, collaborate across 7,000+ languages</p>
@@ -58,16 +69,19 @@ import '@/styles/globals.css';
         Through native-language collaboration tools, we're empowering the next generation of global innovators to think, create, and solve problems in the language of their ideas—not be confined by the language of existing software.
       </p>
       <div class="mt-8 flex justify-center gap-4">
-        <a href="#newsletter" class="inline-block">
-          <Button variant="default" size="lg" className="primary-button">
-            Join our Newsletter
-          </Button>
-        </a>
-        <a href="https://github.com/legesher" target="_blank" rel="noopener noreferrer" class="inline-block">
-          <Button variant="outline" size="lg" className="outline-button">
-            View on GitHub
-          </Button>
-        </a>
+        <ButtonLink href="#newsletter" variant="default" size="lg" class="primary-button">
+          Join our Newsletter
+        </ButtonLink>
+        <ButtonLink
+          href={LINKS.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="outline"
+          size="lg"
+          class="outline-button"
+        >
+          View on GitHub
+        </ButtonLink>
       </div>
     </div>
   </div>
