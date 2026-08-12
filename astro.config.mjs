@@ -50,6 +50,12 @@ export default defineConfig({
   // to remember a flag; routes needing the server opt out with
   // `export const prerender = false` (see src/pages/api/subscribe.ts).
   output: 'static',
+  // Keep URLs bare. Prerendering defaults to directory format, which would make
+  // Astro.url.pathname '/privacy/' and push a trailing slash into the canonical
+  // tag, og:url and the sitemap — while every internal link, and the URL already
+  // indexed, is '/privacy'.
+  trailingSlash: 'never',
+  build: { format: 'file' },
   adapter: vercel({
     webAnalytics: { enabled: true },
     speedInsights: { enabled: true },
