@@ -6,16 +6,24 @@ import Analytics from '@vercel/analytics/astro';
 interface Props {
   title: string;
   description?: string;
+  /** Absolute-from-root path to the social preview image. */
+  image?: string;
+  imageAlt?: string;
 }
 
 const {
   title,
-  description = "Legesher is a bridge between the words we speak and the code we write, allowing creation, education, innovation and collaboration to not be lost in translation."
+  description = "Legesher is a bridge between the words we speak and the code we write, allowing creation, education, innovation and collaboration to not be lost in translation.",
+  image = '/website_hero.png',
+  imageAlt = 'The Legesher homepage, showing Python code written in Spanish.'
 } = Astro.props;
 
 // Canonical URL resolved against configured site (astro.config.mjs: site = 'https://www.legesher.io').
 // The fallback must match that value — www is canonical sitewide, per the CNAME.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://www.legesher.io').toString();
+
+// Social crawlers do not resolve relative image paths — these must be absolute.
+const socialImageURL = new URL(image, Astro.site ?? 'https://www.legesher.io').toString();
 ---
 
 <!DOCTYPE html>
@@ -41,12 +49,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://www.lege
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Legesher.io" />
-    
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:alt" content={imageAlt} />
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@legesherio" />
     <meta name="twitter:creator" content="@legesherio" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
     <SpeedInsights />
     <Analytics />

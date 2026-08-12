@@ -1,15 +1,7 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# Every crawler may index everything. A crawler obeys exactly one group — the
+# most specific one that matches it — and groups do not inherit, so naming
+# agents individually here would mean any future rule added to `*` was silently
+# ignored by those agents. One group keeps that trap closed.
 User-agent: *
 Allow: /
 

@@ -44,6 +44,17 @@
       "source": "/go/linkedin",
       "destination": "https://www.linkedin.com/company/legesher",
       "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "legesher.io"
+        }
+      ],
+      "destination": "https://www.legesher.io/:path*",
+      "permanent": true
     }
   ]
 }

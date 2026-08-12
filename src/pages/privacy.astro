@@ -3,7 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-const lastUpdated = 'August 10, 2026';
+import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
+
+const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
 
 // Static content — prerendered so it lands in the sitemap.
 export const prerender = true;
