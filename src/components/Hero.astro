@@ -1,5 +1,5 @@
 ---
-import { Button } from "@/components/ui/button";
+import ButtonLink from './ButtonLink.astro';
 import CodeEditor from './CodeEditor.astro';
 import '@/styles/globals.css';
 ---
@@ -16,12 +16,21 @@ import '@/styles/globals.css';
           Our AI-native, open source developer solutions bridge language gaps, rewriting who gets to write the future.
         </p>
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#newsletter" class="inline-block">
-            <Button variant="default" size="lg" className="secondary-button">Get Updates</Button>
-          </a>
-          <a href="https://github.com/legesher" target="_blank" rel="noopener noreferrer" class="inline-block">
-            <Button variant="default" size="lg" className="primary-button">View on GitHub</Button>
-          </a>
+          <!-- self-start: this row stacks below `sm`, and without it the CTAs
+               would stretch to full width instead of sizing to their label. -->
+          <ButtonLink href="#newsletter" variant="default" size="lg" class="secondary-button self-start">
+            Get Updates
+          </ButtonLink>
+          <ButtonLink
+            href="https://github.com/legesher"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="default"
+            size="lg"
+            class="primary-button self-start"
+          >
+            View on GitHub
+          </ButtonLink>
         </div>
         <div class="pt-6">
           <p class="text-sm text-muted-foreground">Code in your language, collaborate across 7,000+ languages</p>
@@ -58,16 +67,19 @@ import '@/styles/globals.css';
         Through native-language collaboration tools, we're empowering the next generation of global innovators to think, create, and solve problems in the language of their ideas—not be confined by the language of existing software.
       </p>
       <div class="mt-8 flex justify-center gap-4">
-        <a href="#newsletter" class="inline-block">
-          <Button variant="default" size="lg" className="primary-button">
-            Join our Newsletter
-          </Button>
-        </a>
-        <a href="https://github.com/legesher" target="_blank" rel="noopener noreferrer" class="inline-block">
-          <Button variant="outline" size="lg" className="outline-button">
-            View on GitHub
-          </Button>
-        </a>
+        <ButtonLink href="#newsletter" variant="default" size="lg" class="primary-button">
+          Join our Newsletter
+        </ButtonLink>
+        <ButtonLink
+          href="https://github.com/legesher"
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="outline"
+          size="lg"
+          class="outline-button"
+        >
+          View on GitHub
+        </ButtonLink>
       </div>
     </div>
   </div>
