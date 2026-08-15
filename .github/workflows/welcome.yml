@@ -18,7 +18,7 @@ jobs:
     if: github.event_name == 'issues'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/first-interaction@v3
+      - uses: actions/first-interaction@1c4688942c71f71d4f5502a26ea67c331730fa4d # v3
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           issue_message: |
@@ -36,7 +36,7 @@ jobs:
     if: github.event_name == 'pull_request_target' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/first-interaction@v3
+      - uses: actions/first-interaction@1c4688942c71f71d4f5502a26ea67c331730fa4d # v3
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           # first-interaction@v3 renamed every input kebab -> snake_case
@@ -68,7 +68,7 @@ jobs:
     if: github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v9
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             // Check if this is their first merged PR
