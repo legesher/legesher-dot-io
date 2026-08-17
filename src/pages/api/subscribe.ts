@@ -18,11 +18,19 @@ const NAME_REGEX = /^[\p{L}\s\-']{2,150}$/u;
 // Returns undefined when nothing usable was supplied, so the caller can omit
 // the key entirely. Writing a placeholder instead would make "we never measured
 // this" indistinguishable from "we measured it as direct".
-// Letters and numbers of ANY script survive, matching NAME_REGEX above. An
-// ASCII-only slug would erase a campaign named 日本語 to nothing and collapse
-// "2026 日本 Launch" and "2026 Launch" to the same value — silently losing
-// attribution for exactly the non-English announcements this project exists
-// to serve.
+// Letters, numbers and COMBINING MARKS of any script survive, matching
+// NAME_REGEX above. An ASCII-only slug would erase a campaign named 日本語 to
+// nothing and collapse "2026 日本 Launch" and "2026 Launch" to one value.
+//
+// \p{M} is not optional decoration: without it, हिन्दी becomes "ह-न-द" and
+// සිංහල becomes "ස-හල", because every vowel sign and virama is a mark rather
+// than a letter. Dropping marks silently destroys most Indic, Sinhala, Thai,
+// Hebrew and vocalised Arabic text while leaving Latin, Han and Hangul intact
+// — which is precisely the failure this project exists to prevent.
+//
+// Everything outside the allowlist collapses to '-', so control characters,
+// bidi overrides (U+202E), zero-width joiners and newlines cannot survive:
+// they are format characters (\p{Cf}), not marks.
 function normalizeAttribution(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined;
   const normalized = value
@@ -31,7 +39,7 @@ function normalizeAttribution(value: unknown): string | undefined {
     // Compose after lowercasing, which can decompose (İ becomes i + U+0307),
     // so equivalent spellings settle on one form before being stored.
     .normalize('NFC')
-    .replace(/[^\p{L}\p{N}._-]+/gu, '-');
+    .replace(/[^\p{L}\p{N}\p{M}._-]+/gu, '-');
   // Slice by code point rather than UTF-16 unit: a plain .slice() can cut a
   // surrogate pair in half and leave an unpaired surrogate.
   const truncated = Array.from(normalized).slice(0, 64).join('');
@@ -121,6 +129,14 @@ export const POST: APIRoute = async ({ request }) => {
           source: 'website',
           // Omitted entirely when the visit carried no UTM, so an absent field
           // means "not measured" rather than "arrived directly".
+          //
+          // These two values are attacker-controlled: anyone can craft a link
+          // to this site carrying any UTM they like. Normalization blocks
+          // markup, quotes, newlines and spreadsheet formulas, but it cannot
+          // stop readable prose — "ignore-previous-instructions-and-…"
+          // survives as a valid slug. Treat them as untrusted DATA wherever
+          // they are later read, especially by anything that puts subscriber
+          // metadata into a language-model prompt.
           ...(lastTouchChannel && { last_touch_channel: lastTouchChannel }),
           ...(lastTouchRelease && { last_touch_release: lastTouchRelease }),
           subscribed_at: new Date().toISOString()
