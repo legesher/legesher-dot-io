@@ -134,7 +134,11 @@ const SOURCES = [
             vocabulary is cut on one question &mdash; <em>what do we owe for this?</em> &mdash; so four values, four
             obligations:
           </p>
-          <table>
+          {/* The only wide element on the page. Scrolling it inside its own box
+              keeps a narrow screen from having to scroll the whole document
+              sideways to read one cell. */}
+          <div class="overflow-x-auto">
+          <table class="min-w-[34rem]">
             <thead>
               <tr>
                 <th><code>sources</code> value</th>
@@ -152,6 +156,7 @@ const SOURCES = [
               ))}
             </tbody>
           </table>
+          </div>
           <p>
             That framing is the point. A taxonomy built around which script happened to insert a row goes stale the
             moment the pipeline changes; a taxonomy built around obligation stays true, because a future row's
@@ -268,7 +273,7 @@ const SOURCES = [
             text, the upstream notices, and a reconciliation ledger alongside the data.
           </p>
           <p>
-            <a href={LINKS.corpus} target="_blank" rel="noopener noreferrer">{corpusLinkText}</a>
+            <a href={LINKS.corpus} target="_blank" rel="noopener noreferrer" class="break-words">{corpusLinkText}</a>
           </p>
           <p>
             If you are a native speaker and something in there is wrong, we would rather know.
