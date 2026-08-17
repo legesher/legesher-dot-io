@@ -8,6 +8,18 @@ import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
 
 const lastUpdated = formatLastUpdated(LAST_UPDATED.corpus);
 
+// Rendered as the visible link text too. Derived rather than retyped so the URL
+// cannot drift from `LINKS.corpus` — a link whose label disagrees with its href
+// is exactly the failure links.ts exists to prevent.
+const corpusLinkText = LINKS.corpus.replace(/^https:\/\//, '');
+
+// The tiles below paint with `bg-brand-light-gray` / `text-brand-gray` rather
+// than the `bg-card` / `text-muted-foreground` semantic utilities. Those resolve
+// through `hsl(var(--card))`, but globals.css defines `--card` as a hex
+// (`theme('colors.brand.light-gray')`), so the browser sees `hsl(#f6f6f6)`,
+// discards it as invalid, and paints nothing. Fixing those tokens site-wide is
+// its own change; these tiles just avoid depending on them.
+//
 // Every figure below is the count that actually SHIPS in the published
 // parquet, taken from the export's own reconciliation ledger
 // (`reconciliation.json`, alongside the data on the Hub) rather than from the
@@ -72,9 +84,9 @@ const SOURCES = [
 
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
         {FIGURES.map((figure) => (
-          <div class="bg-card border border-brand-gray/30 p-4 text-center">
+          <div class="bg-brand-light-gray border border-brand-gray/30 p-4 text-center">
             <div class="text-2xl md:text-3xl font-bold text-brand-cyan">{figure.value}</div>
-            <div class="text-sm text-muted-foreground">{figure.label}</div>
+            <div class="text-sm text-brand-gray">{figure.label}</div>
           </div>
         ))}
       </div>
@@ -256,9 +268,7 @@ const SOURCES = [
             text, the upstream notices, and a reconciliation ledger alongside the data.
           </p>
           <p>
-            <a href={LINKS.corpus} target="_blank" rel="noopener noreferrer">
-              huggingface.co/datasets/legesher/language-corpus
-            </a>
+            <a href={LINKS.corpus} target="_blank" rel="noopener noreferrer">{corpusLinkText}</a>
           </p>
           <p>
             If you are a native speaker and something in there is wrong, we would rather know.
