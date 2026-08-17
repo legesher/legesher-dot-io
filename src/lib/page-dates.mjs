@@ -10,8 +10,6 @@
 export const LAST_UPDATED = {
   privacy: '2026-08-17',
   terms: '2026-07-14',
-  languages: '2026-08-18',
-  canon: '2026-08-18',
 };
 
 /** '2026-08-10' -> 'August 10, 2026'. The sitemap consumes the ISO form directly. */
