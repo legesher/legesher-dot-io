@@ -1,0 +1,374 @@
+{
+  "_comment": "GENERATED FILE — do not edit by hand. Regenerate with `npm run sync:languages`. Source: the language registry and the canon export manifest in the packs monorepo.",
+  "artifact": "legesher/language-packs",
+  "layer": "canon",
+  "license": "apache-2.0",
+  "counts": {
+    "locales": 51,
+    "packFiles": 255,
+    "vocabularyRows": 46512,
+    "pythonVersions": 5
+  },
+  "tierCounts": {
+    "experimental": 51
+  },
+  "languages": [
+    {
+      "code": "am",
+      "name": "Amharic",
+      "native": "አማርኛ",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ar",
+      "name": "Arabic",
+      "native": "العربية",
+      "rtl": true,
+      "tier": "experimental"
+    },
+    {
+      "code": "bn",
+      "name": "Bengali",
+      "native": "বাংলা",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "bs",
+      "name": "Bosnian",
+      "native": "Bosanski",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "my",
+      "name": "Burmese",
+      "native": "မြန်မာ",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ca",
+      "name": "Catalan",
+      "native": "Català",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "zh",
+      "name": "Chinese",
+      "native": "中文",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "hr",
+      "name": "Croatian",
+      "native": "Hrvatski",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "cs",
+      "name": "Czech",
+      "native": "Čeština",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "da",
+      "name": "Danish",
+      "native": "Dansk",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "nl",
+      "name": "Dutch",
+      "native": "Nederlands",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "native": "English",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "fi",
+      "name": "Finnish",
+      "native": "Suomi",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "native": "Français",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "gl",
+      "name": "Galician",
+      "native": "Galego",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "de",
+      "name": "German",
+      "native": "Deutsch",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "el",
+      "name": "Greek",
+      "native": "Ελληνικά",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "gu",
+      "name": "Gujarati",
+      "native": "ગુજરાતી",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "he",
+      "name": "Hebrew",
+      "native": "עברית",
+      "rtl": true,
+      "tier": "experimental"
+    },
+    {
+      "code": "hi",
+      "name": "Hindi",
+      "native": "हिन्दी",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "hu",
+      "name": "Hungarian",
+      "native": "Magyar",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "id",
+      "name": "Indonesian",
+      "native": "Bahasa Indonesia",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ga",
+      "name": "Irish",
+      "native": "Gaeilge",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "it",
+      "name": "Italian",
+      "native": "Italiano",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ja",
+      "name": "Japanese",
+      "native": "日本語",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "kn",
+      "name": "Kannada",
+      "native": "ಕನ್ನಡ",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ko",
+      "name": "Korean",
+      "native": "한국어",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "lv",
+      "name": "Latvian",
+      "native": "Latviešu",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "mk",
+      "name": "Macedonian",
+      "native": "Македонски",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ms",
+      "name": "Malay",
+      "native": "Bahasa Melayu",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ml",
+      "name": "Malayalam",
+      "native": "മലയാളം",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "mn",
+      "name": "Mongolian",
+      "native": "Монгол",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "no",
+      "name": "Norwegian",
+      "native": "Norsk",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "fa",
+      "name": "Persian",
+      "native": "فارسی",
+      "rtl": true,
+      "tier": "experimental"
+    },
+    {
+      "code": "pl",
+      "name": "Polish",
+      "native": "Polski",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "pt",
+      "name": "Portuguese",
+      "native": "Português",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ro",
+      "name": "Romanian",
+      "native": "Română",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ru",
+      "name": "Russian",
+      "native": "Русский",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "gd",
+      "name": "Scottish Gaelic",
+      "native": "Gàidhlig",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "sr",
+      "name": "Serbian",
+      "native": "Српски",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "si",
+      "name": "Sinhala",
+      "native": "සිංහල",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "es",
+      "name": "Spanish",
+      "native": "Español",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "su",
+      "name": "Sundanese",
+      "native": "Basa Sunda",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "sv",
+      "name": "Swedish",
+      "native": "Svenska",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "te",
+      "name": "Telugu",
+      "native": "తెలుగు",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "th",
+      "name": "Thai",
+      "native": "ไทย",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "tr",
+      "name": "Turkish",
+      "native": "Türkçe",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "ur",
+      "name": "Urdu",
+      "native": "اردو",
+      "rtl": true,
+      "tier": "experimental"
+    },
+    {
+      "code": "uz",
+      "name": "Uzbek",
+      "native": "O'zbek",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "vi",
+      "name": "Vietnamese",
+      "native": "Tiếng Việt",
+      "rtl": false,
+      "tier": "experimental"
+    },
+    {
+      "code": "cy",
+      "name": "Welsh",
+      "native": "Cymraeg",
+      "rtl": false,
+      "tier": "experimental"
+    }
+  ]
+}

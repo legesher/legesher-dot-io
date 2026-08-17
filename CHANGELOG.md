@@ -28,6 +28,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Language support page** at [/languages](https://www.legesher.io/languages) listing every human language
+  Legesher ships a Python language pack for, the maturity stamp each one carries, and what moves a language
+  up the ladder. Every language is `experimental` today and the page says so plainly rather than presenting
+  a ladder and letting a reader assume the languages are spread across it. Promotion criteria are described
+  as still being defined with the language communities, because they are — no threshold is implied.
+  (CORE-1929)
+- **Language canon page** at [/canon](https://www.legesher.io/canon) covering the dataset of vocabulary
+  Legesher actually ships, and answering "how is this different from the corpus?" at the top of the page
+  rather than leaving a reader to compare two dataset cards. Links both artifacts, each labelled for who it
+  is for: the canon for developers, the corpus for researchers. (CORE-1930)
+- Language and tier data is **generated, not hand-written**. `npm run sync:languages` derives
+  `src/data/language-packs.json` from the language registry and the pack export's own manifest — the same
+  two inputs the published dataset is built from — and fails if the two disagree about which locales exist
+  or how they are distributed across the ladder. The counts and stamps rendered on both pages are read from
+  that file, so the site cannot advertise a review standard the packs no longer hold. (CORE-1929)
 - **Campaign attribution on newsletter subscriptions.** When someone reaches the site through a
   link carrying `utm_source` / `utm_campaign`, those values are recorded with their subscription
   as `last_touch_channel` and `last_touch_release`, so an announcement can be credited with the

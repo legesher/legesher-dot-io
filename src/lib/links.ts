@@ -12,6 +12,10 @@ export const LINKS = {
   github: 'https://github.com/legesher',
   slack: 'https://join.slack.com/t/legesher/shared_invite/zt-370xpp6b9-LYxWVIOF7ujVH5kYnwaGbQ',
   docs: 'https://docs.legesher.io/',
+  // The two published datasets. `canon` is the decision layer — what the packs
+  // ship; `corpus` is the evidence layer — every rendering anyone proposed.
+  canon: 'https://huggingface.co/datasets/legesher/language-packs',
+  corpus: 'https://huggingface.co/datasets/legesher/language-corpus',
   linkedin: 'https://www.linkedin.com/company/legesher',
   instagram: 'https://www.instagram.com/legesher',
   email: 'mailto:hello@legesher.com',
