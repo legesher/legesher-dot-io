@@ -80,6 +80,38 @@ function readJson(label, path) {
   }
 }
 
+/**
+ * Fail with a sentence naming the field, not a stack trace about `undefined`.
+ *
+ * Both inputs are generated files from another repository, so the realistic
+ * failure is being handed the wrong file rather than a corrupt one — and the
+ * useful error says which shape was expected.
+ */
+function requireShape(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+function validateInputs(registryFile, manifest) {
+  requireShape(
+    registryFile && typeof registryFile === 'object' && registryFile.languages,
+    'The registry file has no `languages` object. Expected the generated ' +
+      'languages.json from the packs monorepo, not another JSON file.'
+  );
+  requireShape(
+    Array.isArray(manifest?.locales),
+    'The manifest has no `locales` array. Expected manifest.json from a pack ' +
+      'export, not another JSON file.'
+  );
+  requireShape(
+    Number.isInteger(manifest?.counts?.locales),
+    'The manifest has no `counts.locales` integer. Expected manifest.json from a pack export.'
+  );
+  requireShape(
+    new Set(manifest.locales).size === manifest.locales.length,
+    'The manifest lists the same locale more than once, so its counts cannot be trusted.'
+  );
+}
+
 /** Fail loudly when the two inputs describe different exports. */
 function crossCheck(registry, manifest) {
   const registryCodes = Object.keys(registry).sort();
@@ -112,7 +144,10 @@ function crossCheck(registry, manifest) {
   }
   const declared = manifest.tier_counts ?? {};
   const tiers = [...new Set([...Object.keys(derived), ...Object.keys(declared)])].sort();
-  const disagreement = tiers.filter((tier) => derived[tier] !== declared[tier]);
+  // Both sides default to 0 before comparing. A manifest is free to declare a
+  // rung explicitly as zero, and comparing `undefined` to `0` would reject it
+  // with the self-contradicting message "registry 0, manifest 0".
+  const disagreement = tiers.filter((tier) => (derived[tier] ?? 0) !== (declared[tier] ?? 0));
   if (disagreement.length) {
     throw new Error(
       'Tier spread differs between the registry and the export manifest:\n' +
@@ -127,14 +162,22 @@ function crossCheck(registry, manifest) {
 
 function main() {
   const args = parseArgs(process.argv.slice(2));
-  const registry = readJson('registry', args.registry).languages;
+  const registryFile = readJson('registry', args.registry);
   const manifest = readJson('manifest', args.manifest);
+  validateInputs(registryFile, manifest);
 
+  const registry = registryFile.languages;
   const tierCounts = crossCheck(registry, manifest);
 
   const languages = Object.entries(registry)
     .map(([code, meta]) => ({
       code,
+      // The registry key and the BCP 47 tag are not the same string for every
+      // language — `zh` is `zh-Hans`, `no` is `nb` — and they answer different
+      // questions. The key identifies the pack; the tag tells a browser or a
+      // screen reader which language the text is in. Both are carried so the
+      // page can render the key and mark up the tag.
+      bcp47: meta.bcp47 || code,
       name: meta.name,
       native: meta.native,
       rtl: Boolean(meta.rtl),

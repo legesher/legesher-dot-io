@@ -5,12 +5,14 @@ import Footer from '../components/Footer.astro';
 import { LINKS } from '@/lib/links';
 import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
 import {
+  ALL_EXPERIMENTAL,
   COUNTS,
   LANGUAGES,
   TIER_LADDER,
   TIER_SEQUENCE,
   formatCount,
   tierSpreadSentence,
+  usesArabicScript,
 } from '@/lib/language-packs';
 
 const lastUpdated = formatLastUpdated(LAST_UPDATED.languages);
@@ -22,7 +24,11 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.languages);
 const FIGURES = [
   { value: formatCount(COUNTS.locales), label: 'languages' },
   { value: formatCount(COUNTS.packFiles), label: 'pack files' },
-  { value: formatCount(COUNTS.vocabularyRows), label: 'terms' },
+  // Rows, not terms. A language carries roughly 184 source terms; the row count
+  // is those terms resolved across every interpreter version, so labelling it
+  // "terms" would overstate the vocabulary by a factor of five. Same label as
+  // the canon page uses for the same number.
+  { value: formatCount(COUNTS.vocabularyRows), label: 'vocabulary rows' },
   { value: formatCount(COUNTS.pythonVersions), label: 'Python versions' },
 ];
 
@@ -63,18 +69,30 @@ const spread = tierSpreadSentence();
       <article class="prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
         <section aria-labelledby="where-we-are">
           <h2 id="where-we-are">Where every language stands today</h2>
-          <p>
-            <strong>{spread}</strong> Nothing has been promoted, so no pack currently carries
-            <code>reviewed</code> or <code>official</code>. We would rather say that plainly than present a ladder
-            and let you assume the languages are spread across it.
-          </p>
+          {/* The "nothing has been promoted" claim is gated on the data rather
+              than written flat. A promotion reaches this page as a changed tier
+              in the generated file, with no prose edit attached, and an
+              ungated paragraph would go on denying it directly above a table
+              showing otherwise. */}
+          {ALL_EXPERIMENTAL ? (
+            <p>
+              <strong>{spread}</strong> Nothing has been promoted, so no pack currently carries
+              <code>reviewed</code> or <code>official</code>. We would rather say that plainly than present a ladder
+              and let you assume the languages are spread across it.
+            </p>
+          ) : (
+            <p>
+              <strong>{spread}</strong> The stage each language sits at is listed below, and what each stage means
+              is set out in the ladder that follows.
+            </p>
+          )}
           <p>
             <code>experimental</code> is not <em>unchecked</em>. Every shipped pack has been drafted, curated by
             maintainers, and put through mechanical gates that are real work and catch real defects. What those
             gates cannot do is tell you whether a developer who speaks the language would ever use the word. A gate
             can prove a term is a valid identifier that collides with nothing; only a native speaker can say it
-            reads right. That distinction is the whole reason the ladder exists, and it is why
-            <code>experimental</code> is the honest stamp for all of them today.
+            reads right. That distinction is the whole reason the ladder exists, and it is what a language leaves
+            <code>experimental</code> by clearing.
           </p>
         </section>
 
@@ -84,22 +102,24 @@ const spread = tierSpreadSentence();
             Three stages, <code>{TIER_SEQUENCE}</code>. Each one asserts something specific and withholds something
             specific, so a stamp tells you what has been done and what has not.
           </p>
-          {/* The only wide element on the page besides the language table.
-              Scrolling it inside its own box keeps a narrow screen from having
-              to scroll the whole document sideways to read one cell. */}
-          <div class="overflow-x-auto">
+          {/* Scrolling the table inside its own box keeps a narrow screen from
+              having to scroll the whole document sideways to read one cell.
+              tabindex + role make that box reachable by keyboard: it has no
+              focusable child, so without them a keyboard-only reader cannot
+              scroll it at all (WCAG 2.1.1). */}
+          <div class="overflow-x-auto" tabindex="0" role="region" aria-label="Maturity ladder">
             <table class="min-w-[34rem]">
               <thead>
                 <tr>
-                  <th>Stage</th>
-                  <th>What it asserts</th>
-                  <th>What it does not assert</th>
+                  <th scope="col">Stage</th>
+                  <th scope="col">What it asserts</th>
+                  <th scope="col">What it does not assert</th>
                 </tr>
               </thead>
               <tbody>
                 {TIER_LADDER.map((stage) => (
                   <tr>
-                    <td><code>{stage.tier}</code></td>
+                    <th scope="row" class="align-baseline font-normal py-[0.5714286em] pe-[0.5714286em] ps-0"><code>{stage.tier}</code></th>
                     <td>{stage.asserts}</td>
                     <td>{stage.withholds}</td>
                   </tr>
@@ -112,9 +132,10 @@ const spread = tierSpreadSentence();
         <section aria-labelledby="promotion">
           <h2 id="promotion">What moves a language up</h2>
           <p>
-            Native review. A pack leaves <code>experimental</code> when speakers of the language have read the
-            vocabulary and endorsed it, and it reaches <code>official</code> when that review is certified and the
-            terminology has additionally been screened for readings a speaker would not want in their editor.
+            Native review. A pack leaves <code>experimental</code> when a native speaker of the language has
+            reviewed it and signed off on it, and it reaches <code>official</code> when that review is certified
+            and the terminology has additionally been screened for readings a speaker would not want in their
+            editor.
           </p>
           <p>
             <strong>The precise criteria are still being defined, and we are defining them with the communities the
@@ -122,7 +143,7 @@ const spread = tierSpreadSentence();
             have to be, how much of a pack must be reviewed before the pack itself counts as reviewed, and who
             certifies <code>official</code>. Those are questions about what a language community considers
             sufficient, and answering them in private would produce a threshold that means nothing to the people it
-            is meant to reassure. Nothing has been promoted yet, so no criterion has been exercised in production.
+            is meant to reassure.{ALL_EXPERIMENTAL && ' Nothing has been promoted yet, so no criterion has been exercised in production.'}
           </p>
           <p>
             If you speak one of these languages and something in a pack is wrong, that is the contribution that
@@ -136,26 +157,35 @@ const spread = tierSpreadSentence();
           <p>
             Each ships as a language pack covering Python&rsquo;s keywords, builtins, exceptions and reserved words
             across {COUNTS.pythonVersions} interpreter versions. The stamp below is the same one carried by the
-            pack you install and by the row in the published dataset.
+            pack you install and by the dataset row.
           </p>
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto" tabindex="0" role="region" aria-label="Languages and their stages">
             <table class="min-w-[30rem]">
               <thead>
                 <tr>
-                  <th>Language</th>
-                  <th>In that language</th>
-                  <th>Code</th>
-                  <th>Stage</th>
+                  <th scope="col">Language</th>
+                  <th scope="col">In that language</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Stage</th>
                 </tr>
               </thead>
               <tbody>
                 {LANGUAGES.map((language) => (
                   <tr>
-                    <td>{language.name}</td>
-                    {/* lang/dir so a screen reader announces the endonym in its
-                        own language, and so right-to-left scripts are laid out
-                        the way their readers write them. */}
-                    <td lang={language.code} dir={language.rtl ? 'rtl' : 'ltr'}>{language.native}</td>
+                    <th scope="row" class="align-baseline font-normal py-[0.5714286em] pe-[0.5714286em] ps-0">{language.name}</th>
+                    {/* `lang` carries the BCP 47 tag, not the registry key: the
+                        two differ for five languages, and it is the tag that
+                        tells a screen reader which voice to use and a browser
+                        which font to reach for. `dir` lays right-to-left
+                        scripts out the way their readers write them, and
+                        `.font-arabic` supplies the Arabic coverage the body
+                        font does not have. */}
+                    <td
+                      lang={language.bcp47}
+                      dir={language.rtl ? 'rtl' : 'ltr'}
+                      class={usesArabicScript(language.native) ? 'font-arabic' : undefined}
+                      >{language.native}</td
+                    >
                     <td><code>{language.code}</code></td>
                     <td><code>{language.tier}</code></td>
                   </tr>
@@ -169,12 +199,12 @@ const spread = tierSpreadSentence();
           <h2 id="the-data">Where this comes from</h2>
           <p>
             The table above is not maintained by hand. It is generated from the language registry and from the
-            export that produces the published dataset, so a stamp changes here because it changed there &mdash;
-            the page cannot claim a language has been reviewed when the shipped pack says otherwise.
+            export that produces the canon dataset, so a stamp changes here because it changed there &mdash; the
+            page cannot claim a language has been reviewed when the shipped pack says otherwise.
           </p>
           <p>
-            The vocabulary itself is published as <a href="/canon">the canon dataset</a> &mdash; the one rendering
-            per concept that Legesher ships &mdash; alongside
+            The vocabulary itself ships as the canon dataset: one rendering per concept, the one your interpreter
+            actually uses. <a href="/canon">The language canon page</a> covers that dataset and how it differs from
             <a href={LINKS.corpus} target="_blank" rel="noopener noreferrer">the language corpus</a>, which records
             every rendering anyone proposed and the endorsements attached to each.
           </p>

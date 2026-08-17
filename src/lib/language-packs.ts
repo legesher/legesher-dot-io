@@ -12,7 +12,10 @@ import data from '@/data/language-packs.json';
 export type Tier = 'experimental' | 'reviewed' | 'official';
 
 export interface LanguageEntry {
+  /** Registry key. The pack identifier — what you install and what the dataset keys on. */
   code: string;
+  /** BCP 47 tag. Differs from `code` where a script subtag is needed (`zh` -> `zh-Hans`). */
+  bcp47: string;
   name: string;
   native: string;
   rtl: boolean;
@@ -45,6 +48,11 @@ export const TIER_LADDER: {
   },
   {
     tier: 'reviewed',
+    /**
+     * Singular and in this exact form everywhere it appears on the site: this
+     * is the ladder's own phrasing, and "speakers have endorsed it" elsewhere
+     * would read as a second, stricter bar than the one actually documented.
+     */
     asserts: 'A native speaker of the language has reviewed the pack and signed off on it.',
     withholds:
       'That the terminology has been screened for offensive or unfortunate readings.',
@@ -60,6 +68,26 @@ export const TIER_LADDER: {
 /** 'experimental → reviewed → official' */
 export const TIER_SEQUENCE = TIER_LADDER.map((stage) => stage.tier).join(' → ');
 
+/** The rungs that actually have languages on them, in ladder order. */
+export const TIERS_PRESENT: Tier[] = TIER_LADDER.filter(
+  (stage) => (TIER_COUNTS[stage.tier] ?? 0) > 0
+).map((stage) => stage.tier);
+
+/**
+ * The one tier every language currently carries, or null once they are spread.
+ *
+ * The pages use this to gate the paragraphs that only make sense while the
+ * whole set sits on a single rung — "no native speaker has signed off", "no
+ * criterion has been exercised yet". Those sentences are true today and become
+ * false the first time a language is promoted, and a promotion is a data change
+ * that reaches the site without anyone editing prose. Gating them means the
+ * page loses a paragraph rather than contradicting the table above it.
+ */
+export const ONLY_TIER: Tier | null = TIERS_PRESENT.length === 1 ? TIERS_PRESENT[0] : null;
+
+/** True while nothing has been promoted off the bottom rung. */
+export const ALL_EXPERIMENTAL = ONLY_TIER === 'experimental';
+
 /**
  * How the languages are actually distributed across the ladder, in words.
  *
@@ -69,15 +97,35 @@ export const TIER_SEQUENCE = TIER_LADDER.map((stage) => stage.tier).join(' → '
  * spread that does not exist.
  */
 export function tierSpreadSentence(): string {
-  const present = TIER_LADDER.filter((stage) => (TIER_COUNTS[stage.tier] ?? 0) > 0);
-  if (present.length === 1) {
-    const [only] = present;
-    return `All ${COUNTS.locales} languages are stamped ${only.tier}.`;
+  const parts = TIERS_PRESENT.map((tier) => `${TIER_COUNTS[tier]} ${tier}`);
+  // Unreachable with real data — a generated file with no languages in it would
+  // have failed the sync script's cross-check — but a sentence is a poor place
+  // to discover that, so say nothing rather than "Of 0 languages: undefined."
+  if (parts.length === 0) return '';
+  if (parts.length === 1) {
+    return `All ${COUNTS.locales} languages are stamped ${TIERS_PRESENT[0]}.`;
   }
-  const parts = present.map((stage) => `${TIER_COUNTS[stage.tier]} ${stage.tier}`);
-  const spread =
-    parts.length > 1 ? `${parts.slice(0, -1).join(', ')} and ${parts.at(-1)}` : parts[0];
+  const spread = `${parts.slice(0, -1).join(', ')} and ${parts.at(-1)}`;
   return `Of ${COUNTS.locales} languages: ${spread}.`;
+}
+
+/**
+ * Whether an endonym is written in the Arabic script.
+ *
+ * Derived from the string rather than from a list of locales, because the
+ * property being tested is "which glyphs does this cell need", and the registry
+ * records no script field to read instead. globals.css defines `.font-arabic`
+ * (Noto Sans Arabic); the body font covers no Arabic glyphs, so without this
+ * the endonym falls back to whatever the OS happens to have.
+ */
+// Arabic, Arabic Supplement, Arabic Extended-A/B, and the two presentation-form
+// blocks. Escaped rather than written literally so the ranges stay readable and
+// cannot be mangled by an editor that reorders bidirectional text.
+const ARABIC_SCRIPT =
+  /[\u0600-\u06FF\u0750-\u077F\u0870-\u089F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/u;
+
+export function usesArabicScript(text: string): boolean {
+  return ARABIC_SCRIPT.test(text);
 }
 
 /** 46512 -> '46,512' */

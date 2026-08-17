@@ -15,6 +15,7 @@
   "languages": [
     {
       "code": "am",
+      "bcp47": "am",
       "name": "Amharic",
       "native": "አማርኛ",
       "rtl": false,
@@ -22,6 +23,7 @@
     },
     {
       "code": "ar",
+      "bcp47": "ar",
       "name": "Arabic",
       "native": "العربية",
       "rtl": true,
@@ -29,6 +31,7 @@
     },
     {
       "code": "bn",
+      "bcp47": "bn",
       "name": "Bengali",
       "native": "বাংলা",
       "rtl": false,
@@ -36,6 +39,7 @@
     },
     {
       "code": "bs",
+      "bcp47": "bs",
       "name": "Bosnian",
       "native": "Bosanski",
       "rtl": false,
@@ -43,6 +47,7 @@
     },
     {
       "code": "my",
+      "bcp47": "my",
       "name": "Burmese",
       "native": "မြန်မာ",
       "rtl": false,
@@ -50,6 +55,7 @@
     },
     {
       "code": "ca",
+      "bcp47": "ca",
       "name": "Catalan",
       "native": "Català",
       "rtl": false,
@@ -57,6 +63,7 @@
     },
     {
       "code": "zh",
+      "bcp47": "zh-Hans",
       "name": "Chinese",
       "native": "中文",
       "rtl": false,
@@ -64,6 +71,7 @@
     },
     {
       "code": "hr",
+      "bcp47": "hr",
       "name": "Croatian",
       "native": "Hrvatski",
       "rtl": false,
@@ -71,6 +79,7 @@
     },
     {
       "code": "cs",
+      "bcp47": "cs",
       "name": "Czech",
       "native": "Čeština",
       "rtl": false,
@@ -78,6 +87,7 @@
     },
     {
       "code": "da",
+      "bcp47": "da",
       "name": "Danish",
       "native": "Dansk",
       "rtl": false,
@@ -85,6 +95,7 @@
     },
     {
       "code": "nl",
+      "bcp47": "nl",
       "name": "Dutch",
       "native": "Nederlands",
       "rtl": false,
@@ -92,6 +103,7 @@
     },
     {
       "code": "en",
+      "bcp47": "en",
       "name": "English",
       "native": "English",
       "rtl": false,
@@ -99,6 +111,7 @@
     },
     {
       "code": "fi",
+      "bcp47": "fi",
       "name": "Finnish",
       "native": "Suomi",
       "rtl": false,
@@ -106,6 +119,7 @@
     },
     {
       "code": "fr",
+      "bcp47": "fr",
       "name": "French",
       "native": "Français",
       "rtl": false,
@@ -113,6 +127,7 @@
     },
     {
       "code": "gl",
+      "bcp47": "gl",
       "name": "Galician",
       "native": "Galego",
       "rtl": false,
@@ -120,6 +135,7 @@
     },
     {
       "code": "de",
+      "bcp47": "de",
       "name": "German",
       "native": "Deutsch",
       "rtl": false,
@@ -127,6 +143,7 @@
     },
     {
       "code": "el",
+      "bcp47": "el",
       "name": "Greek",
       "native": "Ελληνικά",
       "rtl": false,
@@ -134,6 +151,7 @@
     },
     {
       "code": "gu",
+      "bcp47": "gu",
       "name": "Gujarati",
       "native": "ગુજરાતી",
       "rtl": false,
@@ -141,6 +159,7 @@
     },
     {
       "code": "he",
+      "bcp47": "he",
       "name": "Hebrew",
       "native": "עברית",
       "rtl": true,
@@ -148,6 +167,7 @@
     },
     {
       "code": "hi",
+      "bcp47": "hi",
       "name": "Hindi",
       "native": "हिन्दी",
       "rtl": false,
@@ -155,6 +175,7 @@
     },
     {
       "code": "hu",
+      "bcp47": "hu",
       "name": "Hungarian",
       "native": "Magyar",
       "rtl": false,
@@ -162,6 +183,7 @@
     },
     {
       "code": "id",
+      "bcp47": "id",
       "name": "Indonesian",
       "native": "Bahasa Indonesia",
       "rtl": false,
@@ -169,6 +191,7 @@
     },
     {
       "code": "ga",
+      "bcp47": "ga",
       "name": "Irish",
       "native": "Gaeilge",
       "rtl": false,
@@ -176,6 +199,7 @@
     },
     {
       "code": "it",
+      "bcp47": "it",
       "name": "Italian",
       "native": "Italiano",
       "rtl": false,
@@ -183,6 +207,7 @@
     },
     {
       "code": "ja",
+      "bcp47": "ja",
       "name": "Japanese",
       "native": "日本語",
       "rtl": false,
@@ -190,6 +215,7 @@
     },
     {
       "code": "kn",
+      "bcp47": "kn",
       "name": "Kannada",
       "native": "ಕನ್ನಡ",
       "rtl": false,
@@ -197,6 +223,7 @@
     },
     {
       "code": "ko",
+      "bcp47": "ko",
       "name": "Korean",
       "native": "한국어",
       "rtl": false,
@@ -204,6 +231,7 @@
     },
     {
       "code": "lv",
+      "bcp47": "lv",
       "name": "Latvian",
       "native": "Latviešu",
       "rtl": false,
@@ -211,6 +239,7 @@
     },
     {
       "code": "mk",
+      "bcp47": "mk",
       "name": "Macedonian",
       "native": "Македонски",
       "rtl": false,
@@ -218,6 +247,7 @@
     },
     {
       "code": "ms",
+      "bcp47": "ms",
       "name": "Malay",
       "native": "Bahasa Melayu",
       "rtl": false,
@@ -225,6 +255,7 @@
     },
     {
       "code": "ml",
+      "bcp47": "ml",
       "name": "Malayalam",
       "native": "മലയാളം",
       "rtl": false,
@@ -232,6 +263,7 @@
     },
     {
       "code": "mn",
+      "bcp47": "mn-Cyrl",
       "name": "Mongolian",
       "native": "Монгол",
       "rtl": false,
@@ -239,6 +271,7 @@
     },
     {
       "code": "no",
+      "bcp47": "nb",
       "name": "Norwegian",
       "native": "Norsk",
       "rtl": false,
@@ -246,6 +279,7 @@
     },
     {
       "code": "fa",
+      "bcp47": "fa",
       "name": "Persian",
       "native": "فارسی",
       "rtl": true,
@@ -253,6 +287,7 @@
     },
     {
       "code": "pl",
+      "bcp47": "pl",
       "name": "Polish",
       "native": "Polski",
       "rtl": false,
@@ -260,6 +295,7 @@
     },
     {
       "code": "pt",
+      "bcp47": "pt",
       "name": "Portuguese",
       "native": "Português",
       "rtl": false,
@@ -267,6 +303,7 @@
     },
     {
       "code": "ro",
+      "bcp47": "ro",
       "name": "Romanian",
       "native": "Română",
       "rtl": false,
@@ -274,6 +311,7 @@
     },
     {
       "code": "ru",
+      "bcp47": "ru",
       "name": "Russian",
       "native": "Русский",
       "rtl": false,
@@ -281,6 +319,7 @@
     },
     {
       "code": "gd",
+      "bcp47": "gd",
       "name": "Scottish Gaelic",
       "native": "Gàidhlig",
       "rtl": false,
@@ -288,6 +327,7 @@
     },
     {
       "code": "sr",
+      "bcp47": "sr-Cyrl",
       "name": "Serbian",
       "native": "Српски",
       "rtl": false,
@@ -295,6 +335,7 @@
     },
     {
       "code": "si",
+      "bcp47": "si",
       "name": "Sinhala",
       "native": "සිංහල",
       "rtl": false,
@@ -302,6 +343,7 @@
     },
     {
       "code": "es",
+      "bcp47": "es",
       "name": "Spanish",
       "native": "Español",
       "rtl": false,
@@ -309,6 +351,7 @@
     },
     {
       "code": "su",
+      "bcp47": "su",
       "name": "Sundanese",
       "native": "Basa Sunda",
       "rtl": false,
@@ -316,6 +359,7 @@
     },
     {
       "code": "sv",
+      "bcp47": "sv",
       "name": "Swedish",
       "native": "Svenska",
       "rtl": false,
@@ -323,6 +367,7 @@
     },
     {
       "code": "te",
+      "bcp47": "te",
       "name": "Telugu",
       "native": "తెలుగు",
       "rtl": false,
@@ -330,6 +375,7 @@
     },
     {
       "code": "th",
+      "bcp47": "th",
       "name": "Thai",
       "native": "ไทย",
       "rtl": false,
@@ -337,6 +383,7 @@
     },
     {
       "code": "tr",
+      "bcp47": "tr",
       "name": "Turkish",
       "native": "Türkçe",
       "rtl": false,
@@ -344,6 +391,7 @@
     },
     {
       "code": "ur",
+      "bcp47": "ur",
       "name": "Urdu",
       "native": "اردو",
       "rtl": true,
@@ -351,6 +399,7 @@
     },
     {
       "code": "uz",
+      "bcp47": "uz-Latn",
       "name": "Uzbek",
       "native": "O'zbek",
       "rtl": false,
@@ -358,6 +407,7 @@
     },
     {
       "code": "vi",
+      "bcp47": "vi",
       "name": "Vietnamese",
       "native": "Tiếng Việt",
       "rtl": false,
@@ -365,6 +415,7 @@
     },
     {
       "code": "cy",
+      "bcp47": "cy",
       "name": "Welsh",
       "native": "Cymraeg",
       "rtl": false,

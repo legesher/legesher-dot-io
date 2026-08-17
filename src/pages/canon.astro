@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { LINKS } from '@/lib/links';
 import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
-import { COUNTS, LICENSE, formatCount, tierSpreadSentence } from '@/lib/language-packs';
+import { ALL_EXPERIMENTAL, COUNTS, LICENSE, formatCount, tierSpreadSentence } from '@/lib/language-packs';
 
 const lastUpdated = formatLastUpdated(LAST_UPDATED.canon);
 
@@ -34,7 +34,7 @@ const licenceLabel = LICENSE.toUpperCase().replace('APACHE-', 'Apache ');
 
 <Layout
   title="The Language Canon — Legesher"
-  description="The vocabulary Legesher actually ships: one rendering per programming concept, in 51 human languages, across five Python versions. The decision layer that sits above the language corpus."
+  description={`The vocabulary Legesher actually ships: one rendering per programming concept, in ${COUNTS.locales} human languages, across ${COUNTS.pythonVersions} Python versions. The decision layer that sits above the language corpus.`}
 >
   <Header />
   <main class="pt-32 pb-20 bg-white">
@@ -150,11 +150,29 @@ const licenceLabel = LICENSE.toUpperCase().replace('APACHE-', 'Apache ');
 
         <section aria-labelledby="maturity">
           <h2 id="maturity">How far this has been reviewed</h2>
+          {/* Gated on the data: the moment a language is promoted, "no native
+              speaker has signed off" stops being true, and it would otherwise
+              keep asserting itself under a heading whose own sentence says
+              otherwise. */}
+          {ALL_EXPERIMENTAL ? (
+            <p>
+              <strong>{spread}</strong> That is not a formality. It means the vocabulary has been drafted, curated
+              by maintainers, and put through mechanical gates &mdash; and that no pack has yet cleared native
+              review as a whole. Treat an <code>experimental</code> pack as a serious starting point that wants
+              native review, not as settled terminology.
+            </p>
+          ) : (
+            <p>
+              <strong>{spread}</strong> An <code>experimental</code> pack has been drafted, curated by maintainers
+              and put through mechanical gates, but has not cleared native review as a whole. Treat one as a
+              serious starting point that wants native review, not as settled terminology.
+            </p>
+          )}
           <p>
-            <strong>{spread}</strong> That is not a formality. It means the vocabulary has been drafted, curated by
-            maintainers, and put through mechanical gates &mdash; and that no native speaker has signed off on it.
-            Treat an <code>experimental</code> pack as a serious starting point that wants native review, not as
-            settled terminology.
+            That is compatible with the corpus already carrying endorsements: an endorsement attaches to a single
+            rendering of a single concept, and plenty have been given. The stamp here is about the pack as a whole
+            &mdash; whether a native speaker has reviewed it end to end and signed off on it &mdash; which is a
+            different, larger thing than any one rendering being endorsed.
           </p>
           <p>
             The stamp on every row here is the same stamp the site carries and the same one the installed pack
