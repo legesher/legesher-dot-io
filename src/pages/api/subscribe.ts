@@ -9,6 +9,19 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 // Name validation regex (supports international characters)
 const NAME_REGEX = /^[\p{L}\s\-']{2,150}$/u;
 
+// Attribution values come from UTM parameters on the landing URL, so they are
+// client-supplied and untrusted. Constrain them to a slug shape before they
+// reach Buttondown's metadata.
+const ATTRIBUTION_REGEX = /^[a-z0-9][a-z0-9._-]{0,63}$/;
+
+// A malformed attribution value falls back to the default rather than failing
+// the request: a bad UTM is not a reason to lose a subscriber.
+function sanitizeAttribution(value: unknown, fallback: string): string {
+  if (typeof value !== 'string') return fallback;
+  const normalized = value.trim().toLowerCase();
+  return ATTRIBUTION_REGEX.test(normalized) ? normalized : fallback;
+}
+
 export const POST: APIRoute = async ({ request }) => {
   const BUTTONDOWN_API_KEY = import.meta.env.BUTTONDOWN_API_KEY;
 
@@ -65,6 +78,13 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    // utm_source names the channel a subscriber arrived through; utm_campaign
+    // names the release that brought them. An unattributed signup records as
+    // 'unattributed' rather than inheriting the current release — stamping a
+    // release onto a signup it did not earn would inflate that release's credit.
+    const firstTouchChannel = sanitizeAttribution(data.utmSource, 'website');
+    const firstTouchRelease = sanitizeAttribution(data.utmCampaign, 'unattributed');
+
     // Subscribe to newsletter
     const response = await fetch('https://api.buttondown.email/v1/subscribers', {
       method: 'POST',
@@ -79,6 +99,8 @@ export const POST: APIRoute = async ({ request }) => {
         metadata: {
           first_name: data.firstName.trim(),
           source: 'website',
+          first_touch_channel: firstTouchChannel,
+          first_touch_release: firstTouchRelease,
           subscribed_at: new Date().toISOString()
         }
       }),
