@@ -20,7 +20,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "contributors:generate": "all-contributors generate"
+    "contributors:generate": "all-contributors generate",
+    "sync:languages": "node scripts/sync-language-data.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.3",

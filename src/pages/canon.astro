@@ -1,0 +1,210 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { LINKS } from '@/lib/links';
+import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
+import { ALL_EXPERIMENTAL, COUNTS, LICENSE, formatCount, tierSpreadSentence } from '@/lib/language-packs';
+
+const lastUpdated = formatLastUpdated(LAST_UPDATED.canon);
+
+// Rendered as the visible link text too. Derived rather than retyped so the URL
+// cannot drift from `links.ts` — a link whose label disagrees with its href is
+// exactly the failure that file exists to prevent.
+const bare = (url: string) => url.replace(/^https:\/\//, '');
+
+// Read from src/data/language-packs.json, which the pack export generates. The
+// figures on this page and the figures on the dataset card have one source.
+const FIGURES = [
+  { value: formatCount(COUNTS.locales), label: 'languages' },
+  { value: formatCount(COUNTS.packFiles), label: 'pack files' },
+  { value: formatCount(COUNTS.vocabularyRows), label: 'rows' },
+  { value: formatCount(COUNTS.pythonVersions), label: 'Python versions' },
+];
+
+// The tiles paint with `bg-brand-light-gray` / `text-brand-gray` rather than the
+// `bg-card` / `text-muted-foreground` semantic utilities. Those resolve through
+// `hsl(var(--card))`, but globals.css defines `--card` as a hex, so the browser
+// sees `hsl(#f6f6f6)`, discards it as invalid, and paints nothing.
+const spread = tierSpreadSentence();
+
+// SPDX identifiers are lowercase by convention; prose is not.
+const licenceLabel = LICENSE.toUpperCase().replace('APACHE-', 'Apache ');
+---
+
+<Layout
+  title="The Language Canon — Legesher"
+  description={`The vocabulary Legesher actually ships: one rendering per programming concept, in ${COUNTS.locales} human languages, across ${COUNTS.pythonVersions} Python versions. The decision layer that sits above the language corpus.`}
+>
+  <Header />
+  <main class="pt-32 pb-20 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">The language canon</h1>
+        <p class="text-xl text-brand-gray mb-2">
+          The words Legesher ships: Python&rsquo;s keywords, builtins, exceptions and reserved words, rendered in
+          {COUNTS.locales} human languages across {COUNTS.pythonVersions} interpreter versions. One rendering per
+          concept &mdash; the one you get when you write <code class="font-mono">import legesher</code>.
+        </p>
+        <p class="text-sm text-brand-gray">
+          <span>Last updated: {lastUpdated}</span>
+        </p>
+      </header>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        {FIGURES.map((figure) => (
+          <div class="bg-brand-light-gray border border-brand-gray/30 p-4 text-center">
+            <div class="text-2xl md:text-3xl font-bold text-brand-cyan">{figure.value}</div>
+            <div class="text-sm text-brand-gray">{figure.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <article class="prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
+        {/* First thing on the page, deliberately. Two similarly named datasets
+            were published days apart, and a reader who has to open both cards
+            to work out which one they want has already been failed. The wording
+            is held word-for-word with the dataset card's own answer to the same
+            question — one distinction, stated once. */}
+        <section aria-labelledby="corpus-or-canon">
+          <h2 id="corpus-or-canon">Corpus or canon &mdash; which one do I want?</h2>
+          <p>
+            <strong>The corpus is the evidence; the canon is the decision.</strong>
+            <a href={LINKS.corpus} target="_blank" rel="noopener noreferrer"
+              ><code class="font-mono">legesher/language-corpus</code></a
+            > records every rendering anyone proposed for a programming concept &mdash; append-only, with the
+            endorsements attached to it. The canon dataset records the one rendering per concept that Legesher
+            actually ships in its language packs: what you get when you write
+            <code class="font-mono">import legesher</code>.
+          </p>
+          <p>
+            Take the canon if you want the words Legesher ships. Take the corpus if you want the evidence behind
+            them, including the renderings that were proposed and not chosen.
+          </p>
+          <div class="not-prose grid gap-4 md:grid-cols-2 my-8">
+            <div class="bg-brand-light-gray border border-brand-gray/30 p-5">
+              <div class="text-xs font-bold uppercase tracking-wide text-brand-coral mb-2">
+                For developers
+              </div>
+              <div class="font-bold mb-1">The canon &mdash; language packs</div>
+              <p class="text-sm text-brand-gray mb-3">
+                The rendering Legesher ships, per concept, per language. What your editor and your interpreter
+                actually use.
+              </p>
+              <a
+                href={LINKS.canon}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm font-medium text-brand-cyan hover:text-brand-coral transition-colors duration-300 break-words"
+                >{bare(LINKS.canon)}</a
+              >
+            </div>
+            <div class="bg-brand-light-gray border border-brand-gray/30 p-5">
+              <div class="text-xs font-bold uppercase tracking-wide text-brand-coral mb-2">
+                For researchers
+              </div>
+              <div class="font-bold mb-1">The corpus &mdash; every proposal</div>
+              <p class="text-sm text-brand-gray mb-3">
+                Every candidate rendering anyone offered and every endorsement a native speaker attached to it,
+                including the ones that were not chosen.
+              </p>
+              <a
+                href={LINKS.corpus}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm font-medium text-brand-cyan hover:text-brand-coral transition-colors duration-300 break-words"
+                >{bare(LINKS.corpus)}</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="what-is-in-it">
+          <h2 id="what-is-in-it">What is in it</h2>
+          <p>
+            One row per language, interpreter version, category and source term:
+            {formatCount(COUNTS.vocabularyRows)} rows drawn from {formatCount(COUNTS.packFiles)} pack files.
+            Categories are keywords, builtins, exceptions and reserved words. Alongside the vocabulary, a second
+            table gives one row per language: its identity codes, its script properties, its maturity stamp and its
+            term counts.
+          </p>
+          <p>
+            Rows are given <strong>resolved</strong>. Packs for newer interpreter versions carry only a delta and
+            inherit the rest, so a naive reading of the pack files would tell you Python 3.14 has a handful of
+            words in it. Each row instead states what you would actually get on that interpreter, while keeping the
+            delta structure visible: every row records the version whose pack file defines the term, and whether it
+            was inherited rather than defined there. The vocabulary grows with the language, which is why the term
+            count differs by version at all.
+          </p>
+          <p>
+            The dataset is generated from the pack tree, not from the selection database behind it. That is a
+            deliberate constraint: the database also holds selections for other targets, and sourcing from it would
+            publish terminology this dataset does not claim to cover. Every file carries a checksum and the
+            toolchain that produced it, so the export is reproducible rather than asserted.
+          </p>
+          <p>
+            Parquet for the two tables, plus a plain JSON mirror of each resolved pack for anyone who would rather
+            not read Parquet.
+          </p>
+        </section>
+
+        <section aria-labelledby="maturity">
+          <h2 id="maturity">How far this has been reviewed</h2>
+          {/* Gated on the data: the moment a language is promoted, "no native
+              speaker has signed off" stops being true, and it would otherwise
+              keep asserting itself under a heading whose own sentence says
+              otherwise. */}
+          {ALL_EXPERIMENTAL ? (
+            <p>
+              <strong>{spread}</strong> That is not a formality. It means the vocabulary has been drafted, curated
+              by maintainers, and put through mechanical gates &mdash; and that no pack has yet cleared native
+              review as a whole. Treat an <code>experimental</code> pack as a serious starting point that wants
+              native review, not as settled terminology.
+            </p>
+          ) : (
+            <p>
+              <strong>{spread}</strong> An <code>experimental</code> pack has been drafted, curated by maintainers
+              and put through mechanical gates, but has not cleared native review as a whole. Treat one as a
+              serious starting point that wants native review, not as settled terminology.
+            </p>
+          )}
+          <p>
+            That is compatible with the corpus already carrying endorsements: an endorsement attaches to a single
+            rendering of a single concept, and plenty have been given. The stamp here is about the pack as a whole
+            &mdash; whether a native speaker has reviewed it end to end and signed off on it &mdash; which is a
+            different, larger thing than any one rendering being endorsed.
+          </p>
+          <p>
+            The stamp on every row here is the same stamp the site carries and the same one the installed pack
+            carries. <a href="/languages">The language support page</a> lists where each language stands, explains
+            the ladder, and says what moves a language up it.
+          </p>
+        </section>
+
+        <section aria-labelledby="licence">
+          <h2 id="licence">Licence</h2>
+          <p>
+            {licenceLabel}, matching the package the language packs ship in. The corpus is licensed separately,
+            under CC BY 4.0 &mdash; the two datasets serve different purposes and carry different terms, so check
+            the one you are actually using.
+          </p>
+        </section>
+
+        <section aria-labelledby="get-the-data">
+          <h2 id="get-the-data">Get the data</h2>
+          <p>
+            <a href={LINKS.canon} target="_blank" rel="noopener noreferrer" class="break-words"
+              >{bare(LINKS.canon)}</a
+            >
+          </p>
+          <p>
+            If you speak one of these languages and a rendering is wrong, we would rather know.
+            <a href={LINKS.slack} target="_blank" rel="noopener noreferrer">Find us in Slack</a> or open an issue on
+            <a href={LINKS.github} target="_blank" rel="noopener noreferrer">GitHub</a>.
+          </p>
+        </section>
+      </article>
+    </div>
+  </main>
+  <Footer />
+</Layout>
