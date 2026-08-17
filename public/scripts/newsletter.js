@@ -19,6 +19,15 @@ if (form && messageElement) {
     const firstName = formData.get('firstName');
     const website = formData.get('website'); // Honeypot field
 
+    // Campaign attribution, read from the URL of the page being subscribed
+    // from. Nothing is stored — no cookie, no localStorage, no sessionStorage —
+    // so this describes the visit that converted and not the visitor's history.
+    // JSON.stringify drops undefined, so an absent parameter sends no key and
+    // the server records nothing rather than a placeholder.
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source') || undefined;
+    const utmCampaign = params.get('utm_campaign') || undefined;
+
     try {
       // Show loading state immediately
       if (submitButton) {
@@ -36,7 +45,9 @@ if (form && messageElement) {
         body: JSON.stringify({
           email,
           firstName,
-          website
+          website,
+          utmSource,
+          utmCampaign
         }),
       });
 
