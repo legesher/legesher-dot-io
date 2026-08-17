@@ -18,15 +18,24 @@ const NAME_REGEX = /^[\p{L}\s\-']{2,150}$/u;
 // Returns undefined when nothing usable was supplied, so the caller can omit
 // the key entirely. Writing a placeholder instead would make "we never measured
 // this" indistinguishable from "we measured it as direct".
+// Letters and numbers of ANY script survive, matching NAME_REGEX above. An
+// ASCII-only slug would erase a campaign named 日本語 to nothing and collapse
+// "2026 日本 Launch" and "2026 Launch" to the same value — silently losing
+// attribution for exactly the non-English announcements this project exists
+// to serve.
 function normalizeAttribution(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined;
   const normalized = value
     .trim()
     .toLowerCase()
-    .replace(/[^a-z0-9._-]+/g, '-')
-    .slice(0, 64)
-    .replace(/^[-._]+|[-._]+$/g, '');
-  return normalized || undefined;
+    // Compose after lowercasing, which can decompose (İ becomes i + U+0307),
+    // so equivalent spellings settle on one form before being stored.
+    .normalize('NFC')
+    .replace(/[^\p{L}\p{N}._-]+/gu, '-');
+  // Slice by code point rather than UTF-16 unit: a plain .slice() can cut a
+  // surrogate pair in half and leave an unpaired surrogate.
+  const truncated = Array.from(normalized).slice(0, 64).join('');
+  return truncated.replace(/^[-._]+|[-._]+$/gu, '') || undefined;
 }
 
 export const POST: APIRoute = async ({ request }) => {
