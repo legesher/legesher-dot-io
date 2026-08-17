@@ -34,7 +34,8 @@ We aim to respond within 48 hours and will keep you updated on the resolution pr
 - GDPR-compliant consent messaging
 - IP address collection for spam detection (disclosed)
 - Unsubscribe functionality via Buttondown
-- Minimal data collection (email + firstName only)
+- Minimal data collection (email + firstName, plus campaign attribution from the
+  subscribing page's URL where present — all disclosed in the Privacy Policy)
 
 **Data Protection**:
 - No sensitive data logged in production

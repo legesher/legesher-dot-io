@@ -10,16 +10,23 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const NAME_REGEX = /^[\p{L}\s\-']{2,150}$/u;
 
 // Attribution values come from UTM parameters on the landing URL, so they are
-// client-supplied and untrusted. Constrain them to a slug shape before they
-// reach Buttondown's metadata.
-const ATTRIBUTION_REGEX = /^[a-z0-9][a-z0-9._-]{0,63}$/;
-
-// A malformed attribution value falls back to the default rather than failing
-// the request: a bad UTM is not a reason to lose a subscriber.
-function sanitizeAttribution(value: unknown, fallback: string): string {
-  if (typeof value !== 'string') return fallback;
-  const normalized = value.trim().toLowerCase();
-  return ATTRIBUTION_REGEX.test(normalized) ? normalized : fallback;
+// client-supplied and untrusted. They are normalized to a slug rather than
+// validated-and-discarded: a campaign named "Bridge Beta Launch" demonstrably
+// acquired the subscriber, and rejecting it for containing spaces would lose
+// attribution the campaign earned.
+//
+// Returns undefined when nothing usable was supplied, so the caller can omit
+// the key entirely. Writing a placeholder instead would make "we never measured
+// this" indistinguishable from "we measured it as direct".
+function normalizeAttribution(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const normalized = value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]+/g, '-')
+    .slice(0, 64)
+    .replace(/^[-._]+|[-._]+$/g, '');
+  return normalized || undefined;
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -79,11 +86,15 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // utm_source names the channel a subscriber arrived through; utm_campaign
-    // names the release that brought them. An unattributed signup records as
-    // 'unattributed' rather than inheriting the current release — stamping a
-    // release onto a signup it did not earn would inflate that release's credit.
-    const firstTouchChannel = sanitizeAttribution(data.utmSource, 'website');
-    const firstTouchRelease = sanitizeAttribution(data.utmCampaign, 'unattributed');
+    // names the release that brought them.
+    //
+    // These are LAST touch, not first: they describe the visit that ended in a
+    // subscription. Someone who arrives via LinkedIn, leaves, and returns direct
+    // a week later records as direct. Recording true first touch would mean
+    // persisting the original UTM across sessions, which requires client-side
+    // storage the privacy policy commits to never using.
+    const lastTouchChannel = normalizeAttribution(data.utmSource);
+    const lastTouchRelease = normalizeAttribution(data.utmCampaign);
 
     // Subscribe to newsletter
     const response = await fetch('https://api.buttondown.email/v1/subscribers', {
@@ -99,8 +110,10 @@ export const POST: APIRoute = async ({ request }) => {
         metadata: {
           first_name: data.firstName.trim(),
           source: 'website',
-          first_touch_channel: firstTouchChannel,
-          first_touch_release: firstTouchRelease,
+          // Omitted entirely when the visit carried no UTM, so an absent field
+          // means "not measured" rather than "arrived directly".
+          ...(lastTouchChannel && { last_touch_channel: lastTouchChannel }),
+          ...(lastTouchRelease && { last_touch_release: lastTouchRelease }),
           subscribed_at: new Date().toISOString()
         }
       }),

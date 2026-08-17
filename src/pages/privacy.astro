@@ -74,6 +74,11 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
               >Buttondown</a>. When you submit the form, your IP address is also forwarded
               (server-side, not from your browser) to Buttondown as part of the subscription
               payload, which they may use for their own spam prevention and audit logs.
+              If you reached the page through a campaign link, the <code>utm_source</code> and
+              <code>utm_campaign</code> values from that link's address are recorded with your
+              subscription so we can tell which of our announcements reached you. These are read
+              from the address of the page you subscribe from and are never stored on your
+              device; when the address carries no such values, nothing is recorded.
             </li>
             <li>
               <strong>Survey Responses:</strong> feedback provided through optional surveys we link to. Our surveys

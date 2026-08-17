@@ -28,6 +28,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Campaign attribution on newsletter subscriptions.** When someone reaches the site through a
+  link carrying `utm_source` / `utm_campaign`, those values are recorded with their subscription
+  as `last_touch_channel` and `last_touch_release`, so an announcement can be credited with the
+  signups it produced. Read from the subscribing page's address and never stored on the visitor's
+  device, keeping the policy's no-client-side-storage commitment intact. A visit carrying no
+  campaign parameters records nothing at all rather than a placeholder, so "not measured" stays
+  distinguishable from "arrived directly". Disclosed in the Privacy Policy.
 - Company-wide **Privacy Policy** at [/privacy](https://www.legesher.io/privacy) covering website, products,
   community, data retention, and full GDPR/CCPA/CPRA/state privacy law disclosures (CORE-542, CORE-581)
 - **Terms of Service** at [/terms](https://www.legesher.io/terms) documenting the open-core licensing
