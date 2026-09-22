@@ -22,6 +22,7 @@
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
+    "check": "astro check",
     "contributors:generate": "all-contributors generate"
   },
   "dependencies": {
@@ -58,6 +59,7 @@
   "devDependencies": {
     "all-contributors-cli": "^6.26.1",
     "@tailwindcss/typography": "^0.5.20",
+    "@astrojs/check": "^0.9.10",
     "autoprefixer": "^10.5.2",
     "postcss": "^8.5.16",
     "typescript": "^5.9.3",
