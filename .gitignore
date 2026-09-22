@@ -180,3 +180,6 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/node,sublimetext,windows,macos,sass
+
+# Local Claude Code agent state (settings, worktrees, locks) — never committed (CORE-1974)
+.claude/
