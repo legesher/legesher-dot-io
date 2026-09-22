@@ -20,6 +20,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "contributors:generate": "all-contributors generate"
   },
   "dependencies": {
@@ -58,7 +60,8 @@
     "@tailwindcss/typography": "^0.5.20",
     "autoprefixer": "^10.5.2",
     "postcss": "^8.5.16",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.7"
   },
   "engines": {
     "node": ">=22.12.0"
