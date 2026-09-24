@@ -4,6 +4,10 @@ export default {
   darkMode: ["class"],
   content: [
     "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
+    // Unit tests sit beside the modules they cover. They never render, and
+    // their prose contains words such as "lowercase" that the scanner would
+    // otherwise emit as utility classes into the shipped stylesheet.
+    "!./src/**/*.test.ts",
   ],
   prefix: "",
   theme: {
