@@ -28,8 +28,10 @@ export function normalizeAttribution(value: unknown): string | undefined {
     .toLowerCase()
     // Compose after lowercasing, which can decompose (İ becomes i + U+0307),
     // so equivalent spellings settle on one form before being stored. The
-    // order matters: J + U+030C only composes to ǰ (U+01F0) once the base
-    // letter is lowercase, because no precomposed J with caron exists.
+    // order matters: J + U+030C only composes to ǰ (U+01F0) after J has
+    // become j, because no precomposed J with caron exists. (Do not write
+    // the bare word for that case in this comment: Tailwind scans this file
+    // and would emit the matching utility class into the shipped stylesheet.)
     .normalize('NFC')
     .replace(/[^\p{L}\p{N}\p{M}._-]+/gu, '-');
   // Slice by code point rather than UTF-16 unit: a plain .slice() can cut a
