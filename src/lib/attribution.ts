@@ -7,9 +7,10 @@
 // Returns undefined when nothing usable was supplied, so the caller can omit
 // the key entirely. Writing a placeholder instead would make "we never measured
 // this" indistinguishable from "we measured it as direct".
-// Letters, numbers and COMBINING MARKS of any script survive, matching
-// NAME_REGEX above. An ASCII-only slug would erase a campaign named 日本語 to
-// nothing and collapse "2026 日本 Launch" and "2026 Launch" to one value.
+// Letters, numbers and COMBINING MARKS of any script survive. NAME_REGEX in
+// validation.ts does not yet keep marks (tracked as CORE-2180). An ASCII-only
+// slug would erase a campaign named 日本語 to nothing and collapse
+// "2026 日本 Launch" and "2026 Launch" to one value.
 //
 // \p{M} is not optional decoration: without it, हिन्दी becomes "ह-न-द" and
 // සිංහල becomes "ස-හල", because every vowel sign and virama is a mark rather
@@ -26,7 +27,9 @@ export function normalizeAttribution(value: unknown): string | undefined {
     .trim()
     .toLowerCase()
     // Compose after lowercasing, which can decompose (İ becomes i + U+0307),
-    // so equivalent spellings settle on one form before being stored.
+    // so equivalent spellings settle on one form before being stored. The
+    // order matters: J + U+030C only composes to ǰ (U+01F0) once the base
+    // letter is lowercase, because no precomposed J with caron exists.
     .normalize('NFC')
     .replace(/[^\p{L}\p{N}\p{M}._-]+/gu, '-');
   // Slice by code point rather than UTF-16 unit: a plain .slice() can cut a

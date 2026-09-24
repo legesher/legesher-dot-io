@@ -26,7 +26,7 @@ const arabicWithHarakat = String.fromCodePoint(
 
 // שָׁלוֹם in canonical mark order (qamats U+05B8 before shin dot U+05C1), so
 // the fixture is already NFC and equality with the input is a real check.
-const hebrewWithNiqqud = 'שָׁלוֹם';
+const hebrewWithNiqqud = '\u05E9\u05B8\u05C1\u05DC\u05D5\u05B9\u05DD';
 
 describe('normalizeAttribution', () => {
   describe('keeps letters and combining marks of every script', () => {
@@ -53,18 +53,24 @@ describe('normalizeAttribution', () => {
   });
 
   describe('lowercases, then composes', () => {
-    it('lowercases İstanbul to the NFC form of its lowercase mapping', () => {
+    it('lowercases İstanbul to i + U+0307, which NFC leaves decomposed', () => {
       const result = normalizeAttribution('İstanbul') as string;
 
       // İ (U+0130) lowercases to i + U+0307. NFC has no composed form for
       // that pair, so the combining dot above survives as a mark.
-      expect(result).toBe('i̇stanbul');
-      expect(result).toBe('İstanbul'.toLowerCase().normalize('NFC'));
+      expect(result).toBe('i\u0307stanbul');
       expect(countMarks(result)).toBe(1);
     });
 
     it('composes a decomposed e + U+0301 into the precomposed U+00E9', () => {
-      expect(normalizeAttribution('café')).toBe('café');
+      expect(normalizeAttribution('cafe\u0301')).toBe('caf\u00E9');
+    });
+
+    it('lowercases before composing: J + U+030C becomes the single code point U+01F0', () => {
+      // There is no precomposed J with caron, but there is one for j. Composing
+      // first would leave j + U+030C decomposed after lowercasing; only
+      // lowercase-then-NFC reaches U+01F0, so this pins the order of the steps.
+      expect(normalizeAttribution('J\u030C')).toBe('\u01F0');
     });
   });
 
@@ -74,10 +80,10 @@ describe('normalizeAttribution', () => {
     });
 
     it('removes bidi overrides, zero-width joiners, newlines and markup', () => {
-      const result = normalizeAttribution('foo‮bar‍baz\nqux<script>') as string;
+      const result = normalizeAttribution('foo\u202Ebar\u200Dbaz\nqux<script>') as string;
 
       expect(result).toBe('foo-bar-baz-qux-script');
-      for (const forbidden of ['‮', '‍', '\n', '<', '>']) {
+      for (const forbidden of ['\u202E', '\u200D', '\n', '<', '>']) {
         expect(result).not.toContain(forbidden);
       }
     });
