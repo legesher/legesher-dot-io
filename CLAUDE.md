@@ -7,13 +7,15 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `privacy.astro`, `terms.astro`, and `api/subscribe.ts`, the one
-  route with `export const prerender = false`.
+- `src/pages/`: `index.astro`, `install.astro`, `privacy.astro`, `terms.astro`, and
+  `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
-- `src/lib/`: `links.ts` (single source of outbound links), `attribution.ts`, `validation.ts`,
-  `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the co-located `*.test.ts` suites.
+- `src/lib/`: `links.ts` (single source of outbound links), `products.ts` (the install page's
+  product registry: a product that is not live carries no install path), `attribution.ts`,
+  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the co-located
+  `*.test.ts` suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
 - `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load).
 - `.astro/`: Astro-generated type files; tracked, see Gotchas.
