@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Install page at `/install`**: one entry per Legesher product with its honest state today. A
+  product that is not live carries no install command and no install link (`src/lib/products.ts`,
+  guarded by `products.test.ts`); live products link to the surface that carries their own version,
+  so no version string is typed into the site. Linked from the header and the footer.
 - **Campaign attribution on newsletter subscriptions.** When someone reaches the site through a
   link carrying `utm_source` / `utm_campaign`, those values are recorded with their subscription
   as `last_touch_channel` and `last_touch_release`, so an announcement can be credited with the
