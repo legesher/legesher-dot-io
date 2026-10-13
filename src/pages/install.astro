@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
+import { LINKS } from '@/lib/links';
+import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
+import { PRODUCTS } from '@/lib/products';
+
+const lastUpdated = formatLastUpdated(LAST_UPDATED.install);
+const live = PRODUCTS.filter((product) => product.status === 'live');
+const coming = PRODUCTS.filter((product) => product.status === 'coming');
+---
+
+<Layout
+  title="Install Legesher"
+  description="One front door for every Legesher product: what is available today, where to get it, and what is still on its way."
+>
+  <Header />
+  <main class="pt-32 pb-20 bg-white">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <header class="mb-12 max-w-3xl">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Install Legesher</h1>
+        <p class="text-lg text-muted-foreground mb-2">
+          One front door for every Legesher product. Each entry says plainly whether it is available
+          today or still on its way. Nothing here links to an install path we do not stand behind.
+        </p>
+        <p class="text-sm text-muted-foreground">Last updated: {lastUpdated}</p>
+      </header>
+
+      <section aria-labelledby="available-now" class="mb-16">
+        <h2 id="available-now" class="text-2xl md:text-3xl font-bold mb-6">Available now</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          {live.map((product) => (
+            <Card id={product.id} className="flex flex-col">
+              <CardHeader>
+                <span class="inline-block self-start text-xs font-semibold uppercase tracking-wide text-brand-cyan mb-2">
+                  Available now
+                </span>
+                <CardTitle>{product.name}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-4 flex-1">
+                <CardDescription className="text-base">{product.summary}</CardDescription>
+                {product.stage && <p class="text-sm text-muted-foreground">{product.stage}</p>}
+                {product.commands && (
+                  <pre class="rounded-md bg-muted p-4 text-sm overflow-x-auto"><code>{product.commands.join('\n')}</code></pre>
+                )}
+                {product.access && (
+                  <a href={product.access.href} target="_blank" rel="noopener noreferrer" class="mt-auto font-semibold text-brand-cyan hover:text-brand-coral transition-colors duration-300">
+                    {product.access.label}
+                  </a>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="coming" class="mb-16">
+        <h2 id="coming" class="text-2xl md:text-3xl font-bold mb-2">Coming</h2>
+        <p class="text-muted-foreground mb-6 max-w-3xl">
+          These products exist and are being readied for release. We publish an install command only
+          once it is live and verified on a clean machine, so none appears here yet.
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {coming.map((product) => (
+            <Card id={product.id} className="flex flex-col">
+              <CardHeader>
+                <span class="inline-block self-start text-xs font-semibold uppercase tracking-wide text-brand-coral mb-2">
+                  Coming
+                </span>
+                <CardTitle>{product.name}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-4 flex-1">
+                <CardDescription className="text-base">{product.summary}</CardDescription>
+                <p class="text-sm text-muted-foreground mt-auto">{product.arrives}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="stay-informed" class="max-w-3xl">
+        <h2 id="stay-informed" class="text-2xl md:text-3xl font-bold mb-4">Stay informed</h2>
+        <p class="text-muted-foreground mb-4">
+          Documentation lives at <a href={LINKS.docs} class="text-brand-cyan hover:text-brand-coral transition-colors duration-300">docs.legesher.io</a>.
+          Release announcements go out through the newsletter first, and the open-source code is on
+          <a href={LINKS.github} class="text-brand-cyan hover:text-brand-coral transition-colors duration-300">GitHub</a>.
+        </p>
+        <a href="/#newsletter" class="font-semibold text-brand-cyan hover:text-brand-coral transition-colors duration-300">Get release updates</a>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
