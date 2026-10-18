@@ -17,6 +17,7 @@ const layout = readFileSync(
   join(import.meta.dirname, '..', 'layouts', 'Layout.astro'),
   'utf-8',
 )
+  .replace(/\r/g, '')
   .replace(/^---[\s\S]*?\n---\n/, '')
   .replace(/<!--[\s\S]*?-->/g, '');
 

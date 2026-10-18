@@ -38,7 +38,8 @@ npm run build              # astro build
 
 Summary lines to expect (counts as of 2026-10-18; they grow, they never shrink):
 
-- `npm test`: ` Test Files  8 passed (8)` then `      Tests  187 passed (187)` (after `npm run build`; without build output the built-page guard skips, by name, and the count reads 7 files)
+- `npm test`: ` Test Files  8 passed (8)` then `      Tests  187 passed (187)` after `npm run build`; without build output the built-page guard skips by name and the lines read
+  ` Test Files  7 passed | 1 skipped (8)` then `      Tests  183 passed | 1 skipped (184)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run)
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
 

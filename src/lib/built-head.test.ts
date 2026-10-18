@@ -50,10 +50,21 @@ suite('every built page keeps the Content Security Policy inside <head> (needs n
     expect(meta, 'carries a Content Security Policy meta').toBeGreaterThan(-1);
     expect(meta, 'the CSP meta sits before </head>').toBeLessThan(headClose);
 
-    const before = html.slice(headOpen, meta);
+    // Raw-text elements keep their contents as text, so a JSON-LD script or a
+    // <noscript> pixel is not a tag the parser would act on; blank them out.
+    // Everything else that is not a tag is text, and text in <head> closes it
+    // exactly like a foreign element: an escaped component rendered through a
+    // slot arrives as text and would otherwise pass unnoticed.
+    const before = html
+      .slice(headOpen, meta)
+      .replace(/<(script|style|title|noscript|template)\b[^>]*>[\s\S]*?<\/\1>/gi, '<$1></$1>');
     const foreign = Array.from(before.matchAll(/<([A-Za-z][\w-]*)/g), (m) => m[1].toLowerCase()).filter(
       (name) => name !== 'head' && !HEAD_ELEMENTS.has(name),
     );
     expect(foreign, 'no element the parser would move to <body> precedes the CSP meta').toEqual([]);
+    expect(
+      before.replace(/<[^>]*>/g, '').trim(),
+      'no text precedes the CSP meta in <head>',
+    ).toBe('');
   });
 });
