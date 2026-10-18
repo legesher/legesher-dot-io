@@ -16,7 +16,7 @@ describe('NAME_REGEX', () => {
   it.each([
     ['हिन्दी', 'Devanagari with vowel signs and a virama'],
     ['राम', 'Devanagari with a vowel sign'],
-    ['ශ්‍රී', 'Sinhala with a virama and the zero-width joiner the conjunct needs'],
+    ['ශ්\u200dරී', 'Sinhala with a virama and the zero-width joiner the conjunct needs'],
     ['שָׁלוֹם', 'Hebrew with niqqud'],
     ['مُحَمَّد', 'Arabic with harakat and shadda'],
     ['สมศักดิ์', 'Thai with a vowel sign above and a thanthakhat'],
@@ -53,17 +53,17 @@ describe('NAME_REGEX', () => {
   // some scripts need inside a word. Bidi controls can reorder what a reader
   // sees (Trojan Source), and the invisible ones hide payload in plain text.
   it.each([
-    ['a right-to-left override', 'abc‮def'],
-    ['a left-to-right embedding', '‪abc'],
-    ['a right-to-left isolate', '⁧abc⁩'],
-    ['a left-to-right mark', 'abc‎'],
-    ['an Arabic letter mark', '؜محمد'],
-    ['a byte order mark', '﻿abc'],
-    ['a soft hyphen', 'ab­c'],
-    ['a word joiner', 'ab⁠c'],
-    ['a zero-width space', 'ab​c'],
-    ['a zero-width joiner on its own', '‍'],
-    ['a zero-width joiner with no letter', '‍‌'],
+    ['a right-to-left override', 'abc\u202edef'],
+    ['a left-to-right embedding', '\u202aabc'],
+    ['a right-to-left isolate', '\u2067abc\u2069'],
+    ['a left-to-right mark', 'abc\u200e'],
+    ['an Arabic letter mark', '\u061cمحمد'],
+    ['a byte order mark', '\ufeffabc'],
+    ['a soft hyphen', 'ab\u00adc'],
+    ['a word joiner', 'ab\u2060c'],
+    ['a zero-width space', 'ab\u200bc'],
+    ['a zero-width joiner on its own', '\u200d'],
+    ['a zero-width joiner with no letter', '\u200d\u200c'],
   ])('rejects %s', (_label, name) => {
     expect(NAME_REGEX.test(name)).toBe(false);
   });

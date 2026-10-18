@@ -4,6 +4,7 @@ import {
   buildSubscriberPayload,
   createButtondownSubscriber,
   json,
+  readJsonBody,
   responseFor,
   validateSubscribeRequest,
 } from '@/lib/subscribe';
@@ -13,8 +14,9 @@ export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   // Read at request time. BUTTONDOWN_API_KEY is declared as a server secret
-  // in astro.config.mjs; import.meta.env would have inlined it at build time,
-  // or inlined undefined when the build ran without it (CORE-2193).
+  // in astro.config.mjs. A build-time environment read would have inlined the
+  // key into the bundle, or inlined undefined when the build ran without it
+  // (CORE-2193). src/lib/subscribe-secret.test.ts guards this file.
   const apiKey = getSecret('BUTTONDOWN_API_KEY');
   if (!apiKey) {
     console.error(
@@ -24,8 +26,9 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    const data: unknown = await request.json();
-    const validated = validateSubscribeRequest(data);
+    const body = readJsonBody(await request.text());
+    if (!body.ok) return json(400, 'Invalid request body');
+    const validated = validateSubscribeRequest(body.data);
     if (validated.ok === false) return json(validated.status, validated.message);
 
     // Client IP, forwarded to Buttondown for its spam prevention.

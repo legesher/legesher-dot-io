@@ -20,4 +20,4 @@ export const EMAIL_MAX_LENGTH = 254;
 // used: it includes U+FEFF and line breaks. The lookahead requires at least
 // one letter, so a name cannot be made of spaces, punctuation or joiners
 // alone. One character is a valid given name.
-export const NAME_REGEX = /^(?=[\s\S]*\p{L})[\p{L}\p{M}\p{Zs}\-'‌‍]{1,150}$/u;
+export const NAME_REGEX = /^(?=[\s\S]*\p{L})[\p{L}\p{M}\p{Zs}\-'\u200c\u200d]{1,150}$/u;

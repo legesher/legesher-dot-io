@@ -13,7 +13,7 @@ export default defineConfig({
         "default-src 'self'",
         "img-src 'self' data: https:",
         "font-src 'self' data: https: https://fonts.gstatic.com",
-        "connect-src 'self' https://api.buttondown.email https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+        "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
         "object-src 'none'",
         "base-uri 'self'"
       ],
@@ -46,9 +46,9 @@ export default defineConfig({
     }),
   ],
   // BUTTONDOWN_API_KEY is read at request time through astro:env (getSecret in
-  // src/pages/api/subscribe.ts), never through import.meta.env, which the build
-  // would replace with a literal: the key baked into the bundle, or undefined
-  // when the build ran without it (CORE-2193). `optional` keeps Astro from
+  // src/pages/api/subscribe.ts), never through a build-time environment read,
+  // which the build replaces with a literal: the key baked into the bundle, or
+  // undefined when it ran without the variable (CORE-2193). `optional` keeps Astro from
   // throwing at module load when the variable is absent, so the route itself
   // can answer with its documented error and log which variable is missing.
   env: {

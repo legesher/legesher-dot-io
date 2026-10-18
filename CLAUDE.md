@@ -12,8 +12,10 @@ data. Page and layout changes are visual work and are reviewed as such.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
-- `src/lib/`: `links.ts` (single source of outbound links), `attribution.ts`, `validation.ts`,
-  `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the co-located `*.test.ts` suites.
+- `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
+  endpoint's validation, payload and Buttondown call, so the route stays thin), `attribution.ts`,
+  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the co-located `*.test.ts`
+  suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
 - `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load).
 - `.astro/`: Astro-generated type files; tracked, see Gotchas.
@@ -34,9 +36,9 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-09-24; they grow, they never shrink):
+Summary lines to expect (counts as of 2026-10-18; they grow, they never shrink):
 
-- `npm test`: ` Test Files  4 passed (4)` then `      Tests  64 passed (64)`
+- `npm test`: ` Test Files  6 passed (6)` then `      Tests  157 passed (157)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run)
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
 
@@ -78,16 +80,24 @@ Facts behind those commands:
 - The repo-hygiene guard `src/lib/repo-hygiene.test.ts` runs in the default `npm test` and fails
   on a tracked folderOpen editor task, an automatic-tasks setting, non-font bytes under a font
   extension, or `.env` not ignored or tracked.
+- The runtime-secret guard `src/lib/subscribe-secret.test.ts` bans the build-time environment
+  accessor from every non-test source under `src/lib` and `src/pages/api`, comments included,
+  because Astro's build inlines every private variable named in a module that contains it. Secrets
+  are declared in `env.schema` in `astro.config.mjs` and read with `getSecret` from `astro:env/server`.
+  The build-time proof is a sentinel build: `BUTTONDOWN_API_KEY=SENTINEL npm run build` then
+  `grep -rl SENTINEL dist .vercel/output` must print nothing.
 
 ## Gotchas
 
 - `npm ci` must run under the `.nvmrc` Node (22). Since #203 `prettier` is declared in
   `package.json`, so the lockfile resolves under the npm 10 that Node 22 bundles.
 - `.astro/` is both tracked and listed in `.gitignore`. A build can regenerate files there (today
-  it adds an untracked `content.d.ts`). Never commit a change under `.astro/`.
+  it adds an untracked `content.d.ts` and `env.d.ts`, and since `astro.config.mjs` declares an
+  `env.schema` it also adds an `env.d.ts` reference line to the tracked `types.d.ts`, so that file
+  shows as modified after every `npm run check` or build). Never commit a change under `.astro/`.
 - `npm run build` writes `dist/` and `.vercel/output/`; both are ignored and neither is committed.
 - The `/go/*` short links in `vercel.json` are static JSON and cannot import `src/lib/links.ts`.
   Update both when a link rotates; the parity test catches a miss.
 - `output: 'static'` is the default for every page. A route that needs the server must opt out
   with `export const prerender = false`, and the sitemap then excludes it automatically.
-- `astro check` prints hints (30 at the time of writing); only errors fail the command.
+- `astro check` prints hints (31 at the time of writing); only errors fail the command.

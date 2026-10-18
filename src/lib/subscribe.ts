@@ -42,7 +42,11 @@ export function validateSubscribeRequest(data: unknown): ValidRequest | InvalidR
     return invalid('Invalid email format');
   }
   const trimmedName = firstName.trim();
-  if (!NAME_REGEX.test(trimmedName)) return invalid('Invalid first name format');
+  // 150 code points are at most 300 UTF-16 units. The length check runs
+  // first so a multi-megabyte string is refused before the regex scans it.
+  if (trimmedName.length > 300 || !NAME_REGEX.test(trimmedName)) {
+    return invalid('Invalid first name format');
+  }
 
   return {
     ok: true,
@@ -109,11 +113,29 @@ export function buildSubscriberPayload(input: {
 
 export type SubscribeOutcome =
   | { kind: 'created' }
-  // Buttondown refused this address: already subscribed, unsubscribed, or
-  // blocked. The caller must not be able to tell these apart from `created`.
+  // Buttondown already knows this address: subscribed, unsubscribed, blocked,
+  // or flagged by its spam filter. The caller must not be able to tell these
+  // apart from `created`.
   | { kind: 'declined'; status: 400; code: string | undefined }
-  // Our side or Buttondown's is misconfigured or down.
+  // The request itself failed, or Buttondown is misconfigured or down. The
+  // visitor gets an error rather than a promise of an email that never comes.
   | { kind: 'failed'; status: number; code: string | undefined };
+
+// The 400 codes that reveal the address is already known, from Buttondown's
+// SubscriberInputValidationErrorCode enum (OpenAPI schema, 2026-10-18). Every
+// other 400 (email_invalid, rate_limited, tag_invalid, metadata_invalid,
+// newsletter_not_accepting_subscribers, ...) means the subscription did not
+// happen for a reason the visitor or the operator can act on, so it is a
+// failure, not a neutral success.
+const KNOWN_ADDRESS_CODES = new Set([
+  'email_already_exists',
+  'subscriber_already_exists',
+  'subscriber_already_premium',
+  'subscriber_suppressed',
+  'subscriber_blocked',
+  'email_blocked',
+  'ip_address_spammy',
+]);
 
 export async function createButtondownSubscriber(
   apiKey: string,
@@ -135,7 +157,9 @@ export async function createButtondownSubscriber(
   const body = await response.text();
   if (response.status >= 200 && response.status < 300) return { kind: 'created' };
   const code = errorCode(body);
-  if (response.status === 400) return { kind: 'declined', status: 400, code };
+  if (response.status === 400 && code !== undefined && KNOWN_ADDRESS_CODES.has(code)) {
+    return { kind: 'declined', status: 400, code };
+  }
   return { kind: 'failed', status: response.status, code };
 }
 
@@ -152,6 +176,17 @@ function errorCode(body: string): string | undefined {
     // Not JSON; the status alone is logged.
   }
   return undefined;
+}
+
+// The request body is parsed here rather than with request.json() so a body
+// that is not JSON answers 400 and is never echoed into a log: the runtime's
+// SyntaxError message carries an excerpt of the input.
+export function readJsonBody(text: string): { ok: true; data: unknown } | { ok: false } {
+  try {
+    return { ok: true, data: JSON.parse(text) };
+  } catch {
+    return { ok: false };
+  }
 }
 
 export function json(status: number, message: string): Response {

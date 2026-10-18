@@ -4,6 +4,7 @@ import {
   EMAIL_MAX_LENGTH,
   buildSubscriberPayload,
   createButtondownSubscriber,
+  readJsonBody,
   responseFor,
   validateSubscribeRequest,
 } from './subscribe';
@@ -28,7 +29,7 @@ describe('validateSubscribeRequest', () => {
     ['a whitespace-only first name', { ...valid, firstName: '   ' }, 'Invalid first name format'],
     [
       'a bidi override in the first name',
-      { ...valid, firstName: 'Ana‮anA' },
+      { ...valid, firstName: 'Ana\u202eanA' },
       'Invalid first name format',
     ],
   ])('rejects %s', (_label, body, message) => {
@@ -45,7 +46,7 @@ describe('validateSubscribeRequest', () => {
     expect(result.ok).toBe(true);
   });
 
-  it.each(['हिन्दी', 'ශ්‍රී', 'שָׁלוֹם', 'مُحَمَّد', 'สมศักดิ์', '李', 'a'])(
+  it.each(['हिन्दी', 'ශ්\u200dරී', 'שָׁלוֹם', 'مُحَمَّد', 'สมศักดิ์', '李', 'a'])(
     'accepts the first name %s',
     (firstName) => {
       const result = validateSubscribeRequest({ ...valid, firstName });
@@ -58,6 +59,16 @@ describe('validateSubscribeRequest', () => {
       });
     },
   );
+
+  it('rejects a name longer than 150 code points can be, before the regex runs', () => {
+    // 150 code points are at most 300 UTF-16 units; this is 4,000,000 marks.
+    const marks = String.fromCodePoint(0x0301).repeat(4_000_000);
+    expect(validateSubscribeRequest({ ...valid, firstName: marks })).toEqual({
+      ok: false,
+      status: 400,
+      message: 'Invalid first name format',
+    });
+  });
 
   it('trims and lowercases the email and trims the first name', () => {
     expect(validateSubscribeRequest({ email: '  Reader@Example.COM ', firstName: ' Ana ' })).toEqual({
@@ -78,7 +89,7 @@ describe('validateSubscribeRequest', () => {
 describe('buildSubscriberPayload', () => {
   const base = {
     email: 'reader@example.com',
-    firstName: 'ශ්‍රී',
+    firstName: 'ශ්\u200dරී',
     ip: '203.0.113.7',
     utmSource: 'LinkedIn',
     utmCampaign: '2026 日本 Launch',
@@ -91,7 +102,7 @@ describe('buildSubscriberPayload', () => {
       ip_address: '203.0.113.7',
       tags: ['website-subscriber'],
       metadata: {
-        first_name: 'ශ්‍රී',
+        first_name: 'ශ්\u200dරී',
         source: 'website',
         last_touch_channel: 'linkedin',
         last_touch_release: '2026-日本-launch',
@@ -160,7 +171,36 @@ describe('createButtondownSubscriber', () => {
     });
   });
 
-  it.each(['email_already_exists', 'subscriber_suppressed', 'email_blocked'])(
+  // Buttondown's SubscriberInputValidationErrorCode enum, copied from its
+  // OpenAPI schema on 2026-10-18, split by what the reply must do. A code that
+  // says the address is already known gets the neutral reply, so the form
+  // cannot be used to test membership. Every other code means the request
+  // itself failed, and telling the visitor to check an inbox that will stay
+  // empty would be a silent failure.
+  const NEUTRAL_400_CODES = [
+    'email_already_exists',
+    'subscriber_already_exists',
+    'subscriber_already_premium',
+    'subscriber_suppressed',
+    'subscriber_blocked',
+    'email_blocked',
+    'ip_address_spammy',
+  ];
+  const FAILED_400_CODES = [
+    'currency_mismatch',
+    'email_empty',
+    'email_invalid',
+    'invalid_input',
+    'metadata_invalid',
+    'newsletter_not_accepting_subscribers',
+    'payment_failed',
+    'promo_code_invalid',
+    'rate_limited',
+    'subscriber_id_invalid',
+    'tag_invalid',
+  ];
+
+  it.each(NEUTRAL_400_CODES)(
     'reports a 400 %s as declined, carrying the code for the log',
     async (code) => {
       const { fetchImpl } = fakeFetch(400, JSON.stringify({ code, detail: 'x' }));
@@ -172,10 +212,22 @@ describe('createButtondownSubscriber', () => {
     },
   );
 
-  it('reports a 400 with a body that is not JSON as declined with no code', async () => {
+  it.each(FAILED_400_CODES)(
+    'reports a 400 %s as failed, so the visitor is not sent to an empty inbox',
+    async (code) => {
+      const { fetchImpl } = fakeFetch(400, JSON.stringify({ code, detail: 'x' }));
+      await expect(createButtondownSubscriber('k', payload, fetchImpl)).resolves.toEqual({
+        kind: 'failed',
+        status: 400,
+        code,
+      });
+    },
+  );
+
+  it('reports a 400 with a body that is not JSON as failed with no code', async () => {
     const { fetchImpl } = fakeFetch(400, '<html>Bad Request</html>');
     await expect(createButtondownSubscriber('k', payload, fetchImpl)).resolves.toEqual({
-      kind: 'declined',
+      kind: 'failed',
       status: 400,
       code: undefined,
     });
@@ -196,10 +248,10 @@ describe('createButtondownSubscriber', () => {
     });
   });
 
-  it('ignores a code that is not a string', async () => {
+  it('treats a code that is not a string as unknown, so the reply is a failure', async () => {
     const { fetchImpl } = fakeFetch(400, '{"code":{"nested":true}}');
     await expect(createButtondownSubscriber('k', payload, fetchImpl)).resolves.toEqual({
-      kind: 'declined',
+      kind: 'failed',
       status: 400,
       code: undefined,
     });
@@ -242,5 +294,23 @@ describe('responseFor', () => {
       contentType: 'application/json',
       body: JSON.stringify({ message: 'Unable to process subscription at this time' }),
     });
+  });
+});
+
+describe('readJsonBody', () => {
+  it('parses a JSON object', () => {
+    expect(readJsonBody('{"email":"a@b.io"}')).toEqual({ ok: true, data: { email: 'a@b.io' } });
+  });
+
+  it('parses JSON null without throwing, leaving the validator to reject it', () => {
+    expect(readJsonBody('null')).toEqual({ ok: true, data: null });
+  });
+
+  it.each([
+    ['a form-encoded body', 'email=a%40b.io&firstName=Ana'],
+    ['an empty body', ''],
+    ['truncated JSON', '{"email":'],
+  ])('rejects %s without echoing it', (_label, body) => {
+    expect(readJsonBody(body)).toEqual({ ok: false });
   });
 });
