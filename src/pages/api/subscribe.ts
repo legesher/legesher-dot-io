@@ -1,131 +1,63 @@
 import type { APIRoute } from 'astro';
-import { normalizeAttribution } from '@/lib/attribution';
-import { EMAIL_REGEX, NAME_REGEX } from '@/lib/validation';
+import { getSecret } from 'astro:env/server';
+import {
+  buildSubscriberPayload,
+  createButtondownSubscriber,
+  json,
+  readJsonBody,
+  responseFor,
+  validateSubscribeRequest,
+} from '@/lib/subscribe';
 
-// Enable server-side rendering for this endpoint
+// The one route that needs the server; every other page is prerendered.
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
-  const BUTTONDOWN_API_KEY = import.meta.env.BUTTONDOWN_API_KEY;
-
-  if (!BUTTONDOWN_API_KEY) {
-    return new Response(
-      JSON.stringify({ message: 'Service temporarily unavailable' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+  // Read at request time. BUTTONDOWN_API_KEY is declared as a server secret
+  // in astro.config.mjs. A build-time environment read would have inlined the
+  // key into the bundle, or inlined undefined when the build ran without it
+  // (CORE-2193). src/lib/subscribe-secret.test.ts guards this file.
+  const apiKey = getSecret('BUTTONDOWN_API_KEY');
+  if (!apiKey) {
+    console.error(
+      'BUTTONDOWN_API_KEY is not set in this environment; /api/subscribe cannot create subscribers',
     );
+    return json(500, 'Service temporarily unavailable');
   }
 
   try {
-    // Get client IP to forward to Buttondown (used by their spam prevention)
+    const body = readJsonBody(await request.text());
+    if (!body.ok) return json(400, 'Invalid request body');
+    const validated = validateSubscribeRequest(body.data);
+    if (validated.ok === false) return json(validated.status, validated.message);
+
+    // Client IP, forwarded to Buttondown for its spam prevention.
     const forwarded = request.headers.get('x-forwarded-for');
-    const ip = forwarded ? forwarded.split(',')[0].trim() : request.headers.get('x-real-ip') || 'unknown';
+    const ip = forwarded
+      ? forwarded.split(',')[0].trim()
+      : request.headers.get('x-real-ip') || undefined;
 
-    // Parse request data
-    const data = await request.json();
-
-    // CRITICAL: Validate all input types
-    if (!data.email || typeof data.email !== 'string') {
-      return new Response(
-        JSON.stringify({ message: 'Email is required' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    if (!data.firstName || typeof data.firstName !== 'string') {
-      return new Response(
-        JSON.stringify({ message: 'First name is required' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Check honeypot field
-    if (data.website) {
-      // Bot filled the honeypot - silently reject
-      return new Response(
-        JSON.stringify({ message: 'Invalid submission' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Format validation for email and firstName
-    if (!EMAIL_REGEX.test(data.email.trim())) {
-      return new Response(
-        JSON.stringify({ message: 'Invalid email format' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-    if (!NAME_REGEX.test(data.firstName.trim())) {
-      return new Response(
-        JSON.stringify({ message: 'Invalid first name format' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // utm_source names the channel a subscriber arrived through; utm_campaign
-    // names the release that brought them.
-    //
-    // These are LAST touch, not first: they describe the visit that ended in a
-    // subscription. Someone who arrives via LinkedIn, leaves, and returns direct
-    // a week later records as direct. Recording true first touch would mean
-    // persisting the original UTM across sessions, which requires client-side
-    // storage the privacy policy commits to never using.
-    const lastTouchChannel = normalizeAttribution(data.utmSource);
-    const lastTouchRelease = normalizeAttribution(data.utmCampaign);
-
-    // Subscribe to newsletter
-    const response = await fetch('https://api.buttondown.email/v1/subscribers', {
-      method: 'POST',
-      headers: {
-        Authorization: `Token ${BUTTONDOWN_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email_address: data.email.trim().toLowerCase(),
-        ip_address: ip !== 'unknown' ? ip : undefined,
-        tags: ['website-subscriber'],
-        metadata: {
-          first_name: data.firstName.trim(),
-          source: 'website',
-          // Omitted entirely when the visit carried no UTM, so an absent field
-          // means "not measured" rather than "arrived directly".
-          //
-          // These two values are attacker-controlled: anyone can craft a link
-          // to this site carrying any UTM they like. Normalization blocks
-          // markup, quotes, newlines and spreadsheet formulas, but it cannot
-          // stop readable prose — "ignore-previous-instructions-and-…"
-          // survives as a valid slug. Treat them as untrusted DATA wherever
-          // they are later read, especially by anything that puts subscriber
-          // metadata into a language-model prompt.
-          ...(lastTouchChannel && { last_touch_channel: lastTouchChannel }),
-          ...(lastTouchRelease && { last_touch_release: lastTouchRelease }),
-          subscribed_at: new Date().toISOString()
-        }
+    const outcome = await createButtondownSubscriber(
+      apiKey,
+      buildSubscriberPayload({
+        email: validated.email,
+        firstName: validated.firstName,
+        ip,
+        utmSource: validated.utmSource,
+        utmCampaign: validated.utmCampaign,
+        subscribedAt: new Date().toISOString(),
       }),
-    });
-
-    const responseData = await response.json();
-
-    if (response.status >= 400) {
-      // Log error for debugging (without exposing user data)
-      console.error('Buttondown API error:', {
-        status: response.status
-      });
-
-      return new Response(
-        JSON.stringify({ message: 'Unable to process subscription at this time' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    return new Response(
-      JSON.stringify({ message: 'Check your email to confirm your subscription!' }),
-      { status: 201, headers: { 'Content-Type': 'application/json' } }
     );
+
+    // Status and Buttondown's error code only; never the address or the name.
+    if (outcome.kind === 'declined') {
+      console.warn('Buttondown declined the subscriber:', { status: outcome.status, code: outcome.code });
+    } else if (outcome.kind === 'failed') {
+      console.error('Buttondown API error:', { status: outcome.status, code: outcome.code });
+    }
+    return responseFor(outcome);
   } catch (error) {
     console.error('Subscription error:', error instanceof Error ? error.message : 'Unknown error');
-    return new Response(
-      JSON.stringify({ message: 'Unable to process subscription at this time' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return json(500, 'Unable to process subscription at this time');
   }
-}; 
+};

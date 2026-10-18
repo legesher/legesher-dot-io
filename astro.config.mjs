@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
@@ -13,7 +13,7 @@ export default defineConfig({
         "default-src 'self'",
         "img-src 'self' data: https:",
         "font-src 'self' data: https: https://fonts.gstatic.com",
-        "connect-src 'self' https://api.buttondown.email https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+        "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
         "object-src 'none'",
         "base-uri 'self'"
       ],
@@ -45,6 +45,17 @@ export default defineConfig({
       },
     }),
   ],
+  // BUTTONDOWN_API_KEY is read at request time through astro:env (getSecret in
+  // src/pages/api/subscribe.ts), never through a build-time environment read,
+  // which the build replaces with a literal: the key baked into the bundle, or
+  // undefined when it ran without the variable (CORE-2193). `optional` keeps Astro from
+  // throwing at module load when the variable is absent, so the route itself
+  // can answer with its documented error and log which variable is missing.
+  env: {
+    schema: {
+      BUTTONDOWN_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
+    },
+  },
   site: 'https://www.legesher.io',
   // Static by default so a new page is crawlable and CDN-served without having
   // to remember a flag; routes needing the server opt out with

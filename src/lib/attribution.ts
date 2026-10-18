@@ -7,8 +7,8 @@
 // Returns undefined when nothing usable was supplied, so the caller can omit
 // the key entirely. Writing a placeholder instead would make "we never measured
 // this" indistinguishable from "we measured it as direct".
-// Letters, numbers and COMBINING MARKS of any script survive. NAME_REGEX in
-// validation.ts does not yet keep marks (tracked as CORE-2180). An ASCII-only
+// Letters, numbers and COMBINING MARKS of any script survive; NAME_REGEX in
+// validation.ts keeps marks for the same reason (CORE-2180). An ASCII-only
 // slug would erase a campaign named 日本語 to nothing and collapse
 // "2026 日本 Launch" and "2026 Launch" to one value.
 //
