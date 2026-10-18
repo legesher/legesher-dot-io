@@ -9,37 +9,63 @@ describe('NAME_REGEX', () => {
     },
   );
 
+  // Combining marks are category \p{M}, not \p{L}: every vowel sign, virama,
+  // niqqud and haraka. A class built from \p{L} alone rejects most Indic,
+  // Sinhala, Thai, pointed Hebrew and vocalised Arabic names while Latin, Han
+  // and Hangul pass, which is why the defect survived (CORE-2180).
+  it.each([
+    ['हिन्दी', 'Devanagari with vowel signs and a virama'],
+    ['राम', 'Devanagari with a vowel sign'],
+    ['ශ්‍රී', 'Sinhala with a virama and the zero-width joiner the conjunct needs'],
+    ['שָׁלוֹם', 'Hebrew with niqqud'],
+    ['مُحَمَّد', 'Arabic with harakat and shadda'],
+    ['สมศักดิ์', 'Thai with a vowel sign above and a thanthakhat'],
+    ['明美', 'CJK'],
+  ])('accepts %s (%s)', (name) => {
+    expect(NAME_REGEX.test(name)).toBe(true);
+  });
+
+  it.each([
+    ['李', 'a one-character CJK given name'],
+    ['a', 'a one-character Latin given name'],
+  ])('accepts %s (%s)', (name) => {
+    expect(NAME_REGEX.test(name)).toBe(true);
+  });
+
   it('accepts a name of exactly 150 characters', () => {
     expect(NAME_REGEX.test('x'.repeat(150))).toBe(true);
   });
 
   it.each([
-    ['a single letter', 'a'],
     ['a 151-character name', 'x'.repeat(151)],
     ['markup', '<b>'],
     ['an empty string', ''],
+    ['whitespace only', '   '],
+    ['a tab inside the name', 'Anne\tMarie'],
+    ['a line break inside the name', 'Anne\nMarie'],
+    ['punctuation only', "-'"],
+    ['digits', 'R2D2'],
   ])('rejects %s', (_label, name) => {
     expect(NAME_REGEX.test(name)).toBe(false);
   });
 
-  // These pin what the regex does today, not what it should do. The character
-  // class is \p{L} only, so a name that needs a combining mark (\p{M}) is
-  // rejected: Devanagari vowel signs and viramas, Hebrew niqqud, Arabic
-  // harakat. The {2,150} floor separately rejects one-character given names.
-  // Changing the regex is a product decision outside this file; a deliberate
-  // fix will turn these red, which is the point.
-  describe('documents current limits', () => {
-    it.each([
-      ['हिन्दी', 'Devanagari with vowel signs and a virama'],
-      ['राम', 'Devanagari with a vowel sign'],
-      ['שָׁלוֹם', 'Hebrew with niqqud'],
-    ])('rejects %s (%s)', (name) => {
-      expect(NAME_REGEX.test(name)).toBe(false);
-    });
-
-    it('rejects the one-character name 李', () => {
-      expect(NAME_REGEX.test('李')).toBe(false);
-    });
+  // Format characters (\p{Cf}) stay out, with the two exceptions above that
+  // some scripts need inside a word. Bidi controls can reorder what a reader
+  // sees (Trojan Source), and the invisible ones hide payload in plain text.
+  it.each([
+    ['a right-to-left override', 'abc‮def'],
+    ['a left-to-right embedding', '‪abc'],
+    ['a right-to-left isolate', '⁧abc⁩'],
+    ['a left-to-right mark', 'abc‎'],
+    ['an Arabic letter mark', '؜محمد'],
+    ['a byte order mark', '﻿abc'],
+    ['a soft hyphen', 'ab­c'],
+    ['a word joiner', 'ab⁠c'],
+    ['a zero-width space', 'ab​c'],
+    ['a zero-width joiner on its own', '‍'],
+    ['a zero-width joiner with no letter', '‍‌'],
+  ])('rejects %s', (_label, name) => {
+    expect(NAME_REGEX.test(name)).toBe(false);
   });
 });
 

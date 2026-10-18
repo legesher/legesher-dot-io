@@ -1,50 +1,40 @@
 # Security
 
-## Reporting Security Issues
+## Reporting a vulnerability
 
-If you discover a security vulnerability, please email security@legesher.com (or contact via GitHub issues for non-critical findings).
-
-**Please include**:
-- Description of the vulnerability
-- Steps to reproduce
-- Potential impact
-- Suggested fix (if any)
-
-We aim to respond within 48 hours and will keep you updated on the resolution progress.
+Use GitHub's private vulnerability reporting for this repository: the Security tab, then "Report a vulnerability". It keeps the report private until a fix is published. Please include a description, steps to reproduce, the potential impact and a suggested fix if you have one. We aim to acknowledge reports within 48 hours and to keep you updated until the issue is resolved.
 
 ---
 
-## Security Measures Implemented
+## What the site does
 
-### Newsletter Form (`/api/subscribe`)
+legesher.io is a static Astro site. The one server-side route is the newsletter form's endpoint at `/api/subscribe`, which forwards a subscription to Buttondown. This section describes what that endpoint actually does; it is kept in step with `src/pages/api/subscribe.ts` and `src/lib/subscribe.ts`.
 
-**Input Validation**:
-- Email format validation (regex)
-- Name format validation (supports international characters)
-- Type checking for all inputs
-- Length limits (150 characters for firstName/email)
-- XSS prevention (HTML tag stripping)
+### Newsletter form (`/api/subscribe`)
 
-**Anti-Bot Protection**:
-- Honeypot field (hidden from humans)
-- Dual rate limiting (IP + email based, 5 req/hour)
-- Double opt-in email confirmation
+In order:
 
-**Privacy & Compliance**:
-- GDPR-compliant consent messaging
-- IP address collection for spam detection (disclosed)
-- Unsubscribe functionality via Buttondown
-- Minimal data collection (email + firstName, plus campaign attribution from the
-  subscribing page's URL where present — all disclosed in the Privacy Policy)
+- **Honeypot.** The form carries a hidden `website` field. A request with that field filled is rejected with 400.
+- **Server-side validation.** `email` and `firstName` must be strings. The email must match a format pattern and be at most 254 characters. The first name must be 1 to 150 characters made of letters, combining marks, spaces, hyphens and apostrophes, in any script; markup, digits and bidirectional control characters are rejected. Nothing is stripped or rewritten: input that fails validation is rejected with 400.
+- **IP forwarding.** The client address from `x-forwarded-for` is passed to Buttondown as `ip_address` for its spam prevention. The site does not store it.
+- **Double opt-in.** Subscribers are created through Buttondown's API, which sends a confirmation email by default. The site never sends a subscriber type that would skip the confirmation.
+- **Neutral responses.** A new address and an address Buttondown declines (already subscribed, unsubscribed or blocked) receive the same reply, so the form does not reveal whether an address is on the list.
+- **Secret handling.** `BUTTONDOWN_API_KEY` is declared as a server secret in `astro.config.mjs` and read at request time; it is not compiled into the deployed bundle. When it is absent the endpoint answers 500 and logs the reason.
+- **Logging.** On an upstream error the HTTP status and Buttondown's error code are logged. Addresses and names are not.
 
-**Data Protection**:
-- No sensitive data logged in production
-- Server-side validation before Buttondown API call
-- Secure headers (Content-Type, Retry-After)
+What the endpoint does not do:
+
+- **No rate limiting.** The endpoint has none. Buttondown applies its own firewall and request limits to the API. A limiter will be added if abuse appears.
+- **No HTML sanitisation.** Inputs are validated and rejected, not cleaned.
+
+### Privacy
+
+- Data collected: email, first name, and campaign attribution (`utm_source`, `utm_campaign`) taken from the subscribing page's URL when present. All of it is disclosed in the Privacy Policy.
+- Unsubscribing is handled by Buttondown.
 
 ---
 
-## Dependency Security
+## Dependency security
 
 We regularly monitor dependencies for security vulnerabilities using `npm audit`. Known issues are tracked internally and addressed as patches become available.
 
