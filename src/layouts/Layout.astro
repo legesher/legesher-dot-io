@@ -63,11 +63,14 @@ const socialImageURL = new URL(image, site).toString();
     <meta name="twitter:image" content={socialImageURL} />
     <meta name="twitter:image:alt" content={imageAlt} />
 
-    <SpeedInsights />
-    <Analytics />
   </head>
   <body class="min-h-screen bg-background antialiased relative">
     <slot />
+    <!-- After the content, not in <head>: these render custom elements, and
+         the HTML parser closes <head> at the first one, which would push
+         Astro's CSP meta into <body> where browsers ignore it (CORE-2450). -->
+    <SpeedInsights />
+    <Analytics />
   </body>
 </html>
 
