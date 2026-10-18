@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   BUTTONDOWN_SUBSCRIBERS_URL,
   EMAIL_MAX_LENGTH,
@@ -8,6 +8,7 @@ import {
   responseFor,
   validateSubscribeRequest,
 } from './subscribe';
+import { NAME_REGEX } from './validation';
 
 const valid = { email: 'Reader@Example.com', firstName: 'हिन्दी' };
 
@@ -60,14 +61,20 @@ describe('validateSubscribeRequest', () => {
     },
   );
 
-  it('rejects a name longer than 150 code points can be, before the regex runs', () => {
+  it('rejects a name longer than 150 code points can be without running the regex', () => {
     // 150 code points are at most 300 UTF-16 units; this is 4,000,000 marks.
     const marks = String.fromCodePoint(0x0301).repeat(4_000_000);
-    expect(validateSubscribeRequest({ ...valid, firstName: marks })).toEqual({
-      ok: false,
-      status: 400,
-      message: 'Invalid first name format',
-    });
+    const regexRun = vi.spyOn(NAME_REGEX, 'test');
+    try {
+      expect(validateSubscribeRequest({ ...valid, firstName: marks })).toEqual({
+        ok: false,
+        status: 400,
+        message: 'Invalid first name format',
+      });
+      expect(regexRun).not.toHaveBeenCalled();
+    } finally {
+      regexRun.mockRestore();
+    }
   });
 
   it('trims and lowercases the email and trims the first name', () => {

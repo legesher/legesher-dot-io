@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 // at build time, ships an endpoint that fails every request. Worse, the
 // replacement plugin inlines every private variable whose name appears in a
 // module that contains the bare accessor anywhere, comments included. So the
-// accessor is banned outright from the server-side sources, the route must
+// accessor is banned outright from every source under src, the route must
 // read the key through astro:env, and nothing may type the key back onto the
 // banned accessor (CORE-2193). The build-time proof is the sentinel build in
 // the PR body; this guard is the cheap, always-on half.
@@ -25,10 +25,9 @@ function sourceFiles(dir: string): string[] {
   });
 }
 
-const serverSources = [
-  ...sourceFiles(join(root, 'src', 'pages', 'api')),
-  ...sourceFiles(join(root, 'src', 'lib')),
-].map((path) => relative(root, path));
+// All of src: nothing there needs the accessor, and a future server route
+// outside src/pages/api would otherwise go unscanned.
+const serverSources = sourceFiles(join(root, 'src')).map((path) => relative(root, path));
 
 const stripComments = (source: string) =>
   source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');

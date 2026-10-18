@@ -25,9 +25,10 @@ function invalid(message: string): InvalidRequest {
   return { ok: false, status: 400, message };
 }
 
-// Validates and rejects; nothing is stripped or rewritten. The order is part
-// of the contract: an empty body reads "Email is required" before anything
-// else, which is what the production key-presence probe relies on.
+// Validates and rejects; values are trimmed and the email lowercased, nothing
+// else is rewritten. The order is part of the contract: an empty JSON object
+// reads "Email is required" before anything else, which is what the
+// production key-presence probe relies on.
 export function validateSubscribeRequest(data: unknown): ValidRequest | InvalidRequest {
   const body = typeof data === 'object' && data !== null ? (data as Record<string, unknown>) : {};
   const { email, firstName, website, utmSource, utmCampaign } = body;
