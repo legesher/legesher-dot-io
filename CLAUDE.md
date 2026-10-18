@@ -38,7 +38,7 @@ npm run build              # astro build
 
 Summary lines to expect (counts as of 2026-10-18; they grow, they never shrink):
 
-- `npm test`: ` Test Files  6 passed (6)` then `      Tests  157 passed (157)`
+- `npm test`: ` Test Files  6 passed (6)` then `      Tests  169 passed (169)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run)
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
 
