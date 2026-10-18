@@ -10,7 +10,7 @@ legesher.io is a static site with one server-side route: the newsletter form's e
 
 ## Newsletter form
 
-- Submissions are validated on the server; input that fails is rejected rather than cleaned up and passed on.
+- The fields people fill in are validated on the server; a value that fails is rejected rather than cleaned up and passed on.
 - There is a check for automated submissions.
 - Subscriptions use double opt-in: no one is subscribed until the address is confirmed by email.
 - Credentials are held as server-side secrets and are not part of the deployed bundle.
@@ -21,4 +21,4 @@ What the form collects, and why, is set out in the [Privacy Policy](https://www.
 
 ## Dependency security
 
-Dependencies are monitored for known vulnerabilities with `npm audit`. Findings are tracked internally and addressed as patches become available.
+Dependencies are monitored for known vulnerabilities with `npm audit` and Dependabot. Findings are tracked internally and addressed as patches become available.
