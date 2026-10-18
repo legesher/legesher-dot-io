@@ -2,6 +2,12 @@
 import '@/styles/globals.css';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import Analytics from '@vercel/analytics/astro';
+// SpeedInsights and Analytics render custom elements. They sit at the end of
+// <body>, never in <head>: the HTML parser closes <head> at the first element
+// it does not allow there, which would push the Content Security Policy meta
+// that Astro appends last into <body>, where browsers ignore it. The policy
+// itself is security.csp in astro.config.mjs; the guards are
+// src/lib/layout-head.test.ts and src/lib/built-head.test.ts.
 
 interface Props {
   title: string;
@@ -41,7 +47,6 @@ const socialImageURL = new URL(image, site).toString();
     <link rel="canonical" href={canonicalURL} />
     <title>{title}</title>
 
-    <!-- Security Headers - CSP is managed by Astro experimental.csp in astro.config.mjs -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains" />
@@ -66,9 +71,6 @@ const socialImageURL = new URL(image, site).toString();
   </head>
   <body class="min-h-screen bg-background antialiased relative">
     <slot />
-    <!-- After the content, not in <head>: these render custom elements, and
-         the HTML parser closes <head> at the first one, which would push
-         Astro's CSP meta into <body> where browsers ignore it (CORE-2450). -->
     <SpeedInsights />
     <Analytics />
   </body>

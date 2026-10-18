@@ -9,29 +9,42 @@ import { describe, expect, it } from 'vitest';
 // included, lands in <body>, and browsers ignore a CSP delivered outside
 // <head> (CORE-2450). So the layout's <head> may hold only the elements the
 // parser keeps there, and the analytics components render after the page
-// content instead.
+// content instead. built-head.test.ts checks the same on the build output.
 
+// The frontmatter is dropped (its comments may mention tags) and HTML comments
+// are stripped: a note that mentions a tag is not a tag.
 const layout = readFileSync(
   join(import.meta.dirname, '..', 'layouts', 'Layout.astro'),
   'utf-8',
-);
+)
+  .replace(/^---[\s\S]*?\n---\n/, '')
+  .replace(/<!--[\s\S]*?-->/g, '');
 
-const HEAD_ELEMENTS = new Set(['meta', 'link', 'title', 'script', 'style', 'base', 'noscript']);
+const HEAD_ELEMENTS = new Set([
+  'meta',
+  'link',
+  'title',
+  'script',
+  'style',
+  'base',
+  'noscript',
+  'template',
+]);
 
-function section(source: string, open: string, close: string): string {
-  const start = source.indexOf(open);
+function section(source: string, open: RegExp, close: string): string {
+  const start = source.search(open);
   const end = source.indexOf(close, start);
   if (start < 0 || end < 0) throw new Error(`${open} ... ${close} not found in Layout.astro`);
-  return source.slice(start + open.length, end);
+  return source.slice(start, end);
 }
 
-const head = section(layout, '<head>', '</head>');
-const body = section(layout, '<body', '</body>');
+const head = section(layout, /<head[\s>]/, '</head>');
+const body = section(layout, /<body[\s>]/, '</body>');
 
 describe('Layout.astro keeps the Content Security Policy inside <head>', () => {
   it('opens no element in <head> that the HTML parser would move to <body>', () => {
     const opened = Array.from(head.matchAll(/<([A-Za-z][\w-]*)/g), (m) => m[1]);
-    const foreign = opened.filter((name) => !HEAD_ELEMENTS.has(name));
+    const foreign = opened.filter((name) => name !== 'head' && !HEAD_ELEMENTS.has(name));
     expect(foreign).toEqual([]);
   });
 

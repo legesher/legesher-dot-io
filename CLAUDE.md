@@ -38,7 +38,7 @@ npm run build              # astro build
 
 Summary lines to expect (counts as of 2026-10-18; they grow, they never shrink):
 
-- `npm test`: ` Test Files  6 passed (6)` then `      Tests  181 passed (181)`
+- `npm test`: ` Test Files  8 passed (8)` then `      Tests  187 passed (187)` (after `npm run build`; without build output the built-page guard skips, by name, and the count reads 7 files)
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run)
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
 
@@ -54,7 +54,9 @@ Facts behind those commands:
   client bundle byte-identical to a build of `main`.
 - Fonts are Noto (Noto Sans, Noto Sans Display, Noto Sans Mono, Noto Sans Arabic) loaded from
   Google Fonts in `globals.css`. The CSP in `astro.config.mjs` allowlists `fonts.googleapis.com`
-  and `fonts.gstatic.com`; a new font source needs a CSP edit as well.
+  and `fonts.gstatic.com`; a new font source needs a CSP edit as well. The policy is enforced:
+  `style-src` carries Astro's hashes, and browsers ignore `'unsafe-inline'` once a hash is present, so
+  an inline `style=""` attribute or an inline event handler is refused. The built HTML has none today.
 
 ## Merge evidence and PR conventions
 
@@ -86,6 +88,13 @@ Facts behind those commands:
   are declared in `env.schema` in `astro.config.mjs` and read with `getSecret` from `astro:env/server`.
   The build-time proof is a sentinel build: `BUTTONDOWN_API_KEY=SENTINEL npm run build` then
   `grep -rl SENTINEL dist .vercel/output` must print nothing.
+- Two guards keep the Content Security Policy inside `<head>`: `src/lib/layout-head.test.ts` reads
+  `Layout.astro` and allows only `meta`, `link`, `title`, `script`, `style`, `base`, `noscript` and
+  `template` there, with the two Vercel analytics components after the slot in `<body>`;
+  `src/lib/built-head.test.ts` reads every built page under `.vercel/output/static` and asserts the
+  CSP meta sits inside `<head>` with nothing the parser would move to `<body>` before it. A custom
+  element in `<head>` makes the parser close `<head>` early, and browsers ignore a CSP meta in
+  `<body>`. CI builds before it tests; locally run `npm run build` before `npm test` to exercise it.
 
 ## Gotchas
 
