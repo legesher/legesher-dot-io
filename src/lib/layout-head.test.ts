@@ -1,0 +1,61 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { describe, expect, it } from 'vitest';
+
+// Astro appends the Content Security Policy as the last <meta> in <head>.
+// The HTML parser closes <head> at the first element that is not allowed
+// there, and an Astro component that renders a custom element (the Vercel
+// analytics tags) is exactly that. Everything after it, the CSP meta
+// included, lands in <body>, and browsers ignore a CSP delivered outside
+// <head> (CORE-2450). So the layout's <head> may hold only the elements the
+// parser keeps there, and the analytics components render after the page
+// content instead. built-head.test.ts checks the same on the build output.
+
+// The frontmatter is dropped (its comments may mention tags) and HTML comments
+// are stripped: a note that mentions a tag is not a tag.
+const layout = readFileSync(
+  join(import.meta.dirname, '..', 'layouts', 'Layout.astro'),
+  'utf-8',
+)
+  .replace(/\r/g, '')
+  .replace(/^---[\s\S]*?\n---\n/, '')
+  .replace(/<!--[\s\S]*?-->/g, '');
+
+const HEAD_ELEMENTS = new Set([
+  'meta',
+  'link',
+  'title',
+  'script',
+  'style',
+  'base',
+  'noscript',
+  'template',
+]);
+
+function section(source: string, open: RegExp, close: string): string {
+  const start = source.search(open);
+  const end = source.indexOf(close, start);
+  if (start < 0 || end < 0) throw new Error(`${open} ... ${close} not found in Layout.astro`);
+  return source.slice(start, end);
+}
+
+const head = section(layout, /<head[\s>]/, '</head>');
+const body = section(layout, /<body[\s>]/, '</body>');
+
+describe('Layout.astro keeps the Content Security Policy inside <head>', () => {
+  it('opens no element in <head> that the HTML parser would move to <body>', () => {
+    const opened = Array.from(head.matchAll(/<([A-Za-z][\w-]*)/g), (m) => m[1]);
+    const foreign = opened.filter((name) => name !== 'head' && !HEAD_ELEMENTS.has(name));
+    expect(foreign).toEqual([]);
+  });
+
+  it('renders the Vercel analytics components after the page content in <body>', () => {
+    const slot = body.indexOf('<slot');
+    expect(slot).toBeGreaterThan(-1);
+    for (const component of ['<SpeedInsights', '<Analytics']) {
+      const at = body.indexOf(component);
+      expect(at, `${component} is in <body>`).toBeGreaterThan(-1);
+      expect(at, `${component} comes after the slot`).toBeGreaterThan(slot);
+    }
+  });
+});
