@@ -61,8 +61,9 @@ if (form && messageElement) {
 
       if (response.ok) {
         if (analytics) {
-          // JSON.stringify drops undefined, and so does PostHog: an absent
-          // campaign parameter records no property rather than a placeholder.
+          // An absent campaign parameter is omitted, never null: PostHog drops
+          // undefined values, and the loader turns PostHog's own campaign
+          // collection off so no placeholder keys are added beside these.
           analytics.capture(analytics.events.completed, { utm_source: utmSource, utm_campaign: utmCampaign });
           if (typeof email === 'string') analytics.identify(email);
         }

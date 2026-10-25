@@ -29,6 +29,13 @@ const FIXED_OPTIONS = [
   /disable_surveys:\s*true/,
   /person_profiles:\s*'identified_only'/,
   /api_host:\s*'https:\/\/us\.i\.posthog\.com'/,
+  // No feature flags: no /flags request carrying the distinct id.
+  /advanced_disable_flags:\s*true/,
+  // Omit, never default: PostHog's own campaign and referrer collection would
+  // add null-valued utm and click-id keys and first-touch person properties.
+  /save_campaign_params:\s*false/,
+  /save_referrer:\s*false/,
+  /before_send:[\s\S]*?\$identify[\s\S]*?delete event\.\$set_once/,
 ] as const;
 
 // Five events answer the funnel; fifty answer nothing (CORE-1948).

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
+  by the layout only when the build carries `PUBLIC_POSTHOG_KEY`, and the Content Security Policy
+  gains PostHog's origin only in that case. Memory-only persistence (no cookie, no client-side
+  storage), no autocapture, pageviews, session recording, surveys or feature flags, Do Not Track
+  respected, PostHog's own campaign and first-touch collection off. Five events: the newsletter form
+  in view, the submit, the successful subscription (then identify by email), a Docs link click, and a
+  corpus link click that no link carries yet. Two guards: `src/lib/analytics-csp.test.ts` (every
+  built page has the loader exactly when the policy allows it) and `src/lib/analytics-loader.test.ts`
+  (each privacy-page promise pinned to the option that keeps it). Without the key the built pages
+  differ only by a `data-track` attribute on the two Docs links. `tsconfig.json` now includes the
+  generated `.astro/types.d.ts`, so `astro check` can type `astro:env` imports.
+
 ### Changed
 
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,

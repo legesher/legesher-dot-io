@@ -15,13 +15,13 @@
 // privacy page that promises it; change both or neither.
 (function () {
   const script = document.currentScript;
-  const key = script && script.dataset.posthogKey;
+  const key = script && (script.dataset.posthogKey || '').trim();
   if (!key) return;
 
   // Five events answer the funnel. Fifty answer nothing and cost a schema
-  // nobody maintains. The ticket named the first three for a waitlist; the
-  // live call to action is the newsletter form, so they are named for what
-  // they measure, and a waitlist gets its own three when one exists.
+  // nobody maintains. The live call to action is the newsletter form, so the
+  // first three are named for it; a waitlist gets its own three when one
+  // exists.
   const EVENTS = {
     cta_viewed: 'newsletter_cta_viewed',
     cta_clicked: 'newsletter_cta_clicked',
@@ -45,8 +45,10 @@
       call('capture', properties ? [event, properties] : [event]);
     },
     // The join: the anonymous session becomes the person who subscribed. The
-    // email is the distinct id and the only person property, so the
-    // views-to-signups ratio is computable and nothing else is stored.
+    // email is the distinct id and the only person property we set; PostHog's
+    // own first-touch person properties (initial referrer, initial URL with
+    // its query string, initial campaign fields) are dropped in before_send
+    // below, so the person record holds the email and nothing else.
     identify(email) {
       call('identify', [email, { email: email }]);
     },
@@ -68,6 +70,19 @@
       capture_pageleave: false,
       disable_surveys: true,
       person_profiles: 'identified_only',
+      // No feature flags are used: this stops the per-visitor /flags request,
+      // which would otherwise carry the distinct id after identify.
+      advanced_disable_flags: true,
+      // PostHog's own campaign and referrer collection writes utm_* and
+      // click-id keys as null whenever any campaign parameter is present, and
+      // stores first-touch values on the person. Off: the newsletter script
+      // passes the two campaign values it reads itself, omitting absent ones.
+      save_campaign_params: false,
+      save_referrer: false,
+      before_send: function (event) {
+        if (event && event.event === '$identify') delete event.$set_once;
+        return event;
+      },
       loaded: function (instance) {
         client = instance;
         queue.splice(0).forEach(function (entry) {
