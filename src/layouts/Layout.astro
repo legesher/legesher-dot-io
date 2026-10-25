@@ -2,12 +2,19 @@
 import '@/styles/globals.css';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import Analytics from '@vercel/analytics/astro';
+import { PUBLIC_POSTHOG_KEY } from 'astro:env/client';
 // SpeedInsights and Analytics render custom elements. They sit at the end of
 // <body>, never in <head>: the HTML parser closes <head> at the first element
 // it does not allow there, which would push the Content Security Policy meta
 // that Astro appends last into <body>, where browsers ignore it. The policy
 // itself is security.csp in astro.config.mjs; the guards are
 // src/lib/layout-head.test.ts and src/lib/built-head.test.ts.
+//
+// The PostHog loader (public/scripts/analytics.js) is rendered only when the
+// build carried PUBLIC_POSTHOG_KEY; astro.config.mjs widens the policy to
+// PostHog's origin in the same case and src/lib/analytics-csp.test.ts checks
+// the two agree on every built page (CORE-1948). The key is a public project
+// token by design, so inlining it here is intended.
 
 interface Props {
   title: string;
@@ -73,6 +80,9 @@ const socialImageURL = new URL(image, site).toString();
     <slot />
     <SpeedInsights />
     <Analytics />
+    {PUBLIC_POSTHOG_KEY && (
+      <script src="/scripts/analytics.js" is:inline data-posthog-key={PUBLIC_POSTHOG_KEY}></script>
+    )}
   </body>
 </html>
 

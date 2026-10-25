@@ -28,7 +28,13 @@ if (form && messageElement) {
     const utmSource = params.get('utm_source') || undefined;
     const utmCampaign = params.get('utm_campaign') || undefined;
 
+    // Funnel events go through the shared analytics loader when the build
+    // carried its key (public/scripts/analytics.js); otherwise this is
+    // undefined and the form behaves exactly as before.
+    const analytics = window.legesherAnalytics;
+
     try {
+      if (analytics) analytics.capture(analytics.events.cta_clicked);
       // Show loading state immediately
       if (submitButton) {
         submitButton.disabled = true;
@@ -54,6 +60,12 @@ if (form && messageElement) {
       const data = await response.json();
 
       if (response.ok) {
+        if (analytics) {
+          // JSON.stringify drops undefined, and so does PostHog: an absent
+          // campaign parameter records no property rather than a placeholder.
+          analytics.capture(analytics.events.completed, { utm_source: utmSource, utm_campaign: utmCampaign });
+          if (typeof email === 'string') analytics.identify(email);
+        }
         messageElement.textContent = data.message || 'Check your email to confirm your subscription!';
         messageElement.className = 'text-sm text-green-600 mt-4';
         target.reset();

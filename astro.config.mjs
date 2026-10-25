@@ -3,7 +3,19 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from "@astrojs/vercel";
+import { loadEnv } from 'vite';
 import { LAST_UPDATED } from './src/lib/page-dates.mjs';
+
+// The PostHog loader (public/scripts/analytics.js) is rendered by Layout.astro
+// only when PUBLIC_POSTHOG_KEY is set at build time, and the policy is widened
+// to PostHog's origin only in that same case, so a build without the key is
+// not opened to a script it does not load (CORE-1948). loadEnv reads the same
+// sources astro:env does (the environment and the .env files), so the two
+// halves cannot disagree; src/lib/analytics-csp.test.ts checks that on every
+// built page. The wildcard is PostHog's documented policy: its asset and
+// ingestion hosts are subdomains it reserves the right to move.
+const { PUBLIC_POSTHOG_KEY } = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), 'PUBLIC_');
+const analyticsOrigins = PUBLIC_POSTHOG_KEY ? ['https://*.posthog.com'] : [];
 
 export default defineConfig({
   // CSP graduated from `experimental.csp` to `security.csp` in Astro 6.
@@ -13,7 +25,7 @@ export default defineConfig({
         "default-src 'self'",
         "img-src 'self' data: https:",
         "font-src 'self' data: https: https://fonts.gstatic.com",
-        "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+        ["connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com", ...analyticsOrigins].join(' '),
         "object-src 'none'",
         "base-uri 'self'"
       ],
@@ -21,7 +33,7 @@ export default defineConfig({
         resources: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
       },
       scriptDirective: {
-        resources: ["'self'", "https://va.vercel-scripts.com"]
+        resources: ["'self'", "https://va.vercel-scripts.com", ...analyticsOrigins]
       }
     }
   },
@@ -54,6 +66,10 @@ export default defineConfig({
   env: {
     schema: {
       BUTTONDOWN_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
+      // PostHog project token (CORE-1948). Public by design: it is inlined
+      // into the page as the loader's data attribute. Absent, the loader is
+      // not rendered and the policy below is not widened.
+      PUBLIC_POSTHOG_KEY: envField.string({ context: 'client', access: 'public', optional: true }),
     },
   },
   site: 'https://www.legesher.io',
