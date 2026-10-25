@@ -17,10 +17,13 @@ data. Page and layout changes are visual work and are reviewed as such.
   `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the co-located `*.test.ts`
   suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
-- `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load).
+- `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load, including
+  `analytics.js`, the PostHog loader the layout renders only when the build carries
+  `PUBLIC_POSTHOG_KEY`).
 - `.astro/`: Astro-generated type files; tracked, see Gotchas.
-- `astro.config.mjs`: CSP directives, sitemap, Vercel adapter, `output: 'static'`,
-  `trailingSlash: 'never'`, `build.format: 'file'`.
+- `astro.config.mjs`: CSP directives (widened to PostHog's origin only when `PUBLIC_POSTHOG_KEY` is
+  set), `env.schema`, sitemap, Vercel adapter, `output: 'static'`, `trailingSlash: 'never'`,
+  `build.format: 'file'`.
 - `tailwind.config.ts`, `postcss.config.js`, `components.json`, `vitest.config.ts`.
 - `vercel.json`: the `/go/*` redirects and the apex to `www` redirect.
 - `.github/`: `workflows/` (`ci.yml`, `security-audit.yml`, bot workflows), `dependabot.yml`,
@@ -36,11 +39,12 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-10-18; they grow, they never shrink):
+Summary lines to expect (counts as of 2026-10-25; they grow, they never shrink):
 
-- `npm test`: ` Test Files  8 passed (8)` then `      Tests  187 passed (187)` after `npm run build`; without build output the built-page guard skips by name and the lines read
-  ` Test Files  7 passed | 1 skipped (8)` then `      Tests  183 passed | 1 skipped (184)`
-- `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run)
+- `npm test`: ` Test Files  10 passed (10)` then `      Tests  212 passed (212)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
+  ` Test Files  8 passed | 2 skipped (10)` then `      Tests  204 passed | 2 skipped (206)`
+- `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
+  error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
 
 `.github/workflows/ci.yml` runs the same steps in the order install, build, test, check, under the
@@ -96,6 +100,13 @@ Facts behind those commands:
   CSP meta sits inside `<head>` with nothing the parser would move to `<body>` before it. A custom
   element in `<head>` makes the parser close `<head>` early, and browsers ignore a CSP meta in
   `<body>`. CI builds before it tests; locally run `npm run build` before `npm test` to exercise it.
+- Two guards keep the PostHog loader honest: `src/lib/analytics-csp.test.ts` reads every built page
+  and asserts the loader is present exactly when the policy carries PostHog's origin, sits in
+  `<body>` after the content, and that a build without the key mentions PostHog nowhere;
+  `src/lib/analytics-loader.test.ts` pins each promise the privacy page makes (zero storage, Do Not
+  Track, no session reconstruction, no profiling) to the loader option that keeps it, and the event
+  schema to its five names. Exercise the keyed branch locally with
+  `PUBLIC_POSTHOG_KEY=phc_SENTINEL npm run build && npm test`; CI builds without a key.
 
 ## Gotchas
 
@@ -105,6 +116,8 @@ Facts behind those commands:
   it adds an untracked `content.d.ts` and `env.d.ts`, and since `astro.config.mjs` declares an
   `env.schema` it also adds an `env.d.ts` reference line to the tracked `types.d.ts`, so that file
   shows as modified after every `npm run check` or build). Never commit a change under `.astro/`.
+  `tsconfig.json` includes `.astro/types.d.ts` on purpose: without it `astro check` cannot type an
+  `astro:env/client` import and reports `- 1 error`.
 - `npm run build` writes `dist/` and `.vercel/output/`; both are ignored and neither is committed.
 - The `/go/*` short links in `vercel.json` are static JSON and cannot import `src/lib/links.ts`.
   Update both when a link rotates; the parity test catches a miss.
