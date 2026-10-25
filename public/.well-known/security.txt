@@ -3,7 +3,7 @@
 # Report security issues to the contact below. Please do not open public
 # GitHub issues for security vulnerabilities.
 
-Contact: mailto:help@legesher.com
+Contact: mailto:security@legesher.com
 Expires: 2027-10-19T00:00:00.000Z
 Preferred-Languages: en
 Canonical: https://www.legesher.io/.well-known/security.txt
