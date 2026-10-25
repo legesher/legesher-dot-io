@@ -79,6 +79,10 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
               subscription so we can tell which of our announcements reached you. These are read
               from the address of the page you subscribe from and are never stored on your
               device; when the address carries no such values, nothing is recorded.
+              When you subscribe, the interaction events from that visit (see
+              <a href="#interaction-analytics">Interaction analytics</a> below) are associated with your
+              email address in PostHog, so that we can measure how many people who reach the form go on
+              to subscribe. Buttondown receives none of those events.
             </li>
             <li>
               <strong>Survey Responses:</strong> feedback provided through optional surveys we link to. Our surveys
@@ -98,7 +102,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
 
           <h3>Information Collected Automatically</h3>
           <p>
-            When you visit our website, our hosting provider and analytics service may automatically collect:
+            When you visit our website, our hosting provider and analytics services may automatically collect:
           </p>
           <ul>
             <li>
@@ -112,6 +116,18 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
               device type, operating system, and browser. Vercel Web Analytics is designed to be privacy-compliant:
               it does not set cookies, does not use personal identifiers, and cannot reconstruct a browsing session
               or identify individual visitors.
+            </li>
+            <li id="interaction-analytics">
+              <strong>Interaction analytics</strong> (from <a href="https://posthog.com/privacy" rel="noopener"
+              >PostHog</a>): five events and no more: the newsletter form coming into view, the Subscribe button
+              being pressed, a subscription succeeding, a click on a link to our documentation, and a click on a
+              link to our research corpus. Each event carries the page address, the referrer, and the device type,
+              operating system and browser your browser reports. PostHog derives a country or region from your IP
+              address; we configure it not to store the address itself. These events are held in your browser's
+              memory for the length of your visit only: nothing is written to your device, and your next visit
+              starts as a new, unlinked visitor. If you subscribe to the newsletter during the visit, the events of
+              that visit are associated with the email address you entered, as described above. PostHog records
+              nothing when your browser sends a Do Not Track signal.
             </li>
           </ul>
 
@@ -144,6 +160,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
           <p><strong>For analytics and research</strong></p>
           <ul>
             <li>Analyze website traffic and usage patterns at an aggregate level</li>
+            <li>Measure how many visitors who reach the newsletter form go on to subscribe</li>
             <li>Measure the effectiveness of our content</li>
           </ul>
 
@@ -164,10 +181,11 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
             <code>localStorage</code>, <code>sessionStorage</code>, or any other client-side
             storage.</strong> Our analytics
             (<a href="https://vercel.com/docs/analytics/privacy-policy" rel="noopener"
-            >Vercel Web Analytics</a>) and hosting stack are cookieless, and we do not use
+            >Vercel Web Analytics</a>, and <a href="https://posthog.com/privacy" rel="noopener">PostHog</a>,
+            which we run in memory-only mode) and hosting stack are cookieless, and we do not use
             cookies for advertising, cross-site tracking, or behavioural profiling. Our newsletter
-            form submits to our own server-side endpoint and never loads third-party scripts in
-            your browser, so <a href="https://buttondown.com" rel="noopener">Buttondown</a>
+            form submits to our own server-side endpoint, and no Buttondown code runs in your
+            browser, so <a href="https://buttondown.com" rel="noopener">Buttondown</a>
             cannot set cookies through our site either.
           </p>
           <p>
@@ -190,8 +208,9 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
             <li><strong>Browser settings:</strong> most browsers allow you to refuse or delete cookies and clear
               local storage.
             </li>
-            <li><strong>Do Not Track:</strong> we honour Do Not Track browser signals where technically feasible. In
-              practice, our analytics stack does not profile visitors regardless.
+            <li><strong>Do Not Track:</strong> we honour Do Not Track browser signals. PostHog is configured to
+              record nothing when your browser sends one, and Vercel Web Analytics does not profile visitors
+              regardless.
             </li>
           </ul>
         </section>
@@ -205,6 +224,9 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
           <ul>
             <li><a href="https://vercel.com/legal/privacy-policy" rel="noopener">Vercel</a> &mdash; website hosting
               and aggregated analytics
+            </li>
+            <li><a href="https://posthog.com/privacy" rel="noopener">PostHog</a> &mdash; interaction analytics for
+              the newsletter form (United States)
             </li>
             <li><a href="https://buttondown.com/legal/privacy" rel="noopener">Buttondown</a> &mdash; newsletter
               delivery
@@ -259,6 +281,10 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
               <tr>
                 <td>Aggregated analytics</td>
                 <td>Up to 12 months (per Vercel's defaults)</td>
+              </tr>
+              <tr>
+                <td>Interaction analytics</td>
+                <td>Up to 12 months</td>
               </tr>
               <tr>
                 <td>Server logs</td>
