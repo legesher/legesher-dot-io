@@ -10,8 +10,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
 // DRAFT. Sentences marked data-review="jurisdiction" depend on the law of
 // the customer's country or the contracting entity; data-review="processor"
 // marks a claim about the payment processor's behaviour to confirm against
-// its current docs. All need Madison's review (and counsel's, before the
-// first charge). The markers render nothing; grep for data-review to list
+// its current docs. All need a maintainer's review, and counsel's before
+// the first charge. The markers render nothing; grep for data-review to list
 // them.
 ---
 
@@ -66,7 +66,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
         <section aria-labelledby="cancellation">
           <h2 id="cancellation">3. Cancelling a Subscription</h2>
           <p>
-            You can cancel at any time, yourself, from the Polar customer portal. No email, no call, no retention step.
+            You can cancel at any time from the Polar customer portal. You do not need to email or call us.
           </p>
           <ul>
             <li>
@@ -79,9 +79,9 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
               subscription continues as if nothing happened.
             </li>
             <li>
-              <strong>Nothing you built is removed.</strong> Maps and translations that live in your own repositories
-              stay there and keep working after a lapse; only new changes stop being translated by the hosted service.
-              Hosted copies of your data are kept until you ask us to delete them (see Section 7).
+              <strong>Nothing you built is removed.</strong> Code and translations in your own repositories stay
+              there. When the paid period ends, the hosted service stops translating new changes. Hosted copies of
+              your data are kept until you ask us to delete them (see Section 7).
             </li>
             <li>
               <strong>Founding Developer (beta) seats.</strong> A founding seat is tied to an active subscription. If you
@@ -97,8 +97,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
           <h3>4.1 New subscriptions</h3>
           <p>
             <span data-review="jurisdiction">If a paid plan is not what you expected, ask for a refund within
-            <strong>14 days</strong> of your first payment and we will refund that payment in full, no questions
-            asked.</span> After that window, the first period is not refundable, but you can cancel at any time (Section 3).
+            <strong>14 days</strong> of your first payment and we will refund that payment in full.</span> After that window, the first period is not refundable, but you can cancel at any time (Section 3).
           </p>
           <p>
             <span data-review="jurisdiction">The 14-day window is our policy and applies worldwide. If the consumer law
@@ -143,7 +142,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
           <h2 id="failed-payments">5. Failed Payments</h2>
           <p>
             If a renewal payment fails, we tell you by email and Polar retries the card. During the retry period your
-            account runs on Free plan limits, so nothing is lost and nothing is charged twice.
+            account runs with Free plan limits and nothing is removed.
           </p>
           <ul>
             <li>
@@ -186,7 +185,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
           <h2 id="data-after-cancellation">7. Your Data After Cancellation</h2>
           <p>
             Cancelling a subscription is not the same as deleting your account. Hosted copies of your maps and account
-            data are kept after a lapse until you ask for deletion, so a returning customer does not start from zero.
+            data are kept after your subscription ends, until you ask us to delete them, so you can return without
+            starting over.
             To delete your account and its hosted data, email
             <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>; how we handle that request is described in
             our <a href="/privacy">Privacy Policy</a>.
