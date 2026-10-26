@@ -7,7 +7,7 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `privacy.astro`, `terms.astro`, `legesher-for-education.astro`, and
+- `src/pages/`: `index.astro`, `privacy.astro`, `refunds.astro`, `terms.astro`, `legesher-for-education.astro`, and
   `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
