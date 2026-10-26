@@ -7,8 +7,8 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `privacy.astro`, `terms.astro`, and `api/subscribe.ts`, the one
-  route with `export const prerender = false`.
+- `src/pages/`: `index.astro`, `privacy.astro`, `refunds.astro`, `terms.astro`, and
+  `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
@@ -39,10 +39,10 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-10-25; they grow, they never shrink):
+Summary lines to expect (counts as of 2026-10-27; they grow, they never shrink):
 
-- `npm test`: ` Test Files  10 passed (10)` then `      Tests  212 passed (212)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
-  ` Test Files  8 passed | 2 skipped (10)` then `      Tests  204 passed | 2 skipped (206)`
+- `npm test`: ` Test Files  11 passed (11)` then `      Tests  225 passed (225)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
+  ` Test Files  9 passed | 2 skipped (11)` then `      Tests  215 passed | 2 skipped (217)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
