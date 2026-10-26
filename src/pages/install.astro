@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
+import { LINKS } from '@/lib/links';
+import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
+import { PRODUCTS } from '@/lib/products';
+
+const lastUpdated = formatLastUpdated(LAST_UPDATED.install);
+const live = PRODUCTS.filter((product) => product.status === 'live');
+const coming = PRODUCTS.filter((product) => product.status === 'coming');
+---
+
+<Layout
+  title="Install Legesher"
+  description="Every Legesher product in one place: what you can use today, where to get it, and what is still on its way."
+>
+  <Header />
+  <main class="pt-32 pb-20 bg-white">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <header class="mb-12 max-w-3xl">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Install Legesher</h1>
+        <p class="text-lg text-muted-foreground mb-2">
+          Every Legesher product in one place: what you can use today, where to get it, and what is
+          still on its way. When a product is ready to install, its command appears here.
+        </p>
+        <p class="text-sm text-muted-foreground">Last updated: {lastUpdated}</p>
+      </header>
+
+      <section aria-labelledby="available-now" class="mb-16">
+        <h2 id="available-now" class="text-2xl md:text-3xl font-bold mb-6">Available now</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          {live.map((product) => (
+            <Card id={product.id} className="flex flex-col">
+              <CardHeader>
+                <span class="inline-block self-start text-xs font-semibold uppercase tracking-wide text-brand-cyan mb-2">
+                  Available now
+                </span>
+                <CardTitle>{product.name}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-4 flex-1">
+                <CardDescription className="text-base">{product.summary}</CardDescription>
+                {product.stage && <p class="text-sm text-muted-foreground">{product.stage}</p>}
+                {product.commands && (
+                  <pre class="rounded-md bg-muted p-4 text-sm overflow-x-auto"><code>{product.commands.join('\n')}</code></pre>
+                )}
+                {product.access && (
+                  <a href={product.access.href} target="_blank" rel="noopener noreferrer" class="mt-auto font-semibold text-brand-cyan hover:text-brand-coral transition-colors duration-300">
+                    {product.access.label}
+                  </a>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="coming" class="mb-16">
+        <h2 id="coming" class="text-2xl md:text-3xl font-bold mb-2">Coming</h2>
+        <p class="text-muted-foreground mb-6 max-w-3xl">
+          These products are built and are being prepared for release. Each one says what it is
+          waiting on.
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {coming.map((product) => (
+            <Card id={product.id} className="flex flex-col">
+              <CardHeader>
+                <span class="inline-block self-start text-xs font-semibold uppercase tracking-wide text-brand-coral mb-2">
+                  Coming
+                </span>
+                <CardTitle>{product.name}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-4 flex-1">
+                <CardDescription className="text-base">{product.summary}</CardDescription>
+                <p class="text-sm text-muted-foreground mt-auto">{product.arrives}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="release-updates" class="max-w-3xl">
+        <h2 id="release-updates" class="text-2xl md:text-3xl font-bold mb-4">Hear about releases</h2>
+        <p class="text-muted-foreground mb-4">
+          Documentation is at <a href={LINKS.docs} class="text-brand-cyan hover:text-brand-coral transition-colors duration-300">docs.legesher.io</a>.
+          Releases are announced in the newsletter first, and the open-source code is on
+          <a href={LINKS.github} class="text-brand-cyan hover:text-brand-coral transition-colors duration-300">GitHub</a>.
+        </p>
+        <a href="/#newsletter" class="font-semibold text-brand-cyan hover:text-brand-coral transition-colors duration-300">Join the newsletter</a>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>

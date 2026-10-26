@@ -7,15 +7,16 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `privacy.astro`, `terms.astro`, and `api/subscribe.ts`, the one
-  route with `export const prerender = false`.
+- `src/pages/`: `index.astro`, `install.astro`, `privacy.astro`, `terms.astro`, and
+  `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
-  endpoint's validation, payload and Buttondown call, so the route stays thin), `attribution.ts`,
-  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the co-located `*.test.ts`
-  suites.
+  endpoint's validation, payload and Buttondown call, so the route stays thin), `products.ts` (the
+  install page's product registry: a product that is not live carries no install path),
+  `attribution.ts`, `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the
+  co-located `*.test.ts` suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
 - `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load, including
   `analytics.js`, the PostHog loader the layout renders only when the build carries
@@ -39,10 +40,10 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-10-25; they grow, they never shrink):
+Summary lines to expect (counts as of 2026-10-27; they grow, they never shrink):
 
-- `npm test`: ` Test Files  10 passed (10)` then `      Tests  212 passed (212)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
-  ` Test Files  8 passed | 2 skipped (10)` then `      Tests  204 passed | 2 skipped (206)`
+- `npm test`: ` Test Files  11 passed (11)` then `      Tests  241 passed (241)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
+  ` Test Files  9 passed | 2 skipped (11)` then `      Tests  231 passed | 2 skipped (233)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files

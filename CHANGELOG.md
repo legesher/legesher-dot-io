@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Install page at `/install`**: one entry per Legesher product with its honest state today. A
+  product that is not live carries no install command and no install link (`src/lib/products.ts`,
+  guarded by `products.test.ts`); live products link to the surface that carries their own version,
+  so no version string is typed into the site. Linked from the header and the footer.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
   by the layout only when the build carries `PUBLIC_POSTHOG_KEY`, and the Content Security Policy
   gains PostHog's origin only in that case. Memory-only persistence (no cookie, no client-side
