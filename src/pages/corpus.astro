@@ -66,7 +66,7 @@ const SOURCES = [
 
 <Layout
   title="The Language Corpus - Legesher"
-  description="An open corpus of reserved-word translations for programming languages: every rendering anyone ever offered, every endorsement a person attached to it, and a provenance record saying what each one obliges you to do."
+  description="An open corpus of programming vocabulary in human languages: every word anyone has offered, every endorsement it received, and where each word came from."
 >
   <Header />
   <main class="pt-32 pb-20 bg-white">
@@ -74,8 +74,8 @@ const SOURCES = [
       <header class="mb-12">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">The language corpus</h1>
         <p class="text-xl text-muted-foreground mb-2">
-          Every candidate translation of a programming-language concept that anyone ever offered, and every
-          endorsement a person attached to it. Openly licensed, and honest about where each word came from.
+          Every word anyone has offered for a programming concept in a human language, and every endorsement a
+          person gave it. Open data, with the source of every word recorded.
         </p>
         <p class="text-sm text-muted-foreground">
           <span>Last updated: {lastUpdated}</span>
@@ -93,50 +93,48 @@ const SOURCES = [
 
       <article class="prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
         <section aria-labelledby="what-it-is">
-          <h2 id="what-it-is">What this corpus is</h2>
+          <h2 id="what-it-is">What the corpus holds</h2>
           <p>
-            A concept-centric corpus of reserved-word translations for programming languages: every candidate
-            rendering (&ldquo;option&rdquo;) of a programming-language concept in a human locale that anyone (Legesher,
-            another open-source project, a community reviewer, or a model) ever offered, together with every
-            endorsement a person attached to it.
+            The corpus holds every candidate word (an &ldquo;option&rdquo;) that anyone has offered for a
+            programming-language concept in a human language. Offers come from Legesher, from other open-source
+            projects, from community reviewers and from language models. Each option carries the endorsements people
+            gave it.
           </p>
           <p>
-            It exists because the question &ldquo;what is <code>if</code> in Telugu?&rdquo; does not have one answer.
-            It has several, offered by different people at different times for different reasons, and the
-            disagreements are as informative as the agreements. Most datasets in this space publish a single winning
-            answer and discard the rest. This one keeps the evidence.
+            The question &ldquo;what is <code>if</code> in Telugu?&rdquo; has more than one answer. People offer
+            different words at different times for different reasons, and the disagreement is part of the record.
+            The corpus keeps every answer, with the evidence beside it.
           </p>
           <p>
-            Options are keyed by content-addressed, stable uids, so the corpus survives database rebuilds and
-            re-exports byte-identically. It is append-only by design: a rendering that was later superseded stays,
-            alongside the correction.
+            Each option has a stable identifier derived from its content, so a rebuild or a re-export produces the
+            same corpus byte for byte. Nothing is deleted. A word that was later replaced stays in the corpus next to
+            its replacement.
           </p>
         </section>
 
         <section aria-labelledby="canon-split">
-          <h2 id="canon-split">What is deliberately not in it</h2>
+          <h2 id="canon-split">What is published separately</h2>
           <p>
-            This dataset is the <strong>corpus</strong>: the evidence layer. The <strong>canon</strong>, the decision
-            layer that says which rendering Legesher ships per locale, is published separately as
+            The corpus is the record of what was offered. The <strong>canon</strong>, the word Legesher ships for
+            each concept in each language, is a separate dataset,
             <a href="https://huggingface.co/datasets/legesher/language-canon" target="_blank" rel="noopener noreferrer"
               >language-canon</a
-            >, and the language packs are built from it. In the words of its own card, the corpus is the full record
-            of what has been suggested; the canon is the vocabulary that downstream applications actually use.
-            Neither the canon nor the private mapping from an opaque contributor id back to a person is part of this
-            dataset. The export tooling hard-fails rather than include either.
+            >, and the language packs are built from it. In the words of the canon&rsquo;s own card, the corpus is the
+            full record of what has been suggested; the canon is the vocabulary that downstream applications actually
+            use.
           </p>
           <p>
-            So the corpus will not tell you what Legesher thinks the right answer is. That is on purpose: it is a
-            record of what was offered and what was endorsed, not a verdict.
+            The corpus does not say which word is right. It records what was offered and what was endorsed. The
+            private link from a contributor identifier back to a person is never published either; the export stops
+            rather than include it.
           </p>
         </section>
 
         <section aria-labelledby="provenance">
-          <h2 id="provenance">How provenance works</h2>
+          <h2 id="provenance">Where each word came from</h2>
           <p>
-            Every row carries a <code>sources</code> list saying what kinds of source attested that rendering. The
-            vocabulary is cut on one question, <em>what do we owe for this?</em>, so four values, four
-            obligations:
+            Every row carries a <code>sources</code> list naming the kinds of source that offered or attested the
+            word. There are four values, and each one answers the same question: what do we owe for this word?
           </p>
           {/* The only wide element on the page. Scrolling it inside its own box
               keeps a narrow screen from having to scroll the whole document
@@ -162,40 +160,32 @@ const SOURCES = [
           </table>
           </div>
           <p>
-            That framing is the point. A taxonomy built around which script happened to insert a row goes stale the
-            moment the pipeline changes; a taxonomy built around obligation stays true, because a future row's
-            category is decided by asking what we owe for it.
+            An option can carry more than one value. A word proposed by a model and later attested by a reviewer
+            carries both. Counts per value are not fixed in the dataset card; they can be computed from the data, as
+            endorsement counts can.
           </p>
           <p>
-            An option can carry more than one value: the same rendering is often proposed by a model and then
-            independently attested by a reviewer. Counts per value are derivable from the data itself, and are
-            deliberately not frozen into the dataset card, for the same reason endorsement counts are not.
+            Finer-grained provenance is not published. That field carries reviewer labels that would identify
+            people, and nothing in the corpus leads from a contributor identifier back to a person. For the same
+            reason the upstream project names are in the dataset card, not in a column.
           </p>
           <p>
-            Row-level detail beyond these four values is deliberately not published: the finer-grained provenance
-            field carries reviewer labels that identify people, and no part of this dataset is a route from an opaque
-            contributor id back to a person. That is also why the upstream project names live in the dataset card
-            rather than in a column: the obligation is machine-visible, the identity of the upstream project
-            is human-readable.
-          </p>
-          <p>
-            One thing worth saying plainly: <code>legesher</code> describes who produced a rendering, not how good it
-            is. Like every other source kind, a Legesher-produced rendering has exactly the native-speaker standing
-            its endorsements give it, and no more. Machine-generated renderings are a starting point, not an
-            endorsement, which is why packs built from unattested corpus rows ship labelled experimental.
+            <code>legesher</code> says who produced a word, not how good it is. A word Legesher produced has the
+            standing its endorsements give it, and no more. A word a model generated is a starting point. Packs built
+            from words no person has attested are labeled experimental.
           </p>
         </section>
 
         <section aria-labelledby="licence">
-          <h2 id="licence">Licence and attribution</h2>
+          <h2 id="licence">License and attribution</h2>
           <p>
             The corpus is released under <strong>CC BY 4.0</strong>. You may share and adapt it, including
-            commercially, with attribution.
+            commercially, as long as you give credit.
           </p>
           <p>
-            Part of it comes from other open-source projects that carry their own terms. Each project&rsquo;s licence
-            is linked from the dataset card, and the notices they ask us to retain travel with the data in its
-            <code>NOTICE</code> file: CC BY 4.0 governs the <strong>compilation</strong> and does not relicense the
+            Part of the corpus comes from other open-source projects with their own terms. Each project&rsquo;s
+            license is linked from the dataset card, and the notices they ask us to keep travel with the data in its
+            <code>NOTICE</code> file. CC BY 4.0 covers the <strong>compilation</strong>; it does not relicense the
             contributed parts.
           </p>
           <ul>
@@ -207,82 +197,81 @@ const SOURCES = [
                 href="https://github.com/legesher/language-packs/blob/main/.all-contributorsrc"
                 target="_blank"
                 rel="noopener noreferrer">.all-contributorsrc</a
-              >, which stays the canonical roster and is deliberately not duplicated. This is a Legesher repository,
-              so retaining the notice is a commitment we are keeping to those 149 people, not an obligation someone
-              else is holding us to. We would owe them the credit either way.
+              >, which remains the roster of record. The repository is Legesher&rsquo;s own, and the credit is a
+              commitment we keep to those 149 people.
             </li>
             <li>
               <a href="https://github.com/UniversalPython/UniversalPython" target="_blank" rel="noopener noreferrer"
                 >UniversalPython</a
-              > (Apache License 2.0), Urdu renderings. <strong>Changes were made:</strong> these renderings were
-              adapted, not reproduced verbatim. They were normalised to our identifier conventions and re-keyed onto our
-              concept slugs, and some were subsequently superseded by other options in the corpus. Do not read a rendering
-              here as UniversalPython&rsquo;s own current form; consult the upstream project for that.
+              > (Apache License 2.0), Urdu words. <strong>Changes were made.</strong> These words were adapted to our
+              identifier conventions and re-keyed to our concept slugs, and some have since been replaced by other
+              options in the corpus. For UniversalPython&rsquo;s current form of a word, consult the upstream project.
             </li>
             <li>
               <a href="https://github.com/lenguaje-latino/latino" target="_blank" rel="noopener noreferrer">Latino</a>
-              (MIT), Spanish renderings.
+              (MIT), Spanish words.
             </li>
           </ul>
           <p>
-            Renderings marked <code>model</code> were produced by a language model:
+            Words marked <code>model</code> were produced by a language model:
             <a href="https://huggingface.co/CohereLabs/aya-101" target="_blank" rel="noopener noreferrer">Aya 101</a>
-            (Cohere For AI, Apache-2.0) and Claude (Anthropic, outputs owned by the API customer). Where a run recorded
-            a specific model version it is retained in the source database; the earliest machine-generated rows predate version recording, so
-            the card discloses the model family rather than promising a per-row version.
+            (Cohere For AI, Apache-2.0) or Claude (Anthropic; outputs owned by the API customer). Where a run recorded
+            the model version, the source database keeps it. The earliest machine-generated rows predate version
+            recording, so the card names the model family rather than a version per row.
           </p>
           <p>
             Community-contributed translation data is never sold. It is not part of the datasets we license
-            commercially; see <a href="/terms#licensing-model">our licensing model</a>.
+            commercially. See <a href="/terms#licensing-model">our licensing model</a>.
           </p>
         </section>
 
         <section aria-labelledby="withdrawal">
-          <h2 id="withdrawal">If you contributed: credit and withdrawal</h2>
+          <h2 id="withdrawal">If you contributed</h2>
           <p>
-            Contributors appear in the corpus as an opaque, salted identifier, never a name, handle, or email
-            address. The mapping back to a person is held privately and is never included in any published copy.
+            In the corpus you appear as an opaque, salted identifier, never as a name, handle or email address. The
+            link back to you is held privately and is never included in a published copy.
           </p>
           <p>
             <strong>Credit is opt-in.</strong> You are anonymous by default, and your contribution counts the same
-            either way. You may ask at any time to be credited by name, to change how you are credited, or to be
-            removed entirely.
+            either way. At any time you can ask to be credited by name, to change how you are credited, or to be
+            removed.
           </p>
           <p>
-            <strong>Withdrawal keeps the work and erases the person.</strong> We redact every column that identifies
-            you and record that a withdrawal happened. The renderings you offered and the endorsements you gave
-            remain as anonymous records (other contributors&rsquo; work depends on them), but nothing
-            connects them to you. Because no published copy has ever carried an identity, a withdrawal never requires
-            us to retract a release.
+            <strong>Withdrawal removes you and keeps the work.</strong> We redact every column that identifies you
+            and record that a withdrawal happened. The words you offered and the endorsements you gave stay as
+            anonymous records, because other contributors&rsquo; work depends on them, and nothing connects them to
+            you. No published copy has ever carried an identity, so a withdrawal never requires a release to be
+            retracted.
           </p>
           <p>
-            <strong>Two limits, stated plainly</strong>, because you would otherwise discover them at the worst
-            moment. If you submitted through a public pull request or issue, that submission sits in a public
-            repository under your own account, and we cannot unpublish something you published yourself. And where
-            your details were recorded in our own repository, removing them is a change going forward; earlier
-            revision history is cleared separately rather than on request. Ask and we will tell you where that
-            stands.
+            <strong>Two limits.</strong> If you submitted through a public pull request or issue, that submission is
+            in a public repository under your own account, and we cannot unpublish what you published. Where your
+            details were recorded in our own repository, removal applies going forward; earlier revision history is
+            cleared separately, not on request. Ask us and we will tell you where that stands.
           </p>
           <p>
-            To be credited, change how you are credited, or withdraw, email
-            <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>. The full contributor notice ships with the
-            project repository as <code>CONTRIBUTOR_PRIVACY.md</code>; until that repository is public, we send it on
-            request.
+            To be credited, to change how you are credited, or to withdraw, email
+            <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>. The full contributor notice is
+            <a
+              href="https://github.com/legesher/language-packs/blob/main/CONTRIBUTOR_PRIVACY.md"
+              target="_blank"
+              rel="noopener noreferrer"><code>CONTRIBUTOR_PRIVACY.md</code></a
+            > in the language-packs repository.
           </p>
         </section>
 
         <section aria-labelledby="get-the-data">
           <h2 id="get-the-data">Get the data</h2>
           <p>
-            The corpus is published on Hugging Face as five configs (<code>concepts</code>, <code>terms</code>,
-            <code>options</code>, <code>endorsements</code>, <code>contributors</code>), with the upstream notices, the
-            privacy posture and a reconciliation ledger alongside the data.
+            The corpus is on Hugging Face as five configs: <code>concepts</code>, <code>terms</code>,
+            <code>options</code>, <code>endorsements</code> and <code>contributors</code>. The upstream notices, the
+            privacy notice and a reconciliation ledger are published with the data.
           </p>
           <p>
             <a href={LINKS.corpus} target="_blank" rel="noopener noreferrer" class="break-words">{corpusLinkText}</a>
           </p>
           <p>
-            If you are a native speaker and something in there is wrong, we would rather know.
+            If you speak one of these languages and a word looks wrong to you, tell us.
             <a href={LINKS.slack} target="_blank" rel="noopener noreferrer">Find us in Slack</a> or open an issue on
             <a href={LINKS.github} target="_blank" rel="noopener noreferrer">GitHub</a>.
           </p>
