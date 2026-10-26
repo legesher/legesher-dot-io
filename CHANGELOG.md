@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Refund and cancellation policy page at `/refunds`**, a draft in the same shell as the Terms and
+  Privacy pages, linked from the footer. `src/lib/page-dates.test.ts` guards that every dated page
+  reads its own `LAST_UPDATED` entry and that every entry is an ISO date the formatter renders.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
   by the layout only when the build carries `PUBLIC_POSTHOG_KEY`, and the Content Security Policy
   gains PostHog's origin only in that case. Memory-only persistence (no cookie, no client-side
