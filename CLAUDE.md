@@ -17,6 +17,8 @@ data. Page and layout changes are visual work and are reviewed as such.
   `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the co-located `*.test.ts`
   suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
+- `docs/voice.md`: how page copy is written. Read it before writing or changing any sentence a
+  visitor reads; `src/lib/copy-voice.test.ts` checks it.
 - `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load, including
   `analytics.js`, the PostHog loader the layout renders only when the build carries
   `PUBLIC_POSTHOG_KEY`).
@@ -39,10 +41,10 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-10-25; they grow, they never shrink):
+Summary lines to expect (counts as of 2026-10-27; they grow, they never shrink):
 
-- `npm test`: ` Test Files  10 passed (10)` then `      Tests  212 passed (212)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
-  ` Test Files  8 passed | 2 skipped (10)` then `      Tests  204 passed | 2 skipped (206)`
+- `npm test`: ` Test Files  11 passed (11)` then `      Tests  225 passed (225)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
+  ` Test Files  9 passed | 2 skipped (11)` then `      Tests  217 passed | 2 skipped (219)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -84,6 +86,11 @@ Facts behind those commands:
   and record the probe (what was injected, which named failures fired) in the PR body.
 - Latin identifiers prove nothing. Unicode assertions use combining-mark scripts: Devanagari,
   Sinhala with ZWJ, pointed Hebrew, vocalised Arabic, Thai, CJK.
+- The copy-voice guard `src/lib/copy-voice.test.ts` reads every page, layout and section component
+  and `src/lib/products.ts`, and fails on an em dash, a contact address outside the six public
+  aliases, or a word from the rejected list in `docs/voice.md`. Files written before the guard are
+  an `it.fails` ledger naming the ticket that recuts them; remove the entry in the change that fixes
+  the file.
 - The repo-hygiene guard `src/lib/repo-hygiene.test.ts` runs in the default `npm test` and fails
   on a tracked folderOpen editor task, an automatic-tasks setting, non-font bytes under a font
   extension, or `.env` not ignored or tracked.

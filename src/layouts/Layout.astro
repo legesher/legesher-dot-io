@@ -14,7 +14,7 @@ import { PUBLIC_POSTHOG_KEY } from 'astro:env/client';
 // build carried PUBLIC_POSTHOG_KEY; astro.config.mjs widens the policy to
 // PostHog's origin in the same case and src/lib/analytics-csp.test.ts checks
 // the two agree on every built page (CORE-1948). The key is a public project
-// token by design, so inlining it here is intended.
+// token, so inlining it here is intended.
 
 interface Props {
   title: string;
@@ -37,7 +37,7 @@ const site = Astro.site;
 
 const canonicalURL = new URL(Astro.url.pathname, site).toString();
 
-// Social crawlers do not resolve relative image paths — these must be absolute.
+// Social crawlers do not resolve relative image paths, so these must be absolute.
 const socialImageURL = new URL(image, site).toString();
 ---
 
