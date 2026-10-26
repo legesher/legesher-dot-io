@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Language corpus page at `/corpus`**: what the dataset is, the corpus and canon split, the
+  four-value provenance vocabulary in the dataset card's own words, the licence, and how credit and
+  withdrawal work for contributors, with the figures taken from the export's reconciliation ledger
+  rather than the database. Linked from the footer (`LINKS.corpus`, sitemap `lastmod`); the privacy
+  page now points at it instead of saying the corpus is distributed privately.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
   by the layout only when the build carries `PUBLIC_POSTHOG_KEY`, and the Content Security Policy
   gains PostHog's origin only in that case. Memory-only persistence (no cookie, no client-side
