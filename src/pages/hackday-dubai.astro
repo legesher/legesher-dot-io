@@ -229,30 +229,13 @@ const tileClass =
 
     <section id="welcome" class="py-24 bg-[#1e1e1e] scroll-mt-20">
       <div class="container mx-auto px-4">
-        <div class="text-center max-w-3xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
           <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Welcome to <span class="text-gradient">Hack Day</span></h2>
           <p class="text-lg text-[#d9dde0]">
             We're so excited to welcome you to Hacktoberfest Hack Day Dubai x Legesher! Check-in will start at 2:30. Come with an idea, a team or neither, and no technical experience is required. Bring your laptop, your charger and your curiosity.
           </p>
         </div>
-        <img
-          src="/hackday-dubai/build-together.webp"
-          alt="Build Together: find your team, solidify your idea. Six themes to build around: Language and Voice (under-resourced languages, voice, translation, community archives and heritage); Health and Community (health, caregiving, accessibility, education, humanitarian work, crisis response); Sustainability (climate, energy, water, food, cities); Safety (privacy, security, digital rights, fact-checking); Open Tech (developer tools, open models, small and on-device AI, decentralized tech); and Other (art, games, music, bring your own idea). Add a dot sticker in your color to your name tag to find people you might enjoy building with. No team yet? Talk to us at the registration table and we'll get you connected."
-          class="mt-12 mx-auto w-full max-w-5xl rounded-xl shadow-lg"
-          width="1600"
-          height="1131"
-          loading="lazy"
-        />
-      </div>
-    </section>
-
-    <section id="check-in" class="py-24 bg-[#272727] scroll-mt-20">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Check In</h2>
-          <p class="text-lg text-[#d9dde0]">Use the MLH website or ask your AI agent.</p>
-        </div>
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div id="check-in" class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto scroll-mt-20">
           {checkIn.map((l) => (
             <a href={l.href} rel="noopener" class="group block">
               <Card className={cardClass}>
@@ -268,6 +251,20 @@ const tileClass =
             </a>
           ))}
         </div>
+      </div>
+    </section>
+
+    <!-- The board's own background is brand background-coral, so the image sits flush. -->
+    <section id="build-together" class="py-16 bg-brand-background-coral scroll-mt-20">
+      <div class="container mx-auto px-4">
+        <img
+          src="/hackday-dubai/build-together.webp"
+          alt="Build Together: find your team, solidify your idea. Six themes to build around: Language and Voice (under-resourced languages, voice, translation, community archives and heritage); Health and Community (health, caregiving, accessibility, education, humanitarian work, crisis response); Sustainability (climate, energy, water, food, cities); Safety (privacy, security, digital rights, fact-checking); Open Tech (developer tools, open models, small and on-device AI, decentralized tech); and Other (art, games, music, bring your own idea). Add a dot sticker in your color to your name tag to find people you might enjoy building with. No team yet? Talk to us at the registration table and we'll get you connected."
+          class="mx-auto w-full max-w-5xl"
+          width="1600"
+          height="1131"
+          loading="lazy"
+        />
       </div>
     </section>
 
