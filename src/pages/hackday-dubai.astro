@@ -162,16 +162,6 @@ const legesher: LinkCard[] = [
 
 const MLH_CODE_OF_CONDUCT = 'https://static.mlh.io/docs/mlh-code-of-conduct.pdf';
 
-const help: LinkCard[] = [
-  {
-    icon: '📜',
-    title: 'MLH Code of Conduct',
-    text: 'MLH events are a safe space for everyone. Please read it before you build.',
-    href: MLH_CODE_OF_CONDUCT,
-    url: 'static.mlh.io/docs/mlh-code-of-conduct.pdf',
-  },
-];
-
 // Matches the homepage feature cards in Features.astro.
 const cardClass =
   'h-full bg-[#2d2d2d] border-[#424242] text-white transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02] group-hover:border-brand-light-cyan';
@@ -391,33 +381,6 @@ const tileClass =
         </div>
         <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {legesher.map((l) => (
-            <a href={l.href} rel="noopener" class="group block">
-              <Card className={cardClass}>
-                <CardHeader>
-                  <div class={tileClass}>{l.icon}</div>
-                  <CardTitle>{l.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-[#d9dde0]">{l.text}</CardDescription>
-                  <p class="mt-4 font-mono text-sm font-semibold text-brand-light-coral break-all">{l.url} →</p>
-                </CardContent>
-              </Card>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section id="help" class="py-24 bg-[#272727] scroll-mt-20">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Help and Feedback</h2>
-          <p class="text-lg text-[#d9dde0]">
-            Need a hand? Find Josh Edgar on site. To report a code of conduct issue, email incidents@mlh.io.
-          </p>
-        </div>
-        <div class="max-w-md mx-auto">
-          {help.map((l) => (
             <a href={l.href} rel="noopener" class="group block">
               <Card className={cardClass}>
                 <CardHeader>
