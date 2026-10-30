@@ -153,20 +153,15 @@ const legesher: LinkCard[] = [
   },
 ];
 
+const MLH_CODE_OF_CONDUCT = 'https://static.mlh.io/docs/mlh-code-of-conduct.pdf';
+
 const help: LinkCard[] = [
   {
     icon: '📜',
     title: 'MLH Code of Conduct',
     text: 'MLH events are a safe space for everyone. Please read it before you build.',
-    href: 'https://static.mlh.io/docs/mlh-code-of-conduct.pdf',
+    href: MLH_CODE_OF_CONDUCT,
     url: 'static.mlh.io/docs/mlh-code-of-conduct.pdf',
-  },
-  {
-    icon: '📝',
-    title: 'Tell us about your hack day',
-    text: 'Two minutes of feedback helps the next host.',
-    href: 'https://mlh.link/gemma-hack-day-feedback',
-    url: 'mlh.link/gemma-hack-day-feedback',
   },
 ];
 
@@ -251,6 +246,9 @@ const tileClass =
             </a>
           ))}
         </div>
+        <p class="mt-8 text-center text-lg text-[#d9dde0] max-w-3xl mx-auto">
+          Be sure to get the WhatsApp community code from registration for live updates during the event.
+        </p>
       </div>
     </section>
 
@@ -288,6 +286,9 @@ const tileClass =
             </ol>
           </CardContent>
         </Card>
+        <p class="mt-6 max-w-2xl mx-auto text-center text-sm text-[#d9dde0]">
+          By attending, you agree to the <a href={MLH_CODE_OF_CONDUCT} rel="noopener" class="text-brand-light-coral hover:text-brand-cyan underline underline-offset-4 transition-colors duration-300">MLH Code of Conduct</a>, which keeps this event a safe space for everyone. To report an issue, email <a href="mailto:incidents@mlh.io" class="text-brand-light-coral hover:text-brand-cyan underline underline-offset-4 transition-colors duration-300">incidents@mlh.io</a> or find an organizer on site.
+        </p>
       </div>
     </section>
 
@@ -408,7 +409,7 @@ const tileClass =
             Need a hand? Find Josh Edgar on site. To report a code of conduct issue, email incidents@mlh.io.
           </p>
         </div>
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="max-w-md mx-auto">
           {help.map((l) => (
             <a href={l.href} rel="noopener" class="group block">
               <Card className={cardClass}>
@@ -424,9 +425,6 @@ const tileClass =
             </a>
           ))}
         </div>
-        <p class="mt-12 text-center text-[#d9dde0] max-w-3xl mx-auto">
-          <span class="font-semibold">Getting there:</span> Open Stage sits at the center of the DIFC Innovation Hub in Gate Avenue, between Zone 3 and Zone 4. By metro, take the Red Line to Financial Centre and follow the covered walkway into Gate Avenue. By car, park at Gate Avenue 1 or Gate Avenue 4.
-        </p>
       </div>
     </section>
   </main>
