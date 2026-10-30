@@ -173,7 +173,7 @@ const help: LinkCard[] = [
 
 // Matches the homepage feature cards in Features.astro.
 const cardClass =
-  'h-full transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02] group-hover:border-primary/50';
+  'h-full bg-[#2d2d2d] border-[#424242] text-white transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02] group-hover:border-brand-light-cyan';
 const tileClass =
   'w-12 h-12 rounded-lg bg-brand-background-coral/80 flex items-center justify-center mb-4 text-2xl group-hover:bg-brand-background-coral transition-colors duration-300';
 ---
@@ -182,20 +182,24 @@ const tileClass =
   title="Hacktoberfest Hack Day Dubai x Legesher"
   description="Every link for Hacktoberfest Hack Day Dubai x Legesher: check-in, schedule, challenges, submissions and perks."
 >
-  <Header />
+  <!-- Dark-only page: the shared Header and Footer are light by default, so these
+       wrappers recolor them here without changing the components site-wide. -->
+  <div class="[&_#main-header:not(.bg-white)]:text-white [&_#mobile-menu]:text-neutral-900">
+    <Header />
+  </div>
   <main>
-    <section class="pt-32 pb-20 hero-gradient">
+    <section class="pt-32 pb-20 bg-[#272727] bg-[radial-gradient(circle_at_right,rgba(108,197,224,0.28)_0%,rgba(108,197,224,0.10)_35%,transparent_70%)]">
       <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row items-center justify-between gap-12">
           <div class="md:w-3/5 space-y-6">
-            <p class="text-sm font-semibold text-muted-foreground">Hacktoberfest Hack Day Dubai x Legesher</p>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            <p class="text-sm font-semibold text-[#d9dde0]">Hacktoberfest Hack Day Dubai x Legesher</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
               Every link for today, <span class="text-gradient">in one place</span>
             </h1>
-            <p class="text-lg md:text-xl text-muted-foreground">
+            <p class="text-lg md:text-xl text-[#d9dde0]">
               Check in, find the schedule, pick your challenges and submit your project, all from this page.
             </p>
-            <p class="text-muted-foreground">
+            <p class="text-[#d9dde0]">
               Friday, October 30 · 2:30 to 8 PM (Dubai time) · Open Stage, DIFC Innovation Hub
             </p>
             <div class="flex flex-col sm:flex-row items-start gap-4">
@@ -224,11 +228,11 @@ const tileClass =
       </div>
     </section>
 
-    <section id="build-together" class="py-24 bg-gray-50 scroll-mt-20">
+    <section id="build-together" class="py-24 bg-[#1e1e1e] scroll-mt-20">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Build <span class="text-gradient">Together</span></h2>
-          <p class="text-lg text-muted-foreground">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Build <span class="text-gradient">Together</span></h2>
+          <p class="text-lg text-[#d9dde0]">
             Team forming starts at 2:30 PM. Come with an idea, a team or neither, and no technical experience is required. Bring your laptop, your charger and your curiosity.
           </p>
         </div>
@@ -243,11 +247,11 @@ const tileClass =
       </div>
     </section>
 
-    <section id="check-in" class="py-24 bg-white scroll-mt-20">
+    <section id="check-in" class="py-24 bg-[#272727] scroll-mt-20">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Check In</h2>
-          <p class="text-lg text-muted-foreground">Use the MLH website or ask your AI agent.</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Check In</h2>
+          <p class="text-lg text-[#d9dde0]">Use the MLH website or ask your AI agent.</p>
         </div>
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {checkIn.map((l) => (
@@ -258,8 +262,8 @@ const tileClass =
                   <CardTitle>{l.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">{l.text}</CardDescription>
-                  <p class="mt-4 font-mono text-sm font-semibold text-brand-coral break-all">{l.url} →</p>
+                  <CardDescription className="text-base text-[#d9dde0]">{l.text}</CardDescription>
+                  <p class="mt-4 font-mono text-sm font-semibold text-brand-light-coral break-all">{l.url} →</p>
                 </CardContent>
               </Card>
             </a>
@@ -268,20 +272,20 @@ const tileClass =
       </div>
     </section>
 
-    <section id="schedule" class="py-24 bg-gray-50 scroll-mt-20">
+    <section id="schedule" class="py-24 bg-[#1e1e1e] scroll-mt-20">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Today's Schedule</h2>
-          <p class="text-lg text-muted-foreground">All times are Dubai time.</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Today's Schedule</h2>
+          <p class="text-lg text-[#d9dde0]">All times are Dubai time.</p>
         </div>
-        <Card className="max-w-2xl mx-auto bg-white">
+        <Card className="max-w-2xl mx-auto bg-[#2d2d2d] border-[#424242] text-white">
           <CardContent className="p-0">
-            <ol class="divide-y">
+            <ol class="divide-y divide-[#424242]">
               {schedule.map((row) => (
                 <li class="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-1 sm:gap-4 px-6 py-4">
-                  <span class="font-mono text-sm font-semibold text-muted-foreground">{row.time}</span>
+                  <span class="font-mono text-sm font-semibold text-[#d9dde0]">{row.time}</span>
                   <span class="text-lg font-medium">
-                    {row.highlight ? <mark class="bg-brand-yellow px-2">{row.label}</mark> : row.label}
+                    {row.highlight ? <mark class="bg-brand-yellow px-2 text-neutral-900">{row.label}</mark> : row.label}
                   </span>
                 </li>
               ))}
@@ -291,11 +295,11 @@ const tileClass =
       </div>
     </section>
 
-    <section id="submit" class="py-24 bg-white scroll-mt-20">
+    <section id="submit" class="py-24 bg-[#272727] scroll-mt-20">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Submit Your Project</h2>
-          <p class="text-lg text-muted-foreground">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Submit Your Project</h2>
+          <p class="text-lg text-[#d9dde0]">
             Projects are due at 7:00 PM. However far you get, we want to see your work, and one project can enter more than one challenge.
           </p>
         </div>
@@ -308,8 +312,8 @@ const tileClass =
                   <CardTitle>{l.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">{l.text}</CardDescription>
-                  <p class="mt-4 font-mono text-sm font-semibold text-brand-coral break-all">{l.url} →</p>
+                  <CardDescription className="text-base text-[#d9dde0]">{l.text}</CardDescription>
+                  <p class="mt-4 font-mono text-sm font-semibold text-brand-light-coral break-all">{l.url} →</p>
                 </CardContent>
               </Card>
             </a>
@@ -318,30 +322,30 @@ const tileClass =
       </div>
     </section>
 
-    <section id="challenges" class="py-24 bg-gray-50 scroll-mt-20">
+    <section id="challenges" class="py-24 bg-[#1e1e1e] scroll-mt-20">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">The Challenges</h2>
-          <p class="text-lg text-muted-foreground">Four challenges are on the board today. Tag each one you enter when you submit.</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">The Challenges</h2>
+          <p class="text-lg text-[#d9dde0]">Four challenges are on the board today. Tag each one you enter when you submit.</p>
         </div>
         <div class="grid md:grid-cols-2 gap-8">
           {challenges.map((c) => (
-            <Card className="group h-full flex flex-col bg-white transition-all duration-300 hover:shadow-lg hover:border-primary/50">
+            <Card className="group h-full flex flex-col bg-[#2d2d2d] border-[#424242] text-white transition-all duration-300 hover:shadow-lg hover:border-brand-light-cyan">
               <CardHeader>
                 <div class={tileClass}>{c.icon}</div>
-                <p class="text-sm font-semibold text-muted-foreground">Sponsored by {c.sponsor}</p>
+                <p class="text-sm font-semibold text-[#d9dde0]">Sponsored by {c.sponsor}</p>
                 <CardTitle className="text-2xl">{c.title}</CardTitle>
               </CardHeader>
               <CardContent className="flex flex-1 flex-col gap-4">
-                <CardDescription className="text-base">{c.body}</CardDescription>
+                <CardDescription className="text-base text-[#d9dde0]">{c.body}</CardDescription>
                 <p class="text-base">
                   <span class="font-semibold">Prize: </span>{c.prize}
                 </p>
                 <div class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-2 text-sm font-semibold">
                   {c.resources.map((r) => (
-                    <a href={r.href} rel="noopener" class="text-brand-coral hover:text-brand-cyan underline underline-offset-4 transition-colors duration-300">{r.label}</a>
+                    <a href={r.href} rel="noopener" class="text-brand-light-coral hover:text-brand-cyan underline underline-offset-4 transition-colors duration-300">{r.label}</a>
                   ))}
-                  <a href={c.details} rel="noopener" class="text-brand-coral hover:text-brand-cyan underline underline-offset-4 transition-colors duration-300">Challenge details</a>
+                  <a href={c.details} rel="noopener" class="text-brand-light-coral hover:text-brand-cyan underline underline-offset-4 transition-colors duration-300">Challenge details</a>
                 </div>
               </CardContent>
             </Card>
@@ -350,11 +354,11 @@ const tileClass =
       </div>
     </section>
 
-    <section id="perks" class="py-24 bg-white scroll-mt-20">
+    <section id="perks" class="py-24 bg-[#272727] scroll-mt-20">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Perks and Community</h2>
-          <p class="text-lg text-muted-foreground">Hacktoberfest runs all October. Keep building after today.</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Perks and Community</h2>
+          <p class="text-lg text-[#d9dde0]">Hacktoberfest runs all October. Keep building after today.</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {perks.map((l) => (
@@ -365,8 +369,8 @@ const tileClass =
                   <CardTitle>{l.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">{l.text}</CardDescription>
-                  <p class="mt-4 font-mono text-sm font-semibold text-brand-coral break-all">{l.url} →</p>
+                  <CardDescription className="text-base text-[#d9dde0]">{l.text}</CardDescription>
+                  <p class="mt-4 font-mono text-sm font-semibold text-brand-light-coral break-all">{l.url} →</p>
                 </CardContent>
               </Card>
             </a>
@@ -375,23 +379,23 @@ const tileClass =
       </div>
     </section>
 
-    <section id="legesher" class="py-24 bg-gray-50 scroll-mt-20">
+    <section id="legesher" class="py-24 bg-[#1e1e1e] scroll-mt-20">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Keep Building With <span class="text-gradient">Legesher</span></h2>
-          <p class="text-lg text-muted-foreground">Born at a hackathon, thriving at Hacktoberfests.</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Keep Building With <span class="text-gradient">Legesher</span></h2>
+          <p class="text-lg text-[#d9dde0]">Born at a hackathon, thriving at Hacktoberfests.</p>
         </div>
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {legesher.map((l) => (
             <a href={l.href} rel="noopener" class="group block">
-              <Card className={`${cardClass} bg-white`}>
+              <Card className={cardClass}>
                 <CardHeader>
                   <div class={tileClass}>{l.icon}</div>
                   <CardTitle>{l.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">{l.text}</CardDescription>
-                  <p class="mt-4 font-mono text-sm font-semibold text-brand-coral break-all">{l.url} →</p>
+                  <CardDescription className="text-base text-[#d9dde0]">{l.text}</CardDescription>
+                  <p class="mt-4 font-mono text-sm font-semibold text-brand-light-coral break-all">{l.url} →</p>
                 </CardContent>
               </Card>
             </a>
@@ -400,11 +404,11 @@ const tileClass =
       </div>
     </section>
 
-    <section id="help" class="py-24 bg-white scroll-mt-20">
+    <section id="help" class="py-24 bg-[#272727] scroll-mt-20">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Help and Feedback</h2>
-          <p class="text-lg text-muted-foreground">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Help and Feedback</h2>
+          <p class="text-lg text-[#d9dde0]">
             Need a hand? Find Josh Edgar on site. To report a code of conduct issue, email incidents@mlh.io.
           </p>
         </div>
@@ -417,18 +421,20 @@ const tileClass =
                   <CardTitle>{l.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">{l.text}</CardDescription>
-                  <p class="mt-4 font-mono text-sm font-semibold text-brand-coral break-all">{l.url} →</p>
+                  <CardDescription className="text-base text-[#d9dde0]">{l.text}</CardDescription>
+                  <p class="mt-4 font-mono text-sm font-semibold text-brand-light-coral break-all">{l.url} →</p>
                 </CardContent>
               </Card>
             </a>
           ))}
         </div>
-        <p class="mt-12 text-center text-muted-foreground max-w-3xl mx-auto">
+        <p class="mt-12 text-center text-[#d9dde0] max-w-3xl mx-auto">
           <span class="font-semibold">Getting there:</span> Open Stage sits at the center of the DIFC Innovation Hub in Gate Avenue, between Zone 3 and Zone 4. By metro, take the Red Line to Financial Centre and follow the covered walkway into Gate Avenue. By car, park at Gate Avenue 1 or Gate Avenue 4.
         </p>
       </div>
     </section>
   </main>
-  <Footer />
+  <div class="relative z-0 bg-[#272727] text-white [&_footer_.bg-gradient-to-b]:from-[#272727]">
+    <Footer />
+  </div>
 </Layout>
