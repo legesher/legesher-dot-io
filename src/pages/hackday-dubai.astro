@@ -151,6 +151,13 @@ const legesher: LinkCard[] = [
     href: 'https://github.com/legesher/language-packs',
     url: 'github.com/legesher/language-packs',
   },
+  {
+    icon: '💻',
+    title: 'Try Legesher',
+    text: "Write Python in your own language with Legesher's open-source tools, now in pre-beta.",
+    href: 'https://github.com/legesher/legesher',
+    url: 'github.com/legesher/legesher',
+  },
 ];
 
 const MLH_CODE_OF_CONDUCT = 'https://static.mlh.io/docs/mlh-code-of-conduct.pdf';
@@ -382,7 +389,7 @@ const tileClass =
           <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Keep Building With <span class="text-gradient">Legesher</span></h2>
           <p class="text-lg text-[#d9dde0]">Born at a hackathon, thriving at Hacktoberfests.</p>
         </div>
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {legesher.map((l) => (
             <a href={l.href} rel="noopener" class="group block">
               <Card className={cardClass}>
