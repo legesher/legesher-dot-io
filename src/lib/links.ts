@@ -12,6 +12,7 @@ export const LINKS = {
   github: 'https://github.com/legesher',
   slack: 'https://join.slack.com/t/legesher/shared_invite/zt-370xpp6b9-LYxWVIOF7ujVH5kYnwaGbQ',
   docs: 'https://docs.legesher.io/',
+  corpus: 'https://huggingface.co/datasets/legesher/language-corpus',
   linkedin: 'https://www.linkedin.com/company/legesher',
   instagram: 'https://www.instagram.com/legesher',
   email: 'mailto:hello@legesher.com',
