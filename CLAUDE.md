@@ -102,7 +102,7 @@ Facts behind those commands:
   `<body>`. CI builds before it tests; locally run `npm run build` before `npm test` to exercise it.
 - Two guards keep the PostHog loader honest: `src/lib/analytics-csp.test.ts` reads every built page
   and asserts the loader is present exactly when the policy carries PostHog's origin, sits in
-  `<body>` after the content, and that a build without the key mentions PostHog nowhere;
+  `<body>` after the content, and that a build without the key loads no PostHog script (prose may name it);
   `src/lib/analytics-loader.test.ts` pins each promise the privacy page makes (zero storage, Do Not
   Track, no session reconstruction, no profiling) to the loader option that keeps it, and the event
   schema to its five names. Exercise the keyed branch locally with

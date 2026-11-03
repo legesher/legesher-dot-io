@@ -69,7 +69,9 @@ suite('every built page loads PostHog only with a policy that allows it (needs n
 
     if (loaders.length === 0) {
       expect(mentioned, 'no PostHog origin in the policy when the loader is absent').toBe(false);
-      expect(html, 'no PostHog reference anywhere in the page').not.toMatch(/posthog/i);
+      // Prose may name PostHog (the privacy page discloses it); no script may load it.
+      const scripts = Array.from(html.matchAll(/<script\b[^>]*>/gi), (m) => m[0]);
+      expect(scripts.filter((t) => /posthog/i.test(t)), 'no script tag references PostHog').toEqual([]);
       return;
     }
 
