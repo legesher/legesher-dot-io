@@ -8,7 +8,7 @@
 //
 // ISO 8601, UTC.
 export const LAST_UPDATED = {
-  privacy: '2026-10-25',
+  privacy: '2026-11-03',
   terms: '2026-07-14',
 };
 
