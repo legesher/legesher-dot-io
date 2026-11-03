@@ -40,10 +40,10 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-10-27; they grow, they never shrink):
+Summary lines to expect (counts as of 2026-11-04; they grow, and shrink only when a registry entry is removed):
 
-- `npm test`: ` Test Files  11 passed (11)` then `      Tests  241 passed (241)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
-  ` Test Files  9 passed | 2 skipped (11)` then `      Tests  231 passed | 2 skipped (233)`
+- `npm test`: ` Test Files  11 passed (11)` then `      Tests  238 passed (238)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
+  ` Test Files  9 passed | 2 skipped (11)` then `      Tests  226 passed | 2 skipped (228)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files

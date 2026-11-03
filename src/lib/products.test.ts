@@ -43,8 +43,9 @@ describe('a live product', () => {
     expect(access?.label).toBeTruthy();
   });
 
-  it.each(live)('$id carries no hand-typed version string', ({ summary, stage, access }) => {
-    const text = [summary, stage ?? '', access?.label ?? ''].join(' ');
+  it.each(live)('$id carries no hand-typed version string', ({ summary, stage, access, commands }) => {
+    // Commands included: a pinned install (`pip install legesher==1.2.3`) goes stale at the next release.
+    const text = [summary, stage ?? '', access?.label ?? '', ...(commands ?? [])].join(' ');
     expect(text).not.toMatch(/\bv?\d+\.\d+(\.\d+)?\b/);
   });
 });
