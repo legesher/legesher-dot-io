@@ -1,0 +1,246 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
+
+const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
+
+// DRAFT. Sentences marked data-review="jurisdiction" depend on the law of
+// the customer's country or the contracting entity; data-review="processor"
+// marks a claim about the payment processor's behaviour to confirm against
+// its current docs. All need a maintainer's review, and counsel's before
+// the first charge. The markers render nothing; grep for data-review to list
+// them.
+---
+
+<Layout
+  title="Refund and Cancellation Policy - Legesher"
+  description="How cancellation, refunds, failed payments and plan changes work for paid Legesher subscriptions."
+>
+  <Header />
+  <main class="pt-32 pb-20 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-2">Refund and Cancellation Policy</h1>
+        <p class="text-sm text-muted-foreground">
+          Legesher Inc (Delaware, USA) ·
+          <span>Last updated: {lastUpdated}</span>
+        </p>
+      </header>
+
+      <article class="prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
+        <section aria-labelledby="introduction">
+          <h2 id="introduction">1. Introduction</h2>
+          <p>
+            This policy explains what happens when you cancel a paid Legesher subscription, when you can get a refund,
+            and what happens if a payment fails. It applies to every paid plan sold through our checkout. It forms part of
+            our <a href="/terms">Terms of Service</a>; the Terms control if the two conflict.
+          </p>
+          <p>
+            Nothing in this policy affects the Legesher open-source software, which is free under the Apache 2.0
+            License and is not a subscription. You never need a paid plan to write code in your language with the
+            open-source tools.
+          </p>
+          <p>
+            <span data-review="jurisdiction">If you are a consumer, you may have rights under the law of your country
+            that this policy cannot reduce. Where that law gives you more than this policy does, the law applies.</span>
+          </p>
+        </section>
+
+        <section aria-labelledby="who-bills-you">
+          <h2 id="who-bills-you">2. Who Bills You</h2>
+          <p>
+            Paid Legesher subscriptions are sold through <a href="https://polar.sh" rel="noopener">Polar</a>, which acts
+            as the merchant of record. <span data-review="jurisdiction">Polar is the seller on your receipt, collects
+            payment and any applicable sales tax or VAT, and issues refunds; Legesher Inc decides the plan, the price
+            and this policy.</span> Polar's own terms apply to the payment itself.
+          </p>
+          <p>
+            Your subscription, invoices, payment method and cancellation are all managed from the Polar customer
+            portal. The link to the portal is in every receipt email and in your Legesher account.
+          </p>
+        </section>
+
+        <section aria-labelledby="cancellation">
+          <h2 id="cancellation">3. Cancelling a Subscription</h2>
+          <p>
+            You can cancel at any time from the Polar customer portal. You do not need to email or call us.
+          </p>
+          <ul>
+            <li>
+              <strong>Access continues to the end of the period you paid for.</strong> Cancelling stops the next renewal;
+              it does not end the current period early. Your plan's features keep working until the paid period ends,
+              then your account moves to the Free plan.
+            </li>
+            <li>
+              <strong>You can undo a cancellation</strong> from the portal at any time before the period ends, and the
+              subscription continues as if nothing happened.
+            </li>
+            <li>
+              <strong>Nothing you built is removed.</strong> Code and translations in your own repositories stay
+              there. When the paid period ends, the hosted service stops translating new changes. Hosted copies of
+              your data are kept until you ask us to delete them (see Section 7).
+            </li>
+            <li>
+              <strong>Founding Developer (beta) seats.</strong> A founding seat is tied to an active subscription. If you
+              cancel, the seat is released at the end of the paid period; if you later subscribe again, you join on the
+              plan and price in force at that time.
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="refunds">
+          <h2 id="refunds">4. Refunds</h2>
+
+          <h3>4.1 New subscriptions</h3>
+          <p>
+            <span data-review="jurisdiction">If a paid plan is not what you expected, ask for a refund within
+            <strong>14 days</strong> of your first payment and we will refund that payment in full.</span> After that window, the first period is not refundable, but you can cancel at any time (Section 3).
+          </p>
+          <p>
+            <span data-review="jurisdiction">The 14-day window is our policy and applies worldwide. If the consumer law
+            where you live gives you a longer withdrawal period for digital services, that period applies instead.</span>
+          </p>
+
+          <h3>4.2 Renewals</h3>
+          <p>
+            <span data-review="jurisdiction">A monthly renewal charged in error, or charged after you tried to cancel and
+            the cancellation did not take effect, is refunded in full if you contact us within 14 days of the
+            charge.</span> Otherwise renewals are not refunded; cancel before the renewal date to avoid the next charge.
+          </p>
+
+          <h3>4.3 Annual plans</h3>
+          <p>
+            Annual billing is not offered yet. If it is introduced, this section will state the proration rule before the
+            first annual plan is sold.
+          </p>
+
+          <h3>4.4 Enterprise agreements</h3>
+          <p>
+            Enterprise customers are billed by invoice under a signed agreement. Refunds and termination for those
+            agreements follow the agreement, not this policy.
+          </p>
+
+          <h3>4.5 How refunds are paid</h3>
+          <p>
+            Refunds go back to the original payment method through Polar. <span data-review="processor">Once
+            approved, a refund usually appears within 5 to 10 business days, depending on your bank or card
+            issuer.</span> A refund ends access to the paid plan at the moment it is issued.
+          </p>
+
+          <h3>4.6 What is not refunded</h3>
+          <ul>
+            <li>Usage already consumed, such as hosted imports that have run, except inside the windows above</li>
+            <li>Charges for a period in which the account was suspended for a breach of the Terms</li>
+            <li>Currency conversion fees or bank charges applied by your own bank</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="failed-payments">
+          <h2 id="failed-payments">5. Failed Payments</h2>
+          <p>
+            If a renewal payment fails, we tell you by email and Polar retries the card. During the retry period your
+            account runs with Free plan limits and nothing is removed.
+          </p>
+          <ul>
+            <li>
+              <strong>Grace period.</strong> <span data-review="jurisdiction">You have 17 days from the first failed
+              charge to update your payment method in the Polar portal.</span> As soon as a payment succeeds, your paid
+              plan is restored.
+            </li>
+            <li>
+              <strong>After the grace period.</strong> The subscription is cancelled and the account stays on the Free
+              plan. You can subscribe again at any time.
+            </li>
+            <li>
+              <strong>Account data.</strong> Hosted account data from a cancelled subscription is kept for
+              <span data-review="jurisdiction">60 days</span> so you can come back without starting over, then removed
+              under our data retention rules. Data in your own repositories is never touched.
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="plan-changes">
+          <h2 id="plan-changes">6. Upgrades, Downgrades and Price Changes</h2>
+          <ul>
+            <li>
+              <strong>Upgrades</strong> take effect immediately. <span data-review="processor">Polar charges the
+              prorated difference for the rest of the current period.</span>
+            </li>
+            <li>
+              <strong>Downgrades</strong> take effect at the end of the current period. You keep what you paid for until
+              then; no partial refund is issued for the difference.
+            </li>
+            <li>
+              <strong>Price changes.</strong> We do not raise the price of a plan you already pay for without at least
+              90 days' notice by email, and you can keep your current price for the remainder of any period already
+              paid. The price you were quoted at checkout is the price you pay for that period.
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="data-after-cancellation">
+          <h2 id="data-after-cancellation">7. Your Data After Cancellation</h2>
+          <p>
+            Cancelling a subscription is not the same as deleting your account. Hosted copies of your maps and account
+            data are kept after your subscription ends, until you ask us to delete them, so you can return without
+            starting over.
+            To delete your account and its hosted data, email
+            <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>; how we handle that request is described in
+            our <a href="/privacy">Privacy Policy</a>.
+          </p>
+        </section>
+
+        <section aria-labelledby="how-to-ask">
+          <h2 id="how-to-ask">8. How to Ask for a Refund</h2>
+          <ol>
+            <li>Email <a href="mailto:hello@legesher.com">hello@legesher.com</a> from the address on your account.</li>
+            <li>Include the receipt number from Polar (it is on the receipt email) and the reason, if you want to share one.</li>
+            <li>
+              We reply within <span data-review="jurisdiction">3 business days</span>. Approved refunds are issued through
+              Polar straight away.
+            </li>
+          </ol>
+          <p>
+            Disagreements about a refund are handled under the dispute section of our
+            <a href="/terms#governing-law">Terms of Service</a>.
+          </p>
+        </section>
+
+        <section aria-labelledby="changes">
+          <h2 id="changes">9. Changes to This Policy</h2>
+          <p>
+            We may update this policy. The date at the top changes when we do, and for material changes we email
+            subscribers before the change takes effect. A change never reduces the refund rights of a period you
+            have already paid for.
+          </p>
+        </section>
+
+        <section aria-labelledby="contact">
+          <h2 id="contact">10. Contact</h2>
+          <ul>
+            <li>Plans, payments and refunds: <a href="mailto:hello@legesher.com">hello@legesher.com</a></li>
+            <li>Account help: <a href="mailto:support@legesher.com">support@legesher.com</a></li>
+            <li>Legal notices: <a href="mailto:legal@legesher.com">legal@legesher.com</a></li>
+            <li>Privacy and account deletion: <a href="mailto:privacy@legesher.com">privacy@legesher.com</a></li>
+          </ul>
+        </section>
+
+        <p class="text-sm text-muted-foreground mt-12">
+          <em>Effective date: {lastUpdated}</em>
+        </p>
+      </article>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* Keep heading anchors clear of the fixed header on in-page navigation */
+  :global(main h2[id]),
+  :global(main h3[id]) {
+    scroll-margin-top: 6rem;
+  }
+</style>
