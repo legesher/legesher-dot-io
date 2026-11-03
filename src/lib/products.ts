@@ -50,8 +50,13 @@ export const PRODUCTS: readonly Product[] = [
     name: 'Command line and engine',
     summary:
       'The legesher command and the engine behind it. They read and write your code in your language, and the program runs exactly as it did.',
-    status: 'coming',
-    arrives: 'Published on PyPI with the public release.',
+    status: 'live',
+    stage: 'Alpha. Every language pack comes with it.',
+    access: {
+      label: 'Open legesher on PyPI',
+      href: 'https://pypi.org/project/legesher/',
+    },
+    commands: ['pip install legesher'],
   },
   {
     id: 'vs-code',
@@ -66,16 +71,14 @@ export const PRODUCTS: readonly Product[] = [
     name: 'MCP server',
     summary:
       'Gives coding agents the words your team uses, so the code they write arrives in your language and follows your conventions.',
-    status: 'coming',
-    arrives: 'Published with the command line.',
-  },
-  {
-    id: 'shared-map',
-    name: 'Shared map',
-    summary:
-      'One map of the names in a codebase across languages, kept in version control, shared by the whole team and managed from the command line.',
-    status: 'coming',
-    arrives: 'Ships with the command line.',
+    status: 'live',
+    stage:
+      'Alpha. Your MCP client starts the server with this command. The setup for Claude, Cursor, VS Code and Zed is on the package page.',
+    access: {
+      label: 'Open legesher-mcp on PyPI',
+      href: 'https://pypi.org/project/legesher-mcp/',
+    },
+    commands: ['uvx legesher-mcp'],
   },
   {
     id: 'translation-api',
