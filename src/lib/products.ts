@@ -23,6 +23,8 @@ export interface Product {
   stage?: string;
   /** Where to get it. Required when live, forbidden otherwise. */
   access?: { label: string; href: string };
+  /** Further places the same release is published, e.g. a second registry. Live products only. */
+  alsoAt?: readonly { label: string; href: string }[];
   /**
    * Copy-paste install commands, each verified on a clean machine before it
    * ships here. Forbidden on a product that is not live.
@@ -63,8 +65,20 @@ export const PRODUCTS: readonly Product[] = [
     name: 'VS Code extension',
     summary:
       'Write in your language inside VS Code, with keywords, hover text and completions in every supported language.',
-    status: 'coming',
-    arrives: 'On the VS Code Marketplace after the command line reaches PyPI.',
+    status: 'live',
+    stage:
+      'Preview. The second command installs the language server, which brings hover text, completions and diagnostics.',
+    access: {
+      label: 'Open it on the VS Code Marketplace',
+      href: 'https://marketplace.visualstudio.com/items?itemName=legesher.legesher-vscode',
+    },
+    alsoAt: [
+      {
+        label: 'Open it on Open VSX, for VSCodium and Cursor',
+        href: 'https://open-vsx.org/extension/legesher/legesher-vscode',
+      },
+    ],
+    commands: ['code --install-extension legesher.legesher-vscode', 'pip install legesher-language-server'],
   },
   {
     id: 'mcp-server',
