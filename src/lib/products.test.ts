@@ -27,8 +27,9 @@ describe('a product that is not live', () => {
     expect(commands).toBeUndefined();
   });
 
-  it.each(coming)('$id advertises no install link', ({ access }) => {
+  it.each(coming)('$id advertises no install link', ({ access, alsoAt }) => {
     expect(access).toBeUndefined();
+    expect(alsoAt).toBeUndefined();
   });
 
   it.each(coming)('$id says what it is waiting on', ({ arrives }) => {
@@ -37,15 +38,23 @@ describe('a product that is not live', () => {
 });
 
 describe('a live product', () => {
-  it.each(live)('$id links to where it lives, over https', ({ access }) => {
+  it.each(live)('$id links to where it lives, over https', ({ access, alsoAt }) => {
     expect(access).toBeDefined();
-    expect(access?.href).toMatch(/^https:\/\//);
-    expect(access?.label).toBeTruthy();
+    for (const link of [access, ...(alsoAt ?? [])]) {
+      expect(link?.href).toMatch(/^https:\/\//);
+      expect(link?.label).toBeTruthy();
+    }
   });
 
-  it.each(live)('$id carries no hand-typed version string', ({ summary, stage, access, commands }) => {
+  it.each(live)('$id carries no hand-typed version string', ({ summary, stage, access, alsoAt, commands }) => {
     // Commands included: a pinned install (`pip install legesher==1.2.3`) goes stale at the next release.
-    const text = [summary, stage ?? '', access?.label ?? '', ...(commands ?? [])].join(' ');
+    const text = [
+      summary,
+      stage ?? '',
+      access?.label ?? '',
+      ...(alsoAt ?? []).map((link) => link.label),
+      ...(commands ?? []),
+    ].join(' ');
     expect(text).not.toMatch(/\bv?\d+\.\d+(\.\d+)?\b/);
   });
 });
