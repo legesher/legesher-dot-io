@@ -89,11 +89,19 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
               example, at <a href="mailto:hello@legesher.com">hello@legesher.com</a> or
               <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>).
             </li>
+            <li>
+              <strong>Legesher Account:</strong> when you create an account at <code>app.legesher.io</code>, your
+              email address, your sign-in credentials and, if you sign in with GitHub, the link to your GitHub
+              account are held by our sign-in provider, <a href="https://clerk.com/legal/privacy" rel="noopener"
+              >Clerk</a>. Our own account record holds the identifiers and choices described under
+              <a href="#legesher-account">Legesher Account</a> below.
+            </li>
           </ul>
           <p>
-            We do not operate user accounts or process payments on <code>www.legesher.io</code> at this time.
-            Product-specific data practices (such as optional telemetry in the VS Code extension) are described in
-            the <a href="#our-products">Our Products</a> section.
+            <code>www.legesher.io</code> itself has no accounts and takes no payments. Accounts live at
+            <code>app.legesher.io</code>, payments are handled by Polar, and the Translation API runs at
+            <code>api.legesher.io</code>. What each one holds, and where, is described in
+            <a href="#our-products">Our Products</a> and <a href="#where-your-data-lives">Where Your Data Lives</a>.
           </p>
 
           <h3>Information Collected Automatically</h3>
@@ -129,6 +137,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
           <p><strong>To provide and improve our services</strong></p>
           <ul>
             <li>Respond to your inquiries and requests</li>
+            <li>Operate your account, your API keys and the Translation API</li>
+            <li>Credit contributions you make to Legesher's repositories, when you sign in with GitHub</li>
             <li>Send newsletters and updates (only with your consent)</li>
             <li>Improve our website and user experience</li>
             <li>Develop new features and services</li>
@@ -171,6 +181,12 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
             cannot set cookies through our site either.
           </p>
           <p>
+            The account app at <code>app.legesher.io</code> is different: it sets the cookies needed to keep you
+            signed in and to protect the sign-in flow. It sets no advertising or cross-site tracking cookies. The
+            sign-in cookie is set for the legesher.io domain as a whole, so our documentation site can tell whether
+            you are signed in without running sign-in code of its own.
+          </p>
+          <p>
             Because we set no cookies and use no cookie-based analytics, we do not display a cookie
             consent banner &mdash; none is required under GDPR or the ePrivacy Directive.
           </p>
@@ -204,16 +220,39 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
             on our behalf:</p>
           <ul>
             <li><a href="https://vercel.com/legal/privacy-policy" rel="noopener">Vercel</a> &mdash; website hosting
-              and aggregated analytics
+              and aggregated analytics on its global network; the account app's server functions, in Dubai or in
+              San Francisco (United States)
             </li>
             <li><a href="https://buttondown.com/legal/privacy" rel="noopener">Buttondown</a> &mdash; newsletter
-              delivery
+              delivery (United States)
             </li>
             <li><a href="https://policies.google.com/privacy" rel="noopener">Google Forms</a> &mdash; optional survey
-              hosting
+              hosting (United States)
             </li>
             <li><a href="https://policies.google.com/privacy" rel="noopener">Google Fonts</a> &mdash; web fonts (see
               <a href="#fonts">Fonts</a>)
+            </li>
+            <li><a href="https://clerk.com/legal/privacy" rel="noopener">Clerk</a> &mdash; sign-in and account
+              credentials for <code>app.legesher.io</code> (United States)
+            </li>
+            <li><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+              rel="noopener">GitHub</a> &mdash; sign-in with GitHub, the public activity we read to credit
+              contributions, and the Legesher GitHub App's access to repositories you connect (United States)
+            </li>
+            <li><a href="https://railway.com/legal/privacy" rel="noopener">Railway</a> &mdash; hosting for the
+              Translation API, its database and the account database (United States, US West)
+            </li>
+            <li><a href="https://www.anthropic.com/legal/privacy" rel="noopener">Anthropic</a> &mdash; the model
+              pass in the Translation API's enhanced mode (United States)
+            </li>
+            <li><a href="https://polar.sh/legal/privacy" rel="noopener">Polar</a> &mdash; checkout, subscriptions
+              and payments, as merchant of record (United States)
+            </li>
+            <li><a href="https://resend.com/legal/privacy-policy" rel="noopener">Resend</a> &mdash; account emails,
+              such as the welcome message and purchase confirmations (United States)
+            </li>
+            <li><a href="https://attio.com/legal/privacy" rel="noopener">Attio</a> &mdash; our relationship records
+              for people who join the newsletter (United Kingdom)
             </li>
           </ul>
           <p>
@@ -264,6 +303,25 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
                 <td>Server logs</td>
                 <td>90 days</td>
               </tr>
+              <tr>
+                <td>Account record</td>
+                <td>Until you delete your account, or ask us to</td>
+              </tr>
+              <tr>
+                <td>Repository connections</td>
+                <td>Until you disconnect the repository or delete your account</td>
+              </tr>
+              <tr>
+                <td>API keys</td>
+                <td>A hash of the key only, until you revoke it</td>
+              </tr>
+              <tr>
+                <td>Subscription records</td>
+                <td>
+                  While your plan is active. After a plan lapses, the account identity is kept until you ask us to
+                  delete it; settled invoices stay with Polar for as long as accounting rules require
+                </td>
+              </tr>
             </tbody>
           </table>
         </section>
@@ -286,16 +344,190 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
 
           <h3>Legesher Documentation (docs.legesher.io)</h3>
           <p>
-            Our documentation site uses <a href="https://vercel.com/docs/analytics/privacy-policy" rel="noopener"
-            >Vercel Web Analytics</a> and self-hosts all fonts. No cookies are set by us, and no consent banner is
-            required under GDPR or ePrivacy regulations. Full details in the
+            Our documentation site self-hosts all fonts and runs no analytics of its own. It sets no cookies, and no
+            consent banner is required under GDPR or ePrivacy regulations. Full details in the
             <a href="https://docs.legesher.io/privacy">documentation privacy page</a>.
           </p>
 
-          <h3>Future products</h3>
+          <h3 id="legesher-account">Legesher Account (app.legesher.io)</h3>
           <p>
-            When we launch additional products (for example, a hosted SaaS translation API or paid tiers), this
-            section will be updated and product-specific policies will be linked here.
+            A Legesher account is where you manage your API keys, your plan and the repositories you connect. You
+            sign in with GitHub or with an email address through <a href="https://clerk.com/legal/privacy"
+            rel="noopener">Clerk</a>, which holds your email address, your sign-in credentials and the GitHub link,
+            in the United States.
+          </p>
+          <p>
+            Our own account record holds an account identifier, your GitHub user id and username when you sign in
+            with GitHub, the home region recorded for your account, the version of the Terms you accepted, and the
+            time and wording of any newsletter consent you gave. It never holds a password or an API key. The
+            record is stored in the United States (Railway, US West), beside the Translation API.
+          </p>
+          <p>
+            <strong>Account emails and the newsletter box.</strong> The welcome message and purchase confirmations
+            are sent through Resend. If you tick the newsletter box at sign-up, your email address is added to our
+            newsletter list at Buttondown and to our relationship records at Attio. Nothing else about your account
+            goes to either.
+          </p>
+          <p>
+            <strong>Public GitHub activity, read for credit.</strong> To credit contributions, we read public
+            activity on Legesher's own GitHub repositories (merged pull requests and reviews) by the GitHub account
+            you sign in with. Nothing outside those repositories is read. To stop this, disconnect GitHub from your
+            account or email <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>.
+          </p>
+          <p>
+            <strong>The Legesher GitHub App.</strong> To let Legesher read a repository or write maps to it, you, or
+            an administrator of your organisation, install the Legesher GitHub App on the repositories you choose,
+            through GitHub's own consent screen, at one of two levels:
+          </p>
+          <ul>
+            <li><strong>Read</strong> lets Legesher read the repository's metadata and contents, to verify maps and
+              report on legibility.
+            </li>
+            <li><strong>Write</strong> adds the ability to write contents and open pull requests, so Legesher can add
+              or update maps under <code>.legesher/</code>.
+            </li>
+          </ul>
+          <p>
+            We store which repositories you connected, at which level, and which maps were written to them, so you
+            can see and remove them from your account. The App's access tokens are short-lived and are not stored.
+            Code read through the App is your content: it is processed to produce the map or the report and handled
+            under the Translation API rules below. Uninstalling the App, or removing a repository from it, ends our
+            access.
+          </p>
+
+          <h3 id="translation-api">Legesher Translation API (api.legesher.io)</h3>
+          <p>
+            The Translation API translates code between languages for the command line, Legesher Bridge and the
+            tools that connect to it. The source you send is processed in memory and returned. It is not written to
+            logs, not kept after the request, and not used to train models. What remains is a pseudonymous usage
+            record: sizes, language codes and an outcome code, never your code.
+          </p>
+          <p>
+            The API and its database run on <a href="https://railway.com/legal/privacy" rel="noopener">Railway</a>
+            in the United States (US West). The database holds a hash of each API key, your subscription state and
+            the usage records. It holds no email address and no code.
+          </p>
+          <p>
+            <strong>Enhanced mode.</strong> When enhanced mode is enabled for your plan, the comments, docstrings,
+            text strings and names from your code are also sent to <a href="https://www.anthropic.com/legal/privacy"
+            rel="noopener">Anthropic</a>, in the United States, for the model pass. The structure of your code is
+            not sent. Enhanced mode is off unless your plan includes it.
+          </p>
+          <p>
+            <strong>Payments.</strong> Plans are sold through <a href="https://polar.sh/legal/privacy"
+            rel="noopener">Polar</a>, our merchant of record, in the United States. Polar collects your name, email
+            address, billing address and payment details, and handles taxes, invoices and refunds. We receive your
+            email address, the plan you bought and its status. We never see your card details.
+          </p>
+        </section>
+
+        <section aria-labelledby="where-your-data-lives">
+          <h2 id="where-your-data-lives">Where Your Data Lives</h2>
+          <p>
+            Three kinds of data pass through Legesher, and this section says where each one lives: public data,
+            your data, and our own.
+          </p>
+
+          <h3 id="public-data">Public Data</h3>
+          <p>
+            Data that is public before we read it, such as the public activity on Legesher's own GitHub
+            repositories that we read to credit contributions. We read it where it is published and make no
+            location commitment about it.
+          </p>
+
+          <h3 id="your-data">Your Data</h3>
+          <p>
+            Data we hold or handle about you and your organisation. The table says where each kind is stored, where
+            the systems that handle it run, and where any model inference happens.
+          </p>
+          <p>
+            Our commitment on location covers your content: the code the Translation API processes, the code the
+            GitHub App reads, the maps written for you, and the usage tied to your account. Your account record,
+            your sign-in details and your billing records sit in the United States and are outside that
+            commitment.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Your data</th>
+                <th>Stored in</th>
+                <th>Handled by systems running in</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Your code, while the Translation API translates it</td>
+                <td>Not stored. It is processed in memory and returned.</td>
+                <td>
+                  United States (Railway, US West). A deployment in the United Arab Emirates for accounts whose home
+                  region is the UAE is planned; until it exists, every account's code is processed in the United
+                  States.
+                </td>
+              </tr>
+              <tr>
+                <td>The comments, docstrings, text strings and names from your code, when enhanced mode runs a model pass</td>
+                <td>Not stored by us.</td>
+                <td>United States (Anthropic). Inference does not run in your home region.</td>
+              </tr>
+              <tr>
+                <td>Code the GitHub App reads, and the maps it writes</td>
+                <td>
+                  Maps are written to your repository. A record of which maps were written is kept in the United
+                  States (Railway, US West).
+                </td>
+                <td>United States (Railway, US West)</td>
+              </tr>
+              <tr>
+                <td>Your account record and repository connections</td>
+                <td>United States (Railway, US West)</td>
+                <td>
+                  Dubai or San Francisco (Vercel), where the account app's server functions run. The app runs in one
+                  of these two regions at a time.
+                </td>
+              </tr>
+              <tr>
+                <td>Your email address and sign-in credentials</td>
+                <td>United States (Clerk)</td>
+                <td>United States (Clerk)</td>
+              </tr>
+              <tr>
+                <td>Your API keys (as hashes), subscription state and usage records</td>
+                <td>United States (Railway, US West)</td>
+                <td>United States (Railway, US West)</td>
+              </tr>
+              <tr>
+                <td>Billing: name, billing address, payment details</td>
+                <td>United States (Polar)</td>
+                <td>United States (Polar)</td>
+              </tr>
+              <tr>
+                <td>Account emails</td>
+                <td>United States (Resend)</td>
+                <td>United States (Resend)</td>
+              </tr>
+              <tr>
+                <td>Newsletter list and relationship records</td>
+                <td>United States (Buttondown), United Kingdom (Attio)</td>
+                <td>United States (Buttondown), United Kingdom (Attio)</td>
+              </tr>
+              <tr>
+                <td>Website visits: server logs and aggregated analytics</td>
+                <td>Vercel, as described under Information Collected Automatically</td>
+                <td>Vercel's global network, at the location nearest to you</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            If your requirements do not allow code to leave your region, use the Legesher engine on your own
+            machine: the command line, the language packs and the VS Code extension translate locally and send no
+            code to us or to any provider.
+          </p>
+
+          <h3 id="our-data">Our Data</h3>
+          <p>
+            Legesher's own systems, logs, configuration and records may run anywhere. Where they run is recorded
+            internally, so we can answer when you ask. They appear in the table above only where your data passes
+            through them.
           </p>
         </section>
 
@@ -409,7 +641,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
           <ul>
             <li>Consent (e.g., newsletter subscriptions)</li>
             <li>Legitimate interests (e.g., aggregated analytics, security)</li>
-            <li>Contract performance (e.g., responding to inquiries)</li>
+            <li>Contract performance (e.g., responding to inquiries, providing your account and the Translation API)</li>
             <li>Legal obligation (e.g., compliance with laws)</li>
           </ul>
 
@@ -417,7 +649,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
           <p>
             If you are located outside the United States, please be aware that your information may be transferred
             to and processed in the United States or in the United Arab Emirates, where data protection laws may
-            differ from your country.
+            differ from your country. <a href="#where-your-data-lives">Where Your Data Lives</a> says which data
+            goes where.
           </p>
           <p>
             By using our website, you consent to the transfer of your information. We take appropriate safeguards
@@ -507,7 +740,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
             <tbody>
               <tr>
                 <td>Identifiers</td>
-                <td>First name, email, IP address</td>
+                <td>First name, email, IP address, account identifier, GitHub user id and username</td>
                 <td>Yes</td>
               </tr>
               <tr>
@@ -524,6 +757,11 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.privacy);
                 <td>Geolocation</td>
                 <td>Country/region from IP (aggregated)</td>
                 <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Commercial information</td>
+                <td>The plan you bought and its status (payments are handled by Polar)</td>
+                <td>If you buy a plan</td>
               </tr>
               <tr>
                 <td>Professional information</td>
