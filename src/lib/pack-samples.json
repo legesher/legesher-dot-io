@@ -1,0 +1,901 @@
+{
+  "_comment": "Generated: each entry is the same Python program written by `legesher translate --from en --to <code>` (legesher 0.25.1), translated back to English and run to confirm the output matches. Names and direction come from legesher_i18n/languages.json. Regenerate, do not edit by hand.",
+  "samples": [
+    {
+      "code": "en",
+      "name": "English",
+      "english": "English",
+      "dir": "ltr",
+      "words": {
+        "for": "for",
+        "in": "in",
+        "range": "range",
+        "if": "if",
+        "print": "print",
+        "true": "True",
+        "else": "else",
+        "false": "False"
+      }
+    },
+    {
+      "code": "am",
+      "name": "አማርኛ",
+      "english": "Amharic",
+      "dir": "ltr",
+      "words": {
+        "for": "ለእያንዳንዱ",
+        "in": "ውስጥ",
+        "range": "ክልል",
+        "if": "ከሆነ",
+        "print": "አትም",
+        "true": "እውነት",
+        "else": "ያለበለዚያ",
+        "false": "ሐሰት"
+      }
+    },
+    {
+      "code": "ar",
+      "name": "العربية",
+      "english": "Arabic",
+      "dir": "rtl",
+      "words": {
+        "for": "لكل",
+        "in": "في",
+        "range": "النطاق",
+        "if": "إذا",
+        "print": "طَبْع",
+        "true": "صحيح",
+        "else": "إلا",
+        "false": "كاذب"
+      }
+    },
+    {
+      "code": "bn",
+      "name": "বাংলা",
+      "english": "Bengali",
+      "dir": "ltr",
+      "words": {
+        "for": "জন্য",
+        "in": "মধ্যে",
+        "range": "পরিসীমা",
+        "if": "যদি",
+        "print": "মুদ্রণ",
+        "true": "সত্য",
+        "else": "অন্যথায়",
+        "false": "মিথ্যা"
+      }
+    },
+    {
+      "code": "bs",
+      "name": "Bosanski",
+      "english": "Bosnian",
+      "dir": "ltr",
+      "words": {
+        "for": "za",
+        "in": "u",
+        "range": "raspon",
+        "if": "ako",
+        "print": "ispisi",
+        "true": "Tacno",
+        "else": "inace",
+        "false": "Netacno"
+      }
+    },
+    {
+      "code": "ca",
+      "name": "Català",
+      "english": "Catalan",
+      "dir": "ltr",
+      "words": {
+        "for": "per",
+        "in": "en",
+        "range": "rang",
+        "if": "si",
+        "print": "imprimir",
+        "true": "Cert",
+        "else": "sino",
+        "false": "Fals"
+      }
+    },
+    {
+      "code": "cs",
+      "name": "Čeština",
+      "english": "Czech",
+      "dir": "ltr",
+      "words": {
+        "for": "pro",
+        "in": "v",
+        "range": "rozsah",
+        "if": "když",
+        "print": "tiskni",
+        "true": "Pravda",
+        "else": "jinak",
+        "false": "Nepravda"
+      }
+    },
+    {
+      "code": "cy",
+      "name": "Cymraeg",
+      "english": "Welsh",
+      "dir": "ltr",
+      "words": {
+        "for": "tros",
+        "in": "mewn",
+        "range": "amrediad",
+        "if": "os",
+        "print": "argraffu",
+        "true": "Gwir",
+        "else": "arall",
+        "false": "Anwir"
+      }
+    },
+    {
+      "code": "da",
+      "name": "Dansk",
+      "english": "Danish",
+      "dir": "ltr",
+      "words": {
+        "for": "gentag",
+        "in": "i",
+        "range": "område",
+        "if": "hvis",
+        "print": "skrivUd",
+        "true": "sandet",
+        "else": "annelse",
+        "false": "falsk"
+      }
+    },
+    {
+      "code": "de",
+      "name": "Deutsch",
+      "english": "German",
+      "dir": "ltr",
+      "words": {
+        "for": "für",
+        "in": "enthält",
+        "range": "Bereich",
+        "if": "wenn",
+        "print": "drucken",
+        "true": "wahr",
+        "else": "sonst",
+        "false": "Falsch"
+      }
+    },
+    {
+      "code": "el",
+      "name": "Ελληνικά",
+      "english": "Greek",
+      "dir": "ltr",
+      "words": {
+        "for": "για",
+        "in": "εν",
+        "range": "διαστήμα",
+        "if": "αν",
+        "print": "εκτύπωση",
+        "true": "αληθές",
+        "else": "αλλιώς",
+        "false": "ψευδής"
+      }
+    },
+    {
+      "code": "es",
+      "name": "Español",
+      "english": "Spanish",
+      "dir": "ltr",
+      "words": {
+        "for": "por",
+        "in": "en",
+        "range": "rango",
+        "if": "si",
+        "print": "imprimir",
+        "true": "verdadero",
+        "else": "sino",
+        "false": "falso"
+      }
+    },
+    {
+      "code": "fa",
+      "name": "فارسی",
+      "english": "Persian",
+      "dir": "rtl",
+      "words": {
+        "for": "برای",
+        "in": "در",
+        "range": "بازه",
+        "if": "اگر",
+        "print": "چاپ",
+        "true": "درست",
+        "else": "درغیراینصورت",
+        "false": "نادرست"
+      }
+    },
+    {
+      "code": "fi",
+      "name": "Suomi",
+      "english": "Finnish",
+      "dir": "ltr",
+      "words": {
+        "for": "jokaiselle",
+        "in": "sisään",
+        "range": "alue",
+        "if": "jos",
+        "print": "kirjaa",
+        "true": "tosi",
+        "else": "muuttuja",
+        "false": "valmis"
+      }
+    },
+    {
+      "code": "fr",
+      "name": "Français",
+      "english": "French",
+      "dir": "ltr",
+      "words": {
+        "for": "pour",
+        "in": "dans",
+        "range": "plage",
+        "if": "si",
+        "print": "imprimer",
+        "true": "vrai",
+        "else": "autre",
+        "false": "faux"
+      }
+    },
+    {
+      "code": "ga",
+      "name": "Gaeilge",
+      "english": "Irish",
+      "dir": "ltr",
+      "words": {
+        "for": "do",
+        "in": "i",
+        "range": "raon",
+        "if": "má",
+        "print": "priontáil",
+        "true": "Fíor",
+        "else": "eile",
+        "false": "Bréagach"
+      }
+    },
+    {
+      "code": "gd",
+      "name": "Gàidhlig",
+      "english": "Scottish Gaelic",
+      "dir": "ltr",
+      "words": {
+        "for": "airson",
+        "in": "ann",
+        "range": "raon",
+        "if": "ma",
+        "print": "clò_bhuail",
+        "true": "Fìor",
+        "else": "noeo",
+        "false": "Breugach"
+      }
+    },
+    {
+      "code": "gl",
+      "name": "Galego",
+      "english": "Galician",
+      "dir": "ltr",
+      "words": {
+        "for": "para",
+        "in": "en",
+        "range": "rango",
+        "if": "se",
+        "print": "imprimir",
+        "true": "Verdadeiro",
+        "else": "senon",
+        "false": "Falso"
+      }
+    },
+    {
+      "code": "gu",
+      "name": "ગુજરાતી",
+      "english": "Gujarati",
+      "dir": "ltr",
+      "words": {
+        "for": "માટે",
+        "in": "માં",
+        "range": "શ્રેણી",
+        "if": "જો",
+        "print": "છાપો",
+        "true": "સાચું",
+        "else": "નહીંતો",
+        "false": "ખોટું"
+      }
+    },
+    {
+      "code": "he",
+      "name": "עברית",
+      "english": "Hebrew",
+      "dir": "rtl",
+      "words": {
+        "for": "לכל",
+        "in": "ב",
+        "range": "טווח",
+        "if": "אם",
+        "print": "הדפס",
+        "true": "אמת",
+        "else": "אחרת",
+        "false": "כוזב"
+      }
+    },
+    {
+      "code": "hi",
+      "name": "हिन्दी",
+      "english": "Hindi",
+      "dir": "ltr",
+      "words": {
+        "for": "फ़ॉर",
+        "in": "में",
+        "range": "सीमा",
+        "if": "अगर",
+        "print": "प्रिंटकरना",
+        "true": "सत्य",
+        "else": "अन्यथा",
+        "false": "झूठा"
+      }
+    },
+    {
+      "code": "hr",
+      "name": "Hrvatski",
+      "english": "Croatian",
+      "dir": "ltr",
+      "words": {
+        "for": "za",
+        "in": "u",
+        "range": "raspon",
+        "if": "ako",
+        "print": "ispiši",
+        "true": "Točno",
+        "else": "inače",
+        "false": "Netočno"
+      }
+    },
+    {
+      "code": "hu",
+      "name": "Magyar",
+      "english": "Hungarian",
+      "dir": "ltr",
+      "words": {
+        "for": "ezen",
+        "in": "benne",
+        "range": "térség",
+        "if": "ha",
+        "print": "nyomtat",
+        "true": "igaz",
+        "else": "more",
+        "false": "hamis"
+      }
+    },
+    {
+      "code": "id",
+      "name": "Bahasa Indonesia",
+      "english": "Indonesian",
+      "dir": "ltr",
+      "words": {
+        "for": "untuk",
+        "in": "ada",
+        "range": "rentang",
+        "if": "jika",
+        "print": "cetak",
+        "true": "Benar",
+        "else": "lainnya",
+        "false": "Salah"
+      }
+    },
+    {
+      "code": "it",
+      "name": "Italiano",
+      "english": "Italian",
+      "dir": "ltr",
+      "words": {
+        "for": "per",
+        "in": "contenuto_in",
+        "range": "intervallo",
+        "if": "se",
+        "print": "stampa",
+        "true": "vero",
+        "else": "altrimenti",
+        "false": "falso"
+      }
+    },
+    {
+      "code": "ja",
+      "name": "日本語",
+      "english": "Japanese",
+      "dir": "ltr",
+      "words": {
+        "for": "ループ",
+        "in": "含む",
+        "range": "範囲",
+        "if": "もし",
+        "print": "印刷",
+        "true": "真",
+        "else": "それ以外の場合",
+        "false": "偽"
+      }
+    },
+    {
+      "code": "kn",
+      "name": "ಕನ್ನಡ",
+      "english": "Kannada",
+      "dir": "ltr",
+      "words": {
+        "for": "ಗಾಗಿ",
+        "in": "ಒಳಗೆ",
+        "range": "ವ್ಯಾಪ್ತಿ",
+        "if": "ಒಂದುವೇಳೆ",
+        "print": "ಮುದ್ರಿಸು",
+        "true": "ಸತ್ಯ",
+        "else": "ಬೇರೆ",
+        "false": "ಸುಳ್ಳು"
+      }
+    },
+    {
+      "code": "ko",
+      "name": "한국어",
+      "english": "Korean",
+      "dir": "ltr",
+      "words": {
+        "for": "반복",
+        "in": "인",
+        "range": "범위",
+        "if": "만약",
+        "print": "출력",
+        "true": "정말",
+        "else": "다른경우",
+        "false": "거짓"
+      }
+    },
+    {
+      "code": "lv",
+      "name": "Latviešu",
+      "english": "Latvian",
+      "dir": "ltr",
+      "words": {
+        "for": "katram",
+        "in": "iekš",
+        "range": "diapazons",
+        "if": "ja",
+        "print": "drukāt",
+        "true": "Patiess",
+        "else": "citādi",
+        "false": "Nepatiess"
+      }
+    },
+    {
+      "code": "mk",
+      "name": "Македонски",
+      "english": "Macedonian",
+      "dir": "ltr",
+      "words": {
+        "for": "за",
+        "in": "во",
+        "range": "опсег",
+        "if": "ако",
+        "print": "печати",
+        "true": "вистина",
+        "else": "инаку",
+        "false": "лажно"
+      }
+    },
+    {
+      "code": "ml",
+      "name": "മലയാളം",
+      "english": "Malayalam",
+      "dir": "ltr",
+      "words": {
+        "for": "വേണ്ടി",
+        "in": "ഉള്ളിൽ",
+        "range": "പരിധി",
+        "if": "എങ്കിൽ",
+        "print": "അച്ചടിക്കുക",
+        "true": "ശരി",
+        "else": "അല്ലെങ്കിൽ",
+        "false": "തെറ്റ്"
+      }
+    },
+    {
+      "code": "mn",
+      "name": "Монгол",
+      "english": "Mongolian",
+      "dir": "ltr",
+      "words": {
+        "for": "давталт",
+        "in": "дотор",
+        "range": "хүрээ",
+        "if": "хэрвээ",
+        "print": "хэвлэх",
+        "true": "Үнэн",
+        "else": "эсвэл",
+        "false": "Худал"
+      }
+    },
+    {
+      "code": "ms",
+      "name": "Bahasa Melayu",
+      "english": "Malay",
+      "dir": "ltr",
+      "words": {
+        "for": "untuk",
+        "in": "dalam",
+        "range": "jangk",
+        "if": "jika",
+        "print": "cetak",
+        "true": "benar",
+        "else": "lainnya",
+        "false": "Salah"
+      }
+    },
+    {
+      "code": "my",
+      "name": "မြန်မာ",
+      "english": "Burmese",
+      "dir": "ltr",
+      "words": {
+        "for": "အတွက်",
+        "in": "ထဲမှာ",
+        "range": "အကွာအဝေး",
+        "if": "လျှင်",
+        "print": "ရိုက်ထုတ်",
+        "true": "မှန်",
+        "else": "မဟုတ်ရင်",
+        "false": "မမှန်"
+      }
+    },
+    {
+      "code": "ne",
+      "name": "नेपाली",
+      "english": "Nepali",
+      "dir": "ltr",
+      "words": {
+        "for": "प्रत्येक",
+        "in": "भित्र",
+        "range": "दायरा",
+        "if": "यदि",
+        "print": "छाप्नु",
+        "true": "सत्य",
+        "else": "अन्यथा",
+        "false": "असत्य"
+      }
+    },
+    {
+      "code": "nl",
+      "name": "Nederlands",
+      "english": "Dutch",
+      "dir": "ltr",
+      "words": {
+        "for": "voor",
+        "in": "bevat",
+        "range": "bereik",
+        "if": "indien",
+        "print": "afdrukken",
+        "true": "waar",
+        "else": "anders",
+        "false": "fout"
+      }
+    },
+    {
+      "code": "no",
+      "name": "Norsk",
+      "english": "Norwegian",
+      "dir": "ltr",
+      "words": {
+        "for": "for_loops",
+        "in": "i",
+        "range": "område",
+        "if": "om",
+        "print": "skrive",
+        "true": "sann",
+        "else": "annett",
+        "false": "falsk"
+      }
+    },
+    {
+      "code": "pl",
+      "name": "Polski",
+      "english": "Polish",
+      "dir": "ltr",
+      "words": {
+        "for": "pętla",
+        "in": "w",
+        "range": "zakres",
+        "if": "jeśli",
+        "print": "wydrukuj",
+        "true": "prawda",
+        "else": "inną",
+        "false": "fałsz"
+      }
+    },
+    {
+      "code": "pt",
+      "name": "Português",
+      "english": "Portuguese",
+      "dir": "ltr",
+      "words": {
+        "for": "por",
+        "in": "em",
+        "range": "faixa",
+        "if": "se",
+        "print": "imprimir",
+        "true": "verdadeiro",
+        "else": "senão",
+        "false": "falso"
+      }
+    },
+    {
+      "code": "ro",
+      "name": "Română",
+      "english": "Romanian",
+      "dir": "ltr",
+      "words": {
+        "for": "pentru",
+        "in": "în",
+        "range": "interval",
+        "if": "dacă",
+        "print": "afișează",
+        "true": "adevărat",
+        "else": "altfel",
+        "false": "fals"
+      }
+    },
+    {
+      "code": "ru",
+      "name": "Русский",
+      "english": "Russian",
+      "dir": "ltr",
+      "words": {
+        "for": "для",
+        "in": "в",
+        "range": "диапазон",
+        "if": "если",
+        "print": "печать",
+        "true": "истина",
+        "else": "иначе",
+        "false": "ложный"
+      }
+    },
+    {
+      "code": "si",
+      "name": "සිංහල",
+      "english": "Sinhala",
+      "dir": "ltr",
+      "words": {
+        "for": "සඳහා",
+        "in": "තුළ",
+        "range": "පරාසය",
+        "if": "නම්",
+        "print": "මුද්‍රණය",
+        "true": "සත්‍ය",
+        "else": "වෙනත",
+        "false": "අසත්‍ය"
+      }
+    },
+    {
+      "code": "sr",
+      "name": "Српски",
+      "english": "Serbian",
+      "dir": "ltr",
+      "words": {
+        "for": "за",
+        "in": "у",
+        "range": "опсег",
+        "if": "ако",
+        "print": "испиши",
+        "true": "Тачно",
+        "else": "иначе",
+        "false": "Нетачно"
+      }
+    },
+    {
+      "code": "su",
+      "name": "Basa Sunda",
+      "english": "Sundanese",
+      "dir": "ltr",
+      "words": {
+        "for": "keur",
+        "in": "dina",
+        "range": "rentang",
+        "if": "lamun",
+        "print": "citak",
+        "true": "Leres",
+        "else": "lamun_henteu",
+        "false": "Lepat"
+      }
+    },
+    {
+      "code": "sv",
+      "name": "Svenska",
+      "english": "Swedish",
+      "dir": "ltr",
+      "words": {
+        "for": "för",
+        "in": "i",
+        "range": "omfattning",
+        "if": "om",
+        "print": "skrivaut",
+        "true": "verkligen",
+        "else": "annär",
+        "false": "falsk"
+      }
+    },
+    {
+      "code": "sw",
+      "name": "Kiswahili",
+      "english": "Swahili",
+      "dir": "ltr",
+      "words": {
+        "for": "kwa",
+        "in": "katika",
+        "range": "masafa",
+        "if": "ikiwa",
+        "print": "chapisha",
+        "true": "ukweli",
+        "else": "vinginevyo",
+        "false": "uongo"
+      }
+    },
+    {
+      "code": "te",
+      "name": "తెలుగు",
+      "english": "Telugu",
+      "dir": "ltr",
+      "words": {
+        "for": "కొరకు",
+        "in": "లో",
+        "range": "పరిధి",
+        "if": "ఒకవేళ",
+        "print": "ముద్రించు",
+        "true": "నిజం",
+        "else": "లేకుంటే",
+        "false": "తప్పు"
+      }
+    },
+    {
+      "code": "th",
+      "name": "ไทย",
+      "english": "Thai",
+      "dir": "ltr",
+      "words": {
+        "for": "วนรอบ",
+        "in": "อยู่ใน",
+        "range": "เลขที่มาตราฐาน",
+        "if": "ถ้า",
+        "print": "เจตนา",
+        "true": "เป็นจริง",
+        "else": "อื่นๆ",
+        "false": "ผลักดัน"
+      }
+    },
+    {
+      "code": "tl",
+      "name": "Filipino",
+      "english": "Filipino",
+      "dir": "ltr",
+      "words": {
+        "for": "bawat",
+        "in": "sa",
+        "range": "saklaw",
+        "if": "kung",
+        "print": "ilimbag",
+        "true": "totoo",
+        "else": "kunghindi",
+        "false": "mali"
+      }
+    },
+    {
+      "code": "tr",
+      "name": "Türkçe",
+      "english": "Turkish",
+      "dir": "ltr",
+      "words": {
+        "for": "için",
+        "in": "içinde",
+        "range": "aralık",
+        "if": "eğer",
+        "print": "yazdır",
+        "true": "doğru",
+        "else": "yoksa",
+        "false": "yanlış"
+      }
+    },
+    {
+      "code": "uk",
+      "name": "Українська",
+      "english": "Ukrainian",
+      "dir": "ltr",
+      "words": {
+        "for": "для_кожного",
+        "in": "у",
+        "range": "діапазон",
+        "if": "якщо",
+        "print": "друкувати",
+        "true": "істина",
+        "else": "інакше",
+        "false": "хибність"
+      }
+    },
+    {
+      "code": "ur",
+      "name": "اردو",
+      "english": "Urdu",
+      "dir": "rtl",
+      "words": {
+        "for": "لیے",
+        "in": "میں",
+        "range": "حدود",
+        "if": "اگر",
+        "print": "چھاپو",
+        "true": "صحیح",
+        "else": "ورنہ",
+        "false": "غلط"
+      }
+    },
+    {
+      "code": "uz",
+      "name": "O'zbek",
+      "english": "Uzbek",
+      "dir": "ltr",
+      "words": {
+        "for": "uchun",
+        "in": "ichida",
+        "range": "diapazon",
+        "if": "agar",
+        "print": "chop_etish",
+        "true": "rost",
+        "else": "aks_holda",
+        "false": "yolgon"
+      }
+    },
+    {
+      "code": "vi",
+      "name": "Tiếng Việt",
+      "english": "Vietnamese",
+      "dir": "ltr",
+      "words": {
+        "for": "cho",
+        "in": "trong",
+        "range": "phạmvi",
+        "if": "nếu",
+        "print": "inra",
+        "true": "Đúng",
+        "else": "khác",
+        "false": "Sai"
+      }
+    },
+    {
+      "code": "xh",
+      "name": "isiXhosa",
+      "english": "Xhosa",
+      "dir": "ltr",
+      "words": {
+        "for": "nganye",
+        "in": "phakathi",
+        "range": "uthotho",
+        "if": "ukuba",
+        "print": "shicilela",
+        "true": "inyaniso",
+        "else": "kungenjalo",
+        "false": "ubuxoki"
+      }
+    },
+    {
+      "code": "zh",
+      "name": "中文",
+      "english": "Chinese",
+      "dir": "ltr",
+      "words": {
+        "for": "对于",
+        "in": "在",
+        "range": "范围",
+        "if": "如果",
+        "print": "打印",
+        "true": "真实",
+        "else": "否则",
+        "false": "错误"
+      }
+    }
+  ]
+}

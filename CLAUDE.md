@@ -7,15 +7,16 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `privacy.astro`, `terms.astro`, and `api/subscribe.ts`, the one
-  route with `export const prerender = false`.
+- `src/pages/`: `index.astro`, `privacy.astro`, `terms.astro`, `legesher-for-education.astro`, and
+  `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
   endpoint's validation, payload and Buttondown call, so the route stays thin), `attribution.ts`,
-  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, and the co-located `*.test.ts`
-  suites.
+  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, `pack-samples.json` (the education
+  page's sample program in every Python pack, generated with `legesher translate`), and the
+  co-located `*.test.ts` suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
 - `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load, including
   `analytics.js`, the PostHog loader the layout renders only when the build carries
