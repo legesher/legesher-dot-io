@@ -1,0 +1,802 @@
+---
+// Legesher for Education (CORE-2664): the problem, the solution (localizing a
+// partner's own curriculum), the partners' ongoing projects, the pathway from learning to a career in tech,
+// the open-source language packs, and how to work with us.
+//
+// Built from the same sections and buttons as the homepage and the Hack Day
+// page, with no style attribute and no iframe, so it sits inside the site's
+// Content Security Policy unchanged. The animations are CSS in the page's
+// <style> block; the one script steps the two language windows and gives each a
+// pause button. Astro bundles both into same-origin files the policy allows.
+// The Study Lenses tour is a self-hosted video for the same reason.
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import ButtonLink from '../components/ButtonLink.astro';
+import { LINKS } from '@/lib/links';
+import packSampleData from '@/lib/pack-samples.json';
+
+const PACKS_REPO = 'https://github.com/legesher/language-packs';
+// Until the email-gated download exists (its own ticket), the one-pager is
+// requested by email, so we still know who asked for it.
+const ONE_PAGER_REQUEST =
+  'mailto:hello@legesher.com?subject=Legesher%20for%20Education%20one-pager&body=' +
+  encodeURIComponent('Please send me the Legesher for Education one-pager.\r\nName:\r\nOrganization:\r\n');
+const CURRICULUM_EMAIL = 'mailto:hello@legesher.com?subject=Localize%20our%20curriculum';
+// A learner asking for a course in their language. Each request is a signal of
+// where the next course is wanted, so the body asks for the language first.
+const COURSE_REQUEST_EMAIL =
+  'mailto:hello@legesher.com?subject=A%20course%20in%20my%20language&body=' +
+  encodeURIComponent('The language I want to learn to code in:\r\nWhere I live:\r\nMy experience with code so far:\r\n');
+
+// One small program, written in each language. Every keyword and built-in name
+// is the word the shipped Python pack uses (libs/i18n/language-packs/python/<code>,
+// 3.10 base pack). The variable names and the strings are illustrative. Each
+// program was checked by translating it to English with `legesher translate`
+// (legesher 0.25.1) and running the result.
+type Sample = {
+  code: string;
+  name: string;
+  english: string;
+  dir: 'ltr' | 'rtl';
+  file: string;
+  kw: { if: string; else: string };
+  fn: { input: string; print: string };
+  ident: string;
+  ask: string;
+  hello: string;
+  fallback: string;
+};
+
+const samples: Sample[] = [
+  {
+    code: 'gd',
+    name: 'Gàidhlig',
+    english: 'Scottish Gaelic',
+    dir: 'ltr',
+    file: 'fàilte.py',
+    kw: { if: 'ma', else: 'noeo' },
+    fn: { input: 'ion_chur', print: 'clò_bhuail' },
+    ident: 'ainm',
+    ask: '"Dè an t-ainm a th\' ort? "',
+    hello: '"Halò, " + ainm',
+    fallback: '"Halò!"',
+  },
+  {
+    code: 'ga',
+    name: 'Gaeilge',
+    english: 'Irish',
+    dir: 'ltr',
+    file: 'fáilte.py',
+    kw: { if: 'má', else: 'eile' },
+    fn: { input: 'ionchur', print: 'priontáil' },
+    ident: 'ainm',
+    ask: '"Cad is ainm duit? "',
+    hello: '"Dia duit, " + ainm',
+    fallback: '"Dia duit!"',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    english: 'Arabic',
+    dir: 'rtl',
+    file: 'ترحيب.py',
+    kw: { if: 'إذا', else: 'إلا' },
+    fn: { input: 'الإدخال', print: 'طَبْع' },
+    ident: 'الاسم',
+    // No trailing neutral punctuation inside the Arabic strings: a closing "!"
+    // or space resolves to the wrong side of the quote in right-to-left text.
+    ask: '"ما اسمك؟"',
+    hello: '"مرحبا، " + الاسم',
+    fallback: '"أهلًا وسهلًا"',
+  },
+  {
+    code: 'uk',
+    name: 'Українська',
+    english: 'Ukrainian',
+    dir: 'ltr',
+    file: 'вітання.py',
+    kw: { if: 'якщо', else: 'інакше' },
+    fn: { input: 'введення', print: 'друкувати' },
+    ident: 'гість',
+    ask: '"Як тебе звати? "',
+    hello: '"Привіт, " + гість',
+    fallback: '"Привіт!"',
+  },
+];
+
+// The hero window cycles through the course languages and then a few more, to
+// show the same program reaching learners well beyond the four courses.
+const moreSamples: Sample[] = [
+  {
+    code: 'es',
+    name: 'Español',
+    english: 'Spanish',
+    dir: 'ltr',
+    file: 'saludo.py',
+    kw: { if: 'si', else: 'sino' },
+    fn: { input: 'entrada', print: 'imprimir' },
+    ident: 'nombre',
+    ask: '"¿Cómo te llamas? "',
+    hello: '"Hola, " + nombre',
+    fallback: '"¡Hola!"',
+  },
+  {
+    code: 'hi',
+    name: 'हिन्दी',
+    english: 'Hindi',
+    dir: 'ltr',
+    file: 'नमस्ते.py',
+    kw: { if: 'अगर', else: 'अन्यथा' },
+    fn: { input: 'इनपुट', print: 'प्रिंटकरना' },
+    ident: 'नाम',
+    ask: '"आपका नाम क्या है? "',
+    hello: '"नमस्ते, " + नाम',
+    fallback: '"नमस्ते!"',
+  },
+  {
+    code: 'zh',
+    name: '中文',
+    english: 'Chinese',
+    dir: 'ltr',
+    file: '问候.py',
+    kw: { if: '如果', else: '否则' },
+    fn: { input: '输入', print: '打印' },
+    ident: '名字',
+    ask: '"你叫什么名字？"',
+    hello: '"你好，" + 名字',
+    fallback: '"你好！"',
+  },
+  {
+    code: 'sw',
+    name: 'Kiswahili',
+    english: 'Swahili',
+    dir: 'ltr',
+    file: 'karibu.py',
+    kw: { if: 'ikiwa', else: 'vinginevyo' },
+    fn: { input: 'ingiza', print: 'chapisha' },
+    ident: 'jina',
+    ask: '"Jina lako ni nani? "',
+    hello: '"Habari, " + jina',
+    fallback: '"Habari!"',
+  },
+];
+const rotation = [...samples, ...moreSamples];
+
+const problems = [
+  {
+    icon: '🗣️',
+    title: '4 in 5 people don\'t speak English',
+    text: 'With Legesher, a curriculum is localized all the way down to the code. Concepts and terms map into the learner\'s language, so building the digital future no longer requires English proficiency.',
+  },
+  {
+    icon: '🌱',
+    title: 'Keep languages alive',
+    text: 'Legesher supports language revitalization. Learners working toward fluency in a heritage or second language can practice it as they code, without giving up their chance to help close the digital divide.',
+  },
+]
+
+const solution = [
+  {
+    icon: '📚',
+    title: 'Your course, your voice',
+    text: 'Our partners keep their courses, their method and their voice. We bring the code into their learners\' language.',
+  },
+  {
+    icon: '🌍',
+    title: 'Open source',
+    text: 'Every course runs on open-source language packs, shaped by native-speaker contributors.',
+  },
+  {
+    icon: '🔌',
+    title: 'Works offline',
+    text: 'Everything runs locally and offline, for learners with older computers, unreliable power and limited internet.',
+  },
+];
+
+// The open-source section cycles through every language with a Python pack.
+const packSamples = packSampleData.samples;
+
+const contributions = [
+  {
+    icon: '🌍',
+    title: 'Add or review your language',
+    text: 'Bring a new language to Legesher, or help native speakers check that each keyword reads the way a programmer in that language would say it.',
+    href: PACKS_REPO,
+    cta: 'Open the language packs',
+  },
+  {
+    icon: '💬',
+    title: 'Join the community',
+    text: 'Meet the people building Legesher across more than 20 countries, and bring your questions.',
+    // The site's short link, so a rotated invite is updated in vercel.json only.
+    href: '/go/slack',
+    cta: 'Join us on Slack',
+  },
+  {
+    icon: '💖',
+    title: 'Sponsor the project',
+    text: 'Fund the open-source work that keeps every language free for learners and teachers to use.',
+    href: 'https://github.com/sponsors/legesher',
+    cta: 'Sponsor on GitHub',
+  },
+];
+
+
+// Logos are the partners' own, self-hosted under public/partners/ and linked to
+// their sites.
+type Language = { code: string; name: string; english: string };
+// Recognition and research share one compact form, so every card ends the same way.
+type Notable = { icon: string; label: string; meta: string; href: string };
+const lang = (code: string, name: string, english: string): Language => ({ code, name, english });
+
+const partners = [
+  {
+    name: 'Code Division',
+    href: 'https://www.codedivision.co.uk',
+    logo: { src: '/partners/code-division.webp', width: 327, height: 114, class: 'h-10' },
+    title: 'Code Division and NomadAlba Collective',
+    // Organizations working on these courses with the partner, shown beside its
+    // logo in the card header.
+    with: [
+      { name: 'NomadAlba Collective', href: 'https://nomadalba.com', src: '/partners/nomadalba.webp', width: 590, height: 375, class: 'h-14' },
+    ],
+    about: 'Code Division is a social enterprise tackling digital inequality, teaching heritage-language speakers, refugees and diaspora communities. NomadAlba Collective co-designs each course with the communities it serves.',
+    languages: [
+      lang('gd', 'Gàidhlig', 'Scottish Gaelic'),
+      lang('ga', 'Gaeilge', 'Irish'),
+      lang('ar', 'العربية', 'Arabic'),
+      lang('uk', 'Українська', 'Ukrainian'),
+    ],
+    highlight: {
+      label: 'Accredited course',
+      title: 'Introduction to Python (SCQF Level 7)',
+      text: 'A Qualifications Scotland course, written natively in each language, that leads on to Python for Data at SCQF Level 8.',
+    },
+    // Firstport named Code Division a finalist on 14 Oct 2026, with NomadAlba
+    // Collective and Legesher as partners. Update if the result changes.
+    notable: [
+      {
+        icon: '🏆',
+        label: 'Finalist',
+        meta: 'Firstport Social Innovation Challenge 2026',
+        href: 'https://www.firstport.org.uk/news/social-innovation-challenge-2026-meet-the-finalists/',
+      },
+    ] as Notable[],
+  },
+  {
+    name: 'CodeSchool in a Box',
+    href: 'https://codeschoolinabox.org',
+    logo: { src: '/partners/codeschool-in-a-box.png', width: 144, height: 144, class: 'h-14' },
+    title: 'CodeSchool in a Box and Zakey Tech',
+    with: [
+      { name: 'Zakey Tech', href: 'https://zakey.tech', src: '/partners/zakey.svg', width: 424, height: 424, class: 'h-10' },
+      { name: 'Tech for Palestine', href: 'https://techforpalestine.org', src: '/partners/tech-for-palestine.webp', width: 800, height: 238, class: 'h-8' },
+    ],
+    about: 'A nonprofit that teaches programming the way people learn languages: learners read code first, then write it, with Study Lenses turning a teacher\'s own code into exercises with instant feedback.',
+    languages: [lang('ar', 'العربية', 'Arabic')],
+    highlight: {
+      label: 'Working together',
+      title: 'For learners connected with Tech for Palestine',
+      text: 'Arabic-language courses for Palestinian learners, built on the Study Lenses method.',
+    },
+    // Malaise, Cole and Signer (CSEDU 2023); Malaise and Signer, "Explorotron: an
+    // IDE extension for guided and independent code exploration and learning"
+    // (Koli Calling 2023).
+    notable: [
+      {
+        icon: '📄',
+        label: 'CodeSchool in a Box',
+        meta: 'CSEDU 2023',
+        href: 'https://wise.vub.ac.be/sites/default/files/publications/CSEDU2023.pdf',
+      },
+      {
+        icon: '📄',
+        label: 'Explorotron',
+        meta: 'Koli Calling 2023',
+        href: 'https://wise.vub.ac.be/publication/explorotron-ide-extension-guided-and-independent-code-exploration-and-learning',
+      },
+    ] as Notable[],
+  },
+];
+
+const pathway = [
+  {
+    step: '01',
+    title: 'Learn in your language',
+    text: 'Read code, use code and learn code fully localized, with exercises that give feedback right away.',
+  },
+  {
+    step: '02',
+    title: 'Write and use code in your own language',
+    text: 'Your code runs in your language, and teammates can work on the same codebase across language barriers.',
+  },
+  {
+    step: '03',
+    title: 'Build a career in tech',
+    text: 'Legesher doesn\'t end in the classroom. The same tools carry your language into professional work, so English fluency stops being the price of a job in tech.',
+    lead: true,
+  },
+];
+
+// Self-hosted (public/education/) so it plays in the page under the site's
+// Content Security Policy.
+const tour = {
+  title: 'Bringing Legesher into Study Lenses',
+  text: 'CodeSchool in a Box\'s editor for reading code, in each learner\'s own language.',
+  src: '/education/study-lenses-editor-tour.mp4',
+  poster: '/education/study-lenses-editor-tour.webp',
+};
+
+
+const linkClass =
+  'text-brand-coral hover:text-brand-cyan underline underline-offset-4 font-semibold transition-colors duration-300';
+---
+
+<Layout
+  title="Legesher for Education"
+  description="Open tools and a comprehension-first method that help educators teach programming in the languages learners think in."
+>
+  <Header />
+  <main>
+    <!-- A soft corner glow instead of the homepage's hero-gradient, which sits
+         behind the headline at phone width and washes out the gradient text. -->
+    <section class="overflow-x-clip pt-32 pb-20 bg-[radial-gradient(ellipse_60%_70%_at_100%_40%,rgba(108,197,224,0.28),rgba(108,197,224,0)_70%)]">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+          <div class="md:w-1/2 space-y-6">
+            <p class="text-sm font-semibold uppercase tracking-widest text-brand-coral">Legesher for Education</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <span class="text-gradient">Learn to code</span> in the language you <span class="whitespace-nowrap">think<span class="bulb" aria-hidden="true">💡</span> in</span>
+            </h1>
+            <p class="text-lg md:text-xl text-muted-foreground">
+              Educating the digital future through localized pathways
+            </p>
+            <div class="flex flex-col sm:flex-row items-start gap-4">
+              <ButtonLink href="#partners" variant="default" size="lg" class="primary-button">
+                Learn in your language
+              </ButtonLink>
+              <ButtonLink href="#contact" variant="default" size="lg" class="secondary-button">
+                Localize your curriculum
+              </ButtonLink>
+            </div>
+          </div>
+          <div class="md:w-1/2 w-full">
+            <div class="relative">
+              <div class="absolute -top-10 -left-10 w-40 h-40 bg-brand-coral/10 rounded-full blur-3xl"></div>
+              <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-cyan/10 rounded-full blur-3xl"></div>
+              <!-- Every language's window sits in the same grid cell, so the
+                   figure keeps the height of the tallest and nothing jumps as
+                   they cross-fade. The page script below steps through them. -->
+              <figure class="relative grid rounded-xl overflow-hidden border border-gray-800 bg-[#1e1e1e] shadow-xl" data-rotator>
+                {rotation.map((s, i) => (
+                  <div class={`rotator-pane [grid-area:1/1] min-w-0 bg-[#1e1e1e] ${i === 0 ? 'is-active' : ''}`} data-pane aria-hidden={i > 0 ? 'true' : undefined}>
+                    <div class="flex items-center gap-3 px-4 py-3 bg-[#252526]">
+                      <div class="flex gap-2" aria-hidden="true">
+                        <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                        <span class="w-3 h-3 rounded-full bg-brand-yellow"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                      </div>
+                      <span class="px-3 py-1 rounded font-mono text-xs text-gray-300 bg-white/5 border border-gray-700" lang={s.code}>{s.file}</span>
+                      <span class="ml-auto px-2 py-1 rounded-md font-mono text-xs text-gray-300 bg-[#2d2d2d]" lang={s.code}>{s.name}</span>
+                    </div>
+                    <pre class="m-0 px-6 pt-5 pb-12 overflow-x-auto font-mono text-sm md:text-base leading-7 text-gray-200" lang={s.code} dir={s.dir}><code>{s.ident} = <span class="text-brand-light-cyan">{s.fn.input}</span>(<span class="text-brand-light-coral">{s.ask}</span>)
+
+<span class="text-brand-coral font-bold">{s.kw.if}</span> {s.ident}:
+    <span class="text-brand-light-cyan">{s.fn.print}</span>(<span class="text-brand-light-coral">{s.hello}</span>)
+<span class="text-brand-coral font-bold">{s.kw.else}</span>:
+    <span class="text-brand-light-cyan">{s.fn.print}</span>(<span class="text-brand-light-coral">{s.fallback}</span>)</code></pre>
+                  </div>
+                ))}
+                <button type="button" class="rotator-toggle" data-rotator-toggle hidden>Pause</button>
+                <figcaption class="sr-only">The same short Python program, which asks for your name and greets you, written in {rotation.map((s) => s.english).join(', ')}.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The problem statement, after the pitch deck's Ctrl key slide: the
+         deck's key photo in front of a faint keyboard, framed by the two
+         numbers. The keyboard tile is generated to match the deck's photo. -->
+    <section id="problem" class="relative overflow-hidden py-24 md:py-32 bg-[#111] text-white scroll-mt-20">
+      <div class="keyboard-backdrop absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(17,17,17,0.2),rgba(17,17,17,0.85)_75%)]" aria-hidden="true"></div>
+
+      <div class="relative container mx-auto px-4">
+        <h2 class="text-center text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+          <span class="block"><span class="text-gradient">7,168 languages</span> in the world,</span>
+          <span class="flex justify-center py-10 md:py-14" aria-hidden="true">
+            <img src="/education/ctrl-key.webp" alt="" width="559" height="457" class="ctrl-key" loading="lazy" decoding="async" />
+          </span>
+          <span class="block">programming speaks <span class="text-gradient">one</span>.</span>
+        </h2>
+      </div>
+    </section>
+
+    <section id="the-problem" class="py-24 scroll-mt-20">
+      <div class="container mx-auto px-4">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-4xl md:text-5xl font-bold leading-tight text-balance"><span class="text-gradient">Innovation</span> is no longer lost in translation</h2>
+          <p class="mt-6 text-xl text-muted-foreground">
+            Ideas worth building don't just come in English. Legesher lets learners develop their ideas through the perspective of their own language, so educators can meet students where they are in fluency and proficiency.
+          </p>
+        </div>
+        <ul class="mx-auto mt-16 grid max-w-4xl md:grid-cols-2 gap-12 md:gap-0 md:divide-x md:divide-gray-200">
+          {problems.map((p) => (
+            <li class="text-center md:px-12">
+              <div class="mx-auto w-14 h-14 rounded-full bg-brand-background-coral flex items-center justify-center text-2xl" aria-hidden="true">{p.icon}</div>
+              <h3 class="mt-5 text-xl font-semibold">{p.title}</h3>
+              <p class="mt-2 text-lg text-muted-foreground">{p.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="solution" class="py-24 bg-brand-background-cyan scroll-mt-20">
+      <div class="container mx-auto px-4">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-4xl md:text-5xl font-bold leading-tight text-balance">Your curriculum, in their language</h2>
+          <p class="mt-4 text-xl text-muted-foreground">We localize the courses you already teach.</p>
+        </div>
+        <ul class="mx-auto mt-16 grid max-w-5xl md:grid-cols-3 gap-12 md:gap-0 md:divide-x md:divide-[#c9e6f3]">
+          {solution.map((p) => (
+            <li class="text-center md:px-10">
+              <div class="mx-auto w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl" aria-hidden="true">{p.icon}</div>
+              <h3 class="mt-5 text-xl font-semibold">{p.title}</h3>
+              <p class="mt-2 text-lg text-muted-foreground">{p.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="partners" class="py-24 scroll-mt-20">
+      <div class="container mx-auto px-4">
+        <div class="mb-12 grid lg:grid-cols-2 gap-10 items-center">
+        <div class="space-y-4">
+          <p class="font-mono text-sm font-semibold uppercase tracking-widest text-brand-coral">Ongoing projects</p>
+          <h2 class="text-3xl md:text-4xl font-bold leading-tight">What our partners are building</h2>
+          <p class="text-lg text-muted-foreground">
+            A few of the partners bringing Legesher into the courses they teach, so more learners can code in the language they think in.
+          </p>
+        </div>
+        <figure class="m-0">
+          <video class="w-full aspect-video rounded-xl border border-black bg-black" controls playsinline preload="metadata" src={tour.src} poster={tour.poster}>
+            Your browser can't play this video. <a href={tour.src}>Download it instead</a>.
+          </video>
+          <figcaption class="mt-3">
+            <span class="font-semibold">{tour.title}</span>
+            <span class="text-muted-foreground"> · {tour.text}</span>
+          </figcaption>
+        </figure>
+        </div>
+        <!-- On wide screens each card is a subgrid over the same five rows (logos,
+             title, languages, course, then recognition or research and the link),
+             so the cards line up. Every card fills every row. -->
+        <div class="grid lg:grid-cols-2 gap-8">
+          {partners.map((p) => (
+            <article class="flex flex-col gap-6 lg:grid lg:grid-rows-subgrid lg:row-span-5 rounded-xl border border-black bg-white p-6 md:p-8">
+              <div class="flex items-center gap-x-3 sm:gap-x-5 min-h-14">
+                <a href={p.href} target="_blank" rel="noopener noreferrer">
+                  <img src={p.logo.src} alt={`${p.name} logo`} width={p.logo.width} height={p.logo.height} class={`${p.logo.class} w-auto`} loading="lazy" decoding="async" />
+                </a>
+                {p.with.map((w) => (
+                  <>
+                    <span class="text-xl sm:text-2xl text-muted-foreground" aria-hidden="true">×</span>
+                    <a href={w.href} target="_blank" rel="noopener noreferrer">
+                      <img src={w.src} alt={`${w.name} logo`} width={w.width} height={w.height} class={`${w.class} w-auto`} loading="lazy" decoding="async" />
+                    </a>
+                  </>
+                ))}
+              </div>
+
+              <div>
+                <h3 class="text-2xl font-bold">{p.title}</h3>
+                <p class="mt-2 text-base text-muted-foreground">{p.about}</p>
+              </div>
+
+              <div>
+                <p class="font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground">Languages served</p>
+                <ul class="mt-2 flex flex-wrap gap-2">
+                  {p.languages.map((l) => (
+                    <li class="rounded-full border border-gray-300 bg-brand-light-gray px-3 py-1 text-sm">
+                      <span class="font-semibold" lang={l.code}>{l.name}</span>
+                      <span class="text-muted-foreground"> · {l.english}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="rounded-lg border border-[#d7ecf7] bg-brand-background-cyan p-5">
+                <p class="font-mono text-xs font-semibold uppercase tracking-widest text-brand-coral">{p.highlight.label}</p>
+                <p class="mt-2 text-lg font-semibold">{p.highlight.title}</p>
+                <p class="mt-1 text-base text-muted-foreground">{p.highlight.text}</p>
+              </div>
+
+              <div class="mt-auto lg:mt-0 lg:self-end space-y-5">
+                <ul class="flex flex-wrap gap-2">
+                  {p.notable.map((n) => (
+                    <li>
+                      <a href={n.href} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl sm:rounded-full border border-brand-coral bg-brand-background-coral/40 px-3 py-1 text-sm hover:bg-brand-background-coral">
+                        <span aria-hidden="true">{n.icon}</span>
+                        <span><span class="font-semibold">{n.label}</span><span class="text-muted-foreground"> · {n.meta}</span> →</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <a href={p.href} target="_blank" rel="noopener noreferrer" class={`${linkClass} inline-block text-sm`}>Visit {p.name} →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="mt-12 flex flex-col md:flex-row md:items-center justify-between gap-6 rounded-xl border border-black bg-brand-background-coral/30 p-6 md:p-8">
+          <div class="max-w-2xl">
+            <p class="text-2xl font-bold">Want to learn in your language?</p>
+            <p class="mt-2 text-lg text-muted-foreground">
+              Tell us which language you want to learn to code in. Every request shows us, and our partners, where the next course is needed.
+            </p>
+          </div>
+          <ButtonLink href={COURSE_REQUEST_EMAIL} variant="default" size="lg" class="primary-button whitespace-nowrap">
+            Request a course
+          </ButtonLink>
+        </div>
+      </div>
+    </section>
+
+    <section id="pathway" class="py-24 bg-[#272727] text-white scroll-mt-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">From learning to <span class="text-gradient">building the digital future</span></h2>
+          <p class="text-lg text-[#d9dde0]">The pathway doesn't end when the course does. Learners keep their language from their first program to their first job in tech.</p>
+        </div>
+        <ol class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {pathway.map((s) => (
+            <li class={s.lead ? 'md:col-span-2 border-t-4 border-brand-coral pt-6 px-6 pb-6 rounded-b-xl bg-white/5' : 'border-t-4 border-brand-light-cyan pt-6'}>
+              <p class="font-mono text-sm font-bold text-brand-light-coral">{s.step}</p>
+              <h3 class="mt-2 mb-3 text-xl font-semibold">{s.title}</h3>
+              <p class={s.lead ? 'text-white' : 'text-[#d9dde0]'}>{s.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Every language Legesher has a Python pack for, cycling through the
+         same program. Each sample was written by `legesher translate` and
+         checked by translating it back and running it (src/lib/pack-samples.json). -->
+    <section id="open-source" class="py-24 scroll-mt-20">
+      <div class="container mx-auto px-4">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <p class="font-mono text-sm font-semibold uppercase tracking-widest text-brand-coral">Open source</p>
+            <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+              <span class="text-gradient">{packSamples.length} languages</span> and counting
+            </h2>
+            <p class="text-lg text-muted-foreground">
+              Legesher's open-source language packs bring Python to {packSamples.length} languages, with JavaScript on the way. Our partners' courses run on the same packs anyone can use. They are experimental, with community validation underway, and they grow with every person who lends their language.
+            </p>
+          </div>
+          <figure id="pack-rotator" class="relative grid rounded-xl overflow-hidden border border-gray-800 bg-[#1e1e1e] shadow-xl" data-rotator data-interval="2200">
+            {packSamples.map((s, i) => (
+              <div class={`rotator-pane [grid-area:1/1] min-w-0 bg-[#1e1e1e] ${i === 0 ? 'is-active' : ''}`} data-pane aria-hidden={i > 0 ? 'true' : undefined}>
+                <div class="flex items-center gap-3 px-4 py-3 bg-[#252526]">
+                  <span class="font-semibold text-white" lang={s.code}>{s.name}</span>
+                  <span class="text-sm text-gray-400">{s.english}</span>
+                  <span class="ml-auto font-mono text-xs text-gray-500">{i + 1} / {packSamples.length}</span>
+                </div>
+                <pre class="m-0 px-6 pt-5 pb-12 overflow-x-auto font-mono text-sm md:text-base leading-7 text-gray-200" lang={s.code} dir={s.dir}><code><span class="text-brand-coral font-bold">{s.words.for}</span> n <span class="text-brand-coral font-bold">{s.words.in}</span> <span class="text-brand-light-cyan">{s.words.range}</span>(1, 4):
+    <span class="text-brand-coral font-bold">{s.words.if}</span> n % 2 == 0:
+        <span class="text-brand-light-cyan">{s.words.print}</span>(n, <span class="text-brand-light-coral">{s.words.true}</span>)
+    <span class="text-brand-coral font-bold">{s.words.else}</span>:
+        <span class="text-brand-light-cyan">{s.words.print}</span>(n, <span class="text-brand-light-coral">{s.words.false}</span>)</code></pre>
+              </div>
+            ))}
+            <button type="button" class="rotator-toggle" data-rotator-toggle hidden>Pause</button>
+            <figcaption class="sr-only">The same short Python program, a loop that prints whether each number is even, written in each of {packSamples.length} languages.</figcaption>
+          </figure>
+        </div>
+
+        <ul class="mt-12 flex flex-wrap gap-2" aria-label="Languages with a Legesher Python pack. Choose one to show it in the window above.">
+          {packSamples.map((s, i) => (
+            <li>
+              <button
+                type="button"
+                class="language-pill rounded-full border border-gray-200 bg-brand-light-gray px-3 py-1 text-sm transition-colors hover:border-brand-coral"
+                lang={s.code}
+                title={s.english}
+                aria-controls="pack-rotator"
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                data-rotator-pill="pack-rotator"
+                data-index={i}
+              >{s.name}</button>
+            </li>
+          ))}
+        </ul>
+
+        <h3 class="mt-16 text-2xl font-bold">Help a language grow</h3>
+        <ul class="mt-6 grid md:grid-cols-3 gap-8">
+          {contributions.map((c) => (
+            <li class="border-t-4 border-brand-light-cyan pt-6">
+              <p class="text-xl font-semibold"><span class="mr-2" aria-hidden="true">{c.icon}</span>{c.title}</p>
+              <p class="mt-2 text-muted-foreground">{c.text}</p>
+              <a href={c.href} target="_blank" rel="noopener noreferrer" class={`${linkClass} mt-3 inline-block text-sm`}>{c.cta} →</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-[#272727] text-white border-t-4 border-brand-coral scroll-mt-20">
+      <div class="container mx-auto px-4 grid lg:grid-cols-5 gap-12 items-center">
+        <div class="lg:col-span-3 space-y-6">
+          <h2 class="text-3xl md:text-5xl font-bold text-white">Localize your curriculum</h2>
+          <p class="text-lg text-[#d9dde0]">
+            Education providers, schools and organizations: tell us about your learners, your courses and the languages your learners speak. We'll show you how your curriculum can run in their language.
+          </p>
+          <ButtonLink href={CURRICULUM_EMAIL} variant="default" size="lg" class="primary-button">
+            Contact us
+          </ButtonLink>
+        </div>
+        <div class="lg:col-span-2 rounded-xl border border-white/15 bg-white/5 p-6 md:p-8">
+          <p class="font-mono text-xs font-semibold uppercase tracking-widest text-brand-yellow">One-pager</p>
+          <p class="mt-3 text-2xl font-bold">Legesher for Education, on one page</p>
+          <p class="mt-2 text-[#d9dde0]">The partners, the pathway and how localization works, ready to share with your team.</p>
+          <ButtonLink href={ONE_PAGER_REQUEST} variant="default" size="lg" class="yellow-button !text-neutral-900 mt-6">
+            Get the one-pager
+          </ButtonLink>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <!-- A simple footer for this landing page, in place of the site footer. -->
+  <footer class="border-t border-gray-200 py-8">
+    <div class="container mx-auto px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm text-muted-foreground">
+      <a href="/" class="flex items-center gap-2 font-semibold text-foreground">
+        <img src="/Peggy-Headshot.svg" alt="" width="32" height="32" class="h-8 w-8" />
+        Legesher
+      </a>
+      <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer">
+        <a href={LINKS.email} class="hover:text-brand-coral">hello@legesher.com</a>
+        <a href="/privacy" class="hover:text-brand-coral">Privacy</a>
+        <a href="/terms" class="hover:text-brand-coral">Terms</a>
+      </nav>
+      <p>© {new Date().getFullYear()} Legesher</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* Language windows: every pane sits in one grid cell; the script moves
+     is-active along. Without the script the first pane simply stays. */
+  /* The outgoing pane fades out before the next fades in, so two programs
+     (one of them right-to-left, perhaps) never show on top of each other. */
+  /* Hidden panes share the visible pane's grid cell, so they also become
+     visibility: hidden once faded out. Otherwise the topmost invisible pane
+     would take the taps, scrolls and text selection meant for the visible one. */
+  .rotator-pane {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+  }
+  .rotator-pane.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.35s ease 0.25s, visibility 0s linear 0.25s;
+  }
+  .rotator-toggle {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 1;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #d1d5db;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+  }
+  .language-pill[aria-pressed='true'] {
+    border-color: #ec6756;
+    background: #ec6756;
+    color: #fff;
+  }
+  .rotator-toggle:hover,
+  .rotator-toggle:focus-visible {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* The light bulb above "think". */
+  .bulb {
+    display: inline-block;
+    margin-left: 0.1em;
+    font-size: 0.8em;
+    transform: translateY(-0.35em) rotate(12deg);
+    animation: bulb-glow 3s ease-in-out infinite;
+  }
+  @keyframes bulb-glow {
+    0%, 100% { filter: drop-shadow(0 0 0 rgba(246, 241, 111, 0)); }
+    50% { filter: drop-shadow(0 0 0.3em rgba(246, 241, 111, 0.9)); }
+  }
+
+  /* Problem statement: a keyboard drawn after the deck's keyboard photo, as
+     a seamless tile (every row fills the tile exactly), so it repeats at a
+     small key size with no visible edges. */
+  .keyboard-backdrop {
+    background: url('/education/keyboard.svg') 0 0 / 368px auto repeat;
+    opacity: 0.16;
+  }
+
+  /* The deck's Ctrl key photo with its coral glow. */
+  .ctrl-key {
+    width: min(20rem, 64vw);
+    height: auto;
+    filter: drop-shadow(0 0 28px rgba(236, 103, 86, 0.55)) drop-shadow(0 0 80px rgba(236, 103, 86, 0.3));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bulb { animation: none; }
+    .rotator-pane, .rotator-pane.is-active { transition: none; }
+  }
+</style>
+
+<script>
+  // Steps each language window to its next pane. Reduced motion starts it
+  // paused; the button pauses and resumes (WCAG 2.2.2).
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLElement>('[data-rotator]').forEach((root) => {
+    const panes = Array.from(root.querySelectorAll<HTMLElement>('[data-pane]'));
+    const toggle = root.querySelector<HTMLButtonElement>('[data-rotator-toggle]');
+    // Pills elsewhere on the page that pick a pane in this window.
+    const pills = root.id
+      ? Array.from(document.querySelectorAll<HTMLButtonElement>(`[data-rotator-pill="${root.id}"]`))
+      : [];
+    if (panes.length < 2) return;
+
+    const interval = Number(root.dataset.interval) || 3500;
+    let index = 0;
+    let timer: number | undefined;
+
+    const show = (next: number) => {
+      panes[index].classList.remove('is-active');
+      panes[index].setAttribute('aria-hidden', 'true');
+      pills[index]?.setAttribute('aria-pressed', 'false');
+      index = next;
+      panes[index].classList.add('is-active');
+      panes[index].removeAttribute('aria-hidden');
+      pills[index]?.setAttribute('aria-pressed', 'true');
+    };
+    const start = () => {
+      timer = window.setInterval(() => show((index + 1) % panes.length), interval);
+      if (toggle) toggle.textContent = 'Pause';
+    };
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+      if (toggle) toggle.textContent = 'Play';
+    };
+
+    // Choosing a language shows it and holds it there; Play carries on from it.
+    pills.forEach((pill) =>
+      pill.addEventListener('click', () => {
+        stop();
+        show(Number(pill.dataset.index) || 0);
+      }),
+    );
+
+    if (toggle) {
+      toggle.hidden = false;
+      toggle.addEventListener('click', () => (timer === undefined ? start() : stop()));
+    }
+    if (reduceMotion) {
+      if (toggle) toggle.textContent = 'Play';
+    } else {
+      start();
+    }
+  });
+</script>
