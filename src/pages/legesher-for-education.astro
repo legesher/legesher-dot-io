@@ -1,7 +1,7 @@
 ---
 // Legesher for Education (CORE-2664): the problem, the solution (localizing a
 // partner's own curriculum), the partners' ongoing projects, the pathway from learning to a career in tech,
-// the open-source language packs, and how to work with us.
+// the open-source language packs, the services we offer, and how to work with us.
 //
 // Built from the same sections and buttons as the homepage and the Hack Day
 // page, with no style attribute and no iframe, so it sits inside the site's
@@ -222,8 +222,44 @@ const contributions = [
 ];
 
 
+// Services for education providers, shown above the contact section. Each one
+// is work we take off an instructor's plate.
+const services = [
+  {
+    icon: '🌐',
+    title: 'Curriculum localization',
+    text: 'Your course, its lessons and its code in your learners\' language, with your method and your voice kept.',
+  },
+  {
+    icon: '🔤',
+    title: 'Code translation',
+    text: 'Example programs, starter code and solutions translated with the language packs and checked to run.',
+  },
+  {
+    icon: '🧭',
+    title: 'Learning design',
+    text: 'Lessons and exercises planned with you for learners who code in their own language.',
+  },
+  {
+    icon: '📝',
+    title: 'Study materials',
+    text: 'Worksheets, glossaries of programming terms and reference sheets in each learner\'s language.',
+  },
+  {
+    icon: '🔄',
+    title: 'Content updates and redesigns',
+    text: 'When your course changes, we carry the change into every language, so instructors don\'t redo it by hand.',
+  },
+  {
+    icon: '🧰',
+    title: 'Tooling and quick wins',
+    text: 'Editor, notebook and offline setup for your classroom, and small changes that save instructors time each week.',
+  },
+];
+
 // Logos are the partners' own, self-hosted under public/partners/ and linked to
-// their sites.
+// their sites. Each partner works on education from a different side; `role`
+// names that side on the card.
 type Language = { code: string; name: string; english: string };
 // Recognition and research share one compact form, so every card ends the same way.
 type Notable = { icon: string; label: string; meta: string; href: string };
@@ -235,6 +271,7 @@ const partners = [
     href: 'https://www.codedivision.co.uk',
     logo: { src: '/partners/code-division.webp', width: 327, height: 114, class: 'h-10' },
     title: 'Code Division and NomadAlba Collective',
+    role: 'Delivery partner',
     // Organizations working on these courses with the partner, shown beside its
     // logo in the card header.
     with: [
@@ -267,17 +304,15 @@ const partners = [
     name: 'CodeSchool in a Box',
     href: 'https://codeschoolinabox.org',
     logo: { src: '/partners/codeschool-in-a-box.png', width: 144, height: 144, class: 'h-14' },
-    title: 'CodeSchool in a Box and Zakey Tech',
-    with: [
-      { name: 'Zakey Tech', href: 'https://zakey.tech', src: '/partners/zakey.svg', width: 424, height: 424, class: 'h-10' },
-      { name: 'Tech for Palestine', href: 'https://techforpalestine.org', src: '/partners/tech-for-palestine.webp', width: 800, height: 238, class: 'h-8' },
-    ],
+    title: 'CodeSchool in a Box',
+    role: 'Product and service partner',
+    with: [],
     about: 'A nonprofit that teaches programming the way people learn languages: learners read code first, then write it, with Study Lenses turning a teacher\'s own code into exercises with instant feedback.',
     languages: [lang('ar', 'العربية', 'Arabic')],
     highlight: {
       label: 'Working together',
-      title: 'For learners connected with Tech for Palestine',
-      text: 'Arabic-language courses for Palestinian learners, built on the Study Lenses method.',
+      title: 'Study Lenses in your language',
+      text: 'We are bringing Legesher into Study Lenses, so a teacher\'s code and the exercises built from it read in each learner\'s own language.',
     },
     // Malaise, Cole and Signer (CSEDU 2023); Malaise and Signer, "Explorotron: an
     // IDE extension for guided and independent code exploration and learning"
@@ -459,7 +494,7 @@ const linkClass =
           <p class="font-mono text-sm font-semibold uppercase tracking-widest text-brand-coral">Ongoing projects</p>
           <h2 class="text-3xl md:text-4xl font-bold leading-tight">What our partners are building</h2>
           <p class="text-lg text-muted-foreground">
-            A few of the partners bringing Legesher into the courses they teach, so more learners can code in the language they think in.
+            Our partners build education from different sides. Code Division delivers courses to learners, and CodeSchool in a Box builds the tools and the method they learn with. Legesher is the localization layer under both, so every course and every tool can reach learners in the language they think in.
           </p>
         </div>
         <figure class="m-0">
@@ -493,7 +528,8 @@ const linkClass =
               </div>
 
               <div>
-                <h3 class="text-2xl font-bold">{p.title}</h3>
+                <p class="font-mono text-xs font-semibold uppercase tracking-widest text-brand-coral">{p.role}</p>
+                <h3 class="mt-2 text-2xl font-bold">{p.title}</h3>
                 <p class="mt-2 text-base text-muted-foreground">{p.about}</p>
               </div>
 
@@ -622,6 +658,27 @@ const linkClass =
               <p class="text-xl font-semibold"><span class="mr-2" aria-hidden="true">{c.icon}</span>{c.title}</p>
               <p class="mt-2 text-muted-foreground">{c.text}</p>
               <a href={c.href} target="_blank" rel="noopener noreferrer" class={`${linkClass} mt-3 inline-block text-sm`}>{c.cta} →</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="services" class="py-24 bg-brand-background-cyan scroll-mt-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mb-12 space-y-4">
+          <p class="font-mono text-sm font-semibold uppercase tracking-widest text-brand-coral">Services</p>
+          <h2 class="text-3xl md:text-4xl font-bold leading-tight">Less work for your instructors</h2>
+          <p class="text-lg text-muted-foreground">
+            We take on the localization work around your course, so your instructors can spend their time teaching.
+          </p>
+        </div>
+        <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((s) => (
+            <li class="rounded-xl border border-black bg-white p-6">
+              <div class="w-12 h-12 rounded-full bg-brand-background-coral flex items-center justify-center text-xl" aria-hidden="true">{s.icon}</div>
+              <h3 class="mt-4 text-xl font-semibold">{s.title}</h3>
+              <p class="mt-2 text-muted-foreground">{s.text}</p>
             </li>
           ))}
         </ul>
