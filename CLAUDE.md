@@ -94,8 +94,7 @@ Facts behind those commands:
   because Astro's build inlines every private variable named in a module that contains it. Secrets
   are declared in `env.schema` in `astro.config.mjs` and read with `getSecret` from `astro:env/server`.
   The build-time proof is a sentinel build with a unique value: `BUTTONDOWN_API_KEY=LEAKPROBE_<random> npm run build`
-  then `grep -rIl LEAKPROBE_<random> dist .vercel/output` must print nothing. (`-I` skips binaries: the
-  macOS sharp library contains the word SENTINEL.)
+  then `grep -rIl LEAKPROBE_<random> dist .vercel/output` must print nothing (`-I` skips binary files).
 - Two guards keep the Content Security Policy inside `<head>`: `src/lib/layout-head.test.ts` reads
   `Layout.astro` and allows only `meta`, `link`, `title`, `script`, `style`, `base`, `noscript` and
   `template` there, with the two Vercel analytics components after the slot in `<body>`;

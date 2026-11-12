@@ -94,7 +94,8 @@ export default defineConfig({
   compressHTML: true,
   // Temporary: Vite 8's default CSS minifier (lightningcss) rounds some
   // Tailwind 3 values, making /privacy and /terms 1 to 2px shorter. esbuild
-  // keeps the shipped CSS as it was. Comes out with the Tailwind 4 upgrade.
+  // keeps the bundled stylesheet byte-identical. Comes out with the Tailwind 4
+  // upgrade.
   vite: { build: { cssMinify: 'esbuild' } },
   adapter: vercel({
     webAnalytics: { enabled: true },
