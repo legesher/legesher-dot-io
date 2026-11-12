@@ -62,9 +62,11 @@ suite('style-src stays hash-only on every built page (needs npm run build)', () 
 suite('each dated page keeps the space in its byline (needs npm run build)', () => {
   it.each(Object.entries(LAST_UPDATED))('%s', (slug, iso) => {
     const html = readFileSync(join(output, slug, 'index.html'), 'utf-8');
+    // Text between tags, joined: enough to see whether the byline's space
+    // survived. Not a sanitizer; nothing here is rendered.
     const text = html
-      .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
-      .replace(/<[^>]+>/g, '')
+      .split(/<[^>]*>/)
+      .join('')
       .replace(/\s+/g, ' ');
     expect(text).toContain(`· Last updated: ${formatLastUpdated(iso)}`);
   });
