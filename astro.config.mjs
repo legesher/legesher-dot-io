@@ -29,8 +29,12 @@ export default defineConfig({
         "object-src 'none'",
         "base-uri 'self'"
       ],
+      // No 'unsafe-inline' here: since Astro 7.2.5 a directive that lists it
+      // gets no hashes, which would let any inline style through. Astro 6
+      // emitted the hashes anyway, so browsers ignored 'unsafe-inline' and the
+      // policy was hash-only; dropping it keeps that policy under Astro 7.
       styleDirective: {
-        resources: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
+        resources: ["'self'", "https://fonts.googleapis.com"]
       },
       scriptDirective: {
         resources: ["'self'", "https://va.vercel-scripts.com", ...analyticsOrigins]
@@ -83,6 +87,15 @@ export default defineConfig({
   // indexed, is '/privacy'.
   trailingSlash: 'never',
   build: { format: 'file' },
+  // Astro 7 defaults to 'jsx' whitespace rules, which drop the line break
+  // between text and an inline element ("Limited ·<span>Last updated") and
+  // between inline siblings. `true` keeps Astro 6's lossless compression, so
+  // the pages render exactly as they did.
+  compressHTML: true,
+  // Temporary: Vite 8's default CSS minifier (lightningcss) rounds some
+  // Tailwind 3 values, making /privacy and /terms 1 to 2px shorter. esbuild
+  // keeps the shipped CSS as it was. Comes out with the Tailwind 4 upgrade.
+  vite: { build: { cssMinify: 'esbuild' } },
   adapter: vercel({
     webAnalytics: { enabled: true },
     speedInsights: { enabled: true },
