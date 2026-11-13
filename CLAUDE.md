@@ -1,6 +1,6 @@
 # legesher-dot-io
 
-The public website at legesher.io: an Astro 6 static site with React islands,
+The public website at legesher.io: an Astro 7 static site with React islands,
 Tailwind 3, one server route (`/api/subscribe`) and the Vercel adapter. It is
 not the docs site and not the product; it holds no engine code and no pack
 data. Page and layout changes are visual work and are reviewed as such.
@@ -33,17 +33,17 @@ data. Page and layout changes are visual work and are reviewed as such.
 ## Validate locally
 
 ```sh
-nvm use                    # .nvmrc pins Node 22
+nvm use                    # .nvmrc pins Node 22; package.json needs 22.23.4 or later
 npm ci --ignore-scripts    # exactly what the lockfile pins, no lifecycle scripts
 npm test                   # vitest
 npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-10-25; they grow, they never shrink):
+Summary lines to expect (counts as of 2026-11-13; they grow, they never shrink):
 
-- `npm test`: ` Test Files  10 passed (10)` then `      Tests  212 passed (212)` after `npm run build`; without build output the two built-page guards skip by name and the lines read
-  ` Test Files  8 passed | 2 skipped (10)` then `      Tests  204 passed | 2 skipped (206)`
+- `npm test`: ` Test Files  11 passed (11)` then `      Tests  226 passed (226)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  8 passed | 3 skipped (11)` then `      Tests  206 passed | 5 skipped (211)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -61,8 +61,9 @@ Facts behind those commands:
 - Fonts are Noto (Noto Sans, Noto Sans Display, Noto Sans Mono, Noto Sans Arabic) loaded from
   Google Fonts in `globals.css`. The CSP in `astro.config.mjs` allowlists `fonts.googleapis.com`
   and `fonts.gstatic.com`; a new font source needs a CSP edit as well. The policy is enforced:
-  `style-src` carries Astro's hashes, and browsers ignore `'unsafe-inline'` once a hash is present, so
-  an inline `style=""` attribute or an inline event handler is refused. The built HTML has none today.
+  `style-src` carries Astro's hashes and no `'unsafe-inline'` (since Astro 7.2.5 a directive that lists
+  it gets no hashes, which would allow any inline style), so an inline `style=""` attribute or an
+  inline event handler is refused. The built HTML has none today.
 
 ## Merge evidence and PR conventions
 
@@ -92,8 +93,8 @@ Facts behind those commands:
   accessor from every non-test source under `src/lib` and `src/pages/api`, comments included,
   because Astro's build inlines every private variable named in a module that contains it. Secrets
   are declared in `env.schema` in `astro.config.mjs` and read with `getSecret` from `astro:env/server`.
-  The build-time proof is a sentinel build: `BUTTONDOWN_API_KEY=SENTINEL npm run build` then
-  `grep -rl SENTINEL dist .vercel/output` must print nothing.
+  The build-time proof is a sentinel build with a unique value: `BUTTONDOWN_API_KEY=LEAKPROBE_<random> npm run build`
+  then `grep -rIl LEAKPROBE_<random> dist .vercel/output` must print nothing (`-I` skips binary files).
 - Two guards keep the Content Security Policy inside `<head>`: `src/lib/layout-head.test.ts` reads
   `Layout.astro` and allows only `meta`, `link`, `title`, `script`, `style`, `base`, `noscript` and
   `template` there, with the two Vercel analytics components after the slot in `<body>`;
@@ -101,6 +102,10 @@ Facts behind those commands:
   CSP meta sits inside `<head>` with nothing the parser would move to `<body>` before it. A custom
   element in `<head>` makes the parser close `<head>` early, and browsers ignore a CSP meta in
   `<body>`. CI builds before it tests; locally run `npm run build` before `npm test` to exercise it.
+- `src/lib/built-style-and-spacing.test.ts` reads every built page and catches two Astro 7 defaults:
+  `style-src` must stay hash-only with every inline `<style>` hashed (`'unsafe-inline'` in
+  `styleDirective` drops the hashes), and the dated legal pages must keep the space in their byline
+  (`compressHTML: true`; Astro 7's default `'jsx'` rules drop it).
 - Two guards keep the PostHog loader honest: `src/lib/analytics-csp.test.ts` reads every built page
   and asserts the loader is present exactly when the policy carries PostHog's origin, sits in
   `<body>` after the content, and that a build without the key mentions PostHog nowhere;
