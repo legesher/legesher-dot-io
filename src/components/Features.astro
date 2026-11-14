@@ -1,26 +1,50 @@
 ---
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+import { LINKS } from '@/lib/links';
 
+// The five pillars, in flywheel order: Creation builds it, Education teaches
+// it, Research proves it, Innovation distributes it, Collaboration compounds
+// it. Each card is a door: it links to the pillar's nearest existing surface.
 const features = [
   {
     icon: "💻",
     title: "Creation",
-    description: "Legesher's language-localized development environment lets developers write code using keywords, syntax, and documentation in their own language—without changing how the program runs. Whether you're building a web app or contributing to open source, you can create using the language that feels most natural to you. This feature makes it easier for beginners to start coding and for experienced devs to prototype ideas faster without switching cognitive gears. Code becomes more intuitive, expressive, and accessible—because creation starts with clarity."
+    description: "The free, open source core: a deterministic translation layer between you and your repository. Write Python using keywords and syntax in your own language while git stores one canonical form, with byte-identical round-trips. 51 language packs available, community validation in progress. Apache-2.0, free forever.",
+    linkLabel: "Explore the code",
+    linkHref: LINKS.github,
+    external: true
   },
   {
     icon: "📚",
     title: "Education",
-    description: "Legesher is a game-changer for educators and learners alike. Students can learn core programming concepts in their native tongue, while teachers can present materials and exercises that align with their learners' cultural and linguistic context. From syntax translation to localized documentation and error messages, Legesher helps demystify code—making programming education inclusive, engaging, and effective in any language."
+    description: "Learners meet programming in their heart language. We localize existing curriculum end to end: translated prose, runnable localized code, and native-speaker review, so students learn core concepts in the language they think in while teachers keep the platform they already use. Course providers and Institutions partner with us to bring their courses to new languages.",
+    linkLabel: "Partner with us",
+    linkHref: LINKS.email,
+    external: false
+  },
+  {
+    icon: "🔬",
+    title: "Research",
+    description: "The proof behind every claim. We study how multilingual developers and language models meet code beyond English, contribute our findings to peer review, and build an open corpus of programming terminology shaped with native speakers. Open methods keep our work testable.",
+    linkLabel: "Follow the research",
+    linkHref: "#newsletter",
+    external: false
   },
   {
     icon: "💡",
     title: "Innovation",
-    description: "When developers can think and code in their native language, they approach problems differently. Legesher removes the cognitive overhead of translating ideas into English-based code, letting developers focus entirely on creative problem-solving. Features like localized API documentation, culturally-aware error handling, and region-specific code templates help developers build solutions that authentically reflect their local context and needs. This leads to faster ideation, more relevant solutions to regional challenges, and breakthrough approaches that emerge from different linguistic thinking patterns. When code can be as expressive as natural thought, innovation accelerates across cultures and communities."
+    description: "When developers think and code in their heart language, they approach problems differently. Legesher removes the cognitive overhead of translating ideas into English-based code, so attention goes to the problem itself. Deterministic code localization also gives AI tools a foundation they can rely on, keeping the language you think in at the center of an AI-native workflow.",
+    linkLabel: "Read the docs",
+    linkHref: LINKS.docs,
+    external: true
   },
   {
     icon: "🤝",
     title: "Collaboration",
-    description: "Legesher enables multilingual collaboration by providing translation layers between codebases. Developers can work together in different languages while still understanding each other's contributions clearly. This feature is ideal for international teams, open-source contributors, and remote dev groups working across borders. By removing language as a blocker, Legesher fosters inclusive, efficient, and truly global teamwork."
+    description: "Multilingual teams, one codebase. Each developer reads and writes in their own language while git stores one shared canonical form, so contributions stay legible to everyone. Language stops being the blocker for international Teams, open source contributors, and existing codebases going global.",
+    linkLabel: "Join the community",
+    linkHref: LINKS.slack,
+    external: true
   }
 ];
 ---
@@ -29,12 +53,16 @@ const features = [
   <div class="container mx-auto px-4">
     <div class="text-center max-w-3xl mx-auto mb-16">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Bridging Language Barriers</h2>
+      <p class="text-lg font-medium mb-4">
+        They translate the conversation about the code. Legesher translates the code.
+      </p>
       <p class="text-lg text-muted-foreground">
-        Our open core solutions ensure that developers' best ideas don't get lost in translation. Legesher opens programming to the 96% of the world who have a heart language other than English. 
+        Our open core tools ensure that the best ideas don't get lost in translation. Legesher opens programming to the 96% of the world who have a heart language other than English.
+        Five pillars turn one flywheel: Creation builds it, Education teaches it, Research proves it, Innovation distributes it, Collaboration compounds it.
       </p>
     </div>
-    
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature) => (
         <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/50">
           <CardHeader>
@@ -45,6 +73,13 @@ const features = [
           </CardHeader>
           <CardContent>
             <CardDescription className="text-base">{feature.description}</CardDescription>
+            <a
+              href={feature.linkHref}
+              class="inline-block mt-4 text-sm font-medium text-primary hover:underline"
+              {...(feature.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {feature.linkLabel} &rarr;
+            </a>
           </CardContent>
         </Card>
       ))}
