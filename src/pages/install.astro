@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ButtonLink from '../components/ButtonLink.astro';
+import InstallDemo from '../components/InstallDemo.astro';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { LINKS } from '@/lib/links';
 import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
@@ -23,6 +24,9 @@ const lede =
     : 'Every Legesher product in one place: what you can use today and where to get it.';
 
 const linkClass = 'font-semibold text-brand-cyan hover:text-brand-coral transition-colors duration-300';
+// Commands read as a terminal, the same dark surface as the editor on the home page.
+const commandClass =
+  'min-w-0 rounded-md border border-gray-800 bg-[#1E1E1E] p-4 font-noto-mono text-sm leading-relaxed text-gray-100 overflow-x-auto';
 ---
 
 <Layout title="Install Legesher" description={lede}>
@@ -59,12 +63,13 @@ const linkClass = 'font-semibold text-brand-cyan hover:text-brand-coral transiti
               )}
             </div>
             <div class="flex flex-col gap-4 min-w-0">
+              {product.demo && <InstallDemo demo={product.demo} class="rounded-lg border border-gray-800 overflow-hidden" />}
               <h3 class="text-2xl font-semibold leading-none tracking-tight">{product.name}</h3>
               <p class="text-base text-muted-foreground">{product.summary}</p>
               {product.stage && <p class="text-sm text-muted-foreground">{product.stage}</p>}
             </div>
             {product.commands && (
-              <pre class="md:col-span-2 min-w-0 rounded-md bg-muted p-4 text-sm overflow-x-auto"><code>{product.commands.join('\n')}</code></pre>
+              <pre class:list={['md:col-span-2', commandClass]}><code>{product.commands.map((command, i) => (<>{i > 0 && '\n'}<span class="select-none text-brand-cyan">$ </span>{command}</>))}</code></pre>
             )}
           </div>
         </section>
@@ -77,7 +82,8 @@ const linkClass = 'font-semibold text-brand-cyan hover:text-brand-coral transiti
         </p>
         <div class="grid md:grid-cols-2 gap-8">
           {openSource.map((product) => (
-            <Card id={product.id} className="flex flex-col min-w-0">
+            <Card id={product.id} className="flex flex-col min-w-0 overflow-hidden">
+              {product.demo && <InstallDemo demo={product.demo} />}
               <CardHeader>
                 <span class="inline-block self-start text-xs font-semibold uppercase tracking-wide text-brand-cyan mb-2">
                   Available now
@@ -88,7 +94,7 @@ const linkClass = 'font-semibold text-brand-cyan hover:text-brand-coral transiti
                 <CardDescription className="text-base">{product.summary}</CardDescription>
                 {product.stage && <p class="text-sm text-muted-foreground">{product.stage}</p>}
                 {product.commands && (
-                  <pre class="rounded-md bg-muted p-4 text-sm overflow-x-auto"><code>{product.commands.join('\n')}</code></pre>
+                  <pre class={commandClass}><code>{product.commands.map((command, i) => (<>{i > 0 && '\n'}<span class="select-none text-brand-cyan">$ </span>{command}</>))}</code></pre>
                 )}
                 {product.access && (
                   <a href={product.access.href} target="_blank" rel="noopener noreferrer" class:list={['mt-auto', linkClass]}>
@@ -150,3 +156,5 @@ const linkClass = 'font-semibold text-brand-cyan hover:text-brand-coral transiti
   </main>
   <Footer />
 </Layout>
+
+<script src="/scripts/install-demos.js" is:inline></script>

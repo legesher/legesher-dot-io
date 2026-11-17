@@ -1,0 +1,42 @@
+{
+ "title": "Terminal",
+ "steps": [
+  {
+   "cmd": "legesher translate hello.py --to hi --output hello_hi.py"
+  },
+  {
+   "out": "✓ Translated hello.py → hello_hi.py",
+   "cls": "ok"
+  },
+  {
+   "cmd": "cat hello_hi.py"
+  },
+  {
+   "out": "{{hl|परिभाषितकरना}} greet(names):"
+  },
+  {
+   "out": "    {{hl|फ़ॉर}} name {{hl|में}} names:"
+  },
+  {
+   "out": "        {{hl|प्रिंटकरना}}(\"hello\", name)"
+  },
+  {
+   "gap": true
+  },
+  {
+   "gap": true
+  },
+  {
+   "out": "greet([\"Asha\", \"Om\"])"
+  },
+  {
+   "cmd": "legesher run hello_hi.py --lang hi"
+  },
+  {
+   "out": "hello Asha"
+  },
+  {
+   "out": "hello Om"
+  }
+ ]
+}

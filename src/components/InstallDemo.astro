@@ -1,0 +1,28 @@
+---
+// One demo recording on the install page: a silent, looping video with a
+// still, a description in words, and a Pause / Play button.
+//
+// Without JavaScript the video keeps the browser's own controls. With it,
+// public/scripts/install-demos.js swaps them for the button below (the
+// browser's bar covers the bottom of the recording), plays the recording only
+// while it is on screen, and leaves it still for a visitor who asks for
+// reduced motion.
+import type { ProductDemo } from '@/lib/products';
+
+interface Props {
+  demo: ProductDemo;
+  class?: string;
+}
+
+const { demo, class: className } = Astro.props;
+---
+
+<div class:list={['relative bg-[#1E1E1E]', className]}>
+  <video data-install-demo class="block w-full aspect-[8/5]" muted loop playsinline controls preload="metadata" poster={demo.poster} aria-label={demo.label}>
+    <source src={demo.video} type="video/mp4" />
+  </video>
+  <button type="button" data-install-demo-toggle hidden class="absolute bottom-3 end-3 inline-flex h-8 items-center rounded-full bg-black/70 px-3 text-xs font-semibold text-white hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan">
+    <span data-when="playing">Pause</span>
+    <span data-when="paused" hidden>Play</span>
+  </button>
+</div>

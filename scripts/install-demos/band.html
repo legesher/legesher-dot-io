@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;600&family=Noto+Sans:wght@400&family=Noto+Sans+Arabic&family=Noto+Sans+Hebrew&family=Noto+Sans+Devanagari&family=Noto+Sans+Bengali&family=Noto+Sans+Gujarati&family=Noto+Sans+Telugu&family=Noto+Sans+Kannada&family=Noto+Sans+Malayalam&family=Noto+Sans+Sinhala&family=Noto+Sans+Myanmar&family=Noto+Sans+Ethiopic&family=Noto+Sans+SC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #1E1E1E; }
+  body { width: 800px; height: 500px; overflow: hidden; font-family: 'Noto Sans Mono', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Bengali', 'Noto Sans Gujarati', 'Noto Sans Telugu', 'Noto Sans Kannada', 'Noto Sans Malayalam', 'Noto Sans Sinhala', 'Noto Sans Myanmar', 'Noto Sans Ethiopic', 'Noto Sans JP', 'Noto Sans SC', 'Noto Sans KR', monospace; }
+  .bar { height: 44px; background: #252526; border-bottom: 1px solid #1f2937; display: flex; align-items: center; padding: 0 18px; gap: 9px; }
+  .dot { width: 13px; height: 13px; border-radius: 50%; }
+  .title { margin-left: 14px; color: #9ca3af; font: 400 15px 'Noto Sans', sans-serif; }
+  .rows { padding-top: 10px; font-size: 17px; }
+  .row { white-space: nowrap; height: 44px; line-height: 44px; }
+  .hw { display: inline-block; margin-right: 28px; opacity: 0.38; transition: none; }
+  .hw.lit { opacity: 1; }
+  .fn { color: #6cc5e0; } .p { color: #9ca3af; } .str { color: #F6F16F; }
+  .hw.lit .fn { color: #90d7eb; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="bar"><span class="dot" style="background:#f87171"></span><span class="dot" style="background:#F6F16F"></span><span class="dot" style="background:#34d399"></span><span class="title" id="title"></span></div>
+<div class="rows" id="rows"></div>
+<script>
+  const SHIFTS = [0, 70, 26, 108, 48, 90, 12, 60, 36, 100];
+  const STEP = 1250;
+  let order = [], duration = 0;
+  window.load = (demo) => {
+    document.getElementById('title').textContent = demo.title;
+    const rows = document.getElementById('rows');
+    const per = Math.ceil(demo.items.length / SHIFTS.length);
+    SHIFTS.forEach((shift, r) => {
+      const row = document.createElement('div'); row.className = 'row'; row.style.marginLeft = `-${shift}px`;
+      // each row repeats its slice so it always runs past the right edge
+      const slice = demo.items.slice(r * per, (r + 1) * per);
+      for (const hw of [...slice, ...slice]) {
+        const el = document.createElement('span'); el.className = 'hw'; el.dir = hw.dir; el.lang = hw.code;
+        el.innerHTML = `<span class="fn"></span><span class="p">(</span><span class="str"></span><span class="p">)</span>`;
+        el.querySelector('.fn').textContent = hw.print; el.querySelector('.str').textContent = `"${hw.world}"`;
+        row.appendChild(el);
+      }
+      rows.appendChild(row);
+    });
+    // light only entries wholly inside the frame, in the order the demo names
+    const all = [...document.querySelectorAll('.hw')];
+    const visible = all.filter((el) => { const b = el.getBoundingClientRect(); return b.left >= 12 && b.right <= 788 && b.bottom <= 496; });
+    // one row after another, a different row each time, never the same language twice
+    const byRow = {}; for (const el of visible) (byRow[el.parentElement.offsetTop] ??= []).push(el);
+    const rowsSeen = Object.values(byRow); const seen = new Set(); order = [];
+    for (let k = 0; order.length < demo.lights && k < 60; k++) {
+      const row = rowsSeen[(k * 3) % rowsSeen.length]; const el = row.find((e) => !seen.has(e.lang));
+      if (el) { seen.add(el.lang); order.push(el); }
+    }
+    duration = order.length * STEP; return duration;
+  };
+  window.visibleCodes = () => order.map((el) => el.lang);
+  window.renderAt = (t) => {
+    const k = Math.min(order.length - 1, Math.floor(t / STEP));
+    document.querySelectorAll('.hw.lit').forEach((el) => el.classList.remove('lit'));
+    order[k]?.classList.add('lit');
+  };
+</script>
+</body>
+</html>

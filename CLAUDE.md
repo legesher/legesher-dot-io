@@ -12,7 +12,7 @@ data. Page and layout changes are visual work and are reviewed as such.
   `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
-  `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
+  `Footer`, `ButtonLink`, `InstallDemo`) and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
   endpoint's validation, payload and Buttondown call, so the route stays thin), `products.ts` (the
   install page's product registry and its one rule function: a product that is not live carries no
@@ -22,7 +22,9 @@ data. Page and layout changes are visual work and are reviewed as such.
   `legesher translate`), and the
   co-located `*.test.ts` suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
-- `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load, including
+- `public/`: static images, `robots.txt`, `install/` (the install page's demo recordings and their
+  stills, one pair per live product that names them in `products.ts`; `scripts/install-demos/` at the
+  repository root holds what recorded them), and `scripts/` (plain JS the components load, including
   `analytics.js`, the PostHog loader the layout renders only when the build carries
   `PUBLIC_POSTHOG_KEY`).
 - `.astro/`: Astro-generated type files; tracked, see Gotchas.

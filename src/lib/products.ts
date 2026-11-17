@@ -23,6 +23,16 @@ export interface ProductLink {
   href: string;
 }
 
+/** A short silent recording of the product in use, shown at the top of its entry. */
+export interface ProductDemo {
+  /** Site path of the recording, under /install/. */
+  video: string;
+  /** Site path of the still shown before the recording plays. */
+  poster: string;
+  /** What the recording shows, in words, for a reader who cannot see it. */
+  label: string;
+}
+
 export interface Product {
   /** Stable id, used as the section anchor on the page. */
   id: string;
@@ -49,6 +59,8 @@ export interface Product {
    * ships here. Forbidden on a product that is not live.
    */
   commands?: readonly string[];
+  /** The product in use. Live products only: nothing is shown running before it can be installed. */
+  demo?: ProductDemo;
   /** For a product that is not live: what it is waiting on, in plain words. */
   arrives?: string;
 }
@@ -70,6 +82,11 @@ export const PRODUCTS: readonly Product[] = [
       label: 'Source on GitHub',
       href: 'https://github.com/legesher/language-packs',
     },
+    demo: {
+      video: '/install/language-packs.mp4',
+      poster: '/install/language-packs.jpg',
+      label: 'The line print("hello world") written in many languages, each using its own word for print. One line lights up at a time.',
+    },
   },
   {
     id: 'toolchain',
@@ -86,6 +103,11 @@ export const PRODUCTS: readonly Product[] = [
     source: {
       label: 'Source on GitHub',
       href: 'https://github.com/legesher/legesher',
+    },
+    demo: {
+      video: '/install/command-line.mp4',
+      poster: '/install/command-line.jpg',
+      label: 'A terminal. The legesher command translates hello.py to Hindi, shows the Hindi file, and runs it. The program prints the same two lines as before.',
     },
     commands: ['pip install legesher'],
   },
@@ -112,6 +134,11 @@ export const PRODUCTS: readonly Product[] = [
       label: 'Source on GitHub',
       href: 'https://github.com/legesher/legesher/tree/main/libs/vs-code',
     },
+    demo: {
+      video: '/install/vs-code.mp4',
+      poster: '/install/vs-code.jpg',
+      label: 'VS Code with a Python file open. The Legesher translation panel opens and shows the file in English and in Hindi, side by side.',
+    },
     commands: ['code --install-extension legesher.legesher-vscode', 'pip install legesher-language-server'],
   },
   {
@@ -130,6 +157,11 @@ export const PRODUCTS: readonly Product[] = [
     source: {
       label: 'Source on GitHub',
       href: 'https://github.com/legesher/legesher/tree/main/libs/mcp',
+    },
+    demo: {
+      video: '/install/mcp-server.mp4',
+      poster: '/install/mcp-server.jpg',
+      label: 'An MCP client lists the six tools of the server, then calls translate_to_native on a two-line program. The program comes back in Swahili.',
     },
     commands: ['uvx legesher-mcp'],
   },
@@ -171,6 +203,7 @@ export function installPathProblems(product: Product): string[] {
     if (product.commands) problems.push('advertises an install command while not live');
     if (links.some(([, link]) => link)) problems.push('advertises an install link while not live');
     if (product.steps) problems.push('advertises install steps while not live');
+    if (product.demo) problems.push('shows a demo while not live');
     if (!product.arrives?.trim()) problems.push('does not say what it is waiting on');
     return problems;
   }
@@ -187,6 +220,12 @@ export function installPathProblems(product: Product): string[] {
     problems.push('is reached through an account and live with no first command');
   }
   if (product.arrives) problems.push('is live and still says what it is waiting on');
+  if (product.demo) {
+    for (const [what, path] of [['the demo recording', product.demo.video], ['the demo still', product.demo.poster]]) {
+      if (!/^\/install\/[a-z0-9-]+\.[a-z0-9]+$/.test(path)) problems.push(`${what} is not a file under /install/`);
+    }
+    if (!product.demo.label.trim()) problems.push('the demo has no description in words');
+  }
 
   // Commands included: a pinned install (`pip install legesher==1.2.3`) goes stale at the next release.
   const text = [
@@ -195,6 +234,7 @@ export function installPathProblems(product: Product): string[] {
     ...links.map(([, link]) => link?.label ?? ''),
     ...(product.steps ?? []),
     ...(product.commands ?? []),
+    product.demo?.label ?? '',
   ].join(' ');
   if (VERSION_STRING.test(text)) problems.push('carries a hand-typed version string');
 

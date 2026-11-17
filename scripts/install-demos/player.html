@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans:wght@400;600&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #1E1E1E; }
+  body { width: 800px; height: 500px; overflow: hidden; font-family: 'Noto Sans Mono', 'Noto Sans Devanagari', monospace; }
+  .bar { height: 44px; background: #252526; border-bottom: 1px solid #1f2937; display: flex; align-items: center; padding: 0 18px; gap: 9px; }
+  .dot { width: 13px; height: 13px; border-radius: 50%; }
+  .title { margin-left: 14px; color: #9ca3af; font: 400 15px 'Noto Sans', sans-serif; }
+  .body { padding: 20px 24px; font-size: 21px; line-height: 1.5; color: #d1d5db; white-space: pre; }
+  .line { min-height: 31.5px; }
+  .prompt { color: #6cc5e0; }
+  .cmd { color: #ffffff; }
+  .ok { color: #34d399; }
+  .dim { color: #9ca3af; }
+  .hl { color: #F6F16F; }
+  .coral { color: #f58b78; }
+  .cursor { display: inline-block; width: 11px; height: 24px; background: #6cc5e0; vertical-align: -4px; margin-left: 1px; }
+</style>
+</head>
+<body>
+<div class="bar"><span class="dot" style="background:#f87171"></span><span class="dot" style="background:#F6F16F"></span><span class="dot" style="background:#34d399"></span><span class="title" id="title"></span></div>
+<div class="body" id="body"></div>
+<script>
+  // steps: {cmd: "text", prompt?: "$"} typed out; {out: "text", cls?: "ok"} shown whole; {gap: true} blank line.
+  let steps = [], events = [], duration = 0;
+  const TYPE = 42, BEFORE = 450, AFTER = 380, OUT = 70, HOLD = 2600;
+  window.load = (demo) => {
+    document.getElementById('title').textContent = demo.title;
+    steps = demo.steps; events = []; let t = 300;
+    for (const s of steps) {
+      if (s.cmd !== undefined) { t += BEFORE; const start = t; t += s.cmd.length * TYPE; events.push({ s, start, end: t }); t += AFTER; }
+      else { t += OUT; events.push({ s, start: t, end: t }); }
+    }
+    duration = t + HOLD; return duration;
+  };
+  const esc = (x) => x.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  // {{cls|text}} marks a coloured run inside an output line.
+  const paint = (x) => esc(x).replace(/\{\{(\w+)\|([^}]*)\}\}/g, '<span class="$1">$2</span>');
+  window.renderAt = (t) => {
+    let html = '';
+    for (const e of events) {
+      if (t < e.start) break;
+      const s = e.s;
+      if (s.cmd !== undefined) {
+        const n = Math.min(s.cmd.length, Math.floor((t - e.start) / TYPE));
+        const typing = t < e.end + AFTER;
+        html += `<div class="line"><span class="prompt">${esc(s.prompt ?? '$')} </span><span class="cmd">${esc(s.cmd.slice(0, n))}</span>${typing ? '<span class="cursor"></span>' : ''}</div>`;
+      } else if (s.gap) html += '<div class="line"></div>';
+      else html += `<div class="line ${s.cls ?? ''}">${paint(s.out)}</div>`;
+    }
+    if (t >= duration - HOLD) html += '<div class="line"><span class="prompt">$ </span><span class="cursor"></span></div>';
+    document.getElementById('body').innerHTML = html;
+  };
+</script>
+</body>
+</html>

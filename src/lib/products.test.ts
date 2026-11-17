@@ -1,5 +1,10 @@
+import { existsSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { PRODUCTS, installPathProblems, type Product } from './products';
+
+const publicDir = join(import.meta.dirname, '..', '..', 'public');
+const demos = PRODUCTS.flatMap((product) => (product.demo ? [{ id: product.id, ...product.demo }] : []));
 
 // Parametrized from the real registry, never a frozen list, so a product added
 // later is checked the moment it exists.
@@ -22,6 +27,22 @@ describe('PRODUCTS', () => {
   });
 });
 
+describe('the demo recordings', () => {
+  it.each(demos)('$id has its recording and its still in public/', ({ video, poster }) => {
+    expect(existsSync(join(publicDir, video)), `${video} exists`).toBe(true);
+    expect(existsSync(join(publicDir, poster)), `${poster} exists`).toBe(true);
+  });
+
+  it('public/install/ holds nothing a registry entry does not name', () => {
+    // A recording of a product that is not live must not be served: the rule
+    // forbids the entry's demo, and this keeps the file itself off the site.
+    const named = new Set(demos.flatMap(({ video, poster }) => [video, poster]));
+    const dir = join(publicDir, 'install');
+    const found = existsSync(dir) ? readdirSync(dir).map((name) => `/install/${name}`) : [];
+    expect(found.filter((path) => !named.has(path))).toEqual([]);
+  });
+});
+
 // The registry can hold no product in one of the two states (nothing is
 // "Coming" once every product is live), and a rule checked only against the
 // registry would then pass without running. Each entry below breaks one rule
@@ -35,6 +56,7 @@ const liveOpenSource: Product = {
   access: { label: 'Open it on the registry', href: 'https://example.org/tool' },
   source: { label: 'Source', href: 'https://example.org/source' },
   commands: ['pip install example-tool'],
+  demo: { video: '/install/example-tool.mp4', poster: '/install/example-tool.jpg', label: 'A terminal runs the tool.' },
 };
 
 const liveAccount: Product = {
@@ -92,6 +114,31 @@ describe('installPathProblems', () => {
       'a product that is not live and does not say what it waits on',
       { ...coming, arrives: undefined },
       'does not say what it is waiting on',
+    ],
+    [
+      'a demo on a product that is not live',
+      { ...coming, demo: { video: '/install/later.mp4', poster: '/install/later.jpg', label: 'It runs.' } },
+      'shows a demo while not live',
+    ],
+    [
+      'a demo recording outside /install/',
+      { ...liveOpenSource, demo: { video: 'https://example.org/demo.mp4', poster: '/install/example-tool.jpg', label: 'It runs.' } },
+      'the demo recording is not a file under /install/',
+    ],
+    [
+      'a demo still outside /install/',
+      { ...liveOpenSource, demo: { video: '/install/example-tool.mp4', poster: '/elsewhere/still.jpg', label: 'It runs.' } },
+      'the demo still is not a file under /install/',
+    ],
+    [
+      'a demo with no description',
+      { ...liveOpenSource, demo: { video: '/install/example-tool.mp4', poster: '/install/example-tool.jpg', label: ' ' } },
+      'the demo has no description in words',
+    ],
+    [
+      'a version typed into a demo description',
+      { ...liveOpenSource, demo: { video: '/install/example-tool.mp4', poster: '/install/example-tool.jpg', label: 'Runs 1.2.3.' } },
+      'carries a hand-typed version string',
     ],
     ['a live product with no install link', { ...liveOpenSource, access: undefined }, 'is live with no install link'],
     [

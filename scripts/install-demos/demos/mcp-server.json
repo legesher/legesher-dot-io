@@ -1,0 +1,46 @@
+{
+ "title": "MCP client",
+ "steps": [
+  {
+   "cmd": "tools/list",
+   "prompt": "→"
+  },
+  {
+   "out": "translate_to_native       translate_to_source",
+   "cls": "dim"
+  },
+  {
+   "out": "explain_in_language       lookup_keyword_mapping",
+   "cls": "dim"
+  },
+  {
+   "out": "validate_identifier_translations",
+   "cls": "dim"
+  },
+  {
+   "out": "map_existing_codebase",
+   "cls": "dim"
+  },
+  {
+   "cmd": "translate_to_native  target_lang: \"sw\"",
+   "prompt": "→"
+  },
+  {
+   "out": "for day in [\"Mon\", \"Tue\"]:",
+   "cls": "dim"
+  },
+  {
+   "out": "    print(day)",
+   "cls": "dim"
+  },
+  {
+   "gap": true
+  },
+  {
+   "out": "{{hl|kwa}} day {{hl|katika}} [\"Mon\", \"Tue\"]:"
+  },
+  {
+   "out": "    {{hl|chapisha}}(day)"
+  }
+ ]
+}
