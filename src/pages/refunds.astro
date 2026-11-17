@@ -10,9 +10,10 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
 // DRAFT. Sentences marked data-review="jurisdiction" depend on the law of
 // the customer's country or the contracting entity; data-review="processor"
 // marks a claim about the payment processor's behaviour to confirm against
-// its current docs. All need a maintainer's review, and counsel's before
-// the first charge. The markers render nothing; grep for data-review to list
-// them.
+// its current docs; data-review="plan" marks a statement about what a named
+// plan includes or how plans are sold. All need a maintainer's review, and
+// counsel's before the first charge. The markers render nothing; grep for
+// data-review to list them.
 ---
 
 <Layout
@@ -59,7 +60,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
           </p>
           <p>
             Your subscription, invoices, payment method and cancellation are all managed from the Polar customer
-            portal. The link to the portal is in every receipt email and in your Legesher account.
+            portal. <span data-review="processor">The link to the portal is in every receipt email.</span>
           </p>
         </section>
 
@@ -80,13 +81,13 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
             </li>
             <li>
               <strong>Nothing you built is removed.</strong> Code and translations in your own repositories stay
-              there. When the paid period ends, the hosted service stops translating new changes. Hosted copies of
-              your data are kept until you ask us to delete them (see Section 7).
+              there. When the paid period ends, the features of your paid plan stop and your account continues on
+              the Free plan. Your account is kept until you ask us to delete it (see Section 7).
             </li>
             <li>
-              <strong>Founding Developer (beta) seats.</strong> A founding seat is tied to an active subscription. If you
-              cancel, the seat is released at the end of the paid period; if you later subscribe again, you join on the
-              plan and price in force at that time.
+              <strong>Founding Developer (beta) seats.</strong> <span data-review="plan">A founding seat is tied to an
+              active subscription. If you cancel, the seat is released at the end of the paid period; if you later
+              subscribe again, you join on the plan and price in force at that time.</span>
             </li>
           </ul>
         </section>
@@ -113,8 +114,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
 
           <h3>4.3 Annual plans</h3>
           <p>
-            Annual billing is not offered yet. If it is introduced, this section will state the proration rule before the
-            first annual plan is sold.
+            <span data-review="plan">Annual billing is not offered yet.</span> If it is introduced, this section will
+            state the proration rule before the first annual plan is sold.
           </p>
 
           <h3>4.4 Enterprise agreements</h3>
@@ -132,7 +133,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
 
           <h3>4.6 What is not refunded</h3>
           <ul>
-            <li>Usage already consumed, such as hosted imports that have run, except inside the windows above</li>
+            <li>Usage already consumed, except inside the windows above</li>
             <li>Charges for a period in which the account was suspended for a breach of the Terms</li>
             <li>Currency conversion fees or bank charges applied by your own bank</li>
           </ul>
@@ -155,9 +156,12 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
               plan. You can subscribe again at any time.
             </li>
             <li>
-              <strong>Account data.</strong> Hosted account data from a cancelled subscription is kept for
-              <span data-review="jurisdiction">60 days</span> so you can come back without starting over, then removed
-              under our data retention rules. Data in your own repositories is never touched.
+              <strong>Keys and usage records.</strong> <span data-review="jurisdiction">For 60 days after the
+              subscription is cancelled for non-payment, your API keys keep working with Free plan limits. After
+              those 60 days the keys stop working and your usage records are unlinked from your account.</span> Your
+              account itself is kept until you ask us to delete it (Section 7), so you can subscribe again at any
+              time; if your keys have stopped by then, you get new ones. Data in your own repositories is never
+              touched.
             </li>
           </ul>
         </section>
@@ -174,9 +178,10 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
               then; no partial refund is issued for the difference.
             </li>
             <li>
-              <strong>Price changes.</strong> We do not raise the price of a plan you already pay for without at least
-              90 days' notice by email, and you can keep your current price for the remainder of any period already
-              paid. The price you were quoted at checkout is the price you pay for that period.
+              <strong>Price changes.</strong> <span data-review="plan">We do not raise the price of a plan you already
+              pay for without at least 90 days' notice by email, and you can keep your current price for the remainder
+              of any period already paid.</span> The price you were quoted at checkout is the price you pay for that
+              period.
             </li>
           </ul>
         </section>
@@ -184,10 +189,11 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
         <section aria-labelledby="data-after-cancellation">
           <h2 id="data-after-cancellation">7. Your Data After Cancellation</h2>
           <p>
-            Cancelling a subscription is not the same as deleting your account. Hosted copies of your maps and account
-            data are kept after your subscription ends, until you ask us to delete them, so you can return without
-            starting over.
-            To delete your account and its hosted data, email
+            Cancelling a subscription is not the same as deleting your account. Your account is kept after your
+            subscription ends, until you ask us to delete it, so you can return without starting over. The same goes
+            for any copies of your maps the hosted service holds.
+            To delete your account and its hosted data, use Delete account on the Settings page of your Legesher
+            account once your plan has ended, or email
             <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>; how we handle that request is described in
             our <a href="/privacy">Privacy Policy</a>.
           </p>
