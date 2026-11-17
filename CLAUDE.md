@@ -40,10 +40,12 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-11-13; they grow, they never shrink):
+Summary lines to expect (counts as of 2026-11-17). They grow with new tests and shrink only when a
+page or a source file is removed: three built-page guards run once per built page, and the
+runtime-secret guard runs once per source file under `src/`.
 
-- `npm test`: ` Test Files  11 passed (11)` then `      Tests  226 passed (226)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  8 passed | 3 skipped (11)` then `      Tests  206 passed | 5 skipped (211)`
+- `npm test`: ` Test Files  11 passed (11)` then `      Tests  222 passed (222)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  8 passed | 3 skipped (11)` then `      Tests  205 passed | 5 skipped (210)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -90,7 +92,7 @@ Facts behind those commands:
   on a tracked folderOpen editor task, an automatic-tasks setting, non-font bytes under a font
   extension, or `.env` not ignored or tracked.
 - The runtime-secret guard `src/lib/subscribe-secret.test.ts` bans the build-time environment
-  accessor from every non-test source under `src/lib` and `src/pages/api`, comments included,
+  accessor from every non-test source under `src/`, comments included,
   because Astro's build inlines every private variable named in a module that contains it. Secrets
   are declared in `env.schema` in `astro.config.mjs` and read with `getSecret` from `astro:env/server`.
   The build-time proof is a sentinel build with a unique value: `BUTTONDOWN_API_KEY=LEAKPROBE_<random> npm run build`
