@@ -14,7 +14,7 @@ after running the commands again; do not edit output by hand.
 
 | Recording | Made with | Where the content comes from |
 | --- | --- | --- |
-| `command-line` | `player.html`, `demos/command-line.json` | `legesher translate`, `cat` and `legesher run` on a six-line file, from a fresh `pip install legesher` |
+| `command-line` | `player.html`, `demos/command-line.json` | `legesher translate`, `cat` and `legesher run` on a six-line file, from a fresh `pipx install legesher` |
 | `mcp-server` | `player.html`, `demos/mcp-server.json` | `tools/list` and one `translate_to_native` call over stdio against `uvx legesher-mcp` |
 | `language-packs` | `band.html`, `demos/language-packs.json` | each pack's own word for `print`, with a greeting in that language |
 | `vs-code` | `record-vscode.mjs` | a real VS Code session with the extension from the Marketplace and `legesher-lsp` from PyPI |
@@ -49,11 +49,12 @@ opens on the desktop and the profile is separate from yours:
    `code --extensions-dir <folder> --user-data-dir <folder> --install-extension legesher.legesher-vscode`
    and copy it, with its `extensions.json` entry, into `<server data dir>/extensions`.
 3. In `<server data dir>/data/Machine/settings.json` set `legesher.workingLanguage`, point
-   `legesher.serverCommand` at a `legesher-lsp` from a fresh `pip install legesher-language-server`,
+   `legesher.serverCommand` at a `legesher-lsp` from a fresh `pipx install legesher-language-server`,
    and turn workspace trust, the welcome page and extension recommendations off.
-4. Put `hello.py` in a folder and open the editor once to trust it and hide the side bar.
-5. Run `node record-vscode.mjs <playwright> "http://127.0.0.1:<port>/?folder=<folder>" <browser profile folder> out vs-code`.
+4. Put the file to show in a folder (here `hello_hi.py`, the Hindi file `legesher translate` wrote) and
+   open the editor once to trust the folder and hide the side bar.
+5. Run `node record-vscode.mjs <playwright> "http://127.0.0.1:<port>/?folder=<folder>" <browser profile folder> out vs-code hello_hi.py <keyword> <keyword>`.
 
-The script opens the file, runs "Legesher: Show Translation Panel" from the
-command palette, gives the panel the whole window, and records screenshots
-beside those real actions.
+The script opens the file, rests the pointer on each keyword in turn so the
+language server's hover card shows, and records screenshots beside those real
+actions. It prints the text of each card it saw.
