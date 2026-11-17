@@ -49,8 +49,8 @@ Summary lines to expect (counts as of 2026-11-17). They grow with new tests and 
 page or a source file is removed: three built-page guards run once per built page, and the
 runtime-secret guard runs once per source file under `src/`.
 
-- `npm test`: ` Test Files  17 passed (17)` then `      Tests  458 passed (458)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  13 passed | 4 skipped (17)` then `      Tests  427 passed | 16 skipped (443)`
+- `npm test`: ` Test Files  17 passed (17)` then `      Tests  467 passed (467)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  13 passed | 4 skipped (17)` then `      Tests  436 passed | 16 skipped (452)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -125,7 +125,7 @@ Facts behind those commands:
   (codes, writing direction, the words the page shows). `life-of-a-language/path.test.ts` fails on a
   pack status in the registry that no stage of the copy carries; the component also stops the build
   on one. `life-of-a-language/match.test.ts` fails when a browser language would match a pack in
-  another script (`zh-TW` is not the `zh-Hans` pack). `src/lib/built-life-of-a-language.test.ts`
+  another script (`zh-TW` is not the `zh-Hans` pack) or miss one in its likely script (`zh-CN` is). `src/lib/built-life-of-a-language.test.ts`
   reads the built page: no unfilled `{lang}`, the language count from the registry, the eight steps
   in order, the default language placed by its status, and every step open with the picker and its
   label hidden before any script runs.

@@ -23,11 +23,17 @@ describe('languageFor', () => {
     ['fil-PH', 'tl'],
     ['zh-Hans-CN', 'zh'],
     ['sr-Cyrl-RS', 'sr'],
+    // A region with no script names the script it is usually written in.
+    ['zh-CN', 'zh'],
+    ['zh-SG', 'zh'],
+    ['sr-RS', 'sr'],
+    ['mn-MN', 'mn'],
+    ['uz-UZ', 'uz'],
   ])('matches %s to %s', (requested, code) => {
     expect(languageFor(requested, languages)).toBe(code);
   });
 
-  it.each(['zh-TW', 'zh-Hant', 'sr-Latn', 'uz-Cyrl', 'mn-Mong'])(
+  it.each(['zh-TW', 'zh-HK', 'zh-Hant', 'sr-Latn', 'sr-ME', 'uz-Cyrl', 'uz-AF', 'mn-Mong', 'mn-CN'])(
     'does not match %s to a pack in another script',
     (requested) => {
       expect(languageFor(requested, languages)).toBeUndefined();
