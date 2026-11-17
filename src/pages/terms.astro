@@ -7,7 +7,7 @@ import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
 
 const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
 
-// DRAFT markers on the hosted-service passages (Sections 3, 5.2, 8.4 and 16).
+// DRAFT markers on the hosted-service passages (Sections 5.2, 8.4 and 16).
 // data-review="jurisdiction" marks a sentence that depends on the law of the
 // customer's country or the contracting entity; "processor" a claim about a
 // service provider's behaviour; "mailbox" a contact address; "plan" a
@@ -268,12 +268,13 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
             </tbody>
           </table>
           <p>
-            <strong>What no plan and no Commercial License includes.</strong> A subscription to the Hosted Services is
-            not a data license. The following are not available on any plan, free or paid:
+            <strong>What no plan includes.</strong> A subscription to the Hosted Services is not a data license. The
+            following are not available on any plan, free or paid:
           </p>
           <ul>
             <li>
-              Training or fine-tuning AI/ML models on Hosted Service outputs, or redistributing those outputs in bulk.
+              Training or fine-tuning AI/ML models on the Legesher vocabulary or on Hosted Service outputs collected
+              in bulk, or redistributing either in bulk.
               We consider this only under a separate written data agreement signed by Legesher Inc; write to
               <a href="mailto:hello@legesher.com"><span data-review="mailbox">hello@legesher.com</span></a>.
             </li>
@@ -434,15 +435,21 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
           <h3 id="hosted-data">8.4 Code and Data You Send to the Hosted Services</h3>
           <p>
             When you send code to the Legesher Translation API, the code and its translation are processed in memory
-            to answer the request. They are <strong>not written to logs, not kept after the request ends, and not
-            used to train models</strong>.
+            to answer the request. They are <strong>not written to logs and not used to train models</strong>, and
+            apart from the names described below they are <strong>not kept after the request ends</strong>.
           </p>
-          <p>The Hosted Services do keep the following:</p>
+          <p>The Hosted Services do keep some things about your use:</p>
           <ul>
             <li>
-              <strong>A usage record for each request.</strong> It holds the account or key that made the request,
-              the languages, the size of the request, whether it succeeded and, if you chose to name a repository, a
-              salted hash of that name. It holds none of your code.
+              <strong>A usage record for each request.</strong> It says who made the request (your account or key or,
+              without an account, a salted hash of your network address), when, with which tool, in which languages,
+              how large the request was and whether it succeeded. If you chose to name a repository, it holds a salted
+              hash of that name. It holds none of your code.
+            </li>
+            <li>
+              <strong>Service logs and limits.</strong> Like any online service, the Hosted Services log requests, not
+              their content, and count requests against the limits in Section 16.1. Without an account, the limit is
+              counted against your network address.
             </li>
             <li>
               <strong>Your account.</strong> Your account record, your API keys (stored as hashes, not as the keys
@@ -452,16 +459,16 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
               <strong>Names, for features that use a language model.</strong>
               <span data-review="processor">On plans that include them, features that use a language model send the
               parts of your code that need translating in context (comments, docstrings, text strings and the names
-              you chose) to a model provider, which processes them to return the translation.</span> So that a name
-              is translated the same way from one request to the next, the service keeps the translated names for a
-              repository you identify. They are kept for your account only, are not shared with other customers and
-              are not used to train models.
+              you chose) to a model provider, which processes them to return the translation. They are not used to
+              train models.</span> So that a name is translated the same way from one request to the next, the service
+              keeps the names from a repository you identify, together with their translations. They are kept for
+              your account only and are not shared with other customers.
             </li>
           </ul>
           <p>
-            The same handling applies when a school or another institution directs its students to the Hosted
-            Services. <span data-review="jurisdiction">The Hosted Services are not directed at children under 13, or
-            under 16 where the law sets that age.</span>
+            <span data-review="jurisdiction">The same handling applies when a school or another institution directs
+            its students to the Hosted Services. The Hosted Services are not directed at children under 13, or under 16
+            where the law sets that age.</span>
           </p>
           <p>
             Our <a href="/privacy">Privacy Policy</a> describes the personal information we hold, who processes it
@@ -754,26 +761,32 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
 
           <h3 id="hosted-outputs">16.3 Outputs and the vocabulary</h3>
           <p>
-            Your code stays yours. Sending it to the Hosted Services gives us no ownership of it, and we use it only
-            to provide the service to you (Section 8.4).
+            Your code stays yours, and so do the names you chose in it and their translations. Sending your code to
+            the Hosted Services gives us no ownership of it, and we use it only to provide the service to you
+            (Section 8.4).
           </p>
           <p>
-            <span data-review="jurisdiction">Legesher Inc keeps all rights in the Hosted Services and in the vocabulary
-            they serve: the translated names and the collections of them that we build and curate, including any
-            database rights in those collections.</span> You may use what the Hosted Services return to you in your own
-            projects: to read, run and maintain your code, and to commit it to your repositories, public ones
-            included.
+            <span data-review="jurisdiction">Legesher Inc keeps all rights in the Hosted Services and in the Legesher
+            vocabulary: the translated names for libraries, packages and other public code that we build and curate,
+            and the collections of them, including any database rights in those collections.</span> The open language
+            packs are not part of that vocabulary; they stay under their open license. You may use what the Hosted
+            Services return to you in your own projects: to read, run and maintain your code, and to commit it to
+            your repositories, public ones included.
           </p>
           <p>On every plan, free or paid, you may not:</p>
           <ul>
             <li>
-              <strong>Extract the vocabulary.</strong> No systematic querying, scraping or harvesting of Hosted
-              Service outputs to build a dataset, glossary, corpus or product that substitutes for or competes with
-              the Hosted Services. A subscription is not a data license.
+              <strong>Extract the vocabulary.</strong> No systematic querying, scraping or harvesting of the Hosted
+              Services to build a dataset, glossary, corpus or product that substitutes for or competes with them. A
+              subscription is not a data license.
             </li>
             <li>
-              <strong>Train models on outputs.</strong> No training or fine-tuning of AI/ML models on Hosted Service
-              outputs.
+              <strong>Train models on it.</strong> No training or fine-tuning of AI/ML models on the Legesher
+              vocabulary, or on outputs collected in bulk from the Hosted Services.
+            </li>
+            <li>
+              <strong>Redistribute it in bulk.</strong> No passing on the Legesher vocabulary, or outputs collected in
+              bulk, as a dataset of their own. Committing your own code to your repositories is not that.
             </li>
             <li>
               <strong>Reverse engineer the service.</strong> <span data-review="jurisdiction">No reverse engineering
@@ -782,9 +795,9 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
             </li>
           </ul>
           <p>
-            Bulk access to outputs, and any use of them for training, is available only under a separate written data
-            agreement signed by Legesher Inc. None of this limits what you may do with the Open-Source Software or
-            the open language packs, which stay free for any use, AI training included (Section 5.3).
+            Bulk access, bulk redistribution and any use for training are available only under a separate written
+            data agreement signed by Legesher Inc. None of this limits what you may do with the Open-Source Software
+            or the open language packs, which stay free for any use, AI training included (Section 5.3).
           </p>
 
           <h3 id="hosted-suspension">16.4 Limits and suspension</h3>
@@ -799,15 +812,16 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
           <h3 id="hosted-leaving">16.5 Leaving</h3>
           <p>
             You can stop using the Hosted Services at any time, and you can delete your account from its Settings
-            page. Deleting your account ends its keys at once. The <a href="/privacy">Privacy Policy</a> describes
+            page once any paid plan on it has ended. Deleting your account ends its keys at once. The <a href="/privacy">Privacy Policy</a> describes
             how deletion requests are handled.
           </p>
 
           <h3 id="hosted-paid-plans">16.6 Paid plans</h3>
           <p>
-            A paid plan is sold under a subscription agreement and our Refund and Cancellation Policy, both shown to
-            you at checkout before you pay. That agreement is the plan-specific agreement these Terms refer to. Where
-            it differs from this section, it controls for that plan.
+            <span data-review="plan">When you subscribe to a paid plan, you are shown a subscription agreement and
+            our Refund and Cancellation Policy before you pay.</span> That agreement is the plan-specific agreement
+            these Terms refer to. Where it differs from these Terms, it controls for that plan, and the Refund and
+            Cancellation Policy controls on cancellations and refunds.
           </p>
         </section>
 
