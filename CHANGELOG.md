@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Install page at `/install`**: one entry per Legesher product with its state today. A product
+  that is not live carries no install command, no install link and no install steps
+  (`src/lib/products.ts`, where `installPathProblems` is the one rule, checked by `products.test.ts`
+  against the registry and against entries written to break one rule each). The open-source
+  installs sit in one row, each with its command, its registry link and a link to its source. A
+  product reached through a Legesher account leads the page once it is live. Live products link to
+  the surface that carries their own version, so no version string is typed into the site. Linked
+  from the header and the footer. Each live entry opens with a short silent recording of the product
+  in use (`public/install/`, shown by `InstallDemo.astro`): it plays only while on screen, has a
+  Pause and Play button, and stays still for a visitor who asks for reduced motion. Commands render
+  as terminal blocks. `scripts/install-demos/` holds what made the recordings.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
   by the layout only when the build carries `PUBLIC_POSTHOG_KEY`, and the Content Security Policy
   gains PostHog's origin only in that case. Memory-only persistence (no cookie, no client-side

@@ -68,6 +68,10 @@ suite('each dated page keeps the space in its byline (needs npm run build)', () 
       .split(/<[^>]*>/)
       .join('')
       .replace(/\s+/g, ' ');
-    expect(text).toContain(`· Last updated: ${formatLastUpdated(iso)}`);
+    const byline = `Last updated: ${formatLastUpdated(iso)}`;
+    expect(text).toContain(byline);
+    // A page whose byline leads with a name and a middle dot (the legal pages)
+    // has the space the build can drop; a page with the date alone has none.
+    expect(text).not.toContain(`·${byline}`);
   });
 });

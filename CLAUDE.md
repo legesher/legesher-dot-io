@@ -7,18 +7,24 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `privacy.astro`, `terms.astro`, `legesher-for-education.astro`, and
+- `src/pages/`: `index.astro`, `install.astro`, `privacy.astro`, `terms.astro`,
+  `legesher-for-education.astro`, and
   `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
-  `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
+  `Footer`, `ButtonLink`, `InstallDemo`) and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
-  endpoint's validation, payload and Buttondown call, so the route stays thin), `attribution.ts`,
-  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, `pack-samples.json` (the education
-  page's sample program in every Python pack, generated with `legesher translate`), and the
+  endpoint's validation, payload and Buttondown call, so the route stays thin), `products.ts` (the
+  install page's product registry and its one rule function: a product that is not live carries no
+  install path, and the page leads with a product reached through an account once it is live),
+  `attribution.ts`, `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`,
+  `pack-samples.json` (the education page's sample program in every Python pack, generated with
+  `legesher translate`), and the
   co-located `*.test.ts` suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
-- `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load, including
+- `public/`: static images, `robots.txt`, `install/` (the install page's demo recordings and their
+  stills, one pair per live product that names them in `products.ts`; `scripts/install-demos/` at the
+  repository root holds what recorded them), and `scripts/` (plain JS the components load, including
   `analytics.js`, the PostHog loader the layout renders only when the build carries
   `PUBLIC_POSTHOG_KEY`).
 - `.astro/`: Astro-generated type files; tracked, see Gotchas.
@@ -41,11 +47,11 @@ npm run build              # astro build
 ```
 
 Summary lines to expect (counts as of 2026-11-17). They grow with new tests and shrink only when a
-page or a source file is removed: three built-page guards run once per built page, and the
+page, a source file or an install-page entry is removed: three built-page guards run once per built page, and the
 runtime-secret guard runs once per source file under `src/`.
 
-- `npm test`: ` Test Files  11 passed (11)` then `      Tests  222 passed (222)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  8 passed | 3 skipped (11)` then `      Tests  205 passed | 5 skipped (210)`
+- `npm test`: ` Test Files  12 passed (12)` then `      Tests  271 passed (271)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  9 passed | 3 skipped (12)` then `      Tests  250 passed | 6 skipped (256)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
