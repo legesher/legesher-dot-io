@@ -145,26 +145,23 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
           <h2 id="failed-payments">5. Failed Payments</h2>
           <p>
             <span data-review="processor">If a renewal payment fails, we tell you by email and Polar retries the
-            card.</span> During the retry period your account runs with Free plan limits and nothing is removed.
+            payment.</span> During the retry period your account runs with Free plan limits and nothing is removed.
           </p>
           <ul>
             <li>
-              <strong>Grace period.</strong> <span data-review="jurisdiction">You have 17 days from the first failed
-              charge to update your payment method in the Polar portal.</span> As soon as a payment succeeds, your paid
-              plan is restored. <span data-review="processor">If Polar stops retrying and ends the subscription
-              sooner, the grace period ends then.</span>
+              <strong>Restoring your plan.</strong> <span data-review="processor">Polar retries the payment over the
+              21 days after the first failed charge. Saving a new default payment method in the Polar portal retries
+              it at once.</span> As soon as a payment succeeds, your paid plan is restored.
             </li>
             <li>
-              <strong>After the grace period.</strong> Your paid plan ends and the account stays on the Free plan.
-              You can subscribe again at any time.
+              <strong>When the retries end.</strong> <span data-review="processor">If no payment has succeeded
+              when Polar stops retrying, your subscription ends and we email you to say so.</span> Your account stays
+              on the Free plan, and you can subscribe again at any time.
             </li>
             <li>
-              <strong>Keys and usage records.</strong> <span data-review="jurisdiction">For 60 days after the
-              paid plan ends for non-payment, your API keys keep working with Free plan limits. After
-              those 60 days the keys stop working and your usage records are unlinked from your account.</span> Your
-              account itself is kept until you ask us to delete it (Section 7), so you can subscribe again at any
-              time; if your keys have stopped by then, you get new ones. Data in your own repositories is never
-              touched.
+              <strong>Non-payment deletes nothing.</strong> <span data-review="jurisdiction">Your API keys keep
+              working with Free plan limits, and your usage records stay linked to your account. Your account is kept
+              until you ask us to delete it (Section 7).</span> Data in your own repositories is never touched.
             </li>
           </ul>
         </section>
@@ -195,7 +192,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
             Cancelling a subscription is not the same as deleting your account. Your account is kept after your
             subscription ends, until you ask us to delete it, so you can return without starting over.
             To delete your account and its hosted data, use Delete account on the Settings page of your Legesher
-            account once your plan has ended, or email
+            account once your subscription has ended, or email
             <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>; how we handle that request is described in
             our <a href="/privacy">Privacy Policy</a>.
           </p>
