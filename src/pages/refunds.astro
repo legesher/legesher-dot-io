@@ -37,7 +37,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
           <p>
             This policy explains what happens when you cancel a paid Legesher subscription, when you can get a refund,
             and what happens if a payment fails. It applies to every paid plan sold through our checkout. It forms part of
-            our <a href="/terms">Terms of Service</a>; the Terms control if the two conflict.
+            our <a href="/terms">Terms of Service</a>. On cancellations and refunds this policy controls; on
+            everything else the Terms do.
           </p>
           <p>
             Nothing in this policy affects the Legesher open-source software, which is free under the Apache 2.0
@@ -59,15 +60,16 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
             and this policy.</span> Polar's own terms apply to the payment itself.
           </p>
           <p>
-            Your subscription, invoices, payment method and cancellation are all managed from the Polar customer
-            portal. <span data-review="processor">The link to the portal is in every receipt email.</span>
+            <span data-review="processor">Your subscription, invoices, payment method and cancellation are all managed
+            from the Polar customer portal. The link to the portal is in every receipt email.</span>
           </p>
         </section>
 
         <section aria-labelledby="cancellation">
           <h2 id="cancellation">3. Cancelling a Subscription</h2>
           <p>
-            You can cancel at any time from the Polar customer portal. You do not need to email or call us.
+            <span data-review="processor">You can cancel at any time from the Polar customer portal.</span> You do
+            not need to email or call us.
           </p>
           <ul>
             <li>
@@ -76,8 +78,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
               then your account moves to the Free plan.
             </li>
             <li>
-              <strong>You can undo a cancellation</strong> from the portal at any time before the period ends, and the
-              subscription continues as if nothing happened.
+              <span data-review="processor"><strong>You can undo a cancellation</strong> from the portal at any time
+              before the period ends, and the subscription continues as if nothing happened.</span>
             </li>
             <li>
               <strong>Nothing you built is removed.</strong> Code and translations in your own repositories stay
@@ -128,7 +130,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
           <p>
             Refunds go back to the original payment method through Polar. <span data-review="processor">Once
             approved, a refund usually appears within 5 to 10 business days, depending on your bank or card
-            issuer.</span> A refund ends access to the paid plan at the moment it is issued.
+            issuer.</span> When we refund a payment, the paid plan it bought ends.
           </p>
 
           <h3>4.6 What is not refunded</h3>
@@ -142,22 +144,23 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
         <section aria-labelledby="failed-payments">
           <h2 id="failed-payments">5. Failed Payments</h2>
           <p>
-            If a renewal payment fails, we tell you by email and Polar retries the card. During the retry period your
-            account runs with Free plan limits and nothing is removed.
+            <span data-review="processor">If a renewal payment fails, we tell you by email and Polar retries the
+            card.</span> During the retry period your account runs with Free plan limits and nothing is removed.
           </p>
           <ul>
             <li>
               <strong>Grace period.</strong> <span data-review="jurisdiction">You have 17 days from the first failed
               charge to update your payment method in the Polar portal.</span> As soon as a payment succeeds, your paid
-              plan is restored.
+              plan is restored. <span data-review="processor">If Polar stops retrying and ends the subscription
+              sooner, the grace period ends then.</span>
             </li>
             <li>
-              <strong>After the grace period.</strong> The subscription is cancelled and the account stays on the Free
-              plan. You can subscribe again at any time.
+              <strong>After the grace period.</strong> Your paid plan ends and the account stays on the Free plan.
+              You can subscribe again at any time.
             </li>
             <li>
               <strong>Keys and usage records.</strong> <span data-review="jurisdiction">For 60 days after the
-              subscription is cancelled for non-payment, your API keys keep working with Free plan limits. After
+              paid plan ends for non-payment, your API keys keep working with Free plan limits. After
               those 60 days the keys stop working and your usage records are unlinked from your account.</span> Your
               account itself is kept until you ask us to delete it (Section 7), so you can subscribe again at any
               time; if your keys have stopped by then, you get new ones. Data in your own repositories is never
@@ -174,8 +177,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
               prorated difference for the rest of the current period.</span>
             </li>
             <li>
-              <strong>Downgrades</strong> take effect at the end of the current period. You keep what you paid for until
-              then; no partial refund is issued for the difference.
+              <span data-review="processor"><strong>Downgrades</strong> take effect at the end of the current
+              period.</span> You keep what you paid for until then; no partial refund is issued for the difference.
             </li>
             <li>
               <strong>Price changes.</strong> <span data-review="plan">We do not raise the price of a plan you already
@@ -190,8 +193,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
           <h2 id="data-after-cancellation">7. Your Data After Cancellation</h2>
           <p>
             Cancelling a subscription is not the same as deleting your account. Your account is kept after your
-            subscription ends, until you ask us to delete it, so you can return without starting over. The same goes
-            for any copies of your maps the hosted service holds.
+            subscription ends, until you ask us to delete it, so you can return without starting over.
             To delete your account and its hosted data, use Delete account on the Settings page of your Legesher
             account once your plan has ended, or email
             <a href="mailto:privacy@legesher.com">privacy@legesher.com</a>; how we handle that request is described in
@@ -205,8 +207,8 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.refunds);
             <li>Email <a href="mailto:hello@legesher.com">hello@legesher.com</a> from the address on your account.</li>
             <li>Include the receipt number from Polar (it is on the receipt email) and the reason, if you want to share one.</li>
             <li>
-              We reply within <span data-review="jurisdiction">3 business days</span>. Approved refunds are issued through
-              Polar straight away.
+              We reply within <span data-review="jurisdiction">3 business days</span>. <span data-review="processor">Approved
+              refunds are issued through Polar straight away.</span>
             </li>
           </ol>
           <p>
