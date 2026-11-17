@@ -25,8 +25,12 @@ const lede =
 
 const linkClass = 'font-semibold text-brand-cyan hover:text-brand-coral transition-colors duration-300';
 // Commands read as a terminal, the same dark surface as the editor on the home page.
+// A long command wraps inside its box instead of hiding its end: each command is its
+// own block with a hanging indent, so a wrapped line sits under the command, not under
+// the prompt mark. The wrap is visual only; the copied text keeps one line per command.
 const commandClass =
-  'min-w-0 rounded-md border border-gray-800 bg-[#1E1E1E] p-4 font-noto-mono text-sm leading-relaxed text-gray-100 overflow-x-auto';
+  'min-w-0 rounded-md border border-gray-800 bg-[#1E1E1E] p-4 font-noto-mono text-sm leading-relaxed text-gray-100 whitespace-pre-wrap [overflow-wrap:anywhere]';
+const commandLineClass = 'block ps-[2ch] [text-indent:-2ch]';
 ---
 
 <Layout title="Install Legesher" description={lede}>
@@ -63,13 +67,13 @@ const commandClass =
               )}
             </div>
             <div class="flex flex-col gap-4 min-w-0">
-              {product.demo && <InstallDemo demo={product.demo} class="rounded-lg border border-gray-800 overflow-hidden" />}
+              {product.demo && <InstallDemo demo={product.demo} name={product.name} class="rounded-lg border border-gray-800 overflow-hidden" />}
               <h3 class="text-2xl font-semibold leading-none tracking-tight">{product.name}</h3>
               <p class="text-base text-muted-foreground">{product.summary}</p>
               {product.stage && <p class="text-sm text-muted-foreground">{product.stage}</p>}
             </div>
             {product.commands && (
-              <pre class:list={['md:col-span-2', commandClass]}><code>{product.commands.map((command, i) => (<>{i > 0 && '\n'}<span class="select-none text-brand-cyan">$ </span>{command}</>))}</code></pre>
+              <pre class:list={['md:col-span-2', commandClass]}><code>{product.commands.map((command) => (<span class={commandLineClass}><span class="select-none text-brand-cyan">$ </span>{command}</span>))}</code></pre>
             )}
           </div>
         </section>
@@ -83,7 +87,7 @@ const commandClass =
         <div class="grid md:grid-cols-2 gap-8">
           {openSource.map((product) => (
             <Card id={product.id} className="flex flex-col min-w-0 overflow-hidden">
-              {product.demo && <InstallDemo demo={product.demo} />}
+              {product.demo && <InstallDemo demo={product.demo} name={product.name} />}
               <CardHeader>
                 <span class="inline-block self-start text-xs font-semibold uppercase tracking-wide text-brand-cyan mb-2">
                   Available now
@@ -94,7 +98,7 @@ const commandClass =
                 <CardDescription className="text-base">{product.summary}</CardDescription>
                 {product.stage && <p class="text-sm text-muted-foreground">{product.stage}</p>}
                 {product.commands && (
-                  <pre class={commandClass}><code>{product.commands.map((command, i) => (<>{i > 0 && '\n'}<span class="select-none text-brand-cyan">$ </span>{command}</>))}</code></pre>
+                  <pre class={commandClass}><code>{product.commands.map((command) => (<span class={commandLineClass}><span class="select-none text-brand-cyan">$ </span>{command}</span>))}</code></pre>
                 )}
                 {product.access && (
                   <a href={product.access.href} target="_blank" rel="noopener noreferrer" class:list={['mt-auto', linkClass]}>

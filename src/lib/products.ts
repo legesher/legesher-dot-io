@@ -107,7 +107,7 @@ export const PRODUCTS: readonly Product[] = [
     demo: {
       video: '/install/command-line.mp4',
       poster: '/install/command-line.jpg',
-      label: 'A terminal. The legesher command translates hello.py to Hindi, shows the Hindi file, and runs it. The program prints the same two lines as before.',
+      label: 'A terminal. The legesher command translates hello.py to Hindi, shows the Hindi file, and runs it. The program prints hello Asha and hello Om.',
     },
     commands: ['pipx install legesher'],
   },
@@ -137,7 +137,7 @@ export const PRODUCTS: readonly Product[] = [
     demo: {
       video: '/install/vs-code.mp4',
       poster: '/install/vs-code.jpg',
-      label: 'VS Code with a Python file written in Hindi. The pointer rests on two keywords in turn, and a card shows the Python keyword each one stands for and what it does.',
+      label: 'VS Code with a Python file written in Hindi. A card appears over two keywords in turn, showing the Python keyword each one stands for and what it does.',
     },
     commands: ['code --install-extension legesher.legesher-vscode', 'pipx install legesher-language-server'],
   },

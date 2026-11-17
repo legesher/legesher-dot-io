@@ -11,10 +11,12 @@ import type { ProductDemo } from '@/lib/products';
 
 interface Props {
   demo: ProductDemo;
+  /** The product's name, so each button says which recording it controls. */
+  name: string;
   class?: string;
 }
 
-const { demo, class: className } = Astro.props;
+const { demo, name, class: className } = Astro.props;
 ---
 
 <div class:list={['relative bg-[#1E1E1E]', className]}>
@@ -24,5 +26,6 @@ const { demo, class: className } = Astro.props;
   <button type="button" data-install-demo-toggle hidden class="absolute bottom-3 end-3 inline-flex h-8 items-center rounded-full bg-black/70 px-3 text-xs font-semibold text-white hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan">
     <span data-when="playing">Pause</span>
     <span data-when="paused" hidden>Play</span>
+    <span class="sr-only"> the {name} recording</span>
   </button>
 </div>

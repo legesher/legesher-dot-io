@@ -26,11 +26,12 @@
 <div class="body" id="body"></div>
 <script>
   // steps: {cmd: "text", prompt?: "$"} typed out; {out: "text", cls?: "ok"} shown whole; {gap: true} blank line.
-  let steps = [], events = [], duration = 0;
+  let steps = [], events = [], duration = 0, endPrompt = '$';
   const TYPE = 42, BEFORE = 450, AFTER = 380, OUT = 70, HOLD = 2600;
   window.load = (demo) => {
     document.getElementById('title').textContent = demo.title;
     steps = demo.steps; events = []; let t = 300;
+    endPrompt = [...steps].reverse().find((s) => s.cmd !== undefined)?.prompt ?? '$';
     for (const s of steps) {
       if (s.cmd !== undefined) { t += BEFORE; const start = t; t += s.cmd.length * TYPE; events.push({ s, start, end: t }); t += AFTER; }
       else { t += OUT; events.push({ s, start: t, end: t }); }
@@ -52,7 +53,7 @@
       } else if (s.gap) html += '<div class="line"></div>';
       else html += `<div class="line ${s.cls ?? ''}">${paint(s.out)}</div>`;
     }
-    if (t >= duration - HOLD) html += '<div class="line"><span class="prompt">$ </span><span class="cursor"></span></div>';
+    if (t >= duration - HOLD) html += `<div class="line"><span class="prompt">${esc(endPrompt)} </span><span class="cursor"></span></div>`;
     document.getElementById('body').innerHTML = html;
   };
 </script>
