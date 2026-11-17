@@ -1,0 +1,697 @@
+---
+// The life of a language: the eight steps a language takes in Legesher, with
+// one language followed through them.
+//
+// How the page decides what to show:
+//   - The language list, each language's writing direction and its pack status
+//     come from src/lib/language-registry.json (generated from the registry).
+//   - The words and the sample program come from src/lib/pack-samples.json.
+//   - A language's status places it on the path, at the one stage whose tier
+//     it is (src/lib/life-of-a-language/path.ts). A status no stage carries,
+//     or a registry language with no pack sample, stops the build.
+//   - Every count is derived from the registry. No number about languages is
+//     typed into the copy.
+//
+// The page is complete without the script: it renders the default language
+// with every step open. The script swaps the followed language (from ?lang=,
+// then the browser's languages, then the default), rewrites the marked slots,
+// and below 1024px folds every step except the one the language is at and the
+// next.
+//
+// No style attribute and no inline script, so the page sits inside the site's
+// Content Security Policy unchanged.
+import ButtonLink from './ButtonLink.astro';
+import { LINKS } from '@/lib/links';
+import registry from '@/lib/language-registry.json';
+import packSampleData from '@/lib/pack-samples.json';
+import type { Copy, Tier } from '@/lib/life-of-a-language/copy';
+import { fillLanguage } from '@/lib/life-of-a-language/fill';
+import { stepOfStatus, stepsOfStatuses, stepState } from '@/lib/life-of-a-language/path';
+
+interface Props {
+  copy: Copy;
+  /** Registry code of the language shown before the visitor chooses one. */
+  defaultCode?: string;
+}
+
+const { copy, defaultCode = 'ar' } = Astro.props;
+
+const PACKS_REPO = 'https://github.com/legesher/language-packs';
+const REQUEST_URL = 'https://github.com/legesher/legesher/issues/new?template=add_language.yml';
+const GUIDE_URL = `${PACKS_REPO}/blob/main/REVIEWING.md`;
+const REFERENCE_BASE = `${PACKS_REPO}/blob/main/reference/`;
+const CORPUS_URL = 'https://huggingface.co/datasets/legesher/language-corpus';
+
+type Words = Record<'for' | 'in' | 'range' | 'if' | 'print' | 'true' | 'else' | 'false', string>;
+const sampleByCode = new Map(packSampleData.samples.map((s) => [s.code, s]));
+const pythonWords = sampleByCode.get(registry.canonical)!.words as Words;
+
+// Every registry language except the one Python is written in already.
+const languages = registry.languages
+  .filter((l) => l.code !== registry.canonical)
+  .map((l) => {
+    const s = sampleByCode.get(l.code);
+    if (!s) throw new Error(`Registry language ${l.code} has no entry in pack-samples.json`);
+    stepOfStatus(copy.stages, l.status);
+    return { ...l, native: s.name, english: s.english, words: s.words as Words };
+  })
+  .sort((a, b) => a.english.localeCompare(b.english));
+
+const followed = languages.find((l) => l.code === defaultCode) ?? languages[0];
+
+// Counts, all from the registry.
+const packCount = registry.languages.length;
+const tierCount = (tier: Tier) => registry.languages.filter((l) => l.status === tier).length;
+
+// Where the followed language stands on the path.
+const stepsOfStatus = stepsOfStatuses(copy.stages);
+const hereStep = stepOfStatus(copy.stages, followed.status);
+const stateOf = (n: number) => stepState(n, hereStep);
+
+const fill = (text: string) => fillLanguage(text, followed);
+
+const total = copy.stages.length;
+const wordRows: (keyof Words)[] = ['if', 'else', 'for', 'in', 'print', 'range', 'true', 'false'];
+const tierPill: Record<Tier, string> = {
+  experimental: 'bg-brand-light-yellow text-neutral-900',
+  reviewed: 'bg-brand-background-cyan text-neutral-900',
+  official: 'bg-brand-background-coral text-neutral-900',
+};
+const linkClass =
+  'text-brand-coral hover:text-brand-cyan underline underline-offset-4 font-semibold transition-colors duration-300';
+const panelClass = 'rounded-xl border border-gray-200 bg-white p-6 md:p-8 shadow-sm';
+const panelTitle = 'lol-label font-mono text-xs font-semibold uppercase tracking-widest text-neutral-500';
+---
+
+<div
+  data-lol
+  data-default={followed.code}
+  data-steps={JSON.stringify(stepsOfStatus)}
+  data-tier-pills={JSON.stringify(tierPill)}
+  data-reference-base={REFERENCE_BASE}
+  data-label-ltr={copy.labels.ltr}
+  data-label-rtl={copy.labels.rtl}
+  data-case-yes={copy.labels.caseYes}
+  data-case-no={copy.labels.caseNo}
+  data-tier-experimental={copy.tiers.experimental.name}
+  data-tier-reviewed={copy.tiers.reviewed.name}
+  data-tier-official={copy.tiers.official.name}
+>
+  <!-- Hero and the language picker -->
+  <section class="overflow-x-clip pt-32 pb-12 bg-[radial-gradient(ellipse_60%_70%_at_100%_40%,rgba(108,197,224,0.28),rgba(108,197,224,0)_70%)]">
+    <div class="container mx-auto px-4">
+      <div class="grid lg:grid-cols-5 gap-10 items-end">
+        <div class="lg:col-span-3 space-y-6">
+          <p class="lol-label text-sm font-semibold uppercase tracking-widest text-brand-coral">{copy.hero.eyebrow}</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            {copy.hero.titleStart} <span class="text-gradient">{copy.hero.titleAccent}</span>
+          </h1>
+          <p class="text-lg md:text-xl text-neutral-600 max-w-2xl">{copy.hero.intro}</p>
+        </div>
+        <div class="lg:col-span-2">
+          <div class={panelClass}>
+            <!-- Hidden until the script runs: without it the page stays on the
+                 default language, and a label for a dead control would mislead. -->
+            <div data-lol-picker-wrap hidden>
+            <label for="lol-picker" class="block text-lg font-semibold">{copy.picker.label}</label>
+            <select
+              id="lol-picker"
+              data-lol-picker
+              class="mt-3 w-full rounded-md border border-gray-300 bg-white px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+            >
+              {languages.map((l) => (
+                <option value={l.code} selected={l.code === followed.code} lang={l.tag}>
+                  {l.native} · {l.english}
+                </option>
+              ))}
+            </select>
+            </div>
+            <p class="mt-3 text-neutral-600" aria-live="polite">
+              <span data-lol-hint="default" set:html={fill(copy.picker.showingDefault)} />
+              <span data-lol-hint="browser" hidden set:html={fill(copy.picker.showingBrowser)} />
+              <span data-lol-hint="picked" hidden set:html={fill(copy.picker.showingPicked)} />
+            </p>
+            <p class="mt-4 border-t border-gray-200 pt-4 text-sm text-neutral-600">
+              {copy.picker.missing}
+              <a href="#asked-for" class={linkClass}>{copy.picker.missingCta}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The overview: all eight steps, with the followed language placed on it -->
+  <section class="pb-16">
+    <div class="container mx-auto px-4">
+      <nav aria-label={copy.rail.heading}>
+        <ol class="lol-rail flex flex-col lg:grid lg:grid-cols-8 lg:gap-x-3 lg:gap-y-8">
+          {copy.stages.map((s, i) => (
+            <li class="lol-rail-item relative" data-stage={i + 1} data-state={stateOf(i + 1)}>
+              <a href={`#${s.id}`} data-lol-jump class="group flex min-h-[3.25rem] items-center gap-4 lg:block lg:min-h-0">
+                <span class="lol-dot relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 font-mono text-sm font-bold">{i + 1}</span>
+                <span class="block">
+                  <span class="lg:mt-3 block font-semibold leading-tight group-hover:text-brand-coral">{s.title}</span>
+                  <span class="lol-rail-here mt-1 lg:mt-2 text-sm font-semibold text-neutral-900" set:html={fill(copy.rail.here)} />
+                  <span class="lol-rail-next mt-1 lg:mt-2 text-sm font-semibold text-neutral-600">{copy.rail.next}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <dl class="mt-8 lg:mt-12 grid md:grid-cols-3 gap-4 md:gap-6 border-t border-gray-200 pt-6 lg:pt-8">
+        {(Object.keys(copy.tiers) as Tier[]).map((t) => (
+          <div>
+            <dt><span class={`lol-label inline-block rounded-full px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest ${tierPill[t]}`}>{copy.tiers[t].name}</span></dt>
+            <dd class="mt-2 text-sm lg:text-base text-neutral-600">{copy.tiers[t].meaning}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- One section per step -->
+  <section class="bg-brand-light-gray">
+    <div class="container mx-auto px-4">
+      <ol>
+        {copy.stages.map((s, i) => (
+          <li
+            id={s.id}
+            class="lol-stage scroll-mt-24 grid lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-16 py-10 lg:py-16 border-b border-gray-200 last:border-b-0"
+            data-stage={i + 1}
+            data-state={stateOf(i + 1)}
+          >
+            <div class="lg:col-start-1 lg:row-start-1">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="lol-dot flex h-10 w-10 items-center justify-center rounded-full border-2 font-mono text-sm font-bold">{i + 1}</span>
+                <p class="lol-label font-mono text-sm font-semibold uppercase tracking-widest text-neutral-500">{copy.labels.step(i + 1, total)}</p>
+                {s.tier && (
+                  <span class={`lol-label rounded-full px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest ${tierPill[s.tier]}`}>{copy.tiers[s.tier].name}</span>
+                )}
+              </div>
+              <h2 class="mt-4 text-3xl md:text-4xl font-bold leading-tight">{s.title}</h2>
+              <p class="lol-chip mt-3 text-sm font-semibold">
+                <span class="lol-chip-done rounded-full bg-brand-background-cyan px-3 py-1 text-neutral-900" set:html={fill(copy.chip.done)} />
+                <span class="lol-chip-here rounded-full bg-brand-coral px-3 py-1 text-white" set:html={fill(copy.chip.here)} />
+                <span class="lol-chip-next rounded-full border border-brand-coral px-3 py-1 text-neutral-900" set:html={fill(copy.chip.next)} />
+              </p>
+              <p class="mt-5 text-lg lg:text-xl">{s.lead}</p>
+              <button
+                type="button"
+                class="lol-toggle mt-5 min-h-11 items-center gap-2 rounded-md border border-gray-300 bg-white px-4 font-semibold hover:border-brand-coral"
+                data-lol-toggle
+                aria-expanded="true"
+                aria-controls={`${s.id}-details`}
+                hidden
+              >
+                <span data-when="closed">{copy.labels.showStep}</span>
+                <span data-when="open">{copy.labels.hideStep}</span>
+              </button>
+            </div>
+
+            <div id={`${s.id}-details`} class="lol-body" data-lol-body>
+              <dl class="mt-8 space-y-6 lg:col-start-1 lg:row-start-2">
+                <div>
+                  <dt class={panelTitle}>{copy.labels.what}</dt>
+                  <dd class="mt-2 text-base lg:text-lg text-neutral-700" set:html={fill(s.what)} />
+                </div>
+                <div>
+                  <dt class={panelTitle}>{copy.labels.who}</dt>
+                  <dd class="mt-2 text-base lg:text-lg text-neutral-700" set:html={fill(s.who)} />
+                </div>
+                <div>
+                  <dt class={panelTitle}>{copy.labels.you}</dt>
+                  <dd class="mt-2 text-base lg:text-lg text-neutral-700" set:html={fill(s.you)} />
+                </div>
+              </dl>
+
+            <div class="min-w-0 max-lg:mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+              {s.id === 'asked-for' && (
+                <div class={panelClass}>
+                  <p class={panelTitle}>{copy.panels.askedFor.title}</p>
+                  <dl class="mt-4 divide-y divide-gray-200">
+                    {copy.panels.askedFor.rows.map(([k, v]) => (
+                      <div class="grid gap-1 sm:grid-cols-2 sm:gap-4 py-3">
+                        <dt class="font-semibold">{k}</dt>
+                        <dd class="text-neutral-600">{v}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <ButtonLink href={REQUEST_URL} target="_blank" rel="noopener noreferrer" variant="default" size="lg" class="primary-button mt-6 max-lg:h-11">
+                    {copy.panels.askedFor.cta}
+                  </ButtonLink>
+                  <p class="mt-3 text-sm text-neutral-600">{copy.panels.askedFor.note}</p>
+                </div>
+              )}
+
+              {s.id === 'groundwork' && (
+                <div class={panelClass}>
+                  <p class={panelTitle}>{copy.panels.groundwork.title}</p>
+                  <p class="mt-4 text-4xl font-bold"><bdi data-l="native" lang={followed.tag}>{followed.native}</bdi></p>
+                  <dl class="mt-4 divide-y divide-gray-200">
+                    <div class="grid grid-cols-2 gap-4 py-3">
+                      <dt class="font-semibold">{copy.panels.groundwork.english}</dt>
+                      <dd class="text-neutral-600" data-l="english" lang="en" dir="ltr">{followed.english}</dd>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 py-3">
+                      <dt class="font-semibold">{copy.panels.groundwork.tag}</dt>
+                      <dd class="font-mono text-neutral-600" data-l="tag" dir="ltr">{followed.tag}</dd>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 py-3">
+                      <dt class="font-semibold">{copy.panels.groundwork.direction}</dt>
+                      <dd class="text-neutral-600" data-l="direction">{followed.rtl ? copy.labels.rtl : copy.labels.ltr}</dd>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 py-3">
+                      <dt class="font-semibold">{copy.panels.groundwork.letterCase}</dt>
+                      <dd class="text-neutral-600" data-l="case">{followed.case ? copy.labels.caseYes : copy.labels.caseNo}</dd>
+                    </div>
+                  </dl>
+                </div>
+              )}
+
+              {s.id === 'first-draft' && (
+                <div class={panelClass}>
+                  <div class="grid grid-cols-2 gap-4 border-b border-gray-200 pb-3">
+                    <p class={panelTitle}>{copy.panels.firstDraft.from}</p>
+                    <p class="text-sm font-semibold text-neutral-700"><bdi data-l="native" lang={followed.tag}>{followed.native}</bdi></p>
+                  </div>
+                  <dl class="divide-y divide-gray-200">
+                    {wordRows.map((k) => (
+                      <div class="grid grid-cols-2 gap-4 py-2">
+                        <dt class="font-mono text-neutral-600" lang="en" dir="ltr">{pythonWords[k]}</dt>
+                        <dd class="text-lg font-semibold" data-w={k} data-l-lang lang={followed.tag}>{followed.words[k]}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <p class="mt-3 text-sm text-neutral-600" set:html={fill(copy.panels.firstDraft.caption)} />
+                  <p class={`${panelTitle} mt-6`}>{copy.panels.firstDraft.checksTitle}</p>
+                  <ul class="mt-3 space-y-2 text-neutral-700">
+                    {copy.panels.firstDraft.checks.map((c) => (
+                      <li class="flex gap-3"><span class="font-bold text-brand-cyan" aria-hidden="true">✓</span><span>{c}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {s.id === 'experimental' && (
+                <div class="space-y-4">
+                  <figure class="m-0 rounded-xl overflow-hidden border border-gray-800 bg-[#1e1e1e] shadow-xl">
+                    <div class="flex items-center gap-3 px-4 py-3 bg-[#252526]" dir="ltr">
+                      <span class="font-semibold text-white"><bdi data-l="native" lang={followed.tag}>{followed.native}</bdi></span>
+                      <span class="text-sm text-gray-400" data-l="english" lang="en">{followed.english}</span>
+                      <span class={`lol-label ml-auto rounded-full px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest ${tierPill[followed.status as Tier]}`} data-l="status">{copy.tiers[followed.status as Tier].name}</span>
+                    </div>
+                    <pre class="m-0 px-6 py-5 overflow-x-auto font-mono text-sm md:text-base leading-7 text-gray-200" data-l-code lang={followed.tag} dir={followed.rtl ? 'rtl' : 'ltr'}><code><span class="text-brand-coral font-bold" data-w="for">{followed.words.for}</span> n <span class="text-brand-coral font-bold" data-w="in">{followed.words.in}</span> <span class="text-brand-light-cyan" data-w="range">{followed.words.range}</span>(1, 4):
+    <span class="text-brand-coral font-bold" data-w="if">{followed.words.if}</span> n % 2 == 0:
+        <span class="text-brand-light-cyan" data-w="print">{followed.words.print}</span>(n, <span class="text-brand-light-coral" data-w="true">{followed.words.true}</span>)
+    <span class="text-brand-coral font-bold" data-w="else">{followed.words.else}</span>:
+        <span class="text-brand-light-cyan" data-w="print">{followed.words.print}</span>(n, <span class="text-brand-light-coral" data-w="false">{followed.words.false}</span>)</code></pre>
+                    <figcaption class="px-6 pb-5 text-sm text-gray-400" set:html={fill(copy.panels.experimental.caption)} />
+                  </figure>
+                  <p class="text-lg font-semibold">{copy.panels.experimental.packs(packCount)}</p>
+                  <ButtonLink href={LINKS.docs} variant="default" size="lg" class="secondary-button max-lg:h-11">
+                    {copy.panels.experimental.cta}
+                  </ButtonLink>
+                </div>
+              )}
+
+              {s.id === 'in-review' && (
+                <div class={panelClass}>
+                  <p class={panelTitle}>{copy.panels.inReview.title}</p>
+                  <ol class="mt-4 space-y-4">
+                    {copy.panels.inReview.steps.map((step, n) => (
+                      <li class="flex gap-4">
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-background-cyan font-mono text-sm font-bold" aria-hidden="true">{n + 1}</span>
+                        <span class="text-base lg:text-lg text-neutral-700">{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                  <div class="mt-6 flex flex-col sm:flex-row flex-wrap items-start gap-4">
+                    <ButtonLink href={GUIDE_URL} target="_blank" rel="noopener noreferrer" variant="default" size="lg" class="primary-button max-lg:h-11">
+                      {copy.panels.inReview.guideCta}
+                    </ButtonLink>
+                    <a href={`${REFERENCE_BASE}${followed.tag}.md`} data-l-href="reference" target="_blank" rel="noopener noreferrer" class={`${linkClass} py-2 max-lg:py-3`} set:html={fill(copy.panels.inReview.fileCta)} />
+                  </div>
+                  <p class="mt-6 border-t border-gray-200 pt-4 text-neutral-600">{copy.panels.inReview.note}</p>
+                </div>
+              )}
+
+              {s.id === 'reviewed' && (
+                <div class={panelClass}>
+                  <p class={panelTitle}>{copy.panels.reviewed.title}</p>
+                  <ul class="mt-4 divide-y divide-gray-200">
+                    {copy.panels.reviewed.rules.map(([n, text]) => (
+                      <li class="grid grid-cols-[5rem_1fr] items-baseline gap-4 py-3">
+                        <span class="font-mono text-2xl font-bold text-brand-coral">{n}</span>
+                        <span class="text-base lg:text-lg text-neutral-700">{text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="mt-4 text-lg font-semibold">
+                    {tierCount('reviewed') === 0 ? copy.panels.reviewed.none : copy.panels.reviewed.some(tierCount('reviewed'))}
+                  </p>
+                  <p class="mt-3 text-neutral-600">{copy.panels.reviewed.founding}</p>
+                  <p class="mt-3 text-neutral-600">
+                    {copy.panels.reviewed.openData}
+                    <a href={CORPUS_URL} target="_blank" rel="noopener noreferrer" class={linkClass}>{copy.panels.reviewed.openDataCta}</a>
+                  </p>
+                  <p class="mt-4 border-t border-gray-200 pt-4 text-sm text-neutral-600">
+                    <span class="lol-label me-2 rounded-full border border-neutral-400 px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-widest">{copy.labels.planned}</span>
+                    {copy.panels.reviewed.planned}
+                  </p>
+                </div>
+              )}
+
+              {s.id === 'official' && (
+                <div class={panelClass}>
+                  <p class={panelTitle}>{copy.panels.official.title}</p>
+                  <ul class="mt-4 divide-y divide-gray-200">
+                    {copy.panels.official.rules.map(([n, text]) => (
+                      <li class="grid grid-cols-[5rem_1fr] items-baseline gap-4 py-3">
+                        <span class="font-mono text-2xl font-bold text-brand-coral">{n}</span>
+                        <span class="text-base lg:text-lg text-neutral-700">{text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="mt-4 text-neutral-700">{copy.panels.official.session}</p>
+                  <p class="mt-4 text-lg font-semibold">
+                    {tierCount('official') === 0 ? copy.panels.official.none : copy.panels.official.some(tierCount('official'))}
+                  </p>
+                </div>
+              )}
+
+              {s.id === 'kept-current' && (
+                <div class={panelClass}>
+                  <ul class="divide-y divide-gray-200">
+                    {copy.panels.keptCurrent.rows.map(([when, then]) => (
+                      <li class="grid sm:grid-cols-[1fr_auto_1fr] items-baseline gap-2 sm:gap-4 py-4">
+                        <span class="font-semibold">{when}</span>
+                        <span class="lol-arrow hidden sm:inline font-mono text-brand-coral" aria-hidden="true">→</span>
+                        <span class="text-neutral-700">{then}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="mt-4 border-t border-gray-200 pt-4 text-neutral-600">{copy.panels.keptCurrent.reportNote}</p>
+                </div>
+              )}
+            </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Where to start -->
+  <section class="py-24 bg-[#272727] text-white border-t-4 border-brand-coral">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-5xl font-bold text-white">{copy.start.heading}</h2>
+      <ul class="mt-10 grid md:grid-cols-3 gap-8">
+        {copy.start.cards.map((c, i) => (
+          <li class="border-t-4 border-brand-light-cyan pt-6">
+            <p class="text-xl font-semibold">{c.title}</p>
+            <p class="mt-2 text-[#d9dde0]">{c.text}</p>
+            <a
+              href={[REQUEST_URL, GUIDE_URL, LINKS.docs][i]}
+              target={i < 2 ? '_blank' : undefined}
+              rel={i < 2 ? 'noopener noreferrer' : undefined}
+              class="mt-4 inline-block max-lg:py-2.5 font-semibold text-brand-light-coral underline underline-offset-4 hover:text-brand-light-cyan"
+            >{c.cta} <span class="lol-arrow" aria-hidden="true">→</span></a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</div>
+
+<style>
+  /* Step markers. The state of a step for the followed language sits in
+     data-state on the rail item and on the step's section. */
+  .lol-dot {
+    border-color: #d1d5db;
+    background: #fff;
+    color: #6b7280;
+  }
+  [data-state='done'] .lol-dot {
+    border-color: #6cc5e0;
+    background: #6cc5e0;
+    color: #10303b;
+  }
+  [data-state='here'] .lol-dot {
+    border-color: #ec6756;
+    background: #ec6756;
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(236, 103, 86, 0.25);
+  }
+  [data-state='next'] .lol-dot {
+    border-color: #ec6756;
+    color: #b23b2c;
+  }
+
+  .lol-rail-here,
+  .lol-rail-next,
+  .lol-chip > span {
+    display: none;
+  }
+  [data-state='here'] .lol-rail-here,
+  [data-state='next'] .lol-rail-next {
+    display: block;
+  }
+  [data-state='done'] .lol-chip-done,
+  [data-state='here'] .lol-chip-here,
+  [data-state='next'] .lol-chip-next {
+    display: inline-block;
+  }
+  /* A step with no state for this language shows no chip and takes no room. */
+  [data-state='later'] .lol-chip {
+    display: none;
+  }
+
+  /* The line between steps, once all eight sit in one row. It uses logical
+     insets, so it runs the right way in a right-to-left page. */
+  @media (min-width: 1024px) {
+    .lol-rail-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 19px;
+      inset-inline-start: 40px;
+      inset-inline-end: -0.75rem;
+      height: 2px;
+      background: #d1d5db;
+    }
+    .lol-rail-item[data-state='done']:not(:last-child)::after {
+      background: #6cc5e0;
+    }
+  }
+
+  /* Wide letter-spacing and the monospace label font break scripts whose
+     letters join, so a right-to-left page sets its labels in the text font. */
+  :global([dir='rtl']) .lol-label {
+    letter-spacing: 0;
+    font-family: inherit;
+  }
+
+  /* From lg up the body's two parts sit in the step's own grid, and a step is
+     never folded, whatever the script last did. */
+  @media (min-width: 1024px) {
+    .lol-body,
+    .lol-body[hidden] {
+      display: contents;
+    }
+  }
+  .lol-toggle {
+    display: none;
+  }
+  @media (max-width: 1023.98px) {
+    .lol-toggle:not([hidden]) {
+      display: inline-flex;
+    }
+  }
+  .lol-toggle[aria-expanded='true'] [data-when='closed'],
+  .lol-toggle[aria-expanded='false'] [data-when='open'] {
+    display: none;
+  }
+
+  /* Below lg the overview is a vertical timeline: each item draws the line
+     into its dot and out of it, so the segments meet. */
+  @media (max-width: 1023.98px) {
+    .lol-rail-item::before,
+    .lol-rail-item::after {
+      content: '';
+      position: absolute;
+      inset-inline-start: 19px;
+      width: 2px;
+      background: #d1d5db;
+    }
+    .lol-rail-item::before {
+      top: 0;
+      bottom: 50%;
+    }
+    .lol-rail-item::after {
+      top: 50%;
+      bottom: 0;
+    }
+    .lol-rail-item:first-child::before,
+    .lol-rail-item:last-child::after {
+      display: none;
+    }
+    .lol-rail-item[data-state='done']::before,
+    .lol-rail-item[data-state='done']::after,
+    .lol-rail-item[data-state='here']::before {
+      background: #6cc5e0;
+    }
+  }
+
+  /* Arrows point the way the page reads. */
+  :global([dir='rtl']) .lol-arrow {
+    display: inline-block;
+    transform: scaleX(-1);
+  }
+</style>
+
+<script>
+  // Swaps the followed language. Everything it writes comes from the two
+  // generated data files; the labels it needs are on the root element, so
+  // this script holds no copy.
+  import registry from '@/lib/language-registry.json';
+  import packSampleData from '@/lib/pack-samples.json';
+  import { languageFor } from '@/lib/life-of-a-language/match';
+  import { stepState } from '@/lib/life-of-a-language/path';
+
+  type Source = 'default' | 'browser' | 'picked';
+
+  const root = document.querySelector<HTMLElement>('[data-lol]');
+  const picker = document.querySelector<HTMLSelectElement>('[data-lol-picker]');
+  const pickerWrap = document.querySelector<HTMLElement>('[data-lol-picker-wrap]');
+
+  if (root && picker && pickerWrap) {
+    const samples = new Map(packSampleData.samples.map((s) => [s.code, s]));
+    const entries = new Map(
+      registry.languages
+        .filter((l) => l.code !== registry.canonical && samples.has(l.code))
+        .map((l) => [l.code, { ...l, ...samples.get(l.code)! }]),
+    );
+    const stepOf: Record<string, number> = JSON.parse(root.dataset.steps ?? '{}');
+    const tierPills: Record<string, string> = JSON.parse(root.dataset.tierPills ?? '{}');
+    const pillClasses = [...new Set(Object.values(tierPills).flatMap((c) => c.split(' ')))];
+    const label = (key: string) => root.dataset[key] ?? '';
+
+    // Below lg a step folds to its header, except where the language is and
+    // the step after it. From lg up every step is open (the style block makes
+    // sure of it). The fold is set on load and when the language changes, never
+    // on a resize, so a step the visitor opened stays open. Without this script
+    // nothing folds.
+    const wide = window.matchMedia('(min-width: 1024px)');
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('.lol-stage'));
+    const setOpen = (step: HTMLElement, open: boolean) => {
+      const body = step.querySelector<HTMLElement>('[data-lol-body]');
+      const toggle = step.querySelector<HTMLButtonElement>('[data-lol-toggle]');
+      if (!body || !toggle) return;
+      body.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+    const focusSteps = () => {
+      steps.forEach((step) => {
+        const state = step.dataset.state;
+        setOpen(step, wide.matches || state === 'here' || state === 'next');
+      });
+    };
+    steps.forEach((step) => {
+      const toggle = step.querySelector<HTMLButtonElement>('[data-lol-toggle]');
+      if (!toggle) return;
+      toggle.hidden = false;
+      toggle.addEventListener('click', () => setOpen(step, toggle.getAttribute('aria-expanded') !== 'true'));
+    });
+
+    // A link to a step opens it before the page scrolls there.
+    const openStep = (id: string) => {
+      const step = id ? document.getElementById(id) : null;
+      if (step?.classList.contains('lol-stage')) setOpen(step, true);
+    };
+    root.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', () => openStep(decodeURIComponent(a.hash.slice(1))));
+    });
+    window.addEventListener('hashchange', () => openStep(decodeURIComponent(location.hash.slice(1))));
+
+    const follow = (code: string, source: Source) => {
+      const l = entries.get(code);
+      if (!l) return;
+      const dir = l.rtl ? 'rtl' : 'ltr';
+
+      root.querySelectorAll<HTMLElement>('[data-l="native"]').forEach((el) => {
+        el.textContent = l.name;
+        el.lang = l.tag;
+      });
+      root.querySelectorAll<HTMLElement>('[data-l="english"]').forEach((el) => (el.textContent = l.english));
+      root.querySelectorAll<HTMLElement>('[data-l="tag"]').forEach((el) => (el.textContent = l.tag));
+      root.querySelectorAll<HTMLElement>('[data-l="direction"]').forEach(
+        (el) => (el.textContent = label(l.rtl ? 'labelRtl' : 'labelLtr')),
+      );
+      root.querySelectorAll<HTMLElement>('[data-l="case"]').forEach(
+        (el) => (el.textContent = label(l.case ? 'caseYes' : 'caseNo')),
+      );
+      root.querySelectorAll<HTMLElement>('[data-l="status"]').forEach((el) => {
+        el.textContent = label(`tier${l.status[0].toUpperCase()}${l.status.slice(1)}`);
+        el.classList.remove(...pillClasses);
+        el.classList.add(...(tierPills[l.status] ?? '').split(' ').filter(Boolean));
+      });
+      root.querySelectorAll<HTMLElement>('[data-w]').forEach((el) => {
+        el.textContent = (l.words as Record<string, string>)[el.dataset.w!] ?? '';
+      });
+      root.querySelectorAll<HTMLElement>('[data-l-lang]').forEach((el) => (el.lang = l.tag));
+      root.querySelectorAll<HTMLElement>('[data-l-code]').forEach((el) => {
+        el.lang = l.tag;
+        el.dir = dir;
+      });
+      root.querySelectorAll<HTMLAnchorElement>('[data-l-href="reference"]').forEach(
+        (el) => (el.href = `${root.dataset.referenceBase}${l.tag}.md`),
+      );
+
+      // Place the language on the path.
+      const here = stepOf[l.status];
+      root.querySelectorAll<HTMLElement>('[data-stage]').forEach((el) => {
+        el.dataset.state = stepState(Number(el.dataset.stage), here);
+      });
+      focusSteps();
+
+      root.querySelectorAll<HTMLElement>('[data-lol-hint]').forEach((el) => {
+        el.hidden = el.dataset.lolHint !== source;
+      });
+      picker.value = code;
+    };
+
+    // ?lang= (a code or a tag) wins, then the first browser language that has
+    // a pack in the same script, then the language the page was built with.
+    const choices = [...entries.values()];
+    const initial = (): [string, Source] => {
+      const asked = languageFor(new URLSearchParams(location.search).get('lang') ?? '', choices);
+      if (asked) return [asked, 'picked'];
+      for (const pref of navigator.languages ?? []) {
+        const code = languageFor(pref, choices);
+        if (code) return [code, 'browser'];
+      }
+      return [root.dataset.default!, 'default'];
+    };
+
+    pickerWrap.hidden = false;
+    follow(...initial());
+
+    // Folding moved the content after the browser scrolled to the address's
+    // step, so open that step and bring it back into view.
+    const arrived = decodeURIComponent(location.hash.slice(1));
+    const target = arrived ? document.getElementById(arrived) : null;
+    if (target?.classList.contains('lol-stage')) {
+      openStep(arrived);
+      target.scrollIntoView({ block: 'start', behavior: 'instant' });
+    }
+
+    picker.addEventListener('change', () => {
+      follow(picker.value, 'picked');
+      const url = new URL(location.href);
+      url.searchParams.set('lang', picker.value);
+      history.replaceState(null, '', url);
+    });
+  }
+</script>
