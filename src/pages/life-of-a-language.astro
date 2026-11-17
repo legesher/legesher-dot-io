@@ -1,0 +1,31 @@
+---
+// The life of a language: how a language becomes part of Legesher.
+// The markup and the logic are in src/components/LifeOfALanguage.astro and
+// the words in src/lib/life-of-a-language/copy.ts.
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import LifeOfALanguage from '../components/LifeOfALanguage.astro';
+import { LINKS } from '@/lib/links';
+import { en } from '@/lib/life-of-a-language/copy';
+---
+
+<Layout title={en.meta.title} description={en.meta.description}>
+  <Header />
+  <main>
+    <LifeOfALanguage copy={en} />
+  </main>
+  <footer class="border-t border-gray-200 py-8">
+    <div class="container mx-auto px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm text-muted-foreground">
+      <a href="/" class="flex items-center gap-2 font-semibold text-foreground">
+        <img src="/Peggy-Headshot.svg" alt="" width="32" height="32" class="h-8 w-8" />
+        Legesher
+      </a>
+      <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer">
+        <a href={LINKS.email} class="hover:text-brand-coral">hello@legesher.com</a>
+        <a href="/privacy" class="hover:text-brand-coral">Privacy</a>
+        <a href="/terms" class="hover:text-brand-coral">Terms</a>
+      </nav>
+      <p>© {new Date().getFullYear()} Legesher</p>
+    </div>
+  </footer>
+</Layout>
