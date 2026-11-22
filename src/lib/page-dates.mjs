@@ -9,7 +9,7 @@
 // ISO 8601, UTC.
 export const LAST_UPDATED = {
   privacy: '2026-08-17',
-  terms: '2026-11-17',
+  terms: '2026-11-22',
 };
 
 /** '2026-08-10' -> 'August 10, 2026'. The sitemap consumes the ISO form directly. */
