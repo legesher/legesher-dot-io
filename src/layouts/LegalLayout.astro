@@ -1,0 +1,113 @@
+---
+// The legal-center layout for the documents in src/content/legal: the title
+// and byline, a numbered list of the document's sections on the left, the
+// document in the middle, and its details on the right. Below the lg
+// breakpoint the list folds into "On this page" and the details sit above
+// the document. The section list is built from the document's level-2
+// headings, which carry fixed ids (src/lib/legal-content.test.ts); the
+// built-page checks are src/lib/legal-built.test.ts.
+import type { MarkdownHeading } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { formatLastUpdated } from '@/lib/page-dates.mjs';
+
+interface Props {
+  entry: CollectionEntry<'legal'>;
+  headings: MarkdownHeading[];
+  /** ISO date, from LAST_UPDATED[<id>]. */
+  lastUpdated: string;
+  /** The full <title>, exactly as the page has always had it. */
+  pageTitle: string;
+}
+
+const { entry, headings, lastUpdated, pageTitle } = Astro.props;
+const { title, description, type, appliesTo, entity } = entry.data;
+const date = formatLastUpdated(lastUpdated);
+
+const sections = headings
+  .filter((heading) => heading.depth === 2)
+  .map((heading, index) => ({
+    slug: heading.slug,
+    number: String(index + 1).padStart(2, '0'),
+    text: heading.text.replace(/^\d+\.\s*/, ''),
+  }));
+
+const details: [string, string][] = [
+  ['Effective', date],
+  ['Type', type],
+  ['Applies to', appliesTo],
+  ['Language', 'English'],
+];
+---
+
+<Layout title={pageTitle} description={description}>
+  <Header />
+  <main class="pt-32 pb-20 bg-white">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <header class="mb-10 lg:mb-16 lg:text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-2">{title}</h1>
+        <p class="text-sm text-muted-foreground">
+          {entity} ·
+          <span>Last updated: {date}</span>
+        </p>
+      </header>
+
+      <div class="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)_15rem] lg:gap-12 xl:gap-16">
+        <details class="lg:hidden mb-6 rounded-lg border border-border">
+          <summary class="cursor-pointer px-4 py-3 text-sm font-medium">On this page</summary>
+          <ol class="px-4 pb-3 space-y-2 text-sm">
+            {sections.map((section) => (
+              <li class="flex gap-3">
+                <span class="font-mono text-xs text-muted-foreground pt-0.5">{section.number}</span>
+                <a href={`#${section.slug}`} class="hover:text-brand-cyan transition-colors duration-300">{section.text}</a>
+              </li>
+            ))}
+          </ol>
+        </details>
+
+        <aside aria-label="Document details" class="mb-10 lg:mb-0 lg:col-start-3 lg:row-start-1 lg:sticky lg:top-28 lg:self-start">
+          <dl class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-3 rounded-lg border border-border p-4 text-sm">
+            {details.map(([label, value]) => (
+              <>
+                <dt class="text-muted-foreground">{label}</dt>
+                <dd class="font-medium">{value}</dd>
+              </>
+            ))}
+          </dl>
+        </aside>
+
+        <nav aria-label="Sections" class="hidden lg:block lg:col-start-1 lg:row-start-1 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
+          <ol class="text-sm">
+            {sections.map((section) => (
+              <li class="border-t border-border first:border-t-0">
+                <a href={`#${section.slug}`} class="flex gap-3 py-2.5 hover:text-brand-cyan transition-colors duration-300">
+                  <span class="font-mono text-xs text-muted-foreground pt-0.5">{section.number}</span>
+                  <span>{section.text}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+
+        <article class="min-w-0 lg:col-start-2 lg:row-start-1 prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
+          <slot />
+          <p class="text-sm text-muted-foreground mt-12">
+            <em>Effective date: {date}</em>
+          </p>
+        </article>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* Keep heading anchors clear of the fixed header on in-page navigation */
+  :global(main h2[id]),
+  :global(main h3[id]) {
+    scroll-margin-top: 6rem;
+  }
+</style>

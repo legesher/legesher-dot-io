@@ -7,9 +7,15 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `privacy.astro`, `refunds.astro`, `terms.astro`, `legesher-for-education.astro`, and
+- `src/pages/`: `index.astro`, `legesher-for-education.astro`, the three legal pages (`privacy.astro`,
+  `refunds.astro`, `terms.astro`, each a thin page that renders one entry of `src/content/legal`), and
   `api/subscribe.ts`, the one route with `export const prerender = false`.
+- `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `refunds.mdx`, `privacy.mdx`), the
+  `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
+  (`## Governing Law {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
+  `src/layouts/LegalLayout.astro` wraps it for the legal pages: a numbered section list on the left,
+  built from the level-2 headings, and the document's details on the right.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
@@ -41,11 +47,12 @@ npm run build              # astro build
 ```
 
 Summary lines to expect (counts as of 2026-11-22). They grow with new tests and shrink only when a
-page or a source file is removed: three built-page guards run once per built page, and the
-runtime-secret guard runs once per source file under `src/`.
+page or a source file is removed: three built-page guards run once per built page, the legal-page
+guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
+under `src/`.
 
-- `npm test`: ` Test Files  12 passed (12)` then `      Tests  237 passed (237)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  9 passed | 3 skipped (12)` then `      Tests  216 passed | 6 skipped (222)`
+- `npm test`: ` Test Files  14 passed (14)` then `      Tests  258 passed (258)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  10 passed | 4 skipped (14)` then `      Tests  231 passed | 12 skipped (243)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -127,6 +134,11 @@ Facts behind those commands:
   `tsconfig.json` includes `.astro/types.d.ts` on purpose: without it `astro check` cannot type an
   `astro:env/client` import and reports `- 1 error`.
 - `npm run build` writes `dist/` and `.vercel/output/`; both are ignored and neither is committed.
+- Markdown runs on Astro's default Satteri processor, configured in `astro.config.mjs` with
+  `attributes: true` (fixed heading ids) and `smartPunctuation: false` (text renders as typed). It
+  does not run remark or rehype plugins. In MDX, braces are expressions and a line that starts with a
+  tag is a block of its own: write a review marker after the paragraph's first words, or wrap the
+  paragraph in `<p>`. `src/lib/legal-content.test.ts` and `src/lib/legal-built.test.ts` guard both.
 - The `/go/*` short links in `vercel.json` are static JSON and cannot import `src/lib/links.ts`.
   Update both when a link rotates; the parity test catches a miss.
 - `output: 'static'` is the default for every page. A route that needs the server must opt out

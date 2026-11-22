@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **One layout for the legal pages.** The Terms, the Refund and Cancellation Policy and the
+  Privacy Policy are written in Markdown (`src/content/legal`) and share one layout, with a
+  numbered list of sections beside the text and the document's details: effective date, type, who
+  it applies to and language. On a phone the list folds into "On this page". The visible text and
+  every existing section link are unchanged.
 - **Refund and cancellation policy page at `/refunds`**, a draft in the same shell as the Terms and
   Privacy pages. The footer link is added when paid plans go on sale. `src/lib/page-dates.test.ts`
   guards that every dated page reads its own `LAST_UPDATED` entry and that every entry is an ISO

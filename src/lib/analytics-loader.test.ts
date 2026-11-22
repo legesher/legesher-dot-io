@@ -11,7 +11,7 @@ import { describe, expect, it } from 'vitest';
 
 const root = join(import.meta.dirname, '..', '..');
 const loader = readFileSync(join(root, 'public', 'scripts', 'analytics.js'), 'utf-8');
-const privacy = readFileSync(join(root, 'src', 'pages', 'privacy.astro'), 'utf-8');
+const privacy = readFileSync(join(root, 'src', 'content', 'legal', 'privacy.mdx'), 'utf-8');
 
 // Each promise the privacy page makes, the sentence that makes it, and the
 // PostHog option that keeps it true.
