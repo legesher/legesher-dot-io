@@ -35,16 +35,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Terms of Service: the hosted services** (section numbers as renumbered above). Section 4.2
-  no longer offers a paid license for harvesting hosted-service outputs or training on them:
-  building a substitute or competing product from outputs is prohibited, and bulk access or
-  training needs a separate written data agreement. Section 7.4 describes what the hosted services keep today in place of the earlier stateless
-  design intent. A new Section 15 covers accounts and plans, acceptable use, outputs and the
-  vocabulary, limits and suspension, leaving, and the agreement that comes with a paid plan. The
-  "when launched" wording for hosted services is gone. Section 4.2's table and Section 6 name the
-  current plans: Free, Individual, and Team or Enterprise for the Hosted Services, with Curated
-  Datasets and Curriculum still licensed by email. Draft: the sentences that depend on
-  jurisdiction, a service provider, a contact address or plan details carry a `data-review` marker.
+- **Terms of Service: the hosted services** (section numbers as renumbered above). Section 4.2 no
+  longer offers a paid license for harvesting hosted-service outputs or training on them: building
+  a substitute or competing product from outputs is prohibited, and bulk access or training needs
+  a separate written data agreement. Section 7.4 describes what the hosted services keep today in
+  place of the earlier stateless design intent. A new Section 15 covers accounts and plans,
+  acceptable use, outputs and the vocabulary, limits and suspension, leaving, and the agreement
+  that comes with a paid plan. The "when launched" wording for hosted services is gone. Section
+  4.2's table and Section 6 name the current plans: Free, Individual, and Team or Enterprise for
+  the Hosted Services, with Curated Datasets and Curriculum still licensed by email. Draft: the
+  sentences that depend on jurisdiction, a service provider, a contact address or plan details
+  carry a `data-review` marker.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
   @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
   raised to >=22.12.0). One code change applied: CSP configuration graduated from

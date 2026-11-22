@@ -102,12 +102,13 @@ describe('legal content', () => {
         .map((line) => /^#{2,3} (\d+(?:\.\d+)?)\.? /.exec(line)?.[1])
         .filter(Boolean),
     );
-    // "Section 7", "Sections 4.2, 7.4 and 15", and a bare "in 3.1".
+    // "Section 7", "sections 4.2, 7.4, and 15", and a bare "in 3.1" or "under 3.1".
+    const LIST = /, and |, | and /;
     const refs = [
-      ...[...text.matchAll(/Sections? (\d+(?:\.\d+)?(?:(?:, | and )\d+(?:\.\d+)?)*)/g)].flatMap((m) =>
-        m[1].split(/, | and /),
+      ...[...text.matchAll(/\bsections? (\d+(?:\.\d+)?(?:(?:, and |, | and )\d+(?:\.\d+)?)*)/gi)].flatMap((m) =>
+        m[1].split(LIST),
       ),
-      ...[...text.matchAll(/\bin (\d+\.\d+)\b/g)].map((m) => m[1]),
+      ...[...text.matchAll(/\b(?:in|under) (\d+\.\d+)\b/g)].map((m) => m[1]),
     ];
     expect(refs.filter((ref) => !numbers.has(ref))).toEqual([]);
   });
