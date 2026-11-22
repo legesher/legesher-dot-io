@@ -11,8 +11,8 @@ const legal = defineCollection({
     title: z.string(),
     description: z.string(),
     type: z.enum(['Terms', 'Policy']),
-    // Who the document is for, as tags: some of Individual, Team and Commercial.
-    audience: z.array(z.enum(['Individual', 'Team', 'Commercial'])).nonempty(),
+    // Who the document is for, as tags: Individual, Business or both.
+    audience: z.array(z.enum(['Individual', 'Business'])).nonempty(),
     entity: z.string(),
   }),
 });

@@ -125,6 +125,10 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
         fm.entity,
       ].join(' '),
     );
+    // The type tag carries an icon for its type, hidden from screen readers.
+    const typeTag = between(page(slug), /<dd[^>]*data-type/, '</dd>');
+    expect(typeTag, `${slug}: the type tag has an icon`).toMatch(/<svg[^>]*aria-hidden="true"/);
+    expect(typeTag, `${slug}: the icon names its type`).toContain(`data-icon="${String(fm.type).toLowerCase()}"`);
     // Each tag is its own list item, so it reads (and copies) as a word.
     const tags = between(page(slug), /<dd[^>]*data-audience/, '</dd>');
     expect([...tags.matchAll(/<li[\s>][^<]*([^<]+)<\/li>/g)].length, `${slug}: one list item per tag`).toBe(

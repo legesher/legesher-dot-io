@@ -4,7 +4,9 @@
 // document's details (last updated, type, audience, language, issuer) sit in a
 // plain list on the right from xl, and above the document between lg and xl
 // so the text keeps a readable width. A numbered list of the sections runs
-// down the left from lg, and folds into "On this page" below it. The section
+// down the left from lg, and folds into "On this page" below it. The columns
+// sit in the site header's container, so the section list lines up with the
+// logo, and the text is centred in the middle column at a reading width. The section
 // list is built from the document's level-2 headings, which carry fixed ids
 // (src/lib/legal-content.test.ts); the built-page checks are
 // src/lib/legal-built.test.ts. The PDF is this page's print version, made by
@@ -16,6 +18,7 @@ import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ButtonLink from '../components/ButtonLink.astro';
+import { FileText, Scale } from 'lucide-react';
 import { formatLastUpdated } from '@/lib/page-dates.mjs';
 import { pdfHref } from '@/lib/legal-pdf.mjs';
 
@@ -40,12 +43,14 @@ const sections = headings
     text: heading.text.replace(/^\d+\.\s*/, ''),
   }));
 
-// One brand tint per audience, so the three read apart at a glance.
+// One brand tint per audience, so the two read apart at a glance.
 const AUDIENCE_TINT: Record<string, string> = {
   Individual: 'bg-brand-background-cyan',
-  Team: 'bg-brand-light-yellow',
-  Commercial: 'bg-brand-background-coral/60',
+  Business: 'bg-brand-light-yellow',
 };
+// The icon on the type tag: a balance for terms, a page for a policy.
+const TYPE_ICON = { Terms: Scale, Policy: FileText } as const;
+const TypeIcon = TYPE_ICON[type];
 const TAG = 'inline-flex items-center rounded px-2 py-0.5 text-xs font-medium text-gray-900';
 const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t border-gray-200 py-3';
 ---
@@ -53,7 +58,7 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
 <Layout title={pageTitle} description={description}>
   <Header />
   <main class="pt-16 pb-20 bg-white print:p-0">
-    <section data-legal-hero class="container mx-auto px-4 max-w-7xl flex flex-col items-center text-center pt-24 pb-16 md:pt-32 md:pb-24 print:items-start print:text-left print:p-0 print:pb-6">
+    <section data-legal-hero class="container mx-auto px-4 flex flex-col items-center text-center pt-24 pb-16 md:pt-32 md:pb-24 print:items-start print:text-left print:p-0 print:pb-6">
       <h1 class="font-display text-4xl md:text-6xl font-bold tracking-tight text-gray-900">{title}</h1>
       <ButtonLink href={pdfHref(entry.id)} download size="lg" class="secondary-button mt-8 gap-2 print:hidden">
         Download PDF
@@ -61,8 +66,8 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
       </ButtonLink>
     </section>
 
-    <div class="container mx-auto px-4 max-w-7xl lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-12 xl:grid-cols-[13rem_minmax(0,1fr)_17rem] xl:gap-x-16 print:block print:max-w-none print:p-0">
-      <aside aria-label="Document details" class="mb-8 lg:col-start-2 lg:row-start-1 lg:max-w-md xl:mb-0 xl:max-w-none xl:col-start-3 xl:sticky xl:top-28 xl:self-start print:mb-6 print:max-w-none">
+    <div class="container mx-auto px-4 lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-16 xl:grid-cols-[13rem_minmax(0,1fr)_17rem] 2xl:gap-x-24 print:block print:max-w-none print:p-0">
+      <aside aria-label="Document details" class="mb-8 lg:col-start-2 lg:row-start-1 lg:mx-auto lg:w-full lg:max-w-[44rem] xl:mx-0 xl:mb-0 xl:max-w-none xl:col-start-3 xl:sticky xl:top-28 xl:self-start print:mb-6 print:max-w-none">
         <dl class="text-sm border-b border-gray-200">
           <div class={ROW}>
             <dt class="text-gray-500">Last updated</dt>
@@ -70,7 +75,12 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
           </div>
           <div class={ROW}>
             <dt class="text-gray-500">Type</dt>
-            <dd><span class={`${TAG} bg-gray-100`}>{type}</span></dd>
+            <dd data-type>
+              <span class={`${TAG} gap-1.5 bg-gray-100`}>
+                <TypeIcon className="h-3.5 w-3.5 text-gray-600" aria-hidden="true" data-icon={type.toLowerCase()} />
+                {type}
+              </span>
+            </dd>
           </div>
           <div class={ROW}>
             <dt class="text-gray-500">Audience</dt>
@@ -118,7 +128,7 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
         </ol>
       </nav>
 
-      <article class="legal-document min-w-0 lg:col-start-2 lg:row-start-2 xl:row-start-1 prose max-w-none text-gray-800 prose-headings:text-gray-900 prose-headings:font-semibold prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-2 prose-p:my-3 prose-p:leading-normal prose-li:my-1 prose-li:leading-normal prose-ul:my-3 prose-ol:my-3 prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm prose-table:my-4">
+      <article class="legal-document min-w-0 lg:mx-auto lg:w-full lg:max-w-[44rem] lg:col-start-2 lg:row-start-2 xl:row-start-1 prose max-w-none text-gray-800 prose-headings:text-gray-900 prose-headings:font-semibold prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-2 prose-p:my-3 prose-p:leading-normal prose-li:my-1 prose-li:leading-normal prose-ul:my-3 prose-ol:my-3 prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm prose-table:my-4">
         <slot />
         <p class="text-sm text-gray-500 mt-12">
           <em>Effective date: {date}</em>

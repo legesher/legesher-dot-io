@@ -27,7 +27,7 @@ function frontMatter(slug: string): Record<string, unknown> {
     }),
   );
 }
-const AUDIENCES = ['Individual', 'Team', 'Commercial'];
+const AUDIENCES = ['Individual', 'Business'];
 const ID = /\{#([a-z0-9][a-z0-9-]*)\}\s*$/;
 
 describe('legal content', () => {
@@ -58,7 +58,7 @@ describe('legal content', () => {
       expect(typeof fm[key] === 'string' && fm[key] !== '', `${slug}: ${key}`).toBe(true);
     }
     expect(['Terms', 'Policy']).toContain(fm.type);
-    // The audience tags: some of Individual, Team and Commercial, in that order.
+    // The audience tags: Individual, Business or both, in that order.
     const audience = fm.audience as string[];
     expect(Array.isArray(audience) && audience.length > 0, `${slug}: audience is a non-empty list`).toBe(true);
     expect(audience, `${slug}: audience`).toEqual(AUDIENCES.filter((tag) => audience.includes(tag)));
