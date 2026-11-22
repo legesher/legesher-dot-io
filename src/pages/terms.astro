@@ -6,6 +6,13 @@ import Footer from '../components/Footer.astro';
 import { LAST_UPDATED, formatLastUpdated } from '@/lib/page-dates.mjs';
 
 const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
+
+// DRAFT markers on the hosted-service passages (Sections 5.2, 8.4 and 16).
+// data-review="jurisdiction" marks a sentence that depends on the law of the
+// customer's country or the contracting entity; "processor" a claim about a
+// service provider's behaviour; "mailbox" a contact address; "plan" a
+// statement about what a named plan includes. The markers render nothing;
+// grep for data-review to list them.
 ---
 
 <Layout
@@ -97,9 +104,10 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
               do not restrict or replace the Apache 2.0 License.
             </li>
             <li>
-              <strong>&ldquo;Hosted Services&rdquo;</strong> means any online service we operate, including (when
-              launched) the Legesher Translation API and any hosted SaaS offerings. Hosted Services are governed by
-              these Terms plus any service-specific agreement presented to you at sign-up.
+              <strong>&ldquo;Hosted Services&rdquo;</strong> means any online service we operate, including the
+              Legesher Translation API, the Legesher account you sign in to, and any other hosted offering. Hosted
+              Services are governed by these Terms, including <a href="#hosted-services">Section 16</a>, plus any
+              plan-specific agreement presented to you when you subscribe to a paid plan.
             </li>
             <li>
               <strong>&ldquo;Curated Datasets&rdquo;</strong> means datasets that <em>we</em> build, compile, and
@@ -129,7 +137,7 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
           <p><strong>These Terms govern:</strong></p>
           <ul>
             <li>Your use of the Website</li>
-            <li>Your use of Hosted Services (when launched)</li>
+            <li>Your use of Hosted Services</li>
             <li>Your use of Curated Datasets and Curriculum</li>
             <li>Your use of the Legesher Brand</li>
           </ul>
@@ -205,12 +213,13 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
             </tbody>
           </table>
 
-          <h3>5.2 What requires a Commercial License</h3>
+          <h3>5.2 What needs a plan or a Commercial License</h3>
           <p class="text-sm">
-            <em>Hosted Services, Curated Datasets, and Curriculum described below are forward-looking offerings. At
-            the time of this policy's last update, none have launched publicly. The rows below describe the
-            licensing model that will apply when each becomes available; you will be presented with a
-            service-specific agreement at sign-up.</em>
+            <em>Curated Datasets and Curriculum are forward-looking offerings; at the time of this policy's last
+            update, neither has launched publicly, and the rows below describe the licensing model that will apply
+            when each becomes available. Hosted Services are covered by
+            <a href="#hosted-services">Section 16</a>; a paid plan, where one is offered, comes with a plan-specific
+            agreement presented at checkout.</em>
           </p>
           <table>
             <thead>
@@ -222,39 +231,43 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
             </thead>
             <tbody>
               <tr>
-                <td>Personal use of Hosted Services (when launched)</td>
-                <td>Personal &mdash; free</td>
-                <td>Sign up via the Website; no payment required</td>
+                <td>Use of Hosted Services within the Free plan</td>
+                <td>Free plan</td>
+                <td>Create a Legesher account; no payment required</td>
               </tr>
               <tr>
-                <td>Educational institution use of Hosted Services, Curated Datasets, or Curriculum</td>
-                <td>Education &mdash; <strong>discounted paid license</strong></td>
+                <td>Use of Hosted Services beyond the Free plan, for one person</td>
+                <td>Individual plan</td>
+                <td>Subscribe from your Legesher account</td>
+              </tr>
+              <tr>
+                <td>Use of Hosted Services by a team or an organization</td>
+                <td>Team or Enterprise</td>
                 <td><a href="mailto:hello@legesher.com">hello@legesher.com</a></td>
               </tr>
               <tr>
-                <td>Non-profit use of Hosted Services, Curated Datasets, or Curriculum</td>
-                <td>Non-profit &mdash; <strong>discounted paid license</strong></td>
+                <td>Educational institution use of Curated Datasets or Curriculum</td>
+                <td>Education: <strong>discounted paid license</strong></td>
                 <td><a href="mailto:hello@legesher.com">hello@legesher.com</a></td>
               </tr>
               <tr>
-                <td>Commercial / for-profit use of Hosted Services, Curated Datasets, or Curriculum</td>
-                <td>Commercial &mdash; full paid license</td>
+                <td>Non-profit use of Curated Datasets or Curriculum</td>
+                <td>Non-profit: <strong>discounted paid license</strong></td>
                 <td><a href="mailto:hello@legesher.com">hello@legesher.com</a></td>
               </tr>
               <tr>
-                <td>Training or fine-tuning AI/ML models using Curated Datasets or Hosted Service outputs</td>
-                <td>Commercial &mdash; paid license</td>
+                <td>Commercial / for-profit use of Curated Datasets or Curriculum</td>
+                <td>Commercial: full paid license</td>
                 <td><a href="mailto:hello@legesher.com">hello@legesher.com</a></td>
               </tr>
               <tr>
-                <td>Systematically harvesting Hosted Service outputs to build a derivative dataset, training corpus,
-                  or competing product</td>
-                <td>Commercial &mdash; paid license</td>
+                <td>Training or fine-tuning AI/ML models using Curated Datasets</td>
+                <td>Commercial: paid license</td>
                 <td><a href="mailto:hello@legesher.com">hello@legesher.com</a></td>
               </tr>
               <tr>
                 <td>Redistributing Curated Datasets (in whole or substantial part) to third parties</td>
-                <td>Commercial &mdash; paid license</td>
+                <td>Commercial: paid license</td>
                 <td><a href="mailto:hello@legesher.com">hello@legesher.com</a></td>
               </tr>
               <tr>
@@ -264,14 +277,34 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
               </tr>
             </tbody>
           </table>
+          <p>
+            <strong>What no plan includes.</strong> A subscription to the Hosted Services is not a data license. The
+            following are not available on any plan, free or paid:
+          </p>
+          <ul>
+            <li>
+              Training or fine-tuning AI/ML models on the Legesher vocabulary or on Hosted Service outputs collected
+              in bulk, or redistributing either in bulk.
+              We consider this only under a separate written data agreement signed by Legesher Inc; write to
+              <a href="mailto:hello@legesher.com"><span data-review="mailbox">hello@legesher.com</span></a>.
+            </li>
+            <li>
+              Systematically querying, scraping or harvesting Hosted Service outputs to build a dataset, glossary or
+              corpus that substitutes for the Hosted Services, or to build a competing product. This is prohibited,
+              and no license for it is offered.
+            </li>
+          </ul>
+          <p>
+            <a href="#hosted-services">Section 16</a> states these rules in full.
+          </p>
 
           <h3>5.3 Apache 2.0 specifically allows AI training on the Open-Source Software</h3>
           <p>
             We want to be explicit: because the Open-Source Software is released under the Apache 2.0 License, you
             may use it to train, fine-tune, or evaluate AI/ML models, and you may build commercial products from it,
-            without paying us or asking permission. The restriction in Section 5.2 on AI training applies to
+            without paying us or asking permission. The restrictions in Section 5.2 and Section 16 on AI training apply to
             <strong>Curated Datasets we license separately and the outputs of Hosted Services</strong>, not to the
-            publicly released Open-Source code.
+            publicly released Open-Source code or the open language packs.
           </p>
         </section>
 
@@ -316,7 +349,13 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
         <section aria-labelledby="commercial-licensing">
           <h2 id="commercial-licensing">7. Commercial Licensing</h2>
           <p>
-            Use of Hosted Services, Curated Datasets, or Curriculum beyond the Personal tier requires a written
+            For Hosted Services, a paid plan is your Commercial License, within what the plan includes. One person
+            subscribes to the Individual plan from their Legesher account (<a href="#hosted-paid-plans">Section 16.6</a>). For a
+            team or an organization, write to
+            <a href="mailto:hello@legesher.com">hello@legesher.com</a> about Team or Enterprise.
+          </p>
+          <p>
+            Curated Datasets, Curriculum, and any use of Hosted Services that no plan covers require a written
             Commercial License issued by Legesher Inc.
           </p>
 
@@ -341,7 +380,9 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
           <p>
             Accredited educational institutions and registered non-profits receive a <strong>discounted rate</strong>
             on the Commercial License price. A valid license is still required; the discount does not waive the
-            licensing requirement. Proof of accreditation or non-profit status may be requested.
+            licensing requirement. Proof of accreditation or non-profit status may be requested. This
+            discount applies to licenses agreed by email under Section 7.1, not to plans bought from your Legesher
+            account.
           </p>
 
           <h3>7.3 What a Commercial License covers</h3>
@@ -408,23 +449,48 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
             endorsement, partnership, or ownership is not.
           </p>
 
-          <h3 id="student-data">8.4 Student Data (Hosted API &mdash; forward-looking)</h3>
+          <h3 id="hosted-data">8.4 Code and Data You Send to the Hosted Services</h3>
           <p>
-            When Legesher's Hosted Translation API launches, it is designed to process translation requests
-            <strong>statelessly</strong>: the API receives a code snippet, returns a translation, and does
-            <strong>not store student code, source files, or request payloads</strong> beyond the transient
-            processing window needed to serve the response.
+            When you send code to the Legesher Translation API, the code and its translation are processed in memory
+            to answer the request. They are <strong>not written to logs and not used to train models</strong>, and
+            apart from the names described below they are <strong>not kept after the request ends</strong>.
+          </p>
+          <p>The Hosted Services do keep some things about your use:</p>
+          <ul>
+            <li>
+              <strong>A usage record for each request.</strong> It says who made the request (your account or key or,
+              without an account, a salted hash of your network address), when, with which tool, in which languages,
+              how large the request was and whether it succeeded. If you chose to name a repository, it holds a salted
+              hash of that name. It holds none of your code.
+            </li>
+            <li>
+              <strong>Service logs and limits.</strong> Like any online service, the Hosted Services log requests, not
+              their content, and count requests against the limits in Section 16.1. Without an account, the limit is
+              counted against your network address.
+            </li>
+            <li>
+              <strong>Your account.</strong> Your account record, your API keys (stored as hashes, not as the keys
+              themselves) and, on a paid plan, the state of your subscription.
+            </li>
+            <li>
+              <strong>Names, for features that use a language model.</strong>
+              <span data-review="processor">On plans that include them, features that use a language model send the
+              parts of your code that need translating in context (comments, docstrings, text strings and the names
+              you chose) to a model provider, which processes them to return the translation. They are not used to
+              train models.</span> So that a name is translated the same way from one request to the next, the service
+              keeps the names from a repository you identify, together with their translations. They are kept for
+              your account only and are not shared with other customers.
+            </li>
+          </ul>
+          <p>
+            <span data-review="jurisdiction">The same handling applies when a school or another institution directs
+            its students to the Hosted Services. The Hosted Services are not directed at children under 13, or under 16
+            where the law sets that age.</span>
           </p>
           <p>
-            Educational institutions licensing the Hosted API for student use can therefore direct students to use
-            it without Legesher retaining student work product. Aggregated, non-identifying usage metrics (request
-            counts, language pair popularity, latency) may be retained for service improvement; no student code,
-            variable names, literal values, or personal identifiers are retained.
-          </p>
-          <p>
-            This section describes our design intent for the upcoming Hosted API. The exact data-handling commitments
-            for the Hosted API will be formalized in the API Service Agreement presented at sign-up. Until the Hosted
-            API launches, this disclaimer describes our forward-looking posture rather than a currently live service.
+            Our <a href="/privacy">Privacy Policy</a> describes the personal information we hold, who processes it
+            for us and how long we keep it. If this section and the Privacy Policy differ about personal information,
+            the Privacy Policy controls.
           </p>
         </section>
 
@@ -650,6 +716,130 @@ const lastUpdated = formatLastUpdated(LAST_UPDATED.terms);
             <li>Privacy: <a href="mailto:privacy@legesher.com">privacy@legesher.com</a></li>
             <li>Security: <a href="mailto:security@legesher.com">security@legesher.com</a></li>
           </ul>
+        </section>
+
+        <section aria-labelledby="hosted-services">
+          <h2 id="hosted-services">16. Hosted Services: Additional Terms</h2>
+          <p>
+            This section applies when you use the Hosted Services, with or without an account. The rest of these
+            Terms apply as well; where this section says something different about the Hosted Services, this section
+            controls.
+          </p>
+
+          <h3 id="hosted-accounts">16.1 Accounts and plans</h3>
+          <ul>
+            <li>
+              <strong>Without an account.</strong> <span data-review="plan">You can try the Legesher Translation API
+              without an account, within a small trial allowance.</span>
+            </li>
+            <li>
+              <strong>A free account.</strong> <span data-review="plan">A Legesher account costs nothing and gives you
+              an API key on the Free plan. The Free plan covers the Translation API in standard mode, within the Free
+              plan's usage limits. Standard mode translates code with our open language packs and does not use a
+              language model.</span>
+            </li>
+            <li>
+              <strong>Paid plans.</strong> <span data-review="plan">Paid plans add features and higher limits. The
+              description shown when you subscribe states what a plan includes.</span> Section 16.6 covers the
+              agreement that comes with a paid plan.
+            </li>
+            <li>
+              <strong>Limits.</strong> Every plan has usage limits. When you reach one, the service declines further
+              requests of that kind until the limit resets or you change plan.
+            </li>
+            <li>
+              <strong>Your keys.</strong> Keep your API keys secret and do not share them outside your account. You
+              are responsible for what is done with your account and your keys. If a key may have leaked, revoke it
+              from your account and tell
+              <a href="mailto:security@legesher.com"><span data-review="mailbox">security@legesher.com</span></a>.
+            </li>
+            <li>
+              <strong>Who can hold an account.</strong> <span data-review="jurisdiction">You must be old enough to
+              enter a contract where you live. If you create an account for an organization, you confirm that you
+              may accept these Terms for it.</span>
+            </li>
+          </ul>
+
+          <h3 id="hosted-acceptable-use">16.2 Acceptable use</h3>
+          <p>When using the Hosted Services, you agree <strong>not</strong> to:</p>
+          <ul>
+            <li>Use them to break any applicable law or anyone else's rights</li>
+            <li>Send code or data that you do not have the right to send</li>
+            <li>
+              Probe, scan or overload the service, or get around its limits, sign-in or security, including by
+              opening more than one account to avoid a limit
+            </li>
+            <li>Sell, rent or pass on access to the service or your keys without a written agreement with us</li>
+            <li>
+              Run automated bulk queries beyond ordinary use on real code, or do anything else Section 16.3 does not
+              allow
+            </li>
+          </ul>
+
+          <h3 id="hosted-outputs">16.3 Outputs and the vocabulary</h3>
+          <p>
+            Your code stays yours, and so do the names you chose in it and their translations. Sending your code to
+            the Hosted Services gives us no ownership of it, and we use it only to provide the service to you
+            (Section 8.4).
+          </p>
+          <p>
+            <span data-review="jurisdiction">Legesher Inc keeps all rights in the Hosted Services and in the Legesher
+            vocabulary: the translated names for libraries, packages and other public code that we build and curate,
+            and the collections of them, including any database rights in those collections.</span> The open language
+            packs are not part of that vocabulary; they stay under their open license. You may use what the Hosted
+            Services return to you in your own projects: to read, run and maintain your code, and to commit it to
+            your repositories, public ones included.
+          </p>
+          <p>On every plan, free or paid, you may not:</p>
+          <ul>
+            <li>
+              <strong>Extract the vocabulary.</strong> No systematic querying, scraping or harvesting of the Hosted
+              Services to build a dataset, glossary, corpus or product that substitutes for or competes with them. A
+              subscription is not a data license.
+            </li>
+            <li>
+              <strong>Train models on it.</strong> No training or fine-tuning of AI/ML models on the Legesher
+              vocabulary, or on outputs collected in bulk from the Hosted Services.
+            </li>
+            <li>
+              <strong>Redistribute it in bulk.</strong> No passing on the Legesher vocabulary, or outputs collected in
+              bulk, as a dataset of their own. Committing your own code to your repositories is not that.
+            </li>
+            <li>
+              <strong>Reverse engineer the service.</strong> <span data-review="jurisdiction">No reverse engineering
+              of how the Hosted Services produce, rank or choose translations, except where the law gives you a right
+              to do so that a contract cannot take away.</span>
+            </li>
+          </ul>
+          <p>
+            Bulk access, bulk redistribution and any use for training are available only under a separate written
+            data agreement signed by Legesher Inc. None of this limits what you may do with the Open-Source Software
+            or the open language packs, which stay free for any use, AI training included (Section 5.3).
+          </p>
+
+          <h3 id="hosted-suspension">16.4 Limits and suspension</h3>
+          <p>
+            We may slow, limit or suspend access to the Hosted Services for an account, a key or a network address
+            that breaks these Terms, puts the service or other people at risk, or shows a pattern of use that looks
+            like extraction. Where we can, we tell you by email first and give you the chance to explain or fix it.
+            Where the risk is urgent, we act first and tell you afterward. To ask for a review, write to
+            <a href="mailto:support@legesher.com"><span data-review="mailbox">support@legesher.com</span></a>.
+          </p>
+
+          <h3 id="hosted-leaving">16.5 Leaving</h3>
+          <p>
+            You can stop using the Hosted Services at any time, and you can delete your account from its Settings
+            page once any paid subscription on it has ended. Deleting your account ends its keys at once. The <a href="/privacy">Privacy Policy</a> describes
+            how deletion requests are handled.
+          </p>
+
+          <h3 id="hosted-paid-plans">16.6 Paid plans</h3>
+          <p>
+            <span data-review="plan">When you subscribe to a paid plan, you are shown a subscription agreement and
+            our Refund and Cancellation Policy before you pay.</span> That agreement is the plan-specific agreement
+            these Terms refer to. Where it differs from these Terms, it controls for that plan, and the Refund and
+            Cancellation Policy controls on cancellations and refunds.
+          </p>
         </section>
 
         <p class="text-sm text-muted-foreground mt-12">
