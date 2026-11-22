@@ -1,18 +1,23 @@
 ---
-// The legal-center layout for the documents in src/content/legal: the title
-// and byline, a numbered list of the document's sections on the left, the
-// document in the middle, and its details on the right (from xl). Between lg
-// and xl the details sit above the document, so the text keeps a readable
-// width; below lg the list folds into "On this page". The section list is built from the document's level-2
-// headings, which carry fixed ids (src/lib/legal-content.test.ts); the
-// built-page checks are src/lib/legal-built.test.ts.
+// The legal-center layout for the documents in src/content/legal. The top of
+// the page holds only the title and a button that downloads the PDF; the
+// document's details (date, type, audience, language, issuer) sit in a
+// plain list on the right from xl, and above the document between lg and xl
+// so the text keeps a readable width. A numbered list of the sections runs
+// down the left from lg, and folds into "On this page" below it. The section
+// list is built from the document's level-2 headings, which carry fixed ids
+// (src/lib/legal-content.test.ts); the built-page checks are
+// src/lib/legal-built.test.ts. The PDF is this page's print version, made by
+// scripts/legal-pdfs.mjs (src/lib/legal-pdf.mjs).
 import type { MarkdownHeading } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 
 import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ButtonLink from '../components/ButtonLink.astro';
 import { formatLastUpdated } from '@/lib/page-dates.mjs';
+import { pdfHref } from '@/lib/legal-pdf.mjs';
 
 interface Props {
   entry: CollectionEntry<'legal'>;
@@ -24,7 +29,7 @@ interface Props {
 }
 
 const { entry, headings, lastUpdated, pageTitle } = Astro.props;
-const { title, description, type, appliesTo, entity } = entry.data;
+const { title, description, type, audience, entity } = entry.data;
 const date = formatLastUpdated(lastUpdated);
 
 const sections = headings
@@ -35,70 +40,88 @@ const sections = headings
     text: heading.text.replace(/^\d+\.\s*/, ''),
   }));
 
-const details: [string, string][] = [
-  ['Effective', date],
-  ['Type', type],
-  ['Applies to', appliesTo],
-  ['Language', 'English'],
-];
+// One brand tint per audience, so the three read apart at a glance.
+const AUDIENCE_TINT: Record<string, string> = {
+  Individual: 'bg-brand-background-cyan',
+  Team: 'bg-brand-light-yellow',
+  Commercial: 'bg-brand-background-coral/60',
+};
+const TAG = 'inline-flex items-center rounded px-2 py-0.5 text-xs font-medium text-gray-900';
+const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t border-gray-200 py-3';
 ---
 
 <Layout title={pageTitle} description={description}>
   <Header />
-  <main class="pt-32 pb-20 bg-white">
-    <div class="container mx-auto px-4 max-w-7xl">
-      <header class="mb-10 lg:mb-16 lg:text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-2">{title}</h1>
-        <p class="text-sm text-muted-foreground">
-          {entity} ·
-          <span>Last updated: {date}</span>
+  <main class="pt-16 pb-20 bg-white print:p-0">
+    <section data-legal-hero class="container mx-auto px-4 max-w-7xl flex flex-col items-center text-center pt-24 pb-16 md:pt-32 md:pb-24 print:items-start print:text-left print:p-0 print:pb-6">
+      <h1 class="font-display text-4xl md:text-6xl font-bold tracking-tight text-gray-900">{title}</h1>
+      <ButtonLink href={pdfHref(entry.id)} download size="lg" class="secondary-button mt-8 gap-2 print:hidden">
+        Download PDF
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" /></svg>
+      </ButtonLink>
+    </section>
+
+    <div class="container mx-auto px-4 max-w-7xl lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-12 xl:grid-cols-[13rem_minmax(0,1fr)_17rem] xl:gap-x-16 print:block print:max-w-none print:p-0">
+      <aside aria-label="Document details" class="mb-8 lg:col-start-2 lg:row-start-1 lg:max-w-md xl:mb-0 xl:max-w-none xl:col-start-3 xl:sticky xl:top-28 xl:self-start print:mb-6 print:max-w-none">
+        <dl class="text-sm border-b border-gray-200">
+          <div class={ROW}>
+            <dt class="text-gray-500">Effective</dt>
+            <dd class="text-gray-900">{date}</dd>
+          </div>
+          <div class={ROW}>
+            <dt class="text-gray-500">Type</dt>
+            <dd><span class={`${TAG} bg-gray-100`}>{type}</span></dd>
+          </div>
+          <div class={ROW}>
+            <dt class="text-gray-500">Audience</dt>
+            <dd class="flex flex-wrap gap-1.5">
+              {audience.map((tag) => <span class={`${TAG} ${AUDIENCE_TINT[tag]}`}>{tag}</span>)}
+            </dd>
+          </div>
+          <div class={ROW}>
+            <dt class="text-gray-500">Language</dt>
+            <dd class="text-gray-900">English</dd>
+          </div>
+          <div class={ROW}>
+            <dt class="text-gray-500">Issued by</dt>
+            <dd class="text-gray-900">{entity}</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <details class="lg:hidden mb-8 border-y border-gray-200 print:hidden">
+        <summary class="cursor-pointer py-3 text-sm font-medium text-gray-900">On this page</summary>
+        <ol class="pb-3 text-sm">
+          {sections.map((section) => (
+            <li>
+              <a href={`#${section.slug}`} class="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-3 py-1.5 text-gray-800 hover:text-brand-cyan transition-colors duration-300">
+                <span class="font-mono text-xs text-gray-400 pt-0.5">{section.number}</span>
+                <span>{section.text}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </details>
+
+      <nav aria-label="Sections" class="hidden lg:block lg:col-start-1 lg:row-start-1 lg:row-span-2 xl:row-span-1 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto print:hidden">
+        <ol class="text-sm border-b border-gray-200">
+          {sections.map((section) => (
+            <li class="border-t border-gray-200">
+              <a href={`#${section.slug}`} class="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-3 py-3 text-gray-800 hover:text-brand-cyan transition-colors duration-300">
+                <span class="font-mono text-xs text-gray-400 pt-0.5">{section.number}</span>
+                <span>{section.text}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <article class="legal-document min-w-0 lg:col-start-2 lg:row-start-2 xl:row-start-1 prose max-w-none text-gray-800 prose-headings:text-gray-900 prose-headings:font-semibold prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-2 prose-p:my-3 prose-p:leading-normal prose-li:my-1 prose-li:leading-normal prose-ul:my-3 prose-ol:my-3 prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm prose-table:my-4">
+        <slot />
+        <p class="text-sm text-gray-500 mt-12">
+          <em>Effective date: {date}</em>
         </p>
-      </header>
-
-      <div class="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-12 xl:grid-cols-[13rem_minmax(0,1fr)_15rem] xl:gap-x-16">
-        <details class="lg:hidden mb-6 rounded-lg border border-border">
-          <summary class="cursor-pointer px-4 py-3 text-sm font-medium">On this page</summary>
-          <ol class="px-4 pb-3 space-y-2 text-sm">
-            {sections.map((section) => (
-              <li class="flex gap-3">
-                <span class="font-mono text-xs text-muted-foreground pt-0.5">{section.number}</span>
-                <a href={`#${section.slug}`} class="hover:text-brand-cyan transition-colors duration-300">{section.text}</a>
-              </li>
-            ))}
-          </ol>
-        </details>
-
-        <aside aria-label="Document details" class="mb-10 lg:col-start-2 lg:row-start-1 lg:max-w-md xl:mb-0 xl:max-w-none xl:col-start-3 xl:sticky xl:top-28 xl:self-start">
-          <dl class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-3 rounded-lg border border-border p-4 text-sm">
-            {details.map(([label, value]) => (
-              <>
-                <dt class="text-muted-foreground">{label}</dt>
-                <dd class="font-medium">{value}</dd>
-              </>
-            ))}
-          </dl>
-        </aside>
-
-        <nav aria-label="Sections" class="hidden lg:block lg:col-start-1 lg:row-start-1 lg:row-span-2 xl:row-span-1 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
-          <ol class="text-sm">
-            {sections.map((section) => (
-              <li class="border-t border-border first:border-t-0">
-                <a href={`#${section.slug}`} class="flex gap-3 py-2.5 hover:text-brand-cyan transition-colors duration-300">
-                  <span class="font-mono text-xs text-muted-foreground pt-0.5">{section.number}</span>
-                  <span>{section.text}</span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-
-        <article class="min-w-0 lg:col-start-2 lg:row-start-2 xl:row-start-1 prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
-          <slot />
-          <p class="text-sm text-muted-foreground mt-12">
-            <em>Effective date: {date}</em>
-          </p>
-        </article>
-      </div>
+      </article>
     </div>
   </main>
   <Footer />
@@ -109,5 +132,19 @@ const details: [string, string][] = [
   :global(main h2[id]),
   :global(main h3[id]) {
     scroll-margin-top: 6rem;
+  }
+  /* The first section starts level with the two lists beside it */
+  .legal-document > :global(:first-child) {
+    margin-top: 0;
+  }
+  /* The PDF is this page printed: no site header or footer */
+  @media print {
+    :global(#main-header),
+    :global(body > footer) {
+      display: none !important;
+    }
+    .legal-document {
+      font-size: 10.5pt;
+    }
   }
 </style>

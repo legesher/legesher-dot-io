@@ -10,6 +10,9 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+import { formatLastUpdated, LAST_UPDATED } from './page-dates.mjs';
+import { pdfHref } from './legal-pdf.mjs';
+
 const root = join(import.meta.dirname, '..', '..');
 const output = join(root, '.vercel', 'output', 'static');
 const slugs = readdirSync(join(root, 'src', 'content', 'legal'))
@@ -23,6 +26,26 @@ const TAG = /<(\/?)([a-zA-Z][a-zA-Z0-9-]*)([^>]*)>/g;
 
 function page(slug: string): string {
   return readFileSync(join(output, slug, 'index.html'), 'utf-8');
+}
+function text(html: string): string {
+  // Text between tags, joined. Not a sanitizer; nothing here is rendered.
+  const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" };
+  return html
+    .split(/<[^>]*>/)
+    .join(' ')
+    .replace(/&(amp|lt|gt|quot|#39);/g, (_, name: string) => ENTITIES[name])
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+function frontMatter(slug: string): Record<string, unknown> {
+  const source = readFileSync(join(root, 'src', 'content', 'legal', `${slug}.mdx`), 'utf-8');
+  const block = /^---\n([\s\S]*?)\n---/.exec(source)?.[1] ?? '';
+  return Object.fromEntries(
+    block.split('\n').map((line) => {
+      const i = line.indexOf(':');
+      return [line.slice(0, i).trim(), JSON.parse(line.slice(i + 1).trim())];
+    }),
+  );
 }
 function between(html: string, open: RegExp, close: string): string {
   const start = html.search(open);
@@ -74,5 +97,33 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
       if (!VOID.has(tag) && !rest.trim().endsWith('/')) stack.push(tag);
     }
     expect(stray).toEqual([]);
+  });
+
+  it.each(slugs)('%s: the top of the page holds only the title and the download button', (slug) => {
+    const hero = between(page(slug), /<section[^>]*data-legal-hero/, '</section>');
+    expect(text(hero)).toBe(`${frontMatter(slug).title} Download PDF`);
+    const link = /<a\s[^>]*href="([^"]+)"[^>]*>/.exec(hero);
+    expect(link?.[1], `${slug}: the button points at the PDF`).toBe(pdfHref(slug));
+    expect(link?.[0], `${slug}: the button downloads`).toMatch(/\sdownload(=|\s|>)/);
+    expect(existsSync(join(output, pdfHref(slug))), `${slug}: the PDF is in the build`).toBe(true);
+  });
+
+  it.each(slugs)('%s: the details list the date, type, audience, language and issuer', (slug) => {
+    const fm = frontMatter(slug);
+    const details = text(between(page(slug), /<aside[^>]*aria-label="Document details"/, '</aside>'));
+    expect(details).toBe(
+      [
+        'Effective',
+        formatLastUpdated(LAST_UPDATED[slug as keyof typeof LAST_UPDATED]),
+        'Type',
+        fm.type,
+        'Audience',
+        ...(fm.audience as string[]),
+        'Language',
+        'English',
+        'Issued by',
+        fm.entity,
+      ].join(' '),
+    );
   });
 });

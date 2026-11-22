@@ -23,6 +23,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "astro check",
+    "legal:pdf": "astro build && node scripts/legal-pdfs.mjs",
     "contributors:generate": "all-contributors generate"
   },
   "dependencies": {
@@ -61,6 +62,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "all-contributors-cli": "^6.26.1",
     "autoprefixer": "^10.5.2",
+    "playwright": "1.63.0",
     "postcss": "^8.5.16",
     "prettier": "^3.9.9",
     "typescript": "^5.9.3",

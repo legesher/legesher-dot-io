@@ -16,15 +16,18 @@ const docs = readdirSync(DIR)
 function source(slug: string): string {
   return readFileSync(join(DIR, `${slug}.mdx`), 'utf8');
 }
-function frontMatter(slug: string): Record<string, string> {
+// Front matter is written one key per line, each value JSON (a quoted
+// string, or an array of them).
+function frontMatter(slug: string): Record<string, unknown> {
   const block = /^---\n([\s\S]*?)\n---/.exec(source(slug))?.[1] ?? '';
   return Object.fromEntries(
     block.split('\n').map((line) => {
       const i = line.indexOf(':');
-      return [line.slice(0, i).trim(), line.slice(i + 1).trim().replace(/^["']|["']$/g, '')];
+      return [line.slice(0, i).trim(), JSON.parse(line.slice(i + 1).trim())];
     }),
   );
 }
+const AUDIENCES = ['Individual', 'Team', 'Commercial'];
 const ID = /\{#([a-z0-9][a-z0-9-]*)\}\s*$/;
 
 describe('legal content', () => {
@@ -49,11 +52,16 @@ describe('legal content', () => {
     expect(repeated).toEqual([]);
   });
 
-  it.each(docs)('%s: front matter has title, description, type, appliesTo and entity', (slug) => {
+  it.each(docs)('%s: front matter has title, description, type, audience and entity', (slug) => {
     const fm = frontMatter(slug);
-    for (const key of ['title', 'description', 'type', 'appliesTo', 'entity']) {
-      expect(fm[key], `${slug}: ${key}`).toBeTruthy();
+    for (const key of ['title', 'description', 'type', 'entity']) {
+      expect(typeof fm[key] === 'string' && fm[key] !== '', `${slug}: ${key}`).toBe(true);
     }
     expect(['Terms', 'Policy']).toContain(fm.type);
+    // The audience tags: some of Individual, Team and Commercial, in that order.
+    const audience = fm.audience as string[];
+    expect(Array.isArray(audience) && audience.length > 0, `${slug}: audience is a non-empty list`).toBe(true);
+    expect(audience, `${slug}: audience`).toEqual(AUDIENCES.filter((tag) => audience.includes(tag)));
+    expect(fm, `${slug}: appliesTo was replaced by audience`).not.toHaveProperty('appliesTo');
   });
 });

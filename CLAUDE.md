@@ -13,9 +13,11 @@ data. Page and layout changes are visual work and are reviewed as such.
 - `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `refunds.mdx`, `privacy.mdx`), the
   `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
   (`## Governing Law {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`.
+  `pdfs.json` records what each downloadable PDF was made from (see Gotchas).
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
-  `src/layouts/LegalLayout.astro` wraps it for the legal pages: a numbered section list on the left,
-  built from the level-2 headings, and the document's details on the right.
+  `src/layouts/LegalLayout.astro` wraps it for the legal pages: the title and a "Download PDF" button
+  at the top, a numbered section list on the left built from the level-2 headings, and the
+  document's details (effective date, type, audience tags, language, issuer) on the right.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
@@ -24,7 +26,8 @@ data. Page and layout changes are visual work and are reviewed as such.
   page's sample program in every Python pack, generated with `legesher translate`), and the
   co-located `*.test.ts` suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
-- `public/`: static images, `robots.txt`, and `scripts/` (plain JS the components load, including
+- `public/`: static images, `robots.txt`, `legal/` (the legal documents' PDFs, made by
+  `npm run legal:pdf`), and `scripts/` (plain JS the components load, including
   `analytics.js`, the PostHog loader the layout renders only when the build carries
   `PUBLIC_POSTHOG_KEY`).
 - `.astro/`: Astro-generated type files; tracked, see Gotchas.
@@ -46,13 +49,13 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-11-22). They grow with new tests and shrink only when a
+Summary lines to expect (counts as of 2026-11-23). They grow with new tests and shrink only when a
 page or a source file is removed: three built-page guards run once per built page, the legal-page
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  14 passed (14)` then `      Tests  261 passed (261)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  10 passed | 4 skipped (14)` then `      Tests  231 passed | 15 skipped (246)`
+- `npm test`: ` Test Files  15 passed (15)` then `      Tests  275 passed (275)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  11 passed | 4 skipped (15)` then `      Tests  239 passed | 21 skipped (260)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -113,8 +116,9 @@ Facts behind those commands:
   `<body>`. CI builds before it tests; locally run `npm run build` before `npm test` to exercise it.
 - `src/lib/built-style-and-spacing.test.ts` reads every built page and catches two Astro 7 defaults:
   `style-src` must stay hash-only with every inline `<style>` hashed (`'unsafe-inline'` in
-  `styleDirective` drops the hashes), and the dated legal pages must keep the space in their byline
-  (`compressHTML: true`; Astro 7's default `'jsx'` rules drop it).
+  `styleDirective` drops the hashes), and each dated legal page must show its whole
+  "Effective date: <date>" line (`compressHTML: true`; Astro 7's default `'jsx'` rules drop the
+  space between text and an inline element).
 - Two guards keep the PostHog loader honest: `src/lib/analytics-csp.test.ts` reads every built page
   and asserts the loader is present exactly when the policy carries PostHog's origin, sits in
   `<body>` after the content, and that a build without the key mentions PostHog nowhere;
@@ -139,6 +143,12 @@ Facts behind those commands:
   does not run remark or rehype plugins. In MDX, braces are expressions and a line that starts with a
   tag is a block of its own: write a review marker after the paragraph's first words, or wrap the
   paragraph in `<p>`. `src/lib/legal-content.test.ts` and `src/lib/legal-built.test.ts` guard both.
+- Each legal document's PDF (`public/legal/<slug>.pdf`) is the page's print version, made by
+  `npm run legal:pdf` (`scripts/legal-pdfs.mjs`: it builds, then prints each page with Playwright's
+  Chromium; install it once with `npx playwright install chromium`). It is committed, not built on
+  deploy. Rerun it whenever a document, its `LAST_UPDATED` date or `LegalLayout.astro` changes,
+  including the date change on the day a document merges: `src/lib/legal-pdf.test.ts` compares
+  `src/content/legal/pdfs.json` with a hash of those three and fails until you do.
 - The `/go/*` short links in `vercel.json` are static JSON and cannot import `src/lib/links.ts`.
   Update both when a link rotates; the parity test catches a miss.
 - `output: 'static'` is the default for every page. A route that needs the server must opt out
