@@ -64,4 +64,52 @@ describe('legal content', () => {
     expect(audience, `${slug}: audience`).toEqual(AUDIENCES.filter((tag) => audience.includes(tag)));
     expect(fm, `${slug}: appliesTo was replaced by audience`).not.toHaveProperty('appliesTo');
   });
+
+  it.each(docs)('%s: opens with its introduction, with no heading above it', (slug) => {
+    // The reader sees the opening paragraphs first; the numbered sections follow.
+    const body = source(slug).replace(/^---\n[\s\S]*?\n---\n/, '');
+    const opening = body.slice(0, body.search(/^## /m)).replace(/\{\/\*[\s\S]*?\*\/\}/g, '').trim();
+    expect(opening.length, `${slug}: text before the first section`).toBeGreaterThan(0);
+    expect(body.split('\n').filter((line) => /^#{2,3} (\d+\.\s*)?Introduction\b/.test(line))).toEqual([]);
+  });
+
+  it.each(docs)('%s: numbered sections run 1, 2, 3 and subsections N.1, N.2', (slug) => {
+    const headings = source(slug)
+      .split('\n')
+      .filter((line) => /^#{2,3} /.test(line));
+    if (!headings.some((line) => /^## \d+\. /.test(line))) return; // an unnumbered document
+    let section = 0;
+    let sub = 0;
+    const wrong: string[] = [];
+    for (const line of headings) {
+      if (line.startsWith('## ')) {
+        section += 1;
+        sub = 0;
+        if (!line.startsWith(`## ${section}. `)) wrong.push(`${line} (expected ${section}.)`);
+      } else if (/^### \d/.test(line)) {
+        sub += 1;
+        if (!line.startsWith(`### ${section}.${sub} `)) wrong.push(`${line} (expected ${section}.${sub})`);
+      }
+    }
+    expect(wrong).toEqual([]);
+  });
+
+  it.each(docs)('%s: every "Section N" reference names a section the document has', (slug) => {
+    const text = source(slug);
+    const numbers = new Set(
+      text
+        .split('\n')
+        .map((line) => /^#{2,3} (\d+(?:\.\d+)?)\.? /.exec(line)?.[1])
+        .filter(Boolean),
+    );
+    // "Section 7", "Sections 4.2, 7.4 and 15", and a bare "in 3.1".
+    const refs = [
+      ...[...text.matchAll(/Sections? (\d+(?:\.\d+)?(?:(?:, | and )\d+(?:\.\d+)?)*)/g)].flatMap((m) =>
+        m[1].split(/, | and /),
+      ),
+      ...[...text.matchAll(/\bin (\d+\.\d+)\b/g)].map((m) => m[1]),
+    ];
+    expect(refs.filter((ref) => !numbers.has(ref))).toEqual([]);
+  });
 });
+

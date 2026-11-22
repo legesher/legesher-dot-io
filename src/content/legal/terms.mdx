@@ -5,9 +5,7 @@ type: "Terms"
 audience: ["Individual", "Business"]
 entity: "Legesher Inc (Delaware, USA)"
 ---
-{/* Review markers on the hosted-service passages (Sections 5.2, 8.4 and 16): data-review="jurisdiction" marks a sentence that depends on the law of the customer's country or the contracting entity; "processor" a claim about a service provider's behaviour; "mailbox" a contact address; "plan" a statement about what a named plan includes. The markers render nothing; grep for data-review to list them. */}
-
-## 1. Introduction {#introduction}
+{/* Review markers on the hosted-service passages (Sections 4.2, 7.4 and 15): data-review="jurisdiction" marks a sentence that depends on the law of the customer's country or the contracting entity; "processor" a claim about a service provider's behaviour; "mailbox" a contact address; "plan" a statement about what a named plan includes. The markers render nothing; grep for data-review to list them. */}
 
 These Terms of Service (the “**Terms**”) are a legal contract between you (“you,” “your”) and **Legesher Inc**, a Delaware corporation (“Legesher,” “we,” “us,” “our”). They govern your use of [www.legesher.io](https://www.legesher.io), our hosted services, any datasets or curriculum we license, and the Legesher brand. By using the website or any of the services covered by these Terms, you agree to be bound by them.
 
@@ -15,7 +13,7 @@ These Terms of Service (the “**Terms**”) are a legal contract between you (�
 
 Our Privacy Policy lives at [www.legesher.io/privacy](/privacy) and is incorporated into these Terms by reference.
 
-## 2. Who We Are {#who-we-are}
+## 1. Who We Are {#who-we-are}
 
 Legesher operates globally through two sibling entities:
 
@@ -32,17 +30,17 @@ Legesher operates globally through two sibling entities:
 
 **Security reports:** [security@legesher.com](mailto:security@legesher.com)
 
-## 3. Definitions {#definitions}
+## 2. Definitions {#definitions}
 
 - **“Website”** means [www.legesher.io](https://www.legesher.io) and its subpages, excluding [docs.legesher.io](https://docs.legesher.io). The documentation site's content is part of the Open-Source Software release and is governed by the Apache 2.0 License; its data-handling is governed by a separate [documentation privacy policy](https://docs.legesher.io/privacy).
 - **“Open-Source Software”** means the Legesher VS Code extension code, language pack code, core engine, and any other software we publish under the Apache License, Version 2.0 (the “Apache 2.0 License”). The Apache 2.0 License governs the Open-Source Software; these Terms do not restrict or replace the Apache 2.0 License.
-- **“Hosted Services”** means any online service we operate, including the Legesher Translation API, the Legesher account you sign in to, and any other hosted offering. Hosted Services are governed by these Terms, including [Section 16](#hosted-services), plus any plan-specific agreement presented to you when you subscribe to a paid plan.
+- **“Hosted Services”** means any online service we operate, including the Legesher Translation API, the Legesher account you sign in to, and any other hosted offering. Hosted Services are governed by these Terms, including [Section 15](#hosted-services), plus any plan-specific agreement presented to you when you subscribe to a paid plan.
 - **“Curated Datasets”** means datasets that *we* build, compile, and package — such as benchmarks, evaluation suites, and research datasets built from our own work — and license separately from the Open-Source Software. Curated Datasets do **not** include community-contributed translation data, which is never sold (see §5).
 - **“Curriculum”** means educational materials, lessons, and courses that we license separately from the Open-Source Software, including for educational institutions.
 - **“Legesher Brand”** means the “Legesher” name, logo, trademarks, and trade dress.
 - **“Commercial License”** means a paid license agreement with Legesher Inc granting rights to use Hosted Services, Curated Datasets, or Curriculum beyond what these Terms allow without payment.
 
-## 4. Scope of These Terms {#scope}
+## 3. Scope of These Terms {#scope}
 
 **These Terms govern:**
 
@@ -59,13 +57,13 @@ Legesher operates globally through two sibling entities:
 
 If there is a conflict between these Terms and a service-specific agreement you have signed with Legesher Inc (for example, a Commercial License), the service-specific agreement controls.
 
-## 5. Our Licensing Model {#licensing-model}
+## 4. Our Licensing Model {#licensing-model}
 
 Legesher is an **open-core** project. The code is free and open source under the Apache 2.0 License. Hosted Services, Curated Datasets, and Curriculum are licensed commercially to fund the ongoing development and community support of the open-source core.
 
 **Community-contributed translation data is never sold.** The translations, terminology, and review outcomes contributed by our community — and the language packs built from them — are released under an open license and are not part of Curated Datasets.
 
-### 5.1 What requires *no* license (free for all uses)
+### 4.1 What requires *no* license (free for all uses)
 
 | Asset | License | Your rights |
 | --- | --- | --- |
@@ -74,9 +72,9 @@ Legesher is an **open-core** project. The code is free and open source under the
 | Core engine and CLI | Apache 2.0 | Same |
 | Browsing the Website | These Terms | Read content, subscribe to newsletter, fill surveys, contact us |
 
-### 5.2 What needs a plan or a Commercial License
+### 4.2 What needs a plan or a Commercial License
 
-<p class="text-sm">*Curated Datasets and Curriculum are forward-looking offerings; at the time of this policy's last update, neither has launched publicly, and the rows below describe the licensing model that will apply when each becomes available. Hosted Services are covered by [Section 16](#hosted-services); a paid plan, where one is offered, comes with a plan-specific agreement presented at checkout.*</p>
+<p class="text-sm">*Curated Datasets and Curriculum are forward-looking offerings; at the time of this policy's last update, neither has launched publicly, and the rows below describe the licensing model that will apply when each becomes available. Hosted Services are covered by [Section 15](#hosted-services); a paid plan, where one is offered, comes with a plan-specific agreement presented at checkout.*</p>
 
 | Activity | Tier | How to obtain |
 | --- | --- | --- |
@@ -95,13 +93,13 @@ Legesher is an **open-core** project. The code is free and open source under the
 - Training or fine-tuning AI/ML models on the Legesher vocabulary or on Hosted Service outputs collected in bulk, or redistributing either in bulk. We consider this only under a separate written data agreement signed by Legesher Inc; write to [<span data-review="mailbox">hello@legesher.com</span>](mailto:hello@legesher.com).
 - Systematically querying, scraping or harvesting Hosted Service outputs to build a dataset, glossary or corpus that substitutes for the Hosted Services, or to build a competing product. This is prohibited, and no license for it is offered.
 
-[Section 16](#hosted-services) states these rules in full.
+[Section 15](#hosted-services) states these rules in full.
 
-### 5.3 Apache 2.0 specifically allows AI training on the Open-Source Software
+### 4.3 Apache 2.0 specifically allows AI training on the Open-Source Software
 
-We want to be explicit: because the Open-Source Software is released under the Apache 2.0 License, you may use it to train, fine-tune, or evaluate AI/ML models, and you may build commercial products from it, without paying us or asking permission. The restrictions in Section 5.2 and Section 16 on AI training apply to **Curated Datasets we license separately and the outputs of Hosted Services**, not to the publicly released Open-Source code or the open language packs.
+We want to be explicit: because the Open-Source Software is released under the Apache 2.0 License, you may use it to train, fine-tune, or evaluate AI/ML models, and you may build commercial products from it, without paying us or asking permission. The restrictions in Section 4.2 and Section 15 on AI training apply to **Curated Datasets we license separately and the outputs of Hosted Services**, not to the publicly released Open-Source code or the open language packs.
 
-## 6. Acceptable Use of the Website {#acceptable-use}
+## 5. Acceptable Use of the Website {#acceptable-use}
 
 When using the Website, you agree **not** to:
 
@@ -116,13 +114,13 @@ When using the Website, you agree **not** to:
 
 If you believe you've discovered a security vulnerability, please report it to [security@legesher.com](mailto:security@legesher.com) instead of publicly disclosing it.
 
-## 7. Commercial Licensing {#commercial-licensing}
+## 6. Commercial Licensing {#commercial-licensing}
 
-For Hosted Services, a paid plan is your Commercial License, within what the plan includes. One person subscribes to the Individual plan from their Legesher account ([Section 16.6](#hosted-paid-plans)). For a team or an organization, write to [hello@legesher.com](mailto:hello@legesher.com) about Team or Enterprise.
+For Hosted Services, a paid plan is your Commercial License, within what the plan includes. One person subscribes to the Individual plan from their Legesher account ([Section 15.6](#hosted-paid-plans)). For a team or an organization, write to [hello@legesher.com](mailto:hello@legesher.com) about Team or Enterprise.
 
 Curated Datasets, Curriculum, and any use of Hosted Services that no plan covers require a written Commercial License issued by Legesher Inc.
 
-### 7.1 How to obtain a Commercial License
+### 6.1 How to obtain a Commercial License
 
 1. Email [hello@legesher.com](mailto:hello@legesher.com) with:
    - Your name and the name of your organization
@@ -132,25 +130,25 @@ Curated Datasets, Curriculum, and any use of Hosted Services that no plan covers
 2. We will respond with pricing and a license agreement tailored to your tier.
 3. On signing and payment, your license becomes effective. Licenses are typically annual and auto-renewing unless otherwise agreed.
 
-### 7.2 Education and non-profit discounts
+### 6.2 Education and non-profit discounts
 
-Accredited educational institutions and registered non-profits receive a **discounted rate** on the Commercial License price. A valid license is still required; the discount does not waive the licensing requirement. Proof of accreditation or non-profit status may be requested. This discount applies to licenses agreed by email under Section 7.1, not to plans bought from your Legesher account.
+Accredited educational institutions and registered non-profits receive a **discounted rate** on the Commercial License price. A valid license is still required; the discount does not waive the licensing requirement. Proof of accreditation or non-profit status may be requested. This discount applies to licenses agreed by email under Section 6.1, not to plans bought from your Legesher account.
 
-### 7.3 What a Commercial License covers
+### 6.3 What a Commercial License covers
 
 Each Commercial License specifies the licensed activity (e.g., “educational use of the Legesher Translation API for up to 10,000 students” or “commercial access to a Legesher-built evaluation benchmark suite”). Activities outside the scope of your license require a separate agreement.
 
 Nothing in a Commercial License changes your rights to the Open-Source Software under the Apache 2.0 License.
 
-## 8. Disclaimers {#disclaimers}
+## 7. Disclaimers {#disclaimers}
 
-### 8.1 Not Legal, Educational, or Professional Advice {#not-advice}
+### 7.1 Not Legal, Educational, or Professional Advice {#not-advice}
 
 Legesher is a technology provider, not an educational institution, law firm, translation service, or accreditation body. Content on the Website, in Curriculum, or produced by Hosted Services is **for informational and developer purposes only** and does not constitute legal, educational, accreditation, financial, medical, or professional advice.
 
 If you need such advice, consult a qualified professional. Legesher accepts no responsibility for decisions made in reliance on its content, translations, or outputs.
 
-### 8.2 Translation Accuracy {#translation-accuracy}
+### 7.2 Translation Accuracy {#translation-accuracy}
 
 Legesher's translations are **community-validated and continuously improving**, generated from a combination of community contributions, machine translation models, and curation. While we aim for high quality, translations are **best-effort** and may contain errors, ambiguities, cultural mismatches, or context-dependent inaccuracies.
 
@@ -158,7 +156,7 @@ Legesher's translations are **community-validated and continuously improving**, 
 
 Legesher makes no warranty that any translation is accurate, complete, fit for a particular purpose, or free from cultural bias.
 
-### 8.3 Open Source vs. Commercial Services {#open-source-vs-service}
+### 7.3 Open Source vs. Commercial Services {#open-source-vs-service}
 
 Legesher's Open-Source Software (VS Code extension, language pack code, core engine) is available under the Apache 2.0 License and may be used freely for any purpose, including commercial use, derivative works, and AI training, subject to the Apache 2.0 License terms. Please read the LICENSE file in the Legesher repository for the full text.
 
@@ -166,14 +164,14 @@ Our **Hosted Services, Curated Datasets, and Curriculum are separate offerings**
 
 Use of the Legesher brand, logo, or trademarks is governed by trademark law and is not granted by the Apache 2.0 License. Fair reference (describing the project, linking to us) is welcome; implying endorsement, partnership, or ownership is not.
 
-### 8.4 Code and Data You Send to the Hosted Services {#hosted-data}
+### 7.4 Code and Data You Send to the Hosted Services {#hosted-data}
 
 When you send code to the Legesher Translation API, the code and its translation are processed in memory to answer the request. They are **not written to logs and not used to train models**, and apart from the names described below they are **not kept after the request ends**.
 
 The Hosted Services do keep some things about your use:
 
 - **A usage record for each request.** It says who made the request (your account or key or, without an account, a salted hash of your network address), when, with which tool, in which languages, how large the request was and whether it succeeded. If you chose to name a repository, it holds a salted hash of that name. It holds none of your code.
-- **Service logs and limits.** Like any online service, the Hosted Services log requests, not their content, and count requests against the limits in Section 16.1. Without an account, the limit is counted against your network address.
+- **Service logs and limits.** Like any online service, the Hosted Services log requests, not their content, and count requests against the limits in Section 15.1. Without an account, the limit is counted against your network address.
 - **Your account.** Your account record, your API keys (stored as hashes, not as the keys themselves) and, on a paid plan, the state of your subscription.
 - **Names, for features that use a language model.** <span data-review="processor">On plans that include them, features that use a language model send the parts of your code that need translating in context (comments, docstrings, text strings and the names you chose) to a model provider, which processes them to return the translation. They are not used to train models.</span> So that a name is translated the same way from one request to the next, the service keeps the names from a repository you identify, together with their translations. They are kept for your account only and are not shared with other customers.
 
@@ -181,29 +179,29 @@ The Hosted Services do keep some things about your use:
 
 Our [Privacy Policy](/privacy) describes the personal information we hold, who processes it for us and how long we keep it. If this section and the Privacy Policy differ about personal information, the Privacy Policy controls.
 
-## 9. Intellectual Property {#intellectual-property}
+## 8. Intellectual Property {#intellectual-property}
 
-### 9.1 Legesher's rights
+### 8.1 Legesher's rights
 
 The Website content, the Legesher Brand, Curated Datasets, and Curriculum are the exclusive intellectual property of Legesher Inc, protected by copyright, trademark, and other applicable laws. These Terms grant you no rights to any of those assets except the limited rights described above.
 
 The **Open-Source Software is governed by the Apache 2.0 License**, not by this section. Your rights to the Open-Source Software are those granted by the Apache 2.0 License, including the right to modify, distribute, and use the code commercially.
 
-### 9.2 Your content
+### 8.2 Your content
 
 Content you submit to the Website (for example, survey responses, newsletter feedback, contact-form messages) remains yours. By submitting it, you grant Legesher a non-exclusive, worldwide, royalty-free license to use it to operate and improve the Website and our services, to respond to you, and to publish aggregated or anonymized insights derived from it.
 
 Do not submit content that infringes any third-party right or violates any applicable law.
 
-### 9.3 Feedback
+### 8.3 Feedback
 
 If you send us feedback, suggestions, bug reports, or feature requests, you grant Legesher a perpetual, irrevocable, worldwide, royalty-free license to use, implement, and publish that feedback without any obligation to compensate or credit you. You are never required to submit feedback, and you can email [support@legesher.com](mailto:support@legesher.com) to opt out of any optional acknowledgment.
 
-### 9.4 Use of the Legesher Brand
+### 8.4 Use of the Legesher Brand
 
 You may refer to “Legesher” by name in neutral, factual contexts (for example, writing “I use Legesher to code in Spanish” or linking to our site). You may not use the Legesher name or logo in any way that implies endorsement, sponsorship, or partnership without written permission from Legesher Inc. Requests go to [legal@legesher.com](mailto:legal@legesher.com).
 
-## 10. Disclaimer of Warranties {#warranties}
+## 9. Disclaimer of Warranties {#warranties}
 
 **THE WEBSITE, HOSTED SERVICES, CURATED DATASETS, AND CURRICULUM ARE PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.** The Open-Source Software carries its own warranty disclaimer under the Apache 2.0 License; nothing in this Section changes that.
 
@@ -212,14 +210,14 @@ To the maximum extent permitted by applicable law, Legesher disclaims all warran
 - **Merchantability** — no guarantee the services are fit for sale or use
 - **Fitness for a particular purpose** — no guarantee the services meet your needs
 - **Non-infringement** — no guarantee the services do not violate third-party rights
-- **Accuracy or reliability** — no guarantee of correct, complete, or reliable operation (see also Section 8.2 on translation accuracy)
+- **Accuracy or reliability** — no guarantee of correct, complete, or reliable operation (see also Section 7.2 on translation accuracy)
 - **Security** — no guarantee against vulnerabilities, breaches, or data loss
 - **Availability** — no guarantee of uptime or continuous availability
 - **Compatibility** — no guarantee of compatibility with all systems or configurations
 
 You use the Website, Hosted Services, Curated Datasets, and Curriculum **entirely at your own risk**. We strongly recommend maintaining backups of all important code and data and reviewing translations before relying on them for critical applications.
 
-## 11. Limitation of Liability {#liability}
+## 10. Limitation of Liability {#liability}
 
 **TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL LEGESHER INC, ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, OR LICENSORS BE LIABLE FOR ANY:**
 
@@ -236,7 +234,7 @@ You use the Website, Hosted Services, Curated Datasets, and Curriculum **entirel
 
 Some jurisdictions do not allow the exclusion or limitation of certain damages. In such jurisdictions, Legesher's liability is limited to the maximum extent permitted by applicable law.
 
-## 12. Indemnification {#indemnification}
+## 11. Indemnification {#indemnification}
 
 You agree to indemnify, defend, and hold harmless Legesher Inc, its affiliates, and their respective officers, directors, employees, agents, and licensors from and against any and all claims, demands, actions, losses, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to:
 
@@ -248,7 +246,7 @@ You agree to indemnify, defend, and hold harmless Legesher Inc, its affiliates, 
 
 You agree to cooperate fully with Legesher in the defense of any claim subject to indemnification.
 
-## 13. Changes to These Terms {#changes}
+## 12. Changes to These Terms {#changes}
 
 We may update these Terms from time to time. When we make changes:
 
@@ -257,51 +255,51 @@ We may update these Terms from time to time. When we make changes:
 
 Your continued use of the Website or covered services after changes take effect constitutes acceptance of the updated Terms. If you do not agree, stop using the Website and covered services.
 
-## 14. Governing Law & Dispute Resolution {#governing-law}
+## 13. Governing Law & Dispute Resolution {#governing-law}
 
-### 14.1 Governing law
+### 13.1 Governing law
 
 These Terms are governed by the laws of the **State of Delaware, United States**, without regard to its conflict-of-laws principles. The United Nations Convention on Contracts for the International Sale of Goods does not apply.
 
-### 14.2 Informal resolution first
+### 13.2 Informal resolution first
 
 Before filing any legal action, please contact [legal@legesher.com](mailto:legal@legesher.com) to attempt informal resolution. Many issues can be resolved quickly without formal proceedings.
 
-### 14.3 Arbitration for U.S. users
+### 13.3 Arbitration for U.S. users
 
 If informal resolution fails and you are located in the United States, any dispute shall be resolved by **binding arbitration** under the Consumer Arbitration Rules of the American Arbitration Association (AAA). **You agree to arbitrate disputes individually, not as part of any class action.** Arbitration takes place in Delaware unless both parties agree to another location or to resolve the dispute remotely.
 
-### 14.4 Courts for non-U.S. users
+### 13.4 Courts for non-U.S. users
 
 If you are located outside the United States, disputes may be resolved in courts of competent jurisdiction. You and Legesher agree to submit to the non-exclusive jurisdiction of the courts of Delaware for any disputes that cannot be resolved informally.
 
-### 14.5 Injunctive relief
+### 13.5 Injunctive relief
 
 Notwithstanding the above, either party may seek injunctive or other equitable relief in any court of competent jurisdiction to protect its intellectual property rights, trademarks, or confidential information.
 
-## 15. General Provisions {#general}
+## 14. General Provisions {#general}
 
-### 15.1 Entire agreement
+### 14.1 Entire agreement
 
 These Terms, together with the [Privacy Policy](/privacy) and any Commercial License or service-specific agreement you enter into with Legesher Inc, constitute the entire agreement between you and Legesher regarding the Website and the covered services.
 
-### 15.2 Severability
+### 14.2 Severability
 
 If any provision of these Terms is found invalid or unenforceable, the remaining provisions remain in full effect.
 
-### 15.3 No waiver
+### 14.3 No waiver
 
 Failure to enforce any provision of these Terms does not waive that provision or any other.
 
-### 15.4 Assignment
+### 14.4 Assignment
 
 You may not assign or transfer these Terms without Legesher Inc's prior written consent. Legesher Inc may assign these Terms freely, including in connection with a merger, acquisition, or sale of assets.
 
-### 15.5 Export compliance
+### 14.5 Export compliance
 
 You agree to comply with all applicable export control laws and regulations when using the Website or any covered service.
 
-### 15.6 Contact
+### 14.6 Contact
 
 Questions about these Terms or a Commercial License:
 
@@ -311,20 +309,20 @@ Questions about these Terms or a Commercial License:
 - Privacy: [privacy@legesher.com](mailto:privacy@legesher.com)
 - Security: [security@legesher.com](mailto:security@legesher.com)
 
-## 16. Hosted Services: Additional Terms {#hosted-services}
+## 15. Hosted Services: Additional Terms {#hosted-services}
 
 This section applies when you use the Hosted Services, with or without an account. The rest of these Terms apply as well; where this section says something different about the Hosted Services, this section controls.
 
-### 16.1 Accounts and plans {#hosted-accounts}
+### 15.1 Accounts and plans {#hosted-accounts}
 
 - **Without an account.** <span data-review="plan">You can try the Legesher Translation API without an account, within a small trial allowance.</span>
 - **A free account.** <span data-review="plan">A Legesher account costs nothing and gives you an API key on the Free plan. The Free plan covers the Translation API in standard mode, within the Free plan's usage limits. Standard mode translates code with our open language packs and does not use a language model.</span>
-- **Paid plans.** <span data-review="plan">Paid plans add features and higher limits. The description shown when you subscribe states what a plan includes.</span> Section 16.6 covers the agreement that comes with a paid plan.
+- **Paid plans.** <span data-review="plan">Paid plans add features and higher limits. The description shown when you subscribe states what a plan includes.</span> Section 15.6 covers the agreement that comes with a paid plan.
 - **Limits.** Every plan has usage limits. When you reach one, the service declines further requests of that kind until the limit resets or you change plan.
 - **Your keys.** Keep your API keys secret and do not share them outside your account. You are responsible for what is done with your account and your keys. If a key may have leaked, revoke it from your account and tell [<span data-review="mailbox">security@legesher.com</span>](mailto:security@legesher.com).
 - **Who can hold an account.** <span data-review="jurisdiction">You must be old enough to enter a contract where you live. If you create an account for an organization, you confirm that you may accept these Terms for it.</span>
 
-### 16.2 Acceptable use {#hosted-acceptable-use}
+### 15.2 Acceptable use {#hosted-acceptable-use}
 
 When using the Hosted Services, you agree **not** to:
 
@@ -332,11 +330,11 @@ When using the Hosted Services, you agree **not** to:
 - Send code or data that you do not have the right to send
 - Probe, scan or overload the service, or get around its limits, sign-in or security, including by opening more than one account to avoid a limit
 - Sell, rent or pass on access to the service or your keys without a written agreement with us
-- Run automated bulk queries beyond ordinary use on real code, or do anything else Section 16.3 does not allow
+- Run automated bulk queries beyond ordinary use on real code, or do anything else Section 15.3 does not allow
 
-### 16.3 Outputs and the vocabulary {#hosted-outputs}
+### 15.3 Outputs and the vocabulary {#hosted-outputs}
 
-Your code stays yours, and so do the names you chose in it and their translations. Sending your code to the Hosted Services gives us no ownership of it, and we use it only to provide the service to you (Section 8.4).
+Your code stays yours, and so do the names you chose in it and their translations. Sending your code to the Hosted Services gives us no ownership of it, and we use it only to provide the service to you (Section 7.4).
 
 <p><span data-review="jurisdiction">Legesher Inc keeps all rights in the Hosted Services and in the Legesher vocabulary: the translated names for libraries, packages and other public code that we build and curate, and the collections of them, including any database rights in those collections.</span> The open language packs are not part of that vocabulary; they stay under their open license. You may use what the Hosted Services return to you in your own projects: to read, run and maintain your code, and to commit it to your repositories, public ones included.</p>
 
@@ -347,16 +345,16 @@ On every plan, free or paid, you may not:
 - **Redistribute it in bulk.** No passing on the Legesher vocabulary, or outputs collected in bulk, as a dataset of their own. Committing your own code to your repositories is not that.
 - **Reverse engineer the service.** <span data-review="jurisdiction">No reverse engineering of how the Hosted Services produce, rank or choose translations, except where the law gives you a right to do so that a contract cannot take away.</span>
 
-Bulk access, bulk redistribution and any use for training are available only under a separate written data agreement signed by Legesher Inc. None of this limits what you may do with the Open-Source Software or the open language packs, which stay free for any use, AI training included (Section 5.3).
+Bulk access, bulk redistribution and any use for training are available only under a separate written data agreement signed by Legesher Inc. None of this limits what you may do with the Open-Source Software or the open language packs, which stay free for any use, AI training included (Section 4.3).
 
-### 16.4 Limits and suspension {#hosted-suspension}
+### 15.4 Limits and suspension {#hosted-suspension}
 
 We may slow, limit or suspend access to the Hosted Services for an account, a key or a network address that breaks these Terms, puts the service or other people at risk, or shows a pattern of use that looks like extraction. Where we can, we tell you by email first and give you the chance to explain or fix it. Where the risk is urgent, we act first and tell you afterward. To ask for a review, write to [<span data-review="mailbox">support@legesher.com</span>](mailto:support@legesher.com).
 
-### 16.5 Leaving {#hosted-leaving}
+### 15.5 Leaving {#hosted-leaving}
 
 You can stop using the Hosted Services at any time, and you can delete your account from its Settings page once any paid subscription on it has ended. Deleting your account ends its keys at once. The [Privacy Policy](/privacy) describes how deletion requests are handled.
 
-### 16.6 Paid plans {#hosted-paid-plans}
+### 15.6 Paid plans {#hosted-paid-plans}
 
 <p><span data-review="plan">When you subscribe to a paid plan, you are shown a subscription agreement and our Refund and Cancellation Policy before you pay.</span> That agreement is the plan-specific agreement these Terms refer to. Where it differs from these Terms, it controls for that plan, and the Refund and Cancellation Policy controls on cancellations and refunds.</p>

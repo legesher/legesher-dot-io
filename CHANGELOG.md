@@ -13,8 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Privacy Policy are written in Markdown (`src/content/legal`) and share one layout: the title
   and a "Download PDF" button at the top, a numbered list of sections beside the text, and the
   document's details (last updated, type with its icon, audience as Individual or Business
-  tags, language and issuer). On a phone the list folds into "On this page". The visible text
-  of each document and every existing section link are unchanged.
+  tags, language and issuer). On a phone the list folds into "On this page". Each document opens
+  with its introduction and no heading above it, so the numbered sections of the Terms and the
+  Refund Policy start at 1 with the section after it (Terms Section 16 is now Section 15, and so
+  on), and the references between sections follow. Every other section link is unchanged.
 - **Refund and cancellation policy page at `/refunds`**, a draft in the same shell as the Terms and
   Privacy pages. The footer link is added when paid plans go on sale. `src/lib/page-dates.test.ts`
   guards that every dated page reads its own `LAST_UPDATED` entry and that every entry is an ISO
@@ -33,13 +35,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Terms of Service: the hosted services.** Section 5.2 no longer offers a paid license for
-  harvesting hosted-service outputs or training on them: building a substitute or competing product
-  from outputs is prohibited, and bulk access or training needs a separate written data agreement.
-  Section 8.4 describes what the hosted services keep today in place of the earlier stateless
-  design intent. A new Section 16 covers accounts and plans, acceptable use, outputs and the
+- **Terms of Service: the hosted services** (section numbers as renumbered above). Section 4.2
+  no longer offers a paid license for harvesting hosted-service outputs or training on them:
+  building a substitute or competing product from outputs is prohibited, and bulk access or
+  training needs a separate written data agreement. Section 7.4 describes what the hosted services keep today in place of the earlier stateless
+  design intent. A new Section 15 covers accounts and plans, acceptable use, outputs and the
   vocabulary, limits and suspension, leaving, and the agreement that comes with a paid plan. The
-  "when launched" wording for hosted services is gone. Section 5.2's table and Section 7 name the
+  "when launched" wording for hosted services is gone. Section 4.2's table and Section 6 name the
   current plans: Free, Individual, and Team or Enterprise for the Hosted Services, with Curated
   Datasets and Curriculum still licensed by email. Draft: the sentences that depend on
   jurisdiction, a service provider, a contact address or plan details carry a `data-review` marker.
