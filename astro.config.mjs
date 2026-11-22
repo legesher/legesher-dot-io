@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import vercel from "@astrojs/vercel";
 import { loadEnv } from 'vite';
 import { LAST_UPDATED } from './src/lib/page-dates.mjs';
+import { satteri } from '@astrojs/markdown-satteri';
 
 // The PostHog loader (public/scripts/analytics.js) is rendered by Layout.astro
 // only when PUBLIC_POSTHOG_KEY is set at build time, and the policy is widened
@@ -40,6 +41,13 @@ export default defineConfig({
         resources: ["'self'", "https://va.vercel-scripts.com", ...analyticsOrigins]
       }
     }
+  },
+  // The legal pages are Markdown (src/content/legal). `attributes` lets a
+  // heading keep a fixed id ("## Governing Law {#governing-law}"), so their
+  // existing anchors do not move. Smart punctuation is off so the text renders
+  // exactly as written, with straight quotes where the source has them.
+  markdown: {
+    processor: satteri({ features: { attributes: true, smartPunctuation: false } }),
   },
   integrations: [
     // Tailwind 3 now runs through the root postcss.config.js (tailwindcss +
