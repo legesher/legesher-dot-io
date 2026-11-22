@@ -96,8 +96,8 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   // Astro 7 defaults to 'jsx' whitespace rules, which drop the line break
-  // between text and an inline element ("Limited ·<span>Last updated") and
-  // between inline siblings. `true` keeps Astro 6's lossless compression, so
+  // between text and an inline element ("Limited ·<span>Last updated", in
+  // the legal pages' old byline) and between inline siblings. `true` keeps Astro 6's lossless compression, so
   // the pages render exactly as they did.
   compressHTML: true,
   // Temporary: Vite 8's default CSS minifier (lightningcss) rounds some

@@ -1,9 +1,12 @@
 // The downloadable PDF of each legal document lives at public/legal/<slug>.pdf
 // and is made by scripts/legal-pdfs.mjs from the built page, so it is a file
 // in the repository, not a build step. src/content/legal/pdfs.json records,
-// per document, a hash of what the PDF was made from: the document, its date
-// and the layout. src/lib/legal-pdf.test.ts fails when any of them changed
-// after the PDF was made.
+// per document, a hash of what the PDF was made from (the document, its date
+// and the layout) and a hash of the PDF itself. src/lib/legal-pdf.test.ts
+// fails when any of them changed after the PDF was made, or when the PDF is
+// not the file the script wrote. The site's styles and the script's page
+// settings are not in the hash: they change how a PDF looks, not its text,
+// so after changing them run `npm run legal:pdf -- --all`.
 //
 // Plain .mjs so the script and the test share it.
 import { createHash } from 'node:crypto';

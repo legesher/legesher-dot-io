@@ -1,4 +1,4 @@
-// Every page that renders a "Last updated" line reads LAST_UPDATED[<slug>].
+// Every page that renders a "Last updated" date reads LAST_UPDATED[<slug>].
 // A missing entry does not fail the build: formatLastUpdated(undefined)
 // renders "Invalid Date" on the page and the sitemap silently drops lastmod.
 // Parametrized from the real pages directory, never a frozen list.

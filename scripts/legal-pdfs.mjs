@@ -1,8 +1,13 @@
 // Makes the downloadable PDF of each legal document from its built page, and
-// records what each was made from. Run `npm run legal:pdf` (it builds first)
-// whenever a document in src/content/legal, its LAST_UPDATED date or
-// src/layouts/LegalLayout.astro changes; src/lib/legal-pdf.test.ts fails
-// until you do. Needs a Playwright Chromium: `npx playwright install chromium`.
+// records what each was made from and the PDF's own hash. Run
+// `npm run legal:pdf` whenever a document in src/content/legal, its
+// LAST_UPDATED date or src/layouts/LegalLayout.astro changes;
+// src/lib/legal-pdf.test.ts fails until you do. It builds the site first, so
+// a PDF is never printed from an old build, and leaves a PDF alone when
+// nothing it is made from changed (`--all` remakes every one). Needs a
+// Playwright Chromium: `npx playwright install chromium`.
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { createReadStream, existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
@@ -14,7 +19,12 @@ import { pdfHref, pdfSourceHash } from '../src/lib/legal-pdf.mjs';
 const root = join(import.meta.dirname, '..');
 const output = join(root, '.vercel', 'output', 'static');
 const legal = join(root, 'src', 'content', 'legal');
-if (!existsSync(output)) throw new Error('No build output; run npm run build first.');
+const manifestPath = join(legal, 'pdfs.json');
+const previous = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf-8')) : {};
+const all = process.argv.includes('--all');
+const sha256 = (path) => createHash('sha256').update(readFileSync(path)).digest('hex');
+
+execFileSync('npx', ['astro', 'build'], { cwd: root, stdio: 'inherit' });
 
 const slugs = readdirSync(legal)
   .filter((name) => name.endsWith('.mdx'))
@@ -43,26 +53,33 @@ const browser = await chromium.launch();
 const manifest = {};
 try {
   for (const slug of slugs) {
+    const source = pdfSourceHash(root, slug);
+    const path = join(root, 'public', pdfHref(slug));
+    if (!all && previous[slug]?.source === source && existsSync(path) && previous[slug].pdf === sha256(path)) {
+      manifest[slug] = previous[slug];
+      console.log(`public${pdfHref(slug)} (unchanged)`);
+      continue;
+    }
     const title = JSON.parse(/^title: (.*)$/m.exec(readFileSync(join(legal, `${slug}.mdx`), 'utf-8'))[1]);
     const page = await browser.newPage();
     await page.goto(`${base}/${slug}`, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.emulateMedia({ media: 'print' });
     await page.pdf({
-      path: join(root, 'public', pdfHref(slug)),
+      path,
       format: 'Letter',
       printBackground: true,
       margin: { top: '0.75in', bottom: '0.75in', left: '0.75in', right: '0.75in' },
       displayHeaderFooter: true,
       headerTemplate: '<span></span>',
-      footerTemplate: `<div style="font-family:'Noto Sans',sans-serif;font-size:8px;color:#6b7280;width:100%;padding:0 0.75in;display:flex;justify-content:space-between"><span>${escape(title)} · Effective ${escape(formatLastUpdated(LAST_UPDATED[slug]))}</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>`,
+      footerTemplate: `<div style="font-family:Helvetica,Arial,sans-serif;font-size:8px;color:#6b7280;width:100%;padding:0 0.75in;display:flex;justify-content:space-between"><span>${escape(title)} · Last updated ${escape(formatLastUpdated(LAST_UPDATED[slug]))}</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>`,
     });
     await page.close();
-    manifest[slug] = pdfSourceHash(root, slug);
+    manifest[slug] = { source, pdf: sha256(path) };
     console.log(`public${pdfHref(slug)}`);
   }
 } finally {
   await browser.close();
   server.close();
 }
-writeFileSync(join(legal, 'pdfs.json'), `${JSON.stringify(manifest, null, 2)}\n`);
+writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);

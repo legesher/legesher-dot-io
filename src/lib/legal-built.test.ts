@@ -113,7 +113,7 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
     const details = text(between(page(slug), /<aside[^>]*aria-label="Document details"/, '</aside>'));
     expect(details).toBe(
       [
-        'Effective',
+        'Last updated',
         formatLastUpdated(LAST_UPDATED[slug as keyof typeof LAST_UPDATED]),
         'Type',
         fm.type,
@@ -124,6 +124,11 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
         'Issued by',
         fm.entity,
       ].join(' '),
+    );
+    // Each tag is its own list item, so it reads (and copies) as a word.
+    const tags = between(page(slug), /<dd[^>]*data-audience/, '</dd>');
+    expect([...tags.matchAll(/<li[\s>][^<]*([^<]+)<\/li>/g)].length, `${slug}: one list item per tag`).toBe(
+      (fm.audience as string[]).length,
     );
   });
 });

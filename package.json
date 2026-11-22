@@ -23,7 +23,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "astro check",
-    "legal:pdf": "astro build && node scripts/legal-pdfs.mjs",
+    "legal:pdf": "node scripts/legal-pdfs.mjs",
     "contributors:generate": "all-contributors generate"
   },
   "dependencies": {

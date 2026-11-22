@@ -17,7 +17,7 @@ data. Page and layout changes are visual work and are reviewed as such.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
   `src/layouts/LegalLayout.astro` wraps it for the legal pages: the title and a "Download PDF" button
   at the top, a numbered section list on the left built from the level-2 headings, and the
-  document's details (effective date, type, audience tags, language, issuer) on the right.
+  document's details (last updated, type, audience tags, language, issuer) on the right.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
@@ -54,8 +54,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  15 passed (15)` then `      Tests  275 passed (275)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  11 passed | 4 skipped (15)` then `      Tests  239 passed | 21 skipped (260)`
+- `npm test`: ` Test Files  15 passed (15)` then `      Tests  279 passed (279)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  12 passed | 3 skipped (15)` then `      Tests  243 passed | 21 skipped (264)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -116,9 +116,9 @@ Facts behind those commands:
   `<body>`. CI builds before it tests; locally run `npm run build` before `npm test` to exercise it.
 - `src/lib/built-style-and-spacing.test.ts` reads every built page and catches two Astro 7 defaults:
   `style-src` must stay hash-only with every inline `<style>` hashed (`'unsafe-inline'` in
-  `styleDirective` drops the hashes), and each dated legal page must show its whole
-  "Effective date: <date>" line (`compressHTML: true`; Astro 7's default `'jsx'` rules drop the
-  space between text and an inline element).
+  `styleDirective` drops the hashes), and `compressHTML` must stay `true` in `astro.config.mjs`
+  (Astro 7's default `'jsx'` rules drop the space between text and an inline element; no page
+  shows that shape today, so the setting itself is asserted).
 - Two guards keep the PostHog loader honest: `src/lib/analytics-csp.test.ts` reads every built page
   and asserts the loader is present exactly when the policy carries PostHog's origin, sits in
   `<body>` after the content, and that a build without the key mentions PostHog nowhere;
@@ -148,7 +148,10 @@ Facts behind those commands:
   Chromium; install it once with `npx playwright install chromium`). It is committed, not built on
   deploy. Rerun it whenever a document, its `LAST_UPDATED` date or `LegalLayout.astro` changes,
   including the date change on the day a document merges: `src/lib/legal-pdf.test.ts` compares
-  `src/content/legal/pdfs.json` with a hash of those three and fails until you do.
+  `src/content/legal/pdfs.json` with a hash of those three, and with the PDF's own hash, and fails
+  until you do. The script leaves a PDF alone when none of the three changed; after a change to the
+  site's styles or the script's page settings, which the hash does not cover, run
+  `npm run legal:pdf -- --all`.
 - The `/go/*` short links in `vercel.json` are static JSON and cannot import `src/lib/links.ts`.
   Update both when a link rotates; the parity test catches a miss.
 - `output: 'static'` is the default for every page. A route that needs the server must opt out

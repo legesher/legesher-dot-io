@@ -1,7 +1,7 @@
 ---
 // The legal-center layout for the documents in src/content/legal. The top of
 // the page holds only the title and a button that downloads the PDF; the
-// document's details (date, type, audience, language, issuer) sit in a
+// document's details (last updated, type, audience, language, issuer) sit in a
 // plain list on the right from xl, and above the document between lg and xl
 // so the text keeps a readable width. A numbered list of the sections runs
 // down the left from lg, and folds into "On this page" below it. The section
@@ -65,7 +65,7 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
       <aside aria-label="Document details" class="mb-8 lg:col-start-2 lg:row-start-1 lg:max-w-md xl:mb-0 xl:max-w-none xl:col-start-3 xl:sticky xl:top-28 xl:self-start print:mb-6 print:max-w-none">
         <dl class="text-sm border-b border-gray-200">
           <div class={ROW}>
-            <dt class="text-gray-500">Effective</dt>
+            <dt class="text-gray-500">Last updated</dt>
             <dd class="text-gray-900">{date}</dd>
           </div>
           <div class={ROW}>
@@ -74,8 +74,10 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
           </div>
           <div class={ROW}>
             <dt class="text-gray-500">Audience</dt>
-            <dd class="flex flex-wrap gap-1.5">
-              {audience.map((tag) => <span class={`${TAG} ${AUDIENCE_TINT[tag]}`}>{tag}</span>)}
+            <dd data-audience>
+              <ul role="list" class="flex flex-wrap gap-1.5">
+                {audience.map((tag) => <li class={`${TAG} ${AUDIENCE_TINT[tag]}`}>{tag}</li>)}
+              </ul>
             </dd>
           </div>
           <div class={ROW}>
@@ -95,7 +97,7 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
           {sections.map((section) => (
             <li>
               <a href={`#${section.slug}`} class="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-3 py-1.5 text-gray-800 hover:text-brand-cyan transition-colors duration-300">
-                <span class="font-mono text-xs text-gray-400 pt-0.5">{section.number}</span>
+                <span class="font-mono text-xs text-gray-500 pt-0.5">{section.number}</span>
                 <span>{section.text}</span>
               </a>
             </li>
@@ -108,7 +110,7 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
           {sections.map((section) => (
             <li class="border-t border-gray-200">
               <a href={`#${section.slug}`} class="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-3 py-3 text-gray-800 hover:text-brand-cyan transition-colors duration-300">
-                <span class="font-mono text-xs text-gray-400 pt-0.5">{section.number}</span>
+                <span class="font-mono text-xs text-gray-500 pt-0.5">{section.number}</span>
                 <span>{section.text}</span>
               </a>
             </li>
@@ -145,6 +147,11 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
     }
     .legal-document {
       font-size: 10.5pt;
+    }
+    /* A heading never ends a page without its first lines */
+    .legal-document :global(h2),
+    .legal-document :global(h3) {
+      break-after: avoid;
     }
   }
 </style>
