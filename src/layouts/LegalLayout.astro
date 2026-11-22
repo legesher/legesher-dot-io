@@ -1,9 +1,9 @@
 ---
 // The legal-center layout for the documents in src/content/legal: the title
 // and byline, a numbered list of the document's sections on the left, the
-// document in the middle, and its details on the right. Below the lg
-// breakpoint the list folds into "On this page" and the details sit above
-// the document. The section list is built from the document's level-2
+// document in the middle, and its details on the right (from xl). Between lg
+// and xl the details sit above the document, so the text keeps a readable
+// width; below lg the list folds into "On this page". The section list is built from the document's level-2
 // headings, which carry fixed ids (src/lib/legal-content.test.ts); the
 // built-page checks are src/lib/legal-built.test.ts.
 import type { MarkdownHeading } from 'astro';
@@ -55,7 +55,7 @@ const details: [string, string][] = [
         </p>
       </header>
 
-      <div class="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)_15rem] lg:gap-12 xl:gap-16">
+      <div class="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-x-12 xl:grid-cols-[13rem_minmax(0,1fr)_15rem] xl:gap-x-16">
         <details class="lg:hidden mb-6 rounded-lg border border-border">
           <summary class="cursor-pointer px-4 py-3 text-sm font-medium">On this page</summary>
           <ol class="px-4 pb-3 space-y-2 text-sm">
@@ -68,7 +68,7 @@ const details: [string, string][] = [
           </ol>
         </details>
 
-        <aside aria-label="Document details" class="mb-10 lg:mb-0 lg:col-start-3 lg:row-start-1 lg:sticky lg:top-28 lg:self-start">
+        <aside aria-label="Document details" class="mb-10 lg:col-start-2 lg:row-start-1 lg:max-w-md xl:mb-0 xl:max-w-none xl:col-start-3 xl:sticky xl:top-28 xl:self-start">
           <dl class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-3 rounded-lg border border-border p-4 text-sm">
             {details.map(([label, value]) => (
               <>
@@ -79,7 +79,7 @@ const details: [string, string][] = [
           </dl>
         </aside>
 
-        <nav aria-label="Sections" class="hidden lg:block lg:col-start-1 lg:row-start-1 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
+        <nav aria-label="Sections" class="hidden lg:block lg:col-start-1 lg:row-start-1 lg:row-span-2 xl:row-span-1 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
           <ol class="text-sm">
             {sections.map((section) => (
               <li class="border-t border-border first:border-t-0">
@@ -92,7 +92,7 @@ const details: [string, string][] = [
           </ol>
         </nav>
 
-        <article class="min-w-0 lg:col-start-2 lg:row-start-1 prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
+        <article class="min-w-0 lg:col-start-2 lg:row-start-2 xl:row-start-1 prose prose-lg max-w-none prose-headings:text-foreground prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm">
           <slot />
           <p class="text-sm text-muted-foreground mt-12">
             <em>Effective date: {date}</em>

@@ -41,6 +41,20 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
     expect(links).toEqual(headingIds);
   });
 
+  it.each(slugs)('%s: every h2 id on the page is a fixed id from the source', (slug) => {
+    // Catches a level-2 heading written in a form the source check does not
+    // read (a setext underline, an indented "##", a JSX <h2>), which gets an
+    // id made up from its text.
+    const article = between(page(slug), /<article[\s>]/, '</article>');
+    const declared = new Set(
+      [...readFileSync(join(root, 'src', 'content', 'legal', `${slug}.mdx`), 'utf-8').matchAll(/\{#([a-z0-9][a-z0-9-]*)\}/g)].map(
+        (m) => m[1],
+      ),
+    );
+    const madeUp = [...article.matchAll(/<h2[^>]*\sid="([^"]+)"/g)].map((m) => m[1]).filter((id) => !declared.has(id));
+    expect(madeUp).toEqual([]);
+  });
+
   it.each(slugs)('%s: every review marker sits inside a p, li, td or th', (slug) => {
     const article = between(page(slug), /<article[\s>]/, '</article>');
     const stack: string[] = [];
