@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **One layout for the legal pages.** The Terms, the Refund and Cancellation Policy and the
   Privacy Policy are written in Markdown (`src/content/legal`) and share one layout: the title
   and a "Download PDF" button at the top, a numbered list of sections beside the text, and the
-  document's details (last updated, type with its icon, audience as Individual or Business
-  tags, language and issuer). On a phone the list folds into "On this page". Each document opens
+  document's details (last updated, type with its icon, an "All users" audience tag, language
+  and issuer). On a phone the list folds into "On this page". Each document opens
   with its introduction and no heading above it, so the numbered sections of the Terms and the
   Refund Policy start at 1 with the section after it (Terms Section 16 is now Section 15, and so
   on), and the references between sections follow. Every other section link is unchanged.

@@ -27,7 +27,8 @@ function frontMatter(slug: string): Record<string, unknown> {
     }),
   );
 }
-const AUDIENCES = ['Individual', 'Business'];
+// A document is for all users, or is its own document for one audience.
+const AUDIENCES = ['All users', 'Individual', 'Business'];
 const ID = /\{#([a-z0-9][a-z0-9-]*)\}\s*$/;
 
 describe('legal content', () => {
@@ -58,10 +59,8 @@ describe('legal content', () => {
       expect(typeof fm[key] === 'string' && fm[key] !== '', `${slug}: ${key}`).toBe(true);
     }
     expect(['Terms', 'Policy']).toContain(fm.type);
-    // The audience tags: Individual, Business or both, in that order.
-    const audience = fm.audience as string[];
-    expect(Array.isArray(audience) && audience.length > 0, `${slug}: audience is a non-empty list`).toBe(true);
-    expect(audience, `${slug}: audience`).toEqual(AUDIENCES.filter((tag) => audience.includes(tag)));
+    // One audience per document: All users, or a document of its own for one audience.
+    expect(AUDIENCES, `${slug}: audience`).toContain(fm.audience);
     expect(fm, `${slug}: appliesTo was replaced by audience`).not.toHaveProperty('appliesTo');
   });
 

@@ -43,10 +43,11 @@ const sections = headings
     text: heading.text.replace(/^\d+\.\s*/, ''),
   }));
 
-// One brand tint per audience, so the two read apart at a glance.
+// One brand tint per audience, so a document for one audience reads apart at a glance.
 const AUDIENCE_TINT: Record<string, string> = {
-  Individual: 'bg-brand-background-cyan',
-  Business: 'bg-brand-light-yellow',
+  'All users': 'bg-brand-background-cyan',
+  Individual: 'bg-brand-light-yellow',
+  Business: 'bg-brand-background-coral',
 };
 // The icon on the type tag: a balance for terms, a page for a policy.
 const TYPE_ICON = { Terms: Scale, Policy: FileText } as const;
@@ -85,9 +86,7 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
           <div class={ROW}>
             <dt class="text-gray-500">Audience</dt>
             <dd data-audience>
-              <ul role="list" class="flex flex-wrap gap-1.5">
-                {audience.map((tag) => <li class={`${TAG} ${AUDIENCE_TINT[tag]}`}>{tag}</li>)}
-              </ul>
+              <span class={`${TAG} ${AUDIENCE_TINT[audience]}`}>{audience}</span>
             </dd>
           </div>
           <div class={ROW}>

@@ -118,7 +118,7 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
         'Type',
         fm.type,
         'Audience',
-        ...(fm.audience as string[]),
+        fm.audience,
         'Language',
         'English',
         'Issued by',
@@ -129,10 +129,9 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
     const typeTag = between(page(slug), /<dd[^>]*data-type/, '</dd>');
     expect(typeTag, `${slug}: the type tag has an icon`).toMatch(/<svg[^>]*aria-hidden="true"/);
     expect(typeTag, `${slug}: the icon names its type`).toContain(`data-icon="${String(fm.type).toLowerCase()}"`);
-    // Each tag is its own list item, so it reads (and copies) as a word.
-    const tags = between(page(slug), /<dd[^>]*data-audience/, '</dd>');
-    expect([...tags.matchAll(/<li[\s>][^<]*([^<]+)<\/li>/g)].length, `${slug}: one list item per tag`).toBe(
-      (fm.audience as string[]).length,
-    );
+    // The audience is one tag, not a list.
+    const tag = between(page(slug), /<dd[^>]*data-audience/, '</dd>');
+    expect(tag, `${slug}: the audience is one tag`).not.toMatch(/<(ul|li)[\s>]/);
+    expect(text(tag), `${slug}: the audience tag`).toBe(fm.audience);
   });
 });
