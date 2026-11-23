@@ -64,6 +64,22 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
     expect(links).toEqual(headingIds);
   });
 
+  it.each(slugs)('%s: every link to the site names a built page, and its #section is on that page', (slug) => {
+    // Covers the links between the legal documents ("/refunds",
+    // "/terms#governing-law") and within one ("#hosted-paid-plans").
+    const article = between(page(slug), /<article[\s>]/, '</article>');
+    const hrefs = [...article.matchAll(/<a\s[^>]*href="([/#][^"]*)"/g)].map((m) => m[1]);
+    for (const href of hrefs) {
+      const [path, anchor] = href.split('#');
+      const target = path === '' ? slug : path.replace(/^\/|\/$/g, '');
+      const file = join(output, target, 'index.html');
+      expect(existsSync(file), `${slug}: ${href} names a built page`).toBe(true);
+      if (anchor) {
+        expect(readFileSync(file, 'utf-8'), `${slug}: ${href} has its section`).toContain(`id="${anchor}"`);
+      }
+    }
+  });
+
   it.each(slugs)('%s: every h2 id on the page is a fixed id from the source', (slug) => {
     // Catches a level-2 heading written in a form the source check does not
     // read (a setext underline, an indented "##", a JSX <h2>), which gets an
