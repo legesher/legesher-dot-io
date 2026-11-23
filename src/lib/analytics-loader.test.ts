@@ -95,10 +95,6 @@ describe('the event schema is the five funnel events and no more', () => {
     // holds an email address (decided 14 Nov 2026; the privacy page says so).
     expect(newsletter).not.toMatch(/\.identify\(/);
     expect(newsletter).not.toMatch(/posthog/i);
-    // Nothing that names the subscriber travels with the completion event.
-    const captures = Array.from(newsletter.matchAll(/\.capture\(([\s\S]*?)\);/g), (m) => m[1]);
-    expect(captures.length).toBeGreaterThan(0);
-    expect(captures.filter((args) => /email|name/i.test(args)), 'capture arguments carry no email or name').toEqual([]);
   });
 });
 
@@ -169,5 +165,73 @@ describe('public/scripts/analytics.js, run', () => {
 
     expect(calls.map((c) => c.method)).toEqual(['capture']);
     expect(JSON.stringify(calls), 'no address in anything sent').not.toMatch(/@/);
+  });
+});
+
+// The newsletter form run for real: a stand-in form submits a sentinel address
+// and name, and a recording stand-in for the shared analytics notes every
+// property touched and every call made. However the properties are built, the
+// subscriber's address and name must never reach analytics.
+describe('public/scripts/newsletter.js, run', () => {
+  const newsletterSource = readFileSync(join(root, 'public', 'scripts', 'newsletter.js'), 'utf-8');
+  const SENTINEL_EMAIL = 'probe.subscriber@example.invalid';
+  const SENTINEL_NAME = 'ProbeFirstName';
+
+  async function submit(ok: boolean) {
+    const touched: string[] = [];
+    const captured: unknown[][] = [];
+    const events = { cta_viewed: 'newsletter_cta_viewed', cta_clicked: 'newsletter_cta_clicked', completed: 'newsletter_completed' };
+    const analytics = new Proxy(
+      {},
+      {
+        get(_t, prop: string) {
+          touched.push(prop);
+          if (prop === 'events') return events;
+          return (...args: unknown[]) => void captured.push([prop, ...args]);
+        },
+      },
+    );
+    class HTMLFormElement {
+      listeners: Record<string, (e: unknown) => Promise<void>> = {};
+      addEventListener(type: string, fn: (e: unknown) => Promise<void>) {
+        this.listeners[type] = fn;
+      }
+      querySelector() {
+        return { disabled: false, textContent: 'Subscribe' };
+      }
+      reset() {}
+    }
+    const form = new HTMLFormElement();
+    const message = { textContent: '', className: '' };
+    const fields: Record<string, string> = { email: SENTINEL_EMAIL, firstName: SENTINEL_NAME, website: '' };
+    let posted = '';
+    const context = {
+      document: { getElementById: (id: string) => (id === 'newsletter-form' ? form : id === 'form-message' ? message : null) },
+      window: { location: { search: '?utm_source=probe&utm_campaign=probe' }, legesherAnalytics: analytics },
+      HTMLFormElement,
+      FormData: class {
+        get(name: string) {
+          return fields[name] ?? null;
+        }
+      },
+      URLSearchParams,
+      fetch: async (_url: string, init: { body: string }) => {
+        posted = init.body;
+        return { ok, json: async () => ({ message: 'ok' }) };
+      },
+    };
+    runInNewContext(newsletterSource, context);
+    await form.listeners.submit({ preventDefault() {}, target: form });
+    return { touched, captured, posted };
+  }
+
+  it.each([true, false])('subscribe succeeds=%s: analytics gets captures only, with no address or name', async (ok) => {
+    const { touched, captured, posted } = await submit(ok);
+    expect(posted, 'the form still posts the address to our own endpoint').toContain(SENTINEL_EMAIL);
+    expect(captured.length, 'the funnel is still counted').toBeGreaterThan(0);
+    expect(new Set(touched.filter((p) => p !== 'events')), 'only capture is used').toEqual(new Set(['capture']));
+    const sent = JSON.stringify(captured);
+    expect(sent, 'no address reaches analytics').not.toContain(SENTINEL_EMAIL);
+    expect(sent, 'no name reaches analytics').not.toContain(SENTINEL_NAME);
   });
 });

@@ -133,7 +133,9 @@ Facts behind those commands:
   Track, Global Privacy Control, no session reconstruction, no profiling) to the loader option that
   keeps it, the event schema to its five names, and forbids any way to name a visitor; it also runs
   the loader against a stand-in page to prove Do Not Track and Global Privacy Control stop it before
-  any request, and that a capture reaches PostHog as a capture with no address.
+  any request, and that a capture reaches PostHog as a capture with no address; and it runs
+  `public/scripts/newsletter.js` against a stand-in form to prove the subscriber's address and name
+  never reach analytics.
   `src/lib/privacy-signals.test.ts` runs `public/scripts/privacy-signals.js` against each Do Not Track
   and Global Privacy Control signal and checks that `Layout.astro` renders it before the two Vercel
   components, whose `beforeSend` hooks it sets. Exercise the keyed branch locally with
