@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its icon, an "All users" audience tag, language and issuer). On a phone the list folds into "On
   this page", and a table wider than the text scrolls inside its own box. Each document opens with
   its introduction and no heading above it.
-- **Paid plans, cancellation and refunds in the Terms (Section 15).** Billing through Polar as
+- **Paid plans, cancellation and refunds in the Terms (Section 6).** Billing through Polar as
   merchant of record, cancelling, refunds, failed payments, upgrades and downgrades, and the
   account after cancellation. `/refunds` redirects there. `src/lib/page-dates.test.ts` guards that
   every dated page reads its own `LAST_UPDATED` entry and that every entry is an ISO date the
@@ -34,22 +34,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Terms of Service, re-cut.** The Terms are now with Legesher Global Tech Limited (DIFC), which
-  runs the website and the hosted services under a license from Legesher Inc, the owner of the
-  intellectual property. They are governed by DIFC law, with disputes in the DIFC courts and a
-  consumer's local rights kept. One contact address, support@legesher.com. The Apache 2.0 rights
-  in the open-source code are stated once (Section 3), and the licensing of Curated Datasets and
-  Curriculum is removed until they launch. Section 4's table names the current plans: Free,
-  Individual, and Team or Enterprise. No plan offers a license for harvesting hosted-service
-  outputs or training on them: building a substitute or competing product from outputs is
-  prohibited, and bulk access or training needs a separate written data agreement. Section 6.3
-  says in short what the hosted services keep and points to the Privacy Policy. Section 14 covers
-  accounts and plans, acceptable use, outputs and the vocabulary, limits and suspension, and
-  leaving; Section 15 covers paid plans. The "when launched" wording for hosted services is gone.
-  Draft: the sentences that depend on jurisdiction, a service provider or plan details carry a
-  `data-review` marker.
-- **`/.well-known/security.txt` names support@legesher.com**, the site's one contact address, in
-  place of security@legesher.com.
+- **Terms of Service, re-cut and regrouped.** The Terms are with Legesher Global Tech Limited,
+  registered in the DIFC, and open with a one-line company description. They are governed by DIFC
+  law, with disputes in the DIFC courts and a consumer's local rights kept. One contact address,
+  support@legesher.com. The sections follow what a reader does: Your Account, Using Legesher,
+  Your Code and Outputs, Feedback, Subscriptions, Fees and Payment, Open-Source Software,
+  Ownership and the Legesher Brand, Disclaimers, Liability and Indemnity, General Terms, and In
+  Case of Disputes. The Apache 2.0 rights in the open-source code are stated once (Section 7), and
+  the licensing of Curated Datasets and Curriculum is removed until they launch. Section 6.1 names
+  the current plans: Free, Individual, and Team or Enterprise. No plan offers a license for
+  harvesting hosted-service outputs or training on them: building a substitute or competing
+  product from outputs is prohibited, and bulk access or training needs a separate written data
+  agreement. Section 4.1 says in short what the hosted services keep and points to the Privacy
+  Policy. The "when launched" wording for hosted services is gone. Draft: the sentences that
+  depend on jurisdiction, a service provider or plan details carry a `data-review` marker.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
   @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
   raised to >=22.12.0). One code change applied: CSP configuration graduated from
@@ -80,9 +78,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   community, data retention, and full GDPR/CCPA/CPRA/state privacy law disclosures (CORE-542, CORE-581)
 - **Terms of Service** at [/terms](https://www.legesher.io/terms) documenting the open-core licensing
   model (Apache 2.0 for code; Commercial License for Hosted Services, Curated Datasets, Curriculum),
-  four disclaimers, Delaware governing law, and contact routing (CORE-889)
+  four disclaimers, governing law, and contact routing (CORE-889)
 - Footer legal row linking to Privacy Policy and Terms of Service site-wide
-- `/.well-known/security.txt` (RFC 9116) exposing `security@legesher.com` as the canonical vulnerability
+- `/.well-known/security.txt` (RFC 9116) exposing `support@legesher.com` as the vulnerability
   reporting contact
 - Canonical URL and `robots` meta tags on every page for consistent search-engine indexing
 - Astro `site` configured to `https://www.legesher.io` (matches the CNAME and the hostname used by
@@ -130,9 +128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Privacy Policy documents a zero-cookie posture: no cookies, no `localStorage` writes, no consent banner
   required under GDPR or the ePrivacy Directive
-- Terms of Service caps liability (greater of twelve-month paid amount or USD $100) and includes AAA
-  arbitration for US users (individual only, no class actions)
-- Dedicated `security@legesher.com` contact route, exposed via `/.well-known/security.txt`
+- Terms of Service caps liability (greater of twelve-month paid amount or USD $100)
 
 ## [2.0.0] - 2025-12-18
 
