@@ -233,5 +233,9 @@ describe('public/scripts/newsletter.js, run', () => {
     const sent = JSON.stringify(captured);
     expect(sent, 'no address reaches analytics').not.toContain(SENTINEL_EMAIL);
     expect(sent, 'no name reaches analytics').not.toContain(SENTINEL_NAME);
+    // Exactly these calls and properties: anything added, however it is derived, fails.
+    const expected: unknown[][] = [['capture', 'newsletter_cta_clicked']];
+    if (ok) expected.push(['capture', 'newsletter_completed', { utm_source: 'probe', utm_campaign: 'probe' }]);
+    expect(JSON.parse(sent), 'the captures are exactly the funnel events').toEqual(expected);
   });
 });
