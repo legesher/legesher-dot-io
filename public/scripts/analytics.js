@@ -17,9 +17,21 @@
   const script = document.currentScript;
   const key = script && (script.dataset.posthogKey || '').trim();
   if (!key) return;
-  // Global Privacy Control means send nothing, as Do Not Track does
-  // (respect_dnt below). The account app honours both the same way.
-  if (navigator.globalPrivacyControl === true) return;
+  // Do Not Track or Global Privacy Control: send nothing, and do not fetch
+  // PostHog's script either, so its asset host never sees the visit.
+  // privacy-signals.js applies the same test to Vercel's analytics, and the
+  // account app honours both signals the same way. respect_dnt below stays as
+  // a second line of defence.
+  const nav = window.navigator || {};
+  if (
+    nav.globalPrivacyControl === true ||
+    nav.doNotTrack === '1' ||
+    nav.doNotTrack === 'yes' ||
+    nav.msDoNotTrack === '1' ||
+    window.doNotTrack === '1'
+  ) {
+    return;
+  }
 
   // Five events answer the funnel. Fifty answer nothing and cost a schema
   // nobody maintains. The live call to action is the newsletter form, so the
