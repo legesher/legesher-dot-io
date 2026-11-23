@@ -58,6 +58,11 @@ describe('public/scripts/analytics.js keeps the privacy page true', () => {
     expect(loader).toMatch(option);
   });
 
+  it('offers no way to name a visitor', () => {
+    expect(loader).not.toMatch(/identify\(|\.alias\(|people\.set/);
+    expect(privacy).toMatch(/Subscribing does not link these interactions to your email address/);
+  });
+
   it('does nothing without a project key', () => {
     expect(loader).toMatch(/dataset\.posthogKey/);
     expect(loader).toMatch(/if\s*\(!key\)\s*return/);
@@ -85,7 +90,9 @@ describe('the event schema is the five funnel events and no more', () => {
       .replace(/^\s*\/\/.*$/gm, '');
     expect(newsletter).toMatch(/legesherAnalytics/);
     expect(newsletter).toMatch(/events\.completed/);
-    expect(newsletter).toMatch(/\.identify\(/);
+    // Subscribing never names the visitor: no identify call, so PostHog never
+    // holds an email address (decided 14 Nov 2026; the privacy page says so).
+    expect(newsletter).not.toMatch(/\.identify\(/);
     expect(newsletter).not.toMatch(/posthog/i);
   });
 });
