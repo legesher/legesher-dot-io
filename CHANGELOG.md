@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **One layout for the legal pages.** The Terms and the Privacy Policy are written in Markdown
   (`src/content/legal`) and share one layout: the title and a "Download PDF" button at the top, a
   numbered list of sections beside the text, and the document's details (last updated, type with
-  its icon, an "All users" audience tag, language and issuer). On a phone the list folds into "On
+  its icon, an "All users" audience tag and language). On a phone the list folds into "On
   this page", and a table wider than the text scrolls inside its own box. Each document opens with
   its introduction and no heading above it.
 - **Paid plans, cancellation and refunds in the Terms (Section 6).** Billing through Polar as

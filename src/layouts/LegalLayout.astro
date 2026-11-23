@@ -1,7 +1,7 @@
 ---
 // The legal-center layout for the documents in src/content/legal. The top of
 // the page holds only the title and a button that downloads the PDF; the
-// document's details (last updated, type, audience, language, issuer) sit in a
+// document's details (last updated, type, audience, language) sit in a
 // plain list on the right from xl, and above the document between lg and xl
 // so the text keeps a readable width. A numbered list of the sections runs
 // down the left from lg, and folds into "On this page" below it. The columns
@@ -32,7 +32,7 @@ interface Props {
 }
 
 const { entry, headings, lastUpdated, pageTitle } = Astro.props;
-const { title, description, type, audience, entity } = entry.data;
+const { title, description, type, audience } = entry.data;
 const date = formatLastUpdated(lastUpdated);
 
 const sections = headings
@@ -92,10 +92,6 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
           <div class={ROW}>
             <dt class="text-gray-500">Language</dt>
             <dd class="text-gray-900">English</dd>
-          </div>
-          <div class={ROW}>
-            <dt class="text-gray-500">Issued by</dt>
-            <dd class="text-gray-900">{entity}</dd>
           </div>
         </dl>
       </aside>

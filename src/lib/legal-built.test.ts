@@ -133,7 +133,7 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
     expect(existsSync(join(output, pdfHref(slug))), `${slug}: the PDF is in the build`).toBe(true);
   });
 
-  it.each(slugs)('%s: the details list the date, type, audience, language and issuer', (slug) => {
+  it.each(slugs)('%s: the details list the date, type, audience and language', (slug) => {
     const fm = frontMatter(slug);
     const details = text(between(page(slug), /<aside[^>]*aria-label="Document details"/, '</aside>'));
     expect(details).toBe(
@@ -146,8 +146,6 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
         fm.audience,
         'Language',
         'English',
-        'Issued by',
-        fm.entity,
       ].join(' '),
     );
     // The type tag carries an icon for its type, hidden from screen readers.

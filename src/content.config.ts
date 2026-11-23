@@ -14,7 +14,6 @@ const legal = defineCollection({
     // Who the document is for: all users, or one audience. Anything written
     // only for individuals or only for businesses is a document of its own.
     audience: z.enum(['All users', 'Individual', 'Business']),
-    entity: z.string(),
   }),
 });
 

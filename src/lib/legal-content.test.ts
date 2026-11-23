@@ -53,15 +53,17 @@ describe('legal content', () => {
     expect(repeated).toEqual([]);
   });
 
-  it.each(docs)('%s: front matter has title, description, type, audience and entity', (slug) => {
+  it.each(docs)('%s: front matter has title, description, type and audience', (slug) => {
     const fm = frontMatter(slug);
-    for (const key of ['title', 'description', 'type', 'entity']) {
+    for (const key of ['title', 'description', 'type']) {
       expect(typeof fm[key] === 'string' && fm[key] !== '', `${slug}: ${key}`).toBe(true);
     }
     expect(['Terms', 'Policy']).toContain(fm.type);
     // One audience per document: All users, or a document of its own for one audience.
     expect(AUDIENCES, `${slug}: audience`).toContain(fm.audience);
     expect(fm, `${slug}: appliesTo was replaced by audience`).not.toHaveProperty('appliesTo');
+    // The pages name no issuing company: the Terms name the contracting company in their opening.
+    expect(fm, `${slug}: no entity`).not.toHaveProperty('entity');
   });
 
   it.each(docs)('%s: opens with its introduction, with no heading above it', (slug) => {
