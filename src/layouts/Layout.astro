@@ -15,6 +15,10 @@ import { PUBLIC_POSTHOG_KEY } from 'astro:env/client';
 // PostHog's origin in the same case and src/lib/analytics-csp.test.ts checks
 // the two agree on every built page (CORE-1948). The key is a public project
 // token by design, so inlining it here is intended.
+//
+// public/scripts/privacy-signals.js comes before both Vercel components: it
+// sets the beforeSend hooks they read when they start, so Do Not Track and
+// Global Privacy Control stop their events too (src/lib/privacy-signals.test.ts).
 
 interface Props {
   title: string;
@@ -78,6 +82,7 @@ const socialImageURL = new URL(image, site).toString();
   </head>
   <body class="min-h-screen bg-background antialiased relative">
     <slot />
+    <script src="/scripts/privacy-signals.js" is:inline></script>
     <SpeedInsights />
     <Analytics />
     {PUBLIC_POSTHOG_KEY && (

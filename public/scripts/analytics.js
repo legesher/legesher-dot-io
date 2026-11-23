@@ -17,6 +17,9 @@
   const script = document.currentScript;
   const key = script && (script.dataset.posthogKey || '').trim();
   if (!key) return;
+  // Global Privacy Control means send nothing, as Do Not Track does
+  // (respect_dnt below). The account app honours both the same way.
+  if (navigator.globalPrivacyControl === true) return;
 
   // Five events answer the funnel. Fifty answer nothing and cost a schema
   // nobody maintains. The live call to action is the newsletter form, so the

@@ -18,6 +18,7 @@ const privacy = readFileSync(join(root, 'src', 'content', 'legal', 'privacy.mdx'
 const PROMISES = [
   { promise: 'zero cookies and no client-side storage', sentence: /zero cookies/i, option: /persistence:\s*'memory'/ },
   { promise: 'Do Not Track is honoured', sentence: /Do Not Track/, option: /respect_dnt:\s*true/ },
+  { promise: 'Global Privacy Control is honoured', sentence: /Global Privacy Control/, option: /if\s*\(navigator\.globalPrivacyControl === true\)\s*return/ },
   { promise: 'no session reconstruction', sentence: /reconstruct a browsing session/i, option: /disable_session_recording:\s*true/ },
   { promise: 'no behavioural profiling', sentence: /behavioural profiling/i, option: /autocapture:\s*false/ },
 ] as const;
