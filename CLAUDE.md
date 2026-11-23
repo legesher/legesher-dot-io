@@ -60,8 +60,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  16 passed (16)` then `      Tests  273 passed (273)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  13 passed | 3 skipped (16)` then `      Tests  242 passed | 19 skipped (261)`
+- `npm test`: ` Test Files  17 passed (17)` then `      Tests  293 passed (293)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  14 passed | 3 skipped (17)` then `      Tests  262 passed | 19 skipped (281)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
