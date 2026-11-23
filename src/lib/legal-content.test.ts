@@ -32,8 +32,8 @@ const AUDIENCES = ['All users', 'Individual', 'Business'];
 const ID = /\{#([a-z0-9][a-z0-9-]*)\}\s*$/;
 
 describe('legal content', () => {
-  it('finds terms, refunds and privacy', () => {
-    expect(docs).toEqual(expect.arrayContaining(['terms', 'refunds', 'privacy']));
+  it('finds terms and privacy', () => {
+    expect(docs).toEqual(expect.arrayContaining(['terms', 'privacy']));
   });
 
   it.each(docs)('%s: every level-2 heading carries an explicit id', (slug) => {

@@ -7,10 +7,10 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `legesher-for-education.astro`, the three legal pages (`privacy.astro`,
-  `refunds.astro`, `terms.astro`, each a thin page that renders one entry of `src/content/legal`), and
+- `src/pages/`: `index.astro`, `legesher-for-education.astro`, the two legal pages (`privacy.astro`,
+  `terms.astro`, each a thin page that renders one entry of `src/content/legal`), and
   `api/subscribe.ts`, the one route with `export const prerender = false`.
-- `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `refunds.mdx`, `privacy.mdx`), the
+- `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`), the
   `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
   (`## Governing Law {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`.
   Each document opens with its introduction and no heading above it; numbered sections run 1, 2, 3
@@ -58,8 +58,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  15 passed (15)` then `      Tests  295 passed (295)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  12 passed | 3 skipped (15)` then `      Tests  253 passed | 27 skipped (280)`
+- `npm test`: ` Test Files  15 passed (15)` then `      Tests  270 passed (270)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  12 passed | 3 skipped (15)` then `      Tests  239 passed | 19 skipped (258)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files

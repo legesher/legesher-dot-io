@@ -46,6 +46,11 @@
       "permanent": false
     },
     {
+      "source": "/refunds",
+      "destination": "/terms#hosted-paid-plans",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {

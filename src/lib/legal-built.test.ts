@@ -74,8 +74,8 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
   });
 
   it.each(slugs)('%s: every link to the site names a built page, and its #section is on that page', (slug) => {
-    // Covers the links between the legal documents ("/refunds",
-    // "/terms#governing-law") and within one ("#hosted-paid-plans").
+    // Covers the links between the legal documents ("/privacy") and within
+    // one ("#hosted-paid-plans", "#contact").
     const article = between(page(slug), /<article[\s>]/, '</article>');
     const hrefs = [...article.matchAll(/<a\s[^>]*href="([/#][^"]*)"/g)].map((m) => m[1]);
     for (const href of hrefs) {
