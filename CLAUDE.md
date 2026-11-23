@@ -127,10 +127,14 @@ Facts behind those commands:
   shows that shape today, so the setting itself is asserted).
 - Two guards keep the PostHog loader honest: `src/lib/analytics-csp.test.ts` reads every built page
   and asserts the loader is present exactly when the policy carries PostHog's origin, sits in
-  `<body>` after the content, and that a build without the key mentions PostHog nowhere;
+  `<body>` after the content, and that a build without the key has no script that references PostHog
+  (the privacy page names it in prose);
   `src/lib/analytics-loader.test.ts` pins each promise the privacy page makes (zero storage, Do Not
-  Track, no session reconstruction, no profiling) to the loader option that keeps it, and the event
-  schema to its five names. Exercise the keyed branch locally with
+  Track, Global Privacy Control, no session reconstruction, no profiling) to the loader option that
+  keeps it, the event schema to its five names, and forbids any way to name a visitor.
+  `src/lib/privacy-signals.test.ts` runs `public/scripts/privacy-signals.js` against each Do Not Track
+  and Global Privacy Control signal and checks that `Layout.astro` renders it before the two Vercel
+  components, whose `beforeSend` hooks it sets. Exercise the keyed branch locally with
   `PUBLIC_POSTHOG_KEY=phc_SENTINEL npm run build && npm test`; CI builds without a key.
 
 ## Gotchas
