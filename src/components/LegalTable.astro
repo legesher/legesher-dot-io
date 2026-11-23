@@ -1,0 +1,9 @@
+---
+// A table in a legal document (src/content/legal), in a box that scrolls
+// sideways when the table is wider than the text, so the page never does.
+// The table itself stays a table at the full width of the text. The pages
+// in src/pages map Markdown tables to it; src/lib/legal-built.test.ts checks
+// that every table on a legal page sits in this box.
+---
+
+<div data-legal-table class="overflow-x-auto"><table {...Astro.props}><slot /></table></div>

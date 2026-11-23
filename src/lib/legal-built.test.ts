@@ -64,6 +64,15 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
     expect(links).toEqual(headingIds);
   });
 
+  it.each(slugs)('%s: every table sits in its own scroll box', (slug) => {
+    // A table wider than the text scrolls inside the box (src/components/LegalTable.astro),
+    // never the page, and keeps the full width of the text when it fits.
+    const article = between(page(slug), /<article[\s>]/, '</article>');
+    const tables = article.match(/<table[\s>]/g)?.length ?? 0;
+    const boxed = article.match(/<div[^>]*data-legal-table[^>]*>\s*<table[\s>]/g)?.length ?? 0;
+    expect(boxed, `${slug}: tables in a scroll box, of ${tables}`).toBe(tables);
+  });
+
   it.each(slugs)('%s: every link to the site names a built page, and its #section is on that page', (slug) => {
     // Covers the links between the legal documents ("/refunds",
     // "/terms#governing-law") and within one ("#hosted-paid-plans").

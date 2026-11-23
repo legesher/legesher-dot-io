@@ -22,7 +22,8 @@ data. Page and layout changes are visual work and are reviewed as such.
   at the top, a numbered section list on the left built from the level-2 headings, and the
   document's details (last updated, type, audience, language, issuer) on the right.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
-  `Footer`, `ButtonLink`) and `ui/`, the shadcn-style React primitives.
+  `Footer`, `ButtonLink`), `LegalTable` (a legal document's table in its own sideways scroll box)
+  and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
   endpoint's validation, payload and Buttondown call, so the route stays thin), `attribution.ts`,
   `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, `pack-samples.json` (the education
@@ -57,8 +58,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  15 passed (15)` then `      Tests  291 passed (291)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  12 passed | 3 skipped (15)` then `      Tests  252 passed | 24 skipped (276)`
+- `npm test`: ` Test Files  15 passed (15)` then `      Tests  295 passed (295)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  12 passed | 3 skipped (15)` then `      Tests  253 passed | 27 skipped (280)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
