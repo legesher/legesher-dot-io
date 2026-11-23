@@ -13,12 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Privacy Policy are written in Markdown (`src/content/legal`) and share one layout: the title
   and a "Download PDF" button at the top, a numbered list of sections beside the text, and the
   document's details (last updated, type with its icon, an "All users" audience tag, language
-  and issuer). On a phone the list folds into "On this page". Each document opens
-  with its introduction and no heading above it, so the numbered sections of the Terms and the
-  Refund Policy start at 1 with the section after it (Terms Section 16 is now Section 15, and so
-  on), and the references between sections follow. Every other section link is unchanged.
+  and issuer). On a phone the list folds into "On this page", and a table wider than the text
+  scrolls inside its own box. Each document opens with its introduction and no heading above it,
+  so the numbered sections of the Terms and the Refund Policy start at 1 with the section after
+  it (Terms Section 16 is now Section 15, and so on), and the references between sections follow.
+  Every other section link is unchanged.
 - **Refund and cancellation policy page at `/refunds`**, a draft in the same shell as the Terms and
-  Privacy pages. The footer link is added when paid plans go on sale. `src/lib/page-dates.test.ts`
+  Privacy pages. Terms Section 15.6 links to it; the footer link is added when paid plans go on
+  sale. `src/lib/page-dates.test.ts`
   guards that every dated page reads its own `LAST_UPDATED` entry and that every entry is an ISO
   date the formatter renders.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered

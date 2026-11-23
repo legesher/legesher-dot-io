@@ -148,6 +148,16 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
   .legal-document > :global(:first-child) {
     margin-top: 0;
   }
+  /* Below the three columns, a table wider than the text scrolls inside its
+     own box, so the page never scrolls sideways. From lg it is a table again,
+     at the full width of the text. */
+  @media screen and (max-width: 1023px) {
+    .legal-document :global(table) {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+  }
   /* The PDF is this page printed: no site header or footer */
   @media print {
     :global(#main-header),
