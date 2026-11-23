@@ -4,8 +4,8 @@
 // PUBLIC_POSTHOG_KEY set and passes the key on data-posthog-key; without a key
 // the script returns before touching the page. Vercel Web Analytics answers
 // how much traffic arrived and from where; this answers how many people
-// reached the subscribe form and dropped, and joins the session to the
-// subscriber once they confirm the form.
+// reached the subscribe form and dropped. It never names anyone: subscribing
+// does not link the session to the email address (decided 14 Nov 2026).
 //
 // The configuration keeps the privacy page true, option by option:
 // `persistence: 'memory'` (zero cookies, zero client-side storage),
@@ -17,6 +17,21 @@
   const script = document.currentScript;
   const key = script && (script.dataset.posthogKey || '').trim();
   if (!key) return;
+  // Do Not Track or Global Privacy Control: send nothing, and do not fetch
+  // PostHog's script either, so its asset host never sees the visit.
+  // privacy-signals.js applies the same test to Vercel's analytics, and the
+  // account app honours both signals the same way. respect_dnt below stays as
+  // a second line of defence.
+  const nav = window.navigator || {};
+  if (
+    nav.globalPrivacyControl === true ||
+    nav.doNotTrack === '1' ||
+    nav.doNotTrack === 'yes' ||
+    nav.msDoNotTrack === '1' ||
+    window.doNotTrack === '1'
+  ) {
+    return;
+  }
 
   // Five events answer the funnel. Fifty answer nothing and cost a schema
   // nobody maintains. The live call to action is the newsletter form, so the
@@ -43,14 +58,6 @@
     events: EVENTS,
     capture(event, properties) {
       call('capture', properties ? [event, properties] : [event]);
-    },
-    // The join: the anonymous session becomes the person who subscribed. The
-    // email is the distinct id and the only person property we set; PostHog's
-    // own first-touch person properties (initial referrer, initial URL with
-    // its query string, initial campaign fields) are dropped in before_send
-    // below, so the person record holds the email and nothing else.
-    identify(email) {
-      call('identify', [email, { email: email }]);
     },
   };
   window.legesherAnalytics = analytics;

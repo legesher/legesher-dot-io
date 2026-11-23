@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
 
 // The privacy page promises, in bold, that the site sets zero cookies and
@@ -18,6 +19,7 @@ const privacy = readFileSync(join(root, 'src', 'content', 'legal', 'privacy.mdx'
 const PROMISES = [
   { promise: 'zero cookies and no client-side storage', sentence: /zero cookies/i, option: /persistence:\s*'memory'/ },
   { promise: 'Do Not Track is honoured', sentence: /Do Not Track/, option: /respect_dnt:\s*true/ },
+  { promise: 'Global Privacy Control is honoured', sentence: /Global Privacy Control/, option: /nav\.globalPrivacyControl === true/ },
   { promise: 'no session reconstruction', sentence: /reconstruct a browsing session/i, option: /disable_session_recording:\s*true/ },
   { promise: 'no behavioural profiling', sentence: /behavioural profiling/i, option: /autocapture:\s*false/ },
 ] as const;
@@ -57,6 +59,11 @@ describe('public/scripts/analytics.js keeps the privacy page true', () => {
     expect(loader).toMatch(option);
   });
 
+  it('offers no way to name a visitor', () => {
+    expect(loader).not.toMatch(/identify\(|['"]identify['"]|alias|\$set\b|people\./);
+    expect(privacy).toMatch(/Subscribing does not link these interactions to your email address/);
+  });
+
   it('does nothing without a project key', () => {
     expect(loader).toMatch(/dataset\.posthogKey/);
     expect(loader).toMatch(/if\s*\(!key\)\s*return/);
@@ -84,7 +91,151 @@ describe('the event schema is the five funnel events and no more', () => {
       .replace(/^\s*\/\/.*$/gm, '');
     expect(newsletter).toMatch(/legesherAnalytics/);
     expect(newsletter).toMatch(/events\.completed/);
-    expect(newsletter).toMatch(/\.identify\(/);
+    // Subscribing never names the visitor: no identify call, so PostHog never
+    // holds an email address (decided 14 Nov 2026; the privacy page says so).
+    expect(newsletter).not.toMatch(/\.identify\(/);
     expect(newsletter).not.toMatch(/posthog/i);
+  });
+});
+
+// The loader run for real, against a stand-in page and a stand-in PostHog:
+// Do Not Track and Global Privacy Control stop it before any request, and
+// nothing that passes through it reaches PostHog as anything but a capture
+// carrying no address.
+type Recorded = { method: string; args: unknown[] };
+
+function runLoader(navigator: Record<string, unknown>, windowExtra: Record<string, unknown> = {}) {
+  const created: { tag: string; src?: string; listeners: Record<string, () => void> }[] = [];
+  const document = {
+    currentScript: { dataset: { posthogKey: 'phc_TEST' } },
+    createElement(tag: string) {
+      const element = {
+        tag,
+        listeners: {} as Record<string, () => void>,
+        addEventListener(event: string, fn: () => void) {
+          element.listeners[event] = fn;
+        },
+      };
+      created.push(element);
+      return element;
+    },
+    head: { appendChild() {} },
+    getElementById: () => null,
+    addEventListener() {},
+  };
+  const window: Record<string, unknown> = { navigator, ...windowExtra };
+  runInNewContext(loader, { window, document });
+  return { window, created };
+}
+
+const LOADER_SIGNALS = [
+  { signal: 'Global Privacy Control', navigator: { globalPrivacyControl: true } },
+  { signal: 'Do Not Track', navigator: { doNotTrack: '1' } },
+  { signal: 'Do Not Track (older spelling)', navigator: { doNotTrack: 'yes' } },
+  { signal: 'Do Not Track (msDoNotTrack)', navigator: { msDoNotTrack: '1' } },
+  { signal: 'Do Not Track (window.doNotTrack)', navigator: {}, window: { doNotTrack: '1' } },
+] as const;
+
+describe('public/scripts/analytics.js, run', () => {
+  it.each(LOADER_SIGNALS)('$signal: no PostHog script is requested', ({ navigator, ...rest }) => {
+    const { window, created } = runLoader({ ...navigator }, 'window' in rest ? rest.window : {});
+    expect(created, 'no script element is created').toEqual([]);
+    expect(window.legesherAnalytics, 'no capture is offered').toBeUndefined();
+  });
+
+  it('no signal: one PostHog script, and captures reach PostHog with no address', () => {
+    const { window, created } = runLoader({ doNotTrack: '0', globalPrivacyControl: false });
+    expect(created.map((c) => c.tag)).toEqual(['script']);
+
+    const calls: Recorded[] = [];
+    const instance = new Proxy(
+      {},
+      { get: (_t, method: string) => (...args: unknown[]) => void calls.push({ method, args }) },
+    );
+    window.posthog = {
+      init(_key: string, options: { loaded: (i: unknown) => void }) {
+        options.loaded(instance);
+      },
+    };
+    created[0].listeners.load();
+
+    const analytics = window.legesherAnalytics as { capture: (e: string, p?: object) => void };
+    expect(Object.keys(analytics).sort()).toEqual(['capture', 'events']);
+    analytics.capture('newsletter_completed', { utm_source: 'probe', utm_campaign: 'probe' });
+
+    expect(calls.map((c) => c.method)).toEqual(['capture']);
+    expect(JSON.stringify(calls), 'no address in anything sent').not.toMatch(/@/);
+  });
+});
+
+// The newsletter form run for real: a stand-in form submits a sentinel address
+// and name, and a recording stand-in for the shared analytics notes every
+// property touched and every call made. However the properties are built, the
+// subscriber's address and name must never reach analytics.
+describe('public/scripts/newsletter.js, run', () => {
+  const newsletterSource = readFileSync(join(root, 'public', 'scripts', 'newsletter.js'), 'utf-8');
+  const SENTINEL_EMAIL = 'probe.subscriber@example.invalid';
+  const SENTINEL_NAME = 'ProbeFirstName';
+
+  async function submit(ok: boolean) {
+    const touched: string[] = [];
+    const captured: unknown[][] = [];
+    const events = { cta_viewed: 'newsletter_cta_viewed', cta_clicked: 'newsletter_cta_clicked', completed: 'newsletter_completed' };
+    const analytics = new Proxy(
+      {},
+      {
+        get(_t, prop: string) {
+          touched.push(prop);
+          if (prop === 'events') return events;
+          return (...args: unknown[]) => void captured.push([prop, ...args]);
+        },
+      },
+    );
+    class HTMLFormElement {
+      listeners: Record<string, (e: unknown) => Promise<void>> = {};
+      addEventListener(type: string, fn: (e: unknown) => Promise<void>) {
+        this.listeners[type] = fn;
+      }
+      querySelector() {
+        return { disabled: false, textContent: 'Subscribe' };
+      }
+      reset() {}
+    }
+    const form = new HTMLFormElement();
+    const message = { textContent: '', className: '' };
+    const fields: Record<string, string> = { email: SENTINEL_EMAIL, firstName: SENTINEL_NAME, website: '' };
+    let posted = '';
+    const context = {
+      document: { getElementById: (id: string) => (id === 'newsletter-form' ? form : id === 'form-message' ? message : null) },
+      window: { location: { search: '?utm_source=probe&utm_campaign=probe' }, legesherAnalytics: analytics },
+      HTMLFormElement,
+      FormData: class {
+        get(name: string) {
+          return fields[name] ?? null;
+        }
+      },
+      URLSearchParams,
+      fetch: async (_url: string, init: { body: string }) => {
+        posted = init.body;
+        return { ok, json: async () => ({ message: 'ok' }) };
+      },
+    };
+    runInNewContext(newsletterSource, context);
+    await form.listeners.submit({ preventDefault() {}, target: form });
+    return { touched, captured, posted };
+  }
+
+  it.each([true, false])('subscribe succeeds=%s: analytics gets captures only, with no address or name', async (ok) => {
+    const { touched, captured, posted } = await submit(ok);
+    expect(posted, 'the form still posts the address to our own endpoint').toContain(SENTINEL_EMAIL);
+    expect(captured.length, 'the funnel is still counted').toBeGreaterThan(0);
+    expect(new Set(touched.filter((p) => p !== 'events')), 'only capture is used').toEqual(new Set(['capture']));
+    const sent = JSON.stringify(captured);
+    expect(sent, 'no address reaches analytics').not.toContain(SENTINEL_EMAIL);
+    expect(sent, 'no name reaches analytics').not.toContain(SENTINEL_NAME);
+    // Exactly these calls and properties: anything added, however it is derived, fails.
+    const expected: unknown[][] = [['capture', 'newsletter_cta_clicked']];
+    if (ok) expected.push(['capture', 'newsletter_completed', { utm_source: 'probe', utm_campaign: 'probe' }]);
+    expect(JSON.parse(sent), 'the captures are exactly the funnel events').toEqual(expected);
   });
 });

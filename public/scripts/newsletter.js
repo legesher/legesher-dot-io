@@ -65,7 +65,6 @@ if (form && messageElement) {
           // undefined values, and the loader turns PostHog's own campaign
           // collection off so no placeholder keys are added beside these.
           analytics.capture(analytics.events.completed, { utm_source: utmSource, utm_campaign: utmCampaign });
-          if (typeof email === 'string') analytics.identify(email);
         }
         messageElement.textContent = data.message || 'Check your email to confirm your subscription!';
         messageElement.className = 'text-sm text-green-600 mt-4';

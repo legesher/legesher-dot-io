@@ -60,8 +60,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  16 passed (16)` then `      Tests  273 passed (273)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  13 passed | 3 skipped (16)` then `      Tests  242 passed | 19 skipped (261)`
+- `npm test`: ` Test Files  17 passed (17)` then `      Tests  293 passed (293)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  14 passed | 3 skipped (17)` then `      Tests  262 passed | 19 skipped (281)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -127,10 +127,18 @@ Facts behind those commands:
   shows that shape today, so the setting itself is asserted).
 - Two guards keep the PostHog loader honest: `src/lib/analytics-csp.test.ts` reads every built page
   and asserts the loader is present exactly when the policy carries PostHog's origin, sits in
-  `<body>` after the content, and that a build without the key mentions PostHog nowhere;
+  `<body>` after the content, and that a build without the key has no script that references PostHog
+  (the privacy page names it in prose);
   `src/lib/analytics-loader.test.ts` pins each promise the privacy page makes (zero storage, Do Not
-  Track, no session reconstruction, no profiling) to the loader option that keeps it, and the event
-  schema to its five names. Exercise the keyed branch locally with
+  Track, Global Privacy Control, no session reconstruction, no profiling) to the loader option that
+  keeps it, the event schema to its five names, and forbids any way to name a visitor; it also runs
+  the loader against a stand-in page to prove Do Not Track and Global Privacy Control stop it before
+  any request, and that a capture reaches PostHog as a capture with no address; and it runs
+  `public/scripts/newsletter.js` against a stand-in form to prove the subscriber's address and name
+  never reach analytics.
+  `src/lib/privacy-signals.test.ts` runs `public/scripts/privacy-signals.js` against each Do Not Track
+  and Global Privacy Control signal and checks that `Layout.astro` renders it before the two Vercel
+  components, whose `beforeSend` hooks it sets. Exercise the keyed branch locally with
   `PUBLIC_POSTHOG_KEY=phc_SENTINEL npm run build && npm test`; CI builds without a key.
 
 ## Gotchas
