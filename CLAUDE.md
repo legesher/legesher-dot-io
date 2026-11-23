@@ -12,10 +12,12 @@ data. Page and layout changes are visual work and are reviewed as such.
   `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`), the
   `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
-  (`## Governing Law {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`.
+  (`## 11. In Case of Disputes {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`.
   Each document opens with its introduction and no heading above it; numbered sections run 1, 2, 3
   with subsections N.1, N.2, and every "Section N" reference names a section the document has
-  (`src/lib/legal-content.test.ts`).
+  (`src/lib/legal-content.test.ts`). A `vercel.json` redirect into a legal document must name a
+  section it has, and `/refunds` (the refund policy's old address) must land on the Terms section
+  that holds the refund rules (`src/lib/legal-redirects.test.ts`).
   `pdfs.json` records what each downloadable PDF was made from (see Gotchas).
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
   `src/layouts/LegalLayout.astro` wraps it for the legal pages: the title and a "Download PDF" button
@@ -58,8 +60,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  15 passed (15)` then `      Tests  270 passed (270)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  12 passed | 3 skipped (15)` then `      Tests  239 passed | 19 skipped (258)`
+- `npm test`: ` Test Files  16 passed (16)` then `      Tests  273 passed (273)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  13 passed | 3 skipped (16)` then `      Tests  242 passed | 19 skipped (261)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
