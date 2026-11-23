@@ -48,6 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   leaving; Section 15 covers paid plans. The "when launched" wording for hosted services is gone.
   Draft: the sentences that depend on jurisdiction, a service provider or plan details carry a
   `data-review` marker.
+- **`/.well-known/security.txt` names support@legesher.com**, the site's one contact address, in
+  place of security@legesher.com.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
   @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
   raised to >=22.12.0). One code change applied: CSP configuration graduated from
