@@ -105,13 +105,14 @@ describe('legal content', () => {
     expect(wrong).toEqual([]);
   });
 
-  // The section and clause numbers a document has: numbered headings, and
-  // paragraphs that open with a clause number.
+  // The section and clause numbers a document has: numbered headings ("## 4. ",
+  // "### 4.2 ") and paragraphs that open with a clause number ("4.2 "). A
+  // paragraph that opens with a bare number ("18 languages ...") is not one.
   function numbersIn(slug: string): Set<string> {
     return new Set(
       source(slug)
         .split('\n')
-        .map((line) => /^(?:#{2,3} )?(\d+(?:\.\d+)?)\.? /.exec(line)?.[1])
+        .map((line) => (/^#{2,3} (\d+(?:\.\d+)?)\.? /.exec(line) ?? /^(\d+\.\d+) /.exec(line))?.[1])
         .filter((n): n is string => Boolean(n)),
     );
   }
