@@ -43,6 +43,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   plan offers a license to extract the vocabulary, train on it or redistribute it in bulk; those
   need a separate written data agreement. The open-source software, the language corpus and the
   documentation are covered by their own licenses.
+- **Fonts served from the site.** The Noto fonts come from the `@fontsource-variable` packages
+  (exact-pinned) in place of Google Fonts, so a page view sends nothing to a font service, and the
+  Content Security Policy no longer allows Google's font and stylesheet origins.
+  `src/lib/self-hosted-fonts.test.ts` fails if any source file or built page names Google Fonts.
 - **Privacy Policy, rewritten.** Legesher Global Tech Ltd is responsible for personal data, under
   the DIFC Data Protection Law. The policy opens with "At a glance" and covers what is collected
   and why (with a legal basis for each), the code you send (not logged, not kept, not used for

@@ -25,7 +25,7 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "img-src 'self' data: https:",
-        "font-src 'self' data: https: https://fonts.gstatic.com",
+        "font-src 'self' data:",
         ["connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com", ...analyticsOrigins].join(' '),
         "object-src 'none'",
         "base-uri 'self'"
@@ -35,7 +35,7 @@ export default defineConfig({
       // emitted the hashes anyway, so browsers ignored 'unsafe-inline' and the
       // policy was hash-only; dropping it keeps that policy under Astro 7.
       styleDirective: {
-        resources: ["'self'", "https://fonts.googleapis.com"]
+        resources: ["'self'"]
       },
       scriptDirective: {
         resources: ["'self'", "https://va.vercel-scripts.com", ...analyticsOrigins]
