@@ -36,7 +36,7 @@ const { title, description, type, audience } = entry.data;
 const date = formatLastUpdated(lastUpdated);
 
 // Each section is listed by its own number ("4. Payments" as 04 Payments); a
-// section without one ("At a glance", an appendix) is listed without a number.
+// section without one (an appendix) is listed without a number.
 const sections = headings
   .filter((heading) => heading.depth === 2)
   .map((heading) => {

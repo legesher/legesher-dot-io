@@ -48,7 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Content Security Policy no longer allows Google's font and stylesheet origins.
   `src/lib/self-hosted-fonts.test.ts` fails if any source file or built page names Google Fonts.
 - **Privacy Policy, rewritten.** Legesher Global Tech Ltd is responsible for personal data, under
-  the DIFC Data Protection Law. The policy opens with "At a glance" and covers what is collected
+  the DIFC Data Protection Law. The policy covers what is collected
   and why (with a legal basis for each), the code you send (not logged, not kept, not used for
   training), the sign-in cookies on the account app (none on the website), sharing, where data is
   handled, how long it is kept, contributed translations, your rights, children, security and

@@ -65,8 +65,8 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
   });
 
   it.each(slugs)('%s: the section list numbers each section by its own number', (slug) => {
-    // "## 4. Payments" is listed as 04 Payments; an unnumbered section ("At a
-    // glance", "Appendix A: ...") is listed with no number.
+    // "## 4. Payments" is listed as 04 Payments; an unnumbered section
+    // ("Appendix A: ...") is listed with no number.
     const html = page(slug);
     const article = between(html, /<article[\s>]/, '</article>');
     const nav = between(html, /<nav[^>]*aria-label="Sections"/, '</nav>');

@@ -76,7 +76,7 @@ describe('legal content', () => {
 
   it.each(docs)('%s: numbered sections run 1, 2, 3 and their clauses N.1, N.2', (slug) => {
     // A section is a numbered level-2 heading ("## 4. Payments"); an unnumbered
-    // one ("## At a glance", "## Appendix A: ...") stands outside the count. A
+    // one ("## Appendix A: ...") stands outside the count. A
     // clause is a numbered level-3 heading or a paragraph that opens with its
     // number ("4.2 Prices exclude tax."); clauses run from 1 in each section.
     const lines = source(slug).split('\n');
