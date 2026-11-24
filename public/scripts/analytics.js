@@ -7,12 +7,12 @@
 // reached the subscribe form and dropped. It never names anyone: subscribing
 // does not link the session to the email address (decided 14 Nov 2026).
 //
-// The configuration keeps the privacy page true, option by option:
-// `persistence: 'memory'` (zero cookies, zero client-side storage),
-// `respect_dnt` (Do Not Track honoured), `disable_session_recording` (no
-// session reconstruction), `autocapture: false` (no behavioural profiling).
+// The configuration keeps the privacy page true: `persistence: 'memory'` (no
+// cookies, nothing stored in the browser), `respect_dnt` and the Global
+// Privacy Control check below (either signal: nothing sent).
 // src/lib/analytics-loader.test.ts pins each of these to the sentence on the
-// privacy page that promises it; change both or neither.
+// privacy page that promises it; change both or neither. It also keeps
+// `disable_session_recording` and `autocapture: false` set as fixed options.
 (function () {
   const script = document.currentScript;
   const key = script && (script.dataset.posthogKey || '').trim();

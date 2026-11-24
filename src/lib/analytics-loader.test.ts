@@ -67,7 +67,7 @@ describe('public/scripts/analytics.js keeps the privacy page true', () => {
 
   it('offers no way to name a visitor', () => {
     expect(loader).not.toMatch(/identify\(|['"]identify['"]|alias|\$set\b|people\./);
-    expect(privacy).toMatch(/cookieless analytics of how our pages, forms and links are used .*without your IP address or any link to your email/);
+    expect(privacy).toMatch(/cookieless analytics of how our pages, forms and links are used, without your IP address or any link to your email/);
   });
 
   it('does nothing without a project key', () => {
