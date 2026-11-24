@@ -71,7 +71,7 @@ suite('every built page loads PostHog only with a policy that allows it (needs n
       expect(mentioned, 'no PostHog origin in the policy when the loader is absent').toBe(false);
       // Prose may name PostHog (the privacy page discloses it); no script may load it.
       // The whole element counts: the opening tag, an inline body and a module import.
-      const scripts = Array.from(html.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi), (m) => m[0]);
+      const scripts = Array.from(html.matchAll(/<script\b[^>]*>[\s\S]*?<\/script\b[^>]*>/gi), (m) => m[0]);
       expect(scripts.filter((t) => /posthog/i.test(t)), 'no script references PostHog').toEqual([]);
       return;
     }
