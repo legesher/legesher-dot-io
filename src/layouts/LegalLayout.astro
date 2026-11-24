@@ -35,13 +35,18 @@ const { entry, headings, lastUpdated, pageTitle } = Astro.props;
 const { title, description, type, audience } = entry.data;
 const date = formatLastUpdated(lastUpdated);
 
+// Each section is listed by its own number ("4. Payments" as 04 Payments); a
+// section without one ("At a glance", an appendix) is listed without a number.
 const sections = headings
   .filter((heading) => heading.depth === 2)
-  .map((heading, index) => ({
-    slug: heading.slug,
-    number: String(index + 1).padStart(2, '0'),
-    text: heading.text.replace(/^\d+\.\s*/, ''),
-  }));
+  .map((heading) => {
+    const numbered = /^(\d+)\.\s*(.*)$/.exec(heading.text);
+    return {
+      slug: heading.slug,
+      number: numbered ? numbered[1].padStart(2, '0') : '',
+      text: numbered ? numbered[2] : heading.text,
+    };
+  });
 
 // One brand tint per audience, so a document for one audience reads apart at a glance.
 const AUDIENCE_TINT: Record<string, string> = {

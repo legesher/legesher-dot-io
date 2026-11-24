@@ -66,6 +66,6 @@ describe('Layout.astro renders the signal script before the Vercel components', 
 
 describe('the privacy page makes the promise this keeps', () => {
   it('names both signals in one sentence', () => {
-    expect(privacy).toMatch(/Do Not Track and Global Privacy Control:\*\* when your browser sends either signal, our analytics send nothing/);
+    expect(privacy).toMatch(/When your browser sends Do Not Track or Global Privacy Control, our analytics records nothing/);
   });
 });

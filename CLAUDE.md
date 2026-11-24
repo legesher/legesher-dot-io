@@ -12,12 +12,14 @@ data. Page and layout changes are visual work and are reviewed as such.
   `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`), the
   `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
-  (`## 11. In Case of Disputes {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`.
-  Each document opens with its introduction and no heading above it; numbered sections run 1, 2, 3
-  with subsections N.1, N.2, and every "Section N" reference names a section the document has
+  (`## 15. Governing law and disputes {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`.
+  Each document opens with its introduction and no heading above it. Numbered sections run 1, 2, 3
+  and their clauses (a paragraph that opens "4.2 ") run N.1, N.2; an unnumbered section ("At a
+  glance", an appendix) carries no clause numbers, and the section list shows it without a number.
+  Every "Section N" reference, "Terms, Section N" included, names a section or clause that exists
   (`src/lib/legal-content.test.ts`). A `vercel.json` redirect into a legal document must name a
   section it has, and `/refunds` (the refund policy's old address) must land on the Terms section
-  that holds the refund rules (`src/lib/legal-redirects.test.ts`).
+  on canceling and refunds (`src/lib/legal-redirects.test.ts`).
   `pdfs.json` records what each downloadable PDF was made from (see Gotchas).
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
   `src/layouts/LegalLayout.astro` wraps it for the legal pages: the title and a "Download PDF" button
@@ -60,8 +62,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  17 passed (17)` then `      Tests  293 passed (293)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  14 passed | 3 skipped (17)` then `      Tests  262 passed | 19 skipped (281)`
+- `npm test`: ` Test Files  17 passed (17)` then `      Tests  295 passed (295)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  14 passed | 3 skipped (17)` then `      Tests  262 passed | 21 skipped (283)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files

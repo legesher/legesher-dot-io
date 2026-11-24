@@ -17,15 +17,21 @@ const privacy = readFileSync(join(root, 'src', 'content', 'legal', 'privacy.mdx'
 // Each promise the privacy page makes, the sentence that makes it, and the
 // PostHog option that keeps it true.
 const PROMISES = [
-  { promise: 'zero cookies and no client-side storage', sentence: /zero cookies/i, option: /persistence:\s*'memory'/ },
+  {
+    promise: 'no cookies and nothing stored in the browser',
+    sentence: /www\.legesher\.io sets no cookies and stores nothing in your browser/,
+    option: /persistence:\s*'memory'/,
+  },
   { promise: 'Do Not Track is honoured', sentence: /Do Not Track/, option: /respect_dnt:\s*true/ },
   { promise: 'Global Privacy Control is honoured', sentence: /Global Privacy Control/, option: /nav\.globalPrivacyControl === true/ },
-  { promise: 'no session reconstruction', sentence: /reconstruct a browsing session/i, option: /disable_session_recording:\s*true/ },
-  { promise: 'no behavioural profiling', sentence: /behavioural profiling/i, option: /autocapture:\s*false/ },
 ] as const;
 
 // Options the funnel needs set regardless of what the privacy page says.
 const FIXED_OPTIONS = [
+  // No session recording and no autocapture: the page no longer spells these
+  // out, and the loader keeps both off.
+  /disable_session_recording:\s*true/,
+  /autocapture:\s*false/,
   /capture_pageview:\s*false/,
   /capture_pageleave:\s*false/,
   /disable_surveys:\s*true/,
@@ -61,7 +67,7 @@ describe('public/scripts/analytics.js keeps the privacy page true', () => {
 
   it('offers no way to name a visitor', () => {
     expect(loader).not.toMatch(/identify\(|['"]identify['"]|alias|\$set\b|people\./);
-    expect(privacy).toMatch(/Subscribing does not link these interactions to your email address/);
+    expect(privacy).toMatch(/analytics on the newsletter form, without your IP address or any link to your email/);
   });
 
   it('does nothing without a project key', () => {

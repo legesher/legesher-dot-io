@@ -15,9 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its icon, an "All users" audience tag and language). On a phone the list folds into "On
   this page", and a table wider than the text scrolls inside its own box. Each document opens with
   its introduction and no heading above it.
-- **Paid plans, cancellation and refunds in the Terms (Section 6).** Billing through Polar as
-  merchant of record, cancelling, refunds, failed payments, upgrades and downgrades, and the
-  account after cancellation. `/refunds` redirects there. `src/lib/page-dates.test.ts` guards that
+- **Paid plans, canceling and refunds in the Terms (Sections 4 to 6).** Payments through Polar as
+  merchant of record, canceling and refunds, failed payments and ending a plan. `/refunds`
+  redirects to Section 5. `src/lib/page-dates.test.ts` guards that
   every dated page reads its own `LAST_UPDATED` entry and that every entry is an ISO date the
   formatter renders.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
@@ -34,20 +34,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Terms of Service, re-cut and regrouped.** The Terms are with Legesher Global Tech Limited,
-  registered in the DIFC, and open with a one-line company description. They are governed by DIFC
-  law, with disputes in the DIFC courts and a consumer's local rights kept. One contact address,
-  support@legesher.com. The sections follow what a reader does: Your Account, Using Legesher,
-  Your Code and Outputs, Feedback, Subscriptions, Fees and Payment, Open-Source Software,
-  Ownership and the Legesher Brand, Disclaimers, Liability and Indemnity, General Terms, and In
-  Case of Disputes. The Apache 2.0 rights in the open-source code are stated once (Section 7), and
-  the licensing of Curated Datasets and Curriculum is removed until they launch. Section 6.1 names
-  the current plans: Free, Individual, and Team or Enterprise. No plan offers a license for
-  harvesting hosted-service outputs or training on them: building a substitute or competing
-  product from outputs is prohibited, and bulk access or training needs a separate written data
-  agreement. Section 4.1 says in short what the hosted services keep and points to the Privacy
-  Policy. The "when launched" wording for hosted services is gone. Draft: the sentences that
-  depend on jurisdiction, a service provider or plan details carry a `data-review` marker.
+- **Terms of Service, rewritten.** A contract with Legesher Global Tech Ltd, governed by DIFC law
+  with disputes in the DIFC Courts and a consumer's local rights kept. The Terms open with "At a
+  glance" and run in 17 numbered sections of numbered clauses: these Terms, your account, plans,
+  payments, canceling and refunds, failed payments, acceptable use, your code and the Legesher
+  vocabulary, suspension, intellectual property, disclaimers, liability, indemnification,
+  changes, governing law, general, and contact. One contact address, support@legesher.com. No
+  plan offers a license to extract the vocabulary, train on it or redistribute it in bulk; those
+  need a separate written data agreement. The open-source software, the language corpus and the
+  documentation are covered by their own licenses.
+- **Privacy Policy, rewritten.** Legesher Global Tech Ltd is responsible for personal data, under
+  the DIFC Data Protection Law. The policy opens with "At a glance" and covers what is collected
+  and why (with a legal basis for each), the code you send (not logged, not kept, not used for
+  training), the sign-in cookies on the account app (none on the website), sharing, where data is
+  handled, how long it is kept, contributed translations, your rights, children, security and
+  changes, with the service providers in Appendix A and the EEA and UK in Appendix B. One contact
+  address, support@legesher.com.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
   @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
   raised to >=22.12.0). One code change applied: CSP configuration graduated from

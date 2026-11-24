@@ -74,44 +74,60 @@ describe('legal content', () => {
     expect(body.split('\n').filter((line) => /^#{2,3} (\d+\.\s*)?Introduction\b/.test(line))).toEqual([]);
   });
 
-  it.each(docs)('%s: numbered sections run 1, 2, 3 and subsections N.1, N.2', (slug) => {
-    const headings = source(slug)
-      .split('\n')
-      .filter((line) => /^#{2,3} /.test(line));
-    if (!headings.some((line) => /^## \d+\. /.test(line))) return; // an unnumbered document
+  it.each(docs)('%s: numbered sections run 1, 2, 3 and their clauses N.1, N.2', (slug) => {
+    // A section is a numbered level-2 heading ("## 4. Payments"); an unnumbered
+    // one ("## At a glance", "## Appendix A: ...") stands outside the count. A
+    // clause is a numbered level-3 heading or a paragraph that opens with its
+    // number ("4.2 Prices exclude tax."); clauses run from 1 in each section.
+    const lines = source(slug).split('\n');
+    if (!lines.some((line) => /^## \d+\. /.test(line))) return; // an unnumbered document
     let section = 0;
-    let sub = 0;
+    let numbered = false;
+    let clause = 0;
     const wrong: string[] = [];
-    for (const line of headings) {
+    for (const line of lines) {
       if (line.startsWith('## ')) {
-        section += 1;
-        sub = 0;
-        if (!line.startsWith(`## ${section}. `)) wrong.push(`${line} (expected ${section}.)`);
-      } else if (/^### \d/.test(line)) {
-        sub += 1;
-        if (!line.startsWith(`### ${section}.${sub} `)) wrong.push(`${line} (expected ${section}.${sub})`);
+        numbered = /^## \d+\. /.test(line);
+        clause = 0;
+        if (numbered) {
+          section += 1;
+          if (!line.startsWith(`## ${section}. `)) wrong.push(`${line} (expected ${section}.)`);
+        }
+        continue;
+      }
+      const number = /^(?:### )?(\d+)\.(\d+) /.exec(line);
+      if (!number) continue;
+      clause += 1;
+      if (!numbered || line.replace(/^### /, '').split(' ')[0] !== `${section}.${clause}`) {
+        wrong.push(`${line.slice(0, 50)} (expected ${numbered ? `${section}.${clause}` : 'no clause number'})`);
       }
     }
     expect(wrong).toEqual([]);
   });
 
+  // The section and clause numbers a document has: numbered headings, and
+  // paragraphs that open with a clause number.
+  function numbersIn(slug: string): Set<string> {
+    return new Set(
+      source(slug)
+        .split('\n')
+        .map((line) => /^(?:#{2,3} )?(\d+(?:\.\d+)?)\.? /.exec(line)?.[1])
+        .filter((n): n is string => Boolean(n)),
+    );
+  }
+
   it.each(docs)('%s: every "Section N" reference names a section the document has', (slug) => {
     const text = source(slug);
-    const numbers = new Set(
-      text
-        .split('\n')
-        .map((line) => /^#{2,3} (\d+(?:\.\d+)?)\.? /.exec(line)?.[1])
-        .filter(Boolean),
-    );
-    // "Section 7", "sections 4.2, 7.4, and 15", and a bare "in 3.1" or "under 3.1".
+    // "Section 7", "sections 4.2, 7.4, and 15", a bare "in 3.1", "under 3.1" or
+    // "as 5.3 provides", and "Terms, Section 2.1" (checked against the Terms).
     const LIST = /, and |, | and /;
     const refs = [
-      ...[...text.matchAll(/\bsections? (\d+(?:\.\d+)?(?:(?:, and |, | and )\d+(?:\.\d+)?)*)/gi)].flatMap((m) =>
-        m[1].split(LIST),
+      ...[...text.matchAll(/\b(Terms, )?sections? (\d+(?:\.\d+)?(?:(?:, and |, | and )\d+(?:\.\d+)?)*)/gi)].flatMap((m) =>
+        m[2].split(LIST).map((ref) => ({ doc: m[1] ? 'terms' : slug, ref })),
       ),
-      ...[...text.matchAll(/\b(?:in|under) (\d+\.\d+)\b/g)].map((m) => m[1]),
+      ...[...text.matchAll(/\b(?:in|under|as) (\d+\.\d+)\b/g)].map((m) => ({ doc: slug, ref: m[1] })),
     ];
-    expect(refs.filter((ref) => !numbers.has(ref))).toEqual([]);
+    expect(refs.filter(({ doc, ref }) => !numbersIn(doc).has(ref)).map(({ doc, ref }) => `${doc} ${ref}`)).toEqual([]);
   });
 });
 

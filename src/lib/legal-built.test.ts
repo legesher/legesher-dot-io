@@ -64,6 +64,21 @@ suite('legal pages: section list and review markers (needs npm run build)', () =
     expect(links).toEqual(headingIds);
   });
 
+  it.each(slugs)('%s: the section list numbers each section by its own number', (slug) => {
+    // "## 4. Payments" is listed as 04 Payments; an unnumbered section ("At a
+    // glance", "Appendix A: ...") is listed with no number.
+    const html = page(slug);
+    const article = between(html, /<article[\s>]/, '</article>');
+    const nav = between(html, /<nav[^>]*aria-label="Sections"/, '</nav>');
+    const expected = [...article.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)].map((m) => {
+      const heading = text(m[1]);
+      const n = /^(\d+)\.\s*(.*)$/.exec(heading);
+      return n ? `${n[1].padStart(2, '0')} ${n[2]}` : heading;
+    });
+    const listed = [...nav.matchAll(/<li[\s>][\s\S]*?<\/li>/g)].map((m) => text(m[0]));
+    expect(listed).toEqual(expected);
+  });
+
   it.each(slugs)('%s: every table sits in its own scroll box', (slug) => {
     // A table wider than the text scrolls inside the box (src/components/LegalTable.astro),
     // never the page, and keeps the full width of the text when it fits.
