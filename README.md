@@ -2,7 +2,7 @@
 
 <h1 align="center"><a href="https://legesher.io">Legesher.io</a></h1>
 <blockquote align="center">Legesher's public website: <a href="https://legesher.io">legesher.io</a></blockquote>
-<p align="center">We create access for developers worldwide to code in context with their native language. Through native-language collaboration tools, we're empowering the next generation of global innovators to think, create, and solve problems in the language of their ideas—not be confined by the language of existing software.</p>
+<p align="center">We create access for developers, builders, and learners worldwide to code in context with their heart language. Through heart-language collaboration tools, we're empowering the next generation to think, create, and solve problems in the language of their ideas, not be confined by the language of existing software.</p>
 
 <!-- DEVELOPMENT BADGES -->
 <p align="center" style="margin-bottom: 5px; margin-top: 5px;">
