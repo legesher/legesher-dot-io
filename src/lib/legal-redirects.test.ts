@@ -2,7 +2,7 @@
 // checked against the document's source (src/content/legal/<slug>.mdx), so it
 // runs without a build: the section it names must exist, and /refunds, which
 // was the refund policy's address before the policy became part of the Terms,
-// must land on the Terms section on canceling and refunds.
+// must land on the Terms section that holds the canceling and refund rules.
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -43,7 +43,8 @@ describe('redirects into legal documents', () => {
     expect(refunds, 'vercel.json redirects /refunds into a legal document').toBeDefined();
     expect(refunds!.slug).toBe('terms');
     const body = section('terms', refunds!.id);
-    expect(body.split('\n')[0], `the section at #${refunds!.id} is the refunds section`).toMatch(/^## \d+\. .*refunds/i);
+    expect(body.split('\n')[0], `#${refunds!.id} is a numbered section of the Terms`).toMatch(/^## \d+\. /);
+    expect(body, `the section at #${refunds!.id} holds the canceling rules`).toMatch(/\*\*Canceling\*\*\./);
     expect(body, `the section at #${refunds!.id} holds the 14-day refund`).toMatch(/refund within 14 days/);
   });
 });

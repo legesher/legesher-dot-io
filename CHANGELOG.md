@@ -17,9 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its introduction and no heading above it.
 - **Usage Policy.** A third legal document at `/usage-policy`, part of the Terms: what you may not do
   when you use Legesher, and how to report misuse. The footer links it beside the other two.
-- **Paid plans, canceling and refunds in the Terms (Sections 4 to 6).** Payments through Polar as
-  merchant of record, canceling and refunds, failed payments and ending a plan. `/refunds`
-  redirects to Section 5. `src/lib/page-dates.test.ts` guards that
+- **Paid plans, canceling and refunds in the Terms (Section 4, Subscription Fees and Payments).**
+  Plans, payments through Polar as merchant of record, canceling and refunds, failed payments and
+  ending a plan. `/refunds` redirects to Section 4. `src/lib/page-dates.test.ts` guards that
   every dated page reads its own `LAST_UPDATED` entry and that every entry is an ISO date the
   formatter renders.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
@@ -37,13 +37,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **Terms of Service, rewritten.** A contract with Legesher Global Tech Ltd, governed by DIFC law
-  with disputes in the DIFC Courts. The Terms open with an introduction, then run in 17 numbered
-  sections whose paragraphs open with a bold title: who we are, your account, plans, payments,
-  canceling and refunds, failed payments, the Usage Policy, your code and the Legesher vocabulary,
-  suspension, intellectual property, disclaimers, liability, indemnification, changes, governing
-  law, general, and contact. One contact address, support@legesher.com. No plan offers a license
-  to extract the vocabulary, train on it or redistribute it in bulk; those need a separate written
-  data agreement. The open-source software and datasets are covered by their own licenses.
+  with disputes in the DIFC Courts. The Terms open with a welcome line and an introduction, then
+  run in 14 numbered sections whose paragraphs open with a bold title: who we are, account
+  creation and access, use of our Services (under the Usage Policy), subscription fees and
+  payments, your code and the Legesher vocabulary, suspension, intellectual property, disclaimers,
+  liability, indemnification, changes, governing law, general, and contact. No plan offers a
+  license to extract the vocabulary, train on it or redistribute it in bulk; those need a separate
+  written data agreement. The open-source software and datasets are covered by their own licenses.
 - **Fonts served from the site.** The Noto fonts come from the `@fontsource-variable` packages
   (exact-pinned) in place of Google Fonts, so a page view sends nothing to a font service, and the
   Content Security Policy no longer allows Google's font and stylesheet origins.

@@ -12,7 +12,7 @@ data. Page and layout changes are visual work and are reviewed as such.
   `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`, `usage-policy.mdx`), the
   `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
-  (`## 15. Governing law and disputes {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`,
+  (`## 12. Governing Law and Disputes {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`,
   read as `LAST_UPDATED.terms`, or `LAST_UPDATED['usage-policy']` for a slug with a hyphen.
   Each document opens with its introduction and no heading above it. Numbered sections run 1, 2, 3.
   Their clauses are paragraphs that open with a bold title (`**Minimum age**. You must be ...`) and
@@ -21,7 +21,7 @@ data. Page and layout changes are visual work and are reviewed as such.
   Every "Section N" reference, "Terms, Section N" included, names a section or clause that exists
   (`src/lib/legal-content.test.ts`). A `vercel.json` redirect into a legal document must name a
   section it has, and `/refunds` (the refund policy's old address) must land on the Terms section
-  on canceling and refunds (`src/lib/legal-redirects.test.ts`).
+  that holds the canceling and refund rules (`src/lib/legal-redirects.test.ts`).
   `pdfs.json` records what each downloadable PDF was made from (see Gotchas).
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
   `src/layouts/LegalLayout.astro` wraps it for the legal pages: the title and a "Download PDF" button
