@@ -146,6 +146,33 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
   .legal-document > :global(:first-child) {
     margin-top: 0;
   }
+  /* Legal tables sit on the brand's light blue (background-cyan), with a
+     deeper header row, white lines between rows and padding on every side */
+  .legal-document :global([data-legal-table]) {
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+  }
+  .legal-document :global([data-legal-table] table) {
+    margin: 0;
+    background-color: #e8f6fd;
+  }
+  .legal-document :global([data-legal-table] thead) {
+    background-color: #d3eef9;
+    border-bottom: 0;
+  }
+  .legal-document :global([data-legal-table] th),
+  .legal-document :global([data-legal-table] td) {
+    padding: 0.625rem 0.75rem;
+  }
+  .legal-document :global([data-legal-table] tbody tr) {
+    border-bottom-color: #ffffff;
+  }
+  /* Code names (the cookie names) show without the backticks the
+     typography plugin draws around inline code */
+  .legal-document :global(code::before),
+  .legal-document :global(code::after) {
+    content: none;
+  }
   /* A table whose cells hold lists (Privacy, Legal Bases): the lists sit
      tight in their cells, and the columns are set so a short item such as
      "Identity and Contact Data" keeps to one line on a wide screen */
