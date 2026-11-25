@@ -21,7 +21,7 @@ data. Page and layout changes are visual work and are reviewed as such.
   Every "Section N" reference, "Terms, Section N" included, names a section or clause that exists
   (`src/lib/legal-content.test.ts`). A `vercel.json` redirect into a legal document must name a
   section it has, and `/refunds` (the refund policy's old address) must land on the Terms section
-  that holds the canceling and refund rules (`src/lib/legal-redirects.test.ts`).
+  that holds subscription cancellation and says which payments are refunded (`src/lib/legal-redirects.test.ts`).
   `pdfs.json` records what each downloadable PDF was made from (see Gotchas).
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
   `src/layouts/LegalLayout.astro` wraps it for the legal pages: the title and a "Download PDF" button

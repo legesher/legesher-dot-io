@@ -17,9 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its introduction and no heading above it.
 - **Usage Policy.** A third legal document at `/usage-policy`, part of the Terms: what you may not do
   when you use Legesher, and how to report misuse. The footer links it beside the other two.
-- **Paid plans, canceling and refunds in the Terms (Section 4, Subscription Fees and Payments).**
-  Plans, payments through Polar as merchant of record, canceling and refunds, failed payments and
-  ending a plan. `/refunds` redirects to Section 4. `src/lib/page-dates.test.ts` guards that
+- **Subscriptions, fees and payments in the Terms (Section 4).** Fees and billing, additional fees,
+  and subscriptions: their content, automatic renewal, cancellation at least 24 hours before a
+  renewal, and fees paid up front with at least 30 days' notice of an increase. Payments are
+  non-refundable except as the Terms say or the law requires. `/refunds` redirects to Section 4.
+  `src/lib/page-dates.test.ts` guards that
   every dated page reads its own `LAST_UPDATED` entry and that every entry is an ISO date the
   formatter renders.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
