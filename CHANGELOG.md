@@ -41,11 +41,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Terms of Service, rewritten.** A contract with Legesher Global Tech Ltd, governed by DIFC law
   with disputes in the DIFC Courts. The Terms open with a welcome line and an introduction, then run
   in 13 numbered sections whose paragraphs open with a bold title: who we are, account creation and
-  access, use of our Services (under the Usage Policy), subscriptions, fees and payments, your code
-  and the Legesher vocabulary, feedback, third-party services and links, content moderation,
-  software, ownership of the Services, disclaimer of warranties, limitations of liability and
-  indemnity, general terms (changes to the Services and the Terms, supplemental terms, termination,
-  brand use and legal compliance), and in case of disputes. Support requests go to
+  access, use of our Services (under the Usage Policy), subscriptions, fees and payments, inputs,
+  outputs, actions and the Legesher vocabulary (your code stays yours; you may use Outputs in your
+  projects; the vocabulary inside them stays ours), feedback, third-party services and links,
+  content moderation, software, ownership of the Services, disclaimer of warranties, limitations of
+  liability and indemnity, general terms (changes to the Services and the Terms, supplemental terms,
+  termination, brand use and legal compliance), and in case of disputes. Support requests go to
   support@legesher.com and brand permission requests to marketing@legesher.com. No plan offers a
   license to extract the vocabulary, train on it or redistribute it in bulk; those need a separate
   written data agreement. The open-source software and datasets are covered by their own licenses.
