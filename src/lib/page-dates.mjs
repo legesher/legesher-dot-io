@@ -1,4 +1,4 @@
-// Single source for each page's "last updated" date.
+// Single source for each page's date, which a legal page shows as "Effective".
 //
 // Consumed twice: the page renders it as human-readable text, and
 // astro.config.mjs emits it as <lastmod> in the sitemap. Keeping one constant

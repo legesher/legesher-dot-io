@@ -72,7 +72,7 @@ try {
       margin: { top: '0.75in', bottom: '0.75in', left: '0.75in', right: '0.75in' },
       displayHeaderFooter: true,
       headerTemplate: '<span></span>',
-      footerTemplate: `<div style="font-family:Helvetica,Arial,sans-serif;font-size:8px;color:#6b7280;width:100%;padding:0 0.75in;display:flex;justify-content:space-between"><span>${escape(title)} · Last updated ${escape(formatLastUpdated(LAST_UPDATED[slug]))}</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>`,
+      footerTemplate: `<div style="font-family:Helvetica,Arial,sans-serif;font-size:8px;color:#6b7280;width:100%;padding:0 0.75in;display:flex;justify-content:space-between"><span>${escape(title)} · Effective ${escape(formatLastUpdated(LAST_UPDATED[slug]))}</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>`,
     });
     await page.close();
     manifest[slug] = { source, pdf: sha256(path) };

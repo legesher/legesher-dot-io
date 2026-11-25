@@ -67,7 +67,9 @@ describe('astro.config.mjs', () => {
   });
 });
 
-suite('each dated page shows its effective date (needs npm run build)', () => {
+// The date shows once, as Effective in the document details
+// (legal-built.test.ts checks the row); no closing "Effective date" line repeats it.
+suite('each dated page shows its effective date once (needs npm run build)', () => {
   it.each(Object.entries(LAST_UPDATED))('%s', (slug, iso) => {
     const html = readFileSync(join(output, slug, 'index.html'), 'utf-8');
     // Text between tags, joined. Not a sanitizer; nothing here is rendered.
@@ -75,6 +77,6 @@ suite('each dated page shows its effective date (needs npm run build)', () => {
       .split(/<[^>]*>/)
       .join('')
       .replace(/\s+/g, ' ');
-    expect(text).toContain(`Effective date: ${formatLastUpdated(iso)}`);
+    expect(text.split(formatLastUpdated(iso)).length - 1, `${slug}: times the date appears`).toBe(1);
   });
 });

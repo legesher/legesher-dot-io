@@ -1,7 +1,7 @@
 ---
 // The legal-center layout for the documents in src/content/legal. The top of
 // the page holds only the title and a button that downloads the PDF; the
-// document's details (last updated, type, audience, language) sit in a
+// document's details (effective date, type, audience, language) sit in a
 // plain list on the right from xl, and above the document between lg and xl
 // so the text keeps a readable width. A numbered list of the sections runs
 // down the left from lg, and folds into "On this page" below it. The columns
@@ -76,7 +76,7 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
       <aside aria-label="Document details" class="mb-8 lg:col-start-2 lg:row-start-1 lg:mx-auto lg:w-full lg:max-w-[44rem] xl:mx-0 xl:mb-0 xl:max-w-none xl:col-start-3 xl:sticky xl:top-28 xl:self-start print:mb-6 print:max-w-none">
         <dl class="text-sm border-b border-gray-200">
           <div class={ROW}>
-            <dt class="text-gray-500">Last updated</dt>
+            <dt class="text-gray-500">Effective</dt>
             <dd class="text-gray-900">{date}</dd>
           </div>
           <div class={ROW}>
@@ -130,9 +130,6 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
 
       <article class="legal-document min-w-0 lg:mx-auto lg:w-full lg:max-w-[44rem] lg:col-start-2 lg:row-start-2 xl:row-start-1 prose max-w-none text-gray-800 prose-headings:text-gray-900 prose-headings:font-semibold prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-2 prose-p:my-3 prose-p:leading-normal prose-li:my-1 prose-li:leading-normal prose-ul:my-3 prose-ol:my-3 prose-a:text-brand-cyan hover:prose-a:text-brand-coral prose-table:text-sm prose-table:my-4">
         <slot />
-        <p class="text-sm text-gray-500 mt-12">
-          <em>Effective date: {date}</em>
-        </p>
       </article>
     </div>
   </main>

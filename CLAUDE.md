@@ -26,7 +26,7 @@ data. Page and layout changes are visual work and are reviewed as such.
 - `src/layouts/Layout.astro`: the single page shell; it imports `src/styles/globals.css`.
   `src/layouts/LegalLayout.astro` wraps it for the legal pages: the title and a "Download PDF" button
   at the top, a numbered section list on the left built from the level-2 headings, and the
-  document's details (last updated, type, audience, language) on the right.
+  document's details (effective date, type, audience, language) on the right.
 - `src/components/`: page sections (`Header`, `Hero`, `Features`, `CodeEditor`, `Newsletter`,
   `Footer`, `ButtonLink`), `LegalTable` (a legal document's table in its own sideways scroll box)
   and `ui/`, the shadcn-style React primitives.
