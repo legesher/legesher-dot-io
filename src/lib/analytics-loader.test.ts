@@ -67,7 +67,7 @@ describe('public/scripts/analytics.js keeps the Cookie Policy true', () => {
 
   it('offers no way to name a visitor', () => {
     expect(loader).not.toMatch(/identify\(|['"]identify['"]|alias|\$set\b|people\./);
-    expect(cookies).toMatch(/\| Analytics \| Our website and documentation site count how they are used with cookieless analytics, which set no cookies and store nothing in your browser\. \|/);
+    expect(cookies).toMatch(/\| Analytics \| We use cookieless analytics, which set no cookies and store nothing in your browser, to understand the general usage of, and to improve, our Services/);
   });
 
   it('does nothing without a project key', () => {
