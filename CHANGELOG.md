@@ -40,13 +40,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Terms of Service, rewritten.** A contract with Legesher Global Tech Ltd, governed by DIFC law
   with disputes in the DIFC Courts. The Terms open with a welcome line and an introduction, then run
-  in 14 numbered sections whose paragraphs open with a bold title: who we are, account creation and
-  access, use of our Services (under the Usage Policy), subscription fees and payments, your code
-  and the Legesher vocabulary, feedback, suspension, intellectual property, disclaimers, liability,
-  indemnification, changes, general, and in case of disputes. The one contact address,
-  support@legesher.com, is named where it is needed; there is no contact section. No plan offers a
-  license to extract the vocabulary, train on it or redistribute it in bulk; those need a separate
-  written data agreement. The open-source software and datasets are covered by their own licenses.
+  in 12 numbered sections whose paragraphs open with a bold title: who we are, account creation and
+  access, use of our Services (under the Usage Policy), subscriptions, fees and payments, your code
+  and the Legesher vocabulary, feedback, suspension, disclaimers, liability, indemnification,
+  general terms (changes to the Services and the Terms, supplemental terms, termination, brand use
+  and legal compliance), and in case of disputes. Support requests go to support@legesher.com and
+  brand permission requests to marketing@legesher.com. No plan offers a license to extract the
+  vocabulary, train on it or redistribute it in bulk; those need a separate written data agreement.
+  The open-source software and datasets are covered by their own licenses.
 - **Fonts served from the site.** The Noto fonts come from the `@fontsource-variable` packages
   (exact-pinned) in place of Google Fonts, so a page view sends nothing to a font service, and the
   Content Security Policy no longer allows Google's font and stylesheet origins.

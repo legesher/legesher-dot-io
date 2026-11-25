@@ -12,7 +12,7 @@ data. Page and layout changes are visual work and are reviewed as such.
   `api/subscribe.ts`, the one route with `export const prerender = false`.
 - `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`, `usage-policy.mdx`), the
   `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
-  (`## 14. In Case of Disputes {#disputes}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`,
+  (`## 12. In Case of Disputes {#disputes}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`,
   read as `LAST_UPDATED.terms`, or `LAST_UPDATED['usage-policy']` for a slug with a hyphen.
   Each document opens with its introduction and no heading above it. Numbered sections run 1, 2, 3.
   Their clauses are paragraphs that open with a bold title (`**Minimum age**. You must be ...`) and
