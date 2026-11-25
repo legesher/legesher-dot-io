@@ -7,10 +7,11 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `legesher-for-education.astro`, the three legal pages (`privacy.astro`,
-  `terms.astro`, `usage-policy.astro`, each a thin page that renders one entry of `src/content/legal`), and
+- `src/pages/`: `index.astro`, `legesher-for-education.astro`, the four legal pages (`privacy.astro`,
+  `terms.astro`, `usage-policy.astro`, `cookies.astro`, each a thin page that renders one entry of `src/content/legal`), and
   `api/subscribe.ts`, the one route with `export const prerender = false`.
-- `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`, `usage-policy.mdx`), the
+- `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`, `usage-policy.mdx`,
+  `cookies.mdx`), the
   `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
   (`## 13. In Case of Disputes {#disputes}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`,
   read as `LAST_UPDATED.terms`, or `LAST_UPDATED['usage-policy']` for a slug with a hyphen.
@@ -59,13 +60,13 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-11-25). They grow with new tests and shrink only when a
+Summary lines to expect (counts as of 2026-11-26). They grow with new tests and shrink only when a
 page or a source file is removed: three built-page guards run once per built page, the legal-page
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  18 passed (18)` then `      Tests  375 passed (375)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  15 passed | 3 skipped (18)` then `      Tests  329 passed | 31 skipped (360)`
+- `npm test`: ` Test Files  18 passed (18)` then `      Tests  403 passed (403)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  15 passed | 3 skipped (18)` then `      Tests  345 passed | 40 skipped (385)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files

@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
 
-// The privacy page says that when your browser sends Do Not Track or Global
+// The Cookie Policy says that when your browser sends Do Not Track or Global
 // Privacy Control, our analytics send nothing. Vercel Web Analytics and Speed
 // Insights check neither signal on their own, so public/scripts/privacy-signals.js
 // gives each a beforeSend that drops every event while a signal is present.
@@ -13,7 +13,7 @@ import { describe, expect, it } from 'vitest';
 const root = join(import.meta.dirname, '..', '..');
 const script = readFileSync(join(root, 'public', 'scripts', 'privacy-signals.js'), 'utf-8');
 const layout = readFileSync(join(root, 'src', 'layouts', 'Layout.astro'), 'utf-8');
-const privacy = readFileSync(join(root, 'src', 'content', 'legal', 'privacy.mdx'), 'utf-8');
+const cookies = readFileSync(join(root, 'src', 'content', 'legal', 'cookies.mdx'), 'utf-8');
 
 const HOOKS = ['webAnalyticsBeforeSend', 'speedInsightsBeforeSend'] as const;
 
@@ -64,8 +64,8 @@ describe('Layout.astro renders the signal script before the Vercel components', 
   });
 });
 
-describe('the privacy page makes the promise this keeps', () => {
+describe('the Cookie Policy makes the promise this keeps', () => {
   it('names both signals in one sentence', () => {
-    expect(privacy).toMatch(/When your browser sends Do Not Track or Global Privacy Control, our analytics records nothing/);
+    expect(cookies).toMatch(/When your browser sends Do Not Track or Global Privacy Control, our analytics records nothing/);
   });
 });

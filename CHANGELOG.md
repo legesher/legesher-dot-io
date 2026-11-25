@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its introduction and no heading above it.
 - **Usage Policy.** A third legal document at `/usage-policy`, part of the Terms: what you may not do
   when you use Legesher, and how to report misuse. The footer links it beside the other two.
+- **Cookie Policy.** A fourth legal document at `/cookies`: how the website, the account app and the
+  documentation site use cookies (the website and documentation site set none; the account app's
+  strictly necessary cookies are listed), how to manage them, and Do Not Track and Global Privacy
+  Control. The cookie details move there from the Privacy Policy, and the footer links it.
+  `analytics-loader.test.ts` and `privacy-signals.test.ts` now check its sentences against the
+  analytics scripts.
 - **Subscriptions, fees and payments in the Terms (Section 4).** Fees and billing, additional fees,
   and subscriptions: their content, automatic renewal, cancellation at least 24 hours before a
   renewal, and fees paid up front with at least 30 days' notice of an increase. Payments are
@@ -61,7 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   automatically, and collected to train our models unless you opt out in your account settings),
   the purposes we use it for, the third parties who receive it or provide it, your rights and
   choices, data transfers, retention, de-identified data and security, children, changes, contact
-  information, and the legal bases. It now also covers the VS Code extension and the
+  information, and the legal bases for each purpose. It now also covers the VS Code extension and the
   documentation site, which had their own privacy page on docs.legesher.io. One contact address,
   support@legesher.com.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,

@@ -3,18 +3,18 @@ import { join } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
 
-// The privacy page promises, in bold, that the site sets zero cookies and
-// writes to no client-side storage, honours Do Not Track, and does not profile
-// visitors. public/scripts/analytics.js is the only script that could break
-// those promises, so its PostHog configuration is pinned here, option by
-// option, against the page that makes them (CORE-1948). A change to either file
-// has to come with a change to the other.
+// The Cookie Policy promises that the website sets zero cookies and writes to
+// no client-side storage, honours Do Not Track and Global Privacy Control, and
+// counts visits with cookieless analytics. public/scripts/analytics.js is the
+// only script that could break those promises, so its PostHog configuration is
+// pinned here, option by option, against the page that makes them (CORE-1948).
+// A change to either file has to come with a change to the other.
 
 const root = join(import.meta.dirname, '..', '..');
 const loader = readFileSync(join(root, 'public', 'scripts', 'analytics.js'), 'utf-8');
-const privacy = readFileSync(join(root, 'src', 'content', 'legal', 'privacy.mdx'), 'utf-8');
+const cookies = readFileSync(join(root, 'src', 'content', 'legal', 'cookies.mdx'), 'utf-8');
 
-// Each promise the privacy page makes, the sentence that makes it, and the
+// Each promise the Cookie Policy makes, the sentence that makes it, and the
 // PostHog option that keeps it true.
 const PROMISES = [
   {
@@ -26,7 +26,7 @@ const PROMISES = [
   { promise: 'Global Privacy Control is honoured', sentence: /Global Privacy Control/, option: /nav\.globalPrivacyControl === true/ },
 ] as const;
 
-// Options the funnel needs set regardless of what the privacy page says.
+// Options the funnel needs set regardless of what the Cookie Policy says.
 const FIXED_OPTIONS = [
   // No session recording and no autocapture: the page no longer spells these
   // out, and the loader keeps both off.
@@ -55,9 +55,9 @@ export const EVENTS = [
   'docs_visited',
 ] as const;
 
-describe('public/scripts/analytics.js keeps the privacy page true', () => {
+describe('public/scripts/analytics.js keeps the Cookie Policy true', () => {
   it.each(PROMISES)('$promise', ({ sentence, option }) => {
-    expect(privacy, 'the privacy page still makes this promise').toMatch(sentence);
+    expect(cookies, 'the Cookie Policy still makes this promise').toMatch(sentence);
     expect(loader, 'the loader keeps it').toMatch(option);
   });
 
@@ -67,7 +67,7 @@ describe('public/scripts/analytics.js keeps the privacy page true', () => {
 
   it('offers no way to name a visitor', () => {
     expect(loader).not.toMatch(/identify\(|['"]identify['"]|alias|\$set\b|people\./);
-    expect(privacy).toMatch(/\| Website visits \| Server logs and cookieless analytics of how our website is used \|/);
+    expect(cookies).toMatch(/\| Analytics \| Our website and documentation site count how they are used with cookieless analytics, which set no cookies and store nothing in your browser\. \|/);
   });
 
   it('does nothing without a project key', () => {
@@ -98,7 +98,7 @@ describe('the event schema is the five funnel events and no more', () => {
     expect(newsletter).toMatch(/legesherAnalytics/);
     expect(newsletter).toMatch(/events\.completed/);
     // Subscribing never names the visitor: no identify call, so PostHog never
-    // holds an email address (decided 14 Nov 2026; the privacy page says so).
+    // holds an email address (decided 14 Nov 2026).
     expect(newsletter).not.toMatch(/\.identify\(/);
     expect(newsletter).not.toMatch(/posthog/i);
   });
