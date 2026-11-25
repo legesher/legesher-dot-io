@@ -45,7 +45,7 @@ describe('redirects into legal documents', () => {
     expect(refunds!.slug).toBe('terms');
     const body = section('terms', refunds!.id);
     expect(body.split('\n')[0], `#${refunds!.id} is a numbered section of the Terms`).toMatch(/^## \d+\. /);
-    expect(body, `the section at #${refunds!.id} holds subscription cancellation`).toMatch(/\*\*Subscription cancellation\.\*\*/);
+    expect(body, `the section at #${refunds!.id} holds subscription cancellation`).toMatch(/\*\*Subscription cancellation\*\*\./);
     expect(body, `the section at #${refunds!.id} says which payments are refunded`).toMatch(/non-refundable/);
   });
 });
