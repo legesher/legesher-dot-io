@@ -56,12 +56,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Content Security Policy no longer allows Google's font and stylesheet origins.
   `src/lib/self-hosted-fonts.test.ts` fails if any source file or built page names Google Fonts.
 - **Privacy Policy, rewritten.** Legesher Global Tech Ltd is responsible for personal data, under
-  the DIFC Data Protection Law. The policy opens with an introduction, then covers what is
-  collected and why (with a legal basis for each), the code you send (not logged, not kept, not
-  used for training), the sign-in cookies on the account app (none on the website), sharing, where
-  data is handled, how long it is kept, contributed translations, your rights, children, security
-  and changes, with the service providers in Appendix A and the EEA and UK in Appendix B. One
-  contact address, support@legesher.com.
+  the DIFC Data Protection Law. The policy opens with the sentence about Legesher and an
+  introduction, then has 11 sections: the personal data we collect (provided directly, received
+  automatically, and collected to train our models unless you opt out in your account settings),
+  the purposes we use it for, who receives it (with the service providers table), your rights and
+  choices, data transfers, retention and security, children, changes, contact information, the
+  legal bases, and the EEA and UK. It now also covers the VS Code extension and the documentation
+  site, which had their own privacy page on docs.legesher.io. One contact address,
+  support@legesher.com.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
   @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
   raised to >=22.12.0). One code change applied: CSP configuration graduated from
