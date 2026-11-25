@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its icon, an "All users" audience tag and language). On a phone the list folds into "On
   this page", and a table wider than the text scrolls inside its own box. Each document opens with
   its introduction and no heading above it.
+- **Usage Policy.** A third legal document at `/usage-policy`, part of the Terms: what you may not do
+  when you use Legesher, and how to report misuse. The footer links it beside the other two.
 - **Paid plans, canceling and refunds in the Terms (Sections 4 to 6).** Payments through Polar as
   merchant of record, canceling and refunds, failed payments and ending a plan. `/refunds`
   redirects to Section 5. `src/lib/page-dates.test.ts` guards that
@@ -35,25 +37,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **Terms of Service, rewritten.** A contract with Legesher Global Tech Ltd, governed by DIFC law
-  with disputes in the DIFC Courts and a consumer's local rights kept. The Terms open with "At a
-  glance" and run in 17 numbered sections of numbered clauses: these Terms, your account, plans,
-  payments, canceling and refunds, failed payments, acceptable use, your code and the Legesher
-  vocabulary, suspension, intellectual property, disclaimers, liability, indemnification,
-  changes, governing law, general, and contact. One contact address, support@legesher.com. No
-  plan offers a license to extract the vocabulary, train on it or redistribute it in bulk; those
-  need a separate written data agreement. The open-source software, the language corpus and the
-  documentation are covered by their own licenses.
+  with disputes in the DIFC Courts. The Terms open with an introduction, then run in 17 numbered
+  sections whose paragraphs open with a bold title: who we are, your account, plans, payments,
+  canceling and refunds, failed payments, the Usage Policy, your code and the Legesher vocabulary,
+  suspension, intellectual property, disclaimers, liability, indemnification, changes, governing
+  law, general, and contact. One contact address, support@legesher.com. No plan offers a license
+  to extract the vocabulary, train on it or redistribute it in bulk; those need a separate written
+  data agreement. The open-source software and datasets are covered by their own licenses.
 - **Fonts served from the site.** The Noto fonts come from the `@fontsource-variable` packages
   (exact-pinned) in place of Google Fonts, so a page view sends nothing to a font service, and the
   Content Security Policy no longer allows Google's font and stylesheet origins.
   `src/lib/self-hosted-fonts.test.ts` fails if any source file or built page names Google Fonts.
 - **Privacy Policy, rewritten.** Legesher Global Tech Ltd is responsible for personal data, under
-  the DIFC Data Protection Law. The policy covers what is collected
-  and why (with a legal basis for each), the code you send (not logged, not kept, not used for
-  training), the sign-in cookies on the account app (none on the website), sharing, where data is
-  handled, how long it is kept, contributed translations, your rights, children, security and
-  changes, with the service providers in Appendix A and the EEA and UK in Appendix B. One contact
-  address, support@legesher.com.
+  the DIFC Data Protection Law. The policy opens with an introduction, then covers what is
+  collected and why (with a legal basis for each), the code you send (not logged, not kept, not
+  used for training), the sign-in cookies on the account app (none on the website), sharing, where
+  data is handled, how long it is kept, contributed translations, your rights, children, security
+  and changes, with the service providers in Appendix A and the EEA and UK in Appendix B. One
+  contact address, support@legesher.com.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
   @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
   raised to >=22.12.0). One code change applied: CSP configuration graduated from

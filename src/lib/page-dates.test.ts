@@ -12,7 +12,7 @@ const PAGES_DIR = join(__dirname, '..', 'pages');
 
 const datedPages = readdirSync(PAGES_DIR)
   .filter((name) => name.endsWith('.astro'))
-  .filter((name) => readFileSync(join(PAGES_DIR, name), 'utf8').includes('LAST_UPDATED.'))
+  .filter((name) => /LAST_UPDATED(\.|\[)/.test(readFileSync(join(PAGES_DIR, name), 'utf8')))
   .map((name) => name.replace(/\.astro$/, ''));
 
 describe('page-dates', () => {
@@ -22,7 +22,8 @@ describe('page-dates', () => {
 
   it.each(datedPages)('%s has a LAST_UPDATED entry matching the key it reads', (slug) => {
     const source = readFileSync(join(PAGES_DIR, `${slug}.astro`), 'utf8');
-    const keysRead = [...source.matchAll(/LAST_UPDATED\.([a-zA-Z0-9_]+)/g)].map((m) => m[1]);
+    // LAST_UPDATED.terms, or LAST_UPDATED['usage-policy'] for a slug with a hyphen.
+    const keysRead = [...source.matchAll(/LAST_UPDATED(?:\.([a-zA-Z0-9_]+)|\['([a-z0-9-]+)'\])/g)].map((m) => m[1] ?? m[2]);
     expect(keysRead).toEqual([slug]);
     expect(LAST_UPDATED).toHaveProperty(slug);
   });

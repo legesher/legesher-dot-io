@@ -1,10 +1,14 @@
 {
   "privacy": {
-    "source": "5f57936ee5cdbace7ea089891e3ece4bc7ffa9a55fa2db60c134c43a29426182",
-    "pdf": "e414bb20c70e48d2a0e7cbce84298028d400122994464e9470cb9246ab8f02fd"
+    "source": "7786de78f665dcd8dd3bde21b5ea751b566dc470f32c2829191308947fdc2508",
+    "pdf": "f5c24c54800a75e9d4fe4dee75bded11ca1c3934cdd3214f7b8fa9b46f2bf27d"
   },
   "terms": {
-    "source": "628d8fb311a3442f0a9952b5c1b6ac70b83063892d33053c0723f62ad4dfb7ef",
-    "pdf": "c97d4b7ddd935e5e3de3a827eb7ad58197d0473e4edb642004b3486aa0b491b1"
+    "source": "d771391da14be0185b15914f5b588aa99d2384fb33b5fe680eddc01dec2a4ca3",
+    "pdf": "92bc19efc04280ae913b324fd0ec7e78d78edda43d4908945116f77dd4329ddb"
+  },
+  "usage-policy": {
+    "source": "7cc531267d7ed112824edee51a9cb8378e997fdf2fa1e686d7115bb97bba3f37",
+    "pdf": "ca2520faa02c3371ac5b6e7830582535a282f66c7f5d0e75828dbaa80ea71866"
   }
 }

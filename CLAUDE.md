@@ -7,15 +7,17 @@ data. Page and layout changes are visual work and are reviewed as such.
 
 ## Layout
 
-- `src/pages/`: `index.astro`, `legesher-for-education.astro`, the two legal pages (`privacy.astro`,
-  `terms.astro`, each a thin page that renders one entry of `src/content/legal`), and
+- `src/pages/`: `index.astro`, `legesher-for-education.astro`, the three legal pages (`privacy.astro`,
+  `terms.astro`, `usage-policy.astro`, each a thin page that renders one entry of `src/content/legal`), and
   `api/subscribe.ts`, the one route with `export const prerender = false`.
-- `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`), the
+- `src/content/legal/`: the legal documents as MDX (`terms.mdx`, `privacy.mdx`, `usage-policy.mdx`), the
   `legal` collection declared in `src/content.config.ts`. Every level-2 heading carries a fixed id
-  (`## 15. Governing law and disputes {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`.
-  Each document opens with its introduction and no heading above it. Numbered sections run 1, 2, 3
-  and their clauses (a paragraph that opens "4.2 ") run N.1, N.2; an unnumbered section ("At a
-  glance", an appendix) carries no clause numbers, and the section list shows it without a number.
+  (`## 15. Governing law and disputes {#governing-law}`); the date is `LAST_UPDATED` in `src/lib/page-dates.mjs`,
+  read as `LAST_UPDATED.terms`, or `LAST_UPDATED['usage-policy']` for a slug with a hyphen.
+  Each document opens with its introduction and no heading above it. Numbered sections run 1, 2, 3.
+  Their clauses are paragraphs that open with a bold title (`**Minimum age**. You must be ...`) and
+  carry no number; a paragraph that does open with one ("4.2 ") must run N.1, N.2. An unnumbered section (an appendix) carries no clause numbers,
+  and the section list shows it without a number.
   Every "Section N" reference, "Terms, Section N" included, names a section or clause that exists
   (`src/lib/legal-content.test.ts`). A `vercel.json` redirect into a legal document must name a
   section it has, and `/refunds` (the refund policy's old address) must land on the Terms section
