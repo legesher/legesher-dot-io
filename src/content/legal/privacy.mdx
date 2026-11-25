@@ -1,52 +1,49 @@
 ---
 title: "Privacy Policy"
-description: "What Legesher collects and why, what happens to the code you send, where your data is handled, how long it is kept, and your rights."
+description: "What Legesher collects and why, how we use and share it, your rights and choices, where your data is handled and how long it is kept, including for the VS Code extension and the documentation site."
 type: "Policy"
 audience: "All users"
 ---
 
-You trust us with your code and your details. This page says exactly what we do with them.
-
-This Privacy Policy explains how Legesher Global Tech Ltd ("**Legesher**", "we") collects, uses and shares your personal data when you use www.legesher.io, your account at app.legesher.io, the Translation API at api.legesher.io, and our newsletter and surveys. Your rights are set out in Section 9.
-
-**Please note: The VS Code extension has its own [privacy page](https://docs.legesher.io/privacy).**
-
-## 1. Who We Are {#who-we-are}
-
 Legesher is a software localization company working to build the bridge between the languages of the world and technology of the digital future.
 
-Legesher Global Tech Ltd is responsible for your personal data. Our Data Protection Officer can be reached at [support@legesher.com](mailto:support@legesher.com). Our affiliates do not receive your personal data.
+This Privacy Policy explains how we collect, use, disclose, and process your personal data when you use our website or other Legesher products and services (the “Services”). This Privacy Policy does not apply to content that we process on behalf of customers of our business offerings, such as our Enterprise accounts. Our use of that data is governed by our customer agreements covering access to and use of those offerings.
 
-## 2. What We Collect and Why {#information-we-collect}
+This Privacy Policy also describes your privacy rights. More information about your rights, and how to exercise them, is set out in Section 4 (“Rights and Choices”).
 
-| Data | What it includes | Legal basis |
-| --- | --- | --- |
-| Account | Your email address, first name, sign-in details and GitHub link, held by our sign-in provider. Our own record holds an account id, your GitHub user id and username, your home region, the languages you choose and any founding language, the Terms version you accepted and any newsletter consent. Never a password or API key | Contract |
-| Payments | Polar collects your name, email, billing address and payment details. We receive your email, plan and its status, never your card details | Contract |
-| Code you send | See Section 3 | Contract |
-| Newsletter | Your first name and email address, the campaign link you arrived from, and your IP address, which our newsletter provider uses for spam prevention | Consent |
-| Surveys and email | What you choose to send us | Legitimate interests |
-| Website visits | Server logs and cookieless analytics of how our website is used | Legitimate interests |
-| Account usage events | Creating your account, creating or revoking an API key, starting checkout and confirming a plan, tied only to your account id. Starting sign-up is counted with a random id, not your account | Legitimate interests |
-| Problem reports | What you write in the Report a problem form, plus your account id, plan, app version and browser type. We send you an acknowledgement email | Contract |
+## 1. Collection of Personal Data {#information-we-collect}
 
-We also use data to keep Legesher secure and to meet legal obligations. You can withdraw consent at any time, for example by unsubscribing.
+### Personal Data You Provide to Us Directly {#personal-data-you-provide-to-us-directly}
 
-## 3. Code You Send to Legesher {#your-code}
+| Data | What it includes |
+| --- | --- |
+| Account | Your email address, first name, sign-in details and GitHub link, held by our sign-in provider. Our own record holds an account id, your GitHub user id and username, your home region, the languages you choose and any founding language, the Terms version you accepted and any newsletter consent. Never a password or API key |
+| Payments | Polar collects your name, email, billing address and payment details. We receive your email, plan and its status, never your card details |
+| Code you send | See below |
+| Newsletter | Your first name and email address, the campaign link you arrived from, and your IP address, which our newsletter provider uses for spam prevention |
+| Surveys and email | What you choose to send us |
+| Problem reports | What you write in the Report a problem form, plus your account id, plan, app version and browser type. We send you an acknowledgement email |
 
-**Translation API**. Your code is processed in memory and returned. It is not logged, not kept and not used to train models.
-
-**Usage records**. For each request we keep a pseudonymous record: your account or key (or, without an account, a salted hash of your network address), the time, tool, languages, size and outcome. If you name a repository, we keep a salted hash of its name. The record never holds your code. A salted hash is a one-way code: no one can turn it back into the original.
+**Translation API**. Your code is processed and returned. We do not log it.
 
 **Names kept for consistency**. In enhanced mode, so a name is translated the same way each time, we hold the names from a repository you identify, with their translations, in memory for your account only. They are never stored and are cleared when the service restarts.
 
-**Enhanced mode**. An AI system included in paid plans that list it. It sends the comments, docstrings, text strings and names from your code, never its structure, to our AI provider in the United States, and returns suggested translations. Its only purpose is translation, set by us, and it makes no decisions about you. The provider does not train on the content and deletes it within 30 days; we keep none of it. We follow the OECD AI Principles.
+**Enhanced mode**. An AI system included in paid plans that list it. It sends the comments, docstrings, text strings and names from your code, never its structure, to our AI provider in the United States, and returns suggested translations. Its only purpose is translation, set by us, and it makes no decisions about you. The provider does not train on the content and deletes it within 30 days. We keep it only as described under Translation API. We follow the OECD AI Principles.
 
 **Connected repositories**. The Legesher GitHub App has read-only access to the repositories you choose. It reads their contents only to provide the features you use, and that code is handled like any code sent to the Translation API. Its access tokens are never stored. Uninstalling the App ends our access.
 
 **On your own machine**. The command line, the language packs and the VS Code extension translate on your machine and send no code to anyone. If your code must not leave your region, use them.
 
-## 4. Cookies {#cookies-and-tracking}
+**Contributed translations**. You contribute translations by pull request to `legesher/language-packs` on GitHub. The word you offer, and a record that it was endorsed, join the public Legesher language corpus on Hugging Face, published under CC BY 4.0. Your name does not appear: you appear as an opaque identifier, and we never publish the link back to you.
+
+### Personal Data We Receive Automatically from Your Use of the Services {#personal-data-we-receive-automatically-from-your-use-of-the-services}
+
+| Data | What it includes |
+| --- | --- |
+| Website visits | Server logs and cookieless analytics of how our website is used |
+| Account usage events | Creating your account, creating or revoking an API key, starting checkout and confirming a plan, tied only to your account id. Starting sign-up is counted with a random id, not your account |
+
+**Usage records**. For each request we keep a pseudonymous record: your account or key (or, without an account, a salted hash of your network address), the time, tool, languages, size and outcome. If you name a repository, we keep a salted hash of its name. The record never holds your code. A salted hash is a one-way code: no one can turn it back into the original.
 
 **Website**. www.legesher.io sets no cookies and stores nothing in your browser.
 
@@ -65,64 +62,29 @@ We also use data to keep Legesher secure and to meet legal obligations. You can 
 
 **Do Not Track and Global Privacy Control**. When your browser sends Do Not Track or Global Privacy Control, our analytics records nothing and the account app sends no usage events.
 
-## 5. Sharing {#how-we-share}
+**Documentation site**. docs.legesher.io is hosted on Vercel, which keeps standard server logs (IP addresses, request times and URLs). Its cookieless Vercel Web Analytics counts page views, referrers, country or region, device type and browser in aggregate, and stores no IP addresses or personal identifiers. If you are signed in to app.legesher.io, a script on the documentation site reads the sign-in cookie in your browser only to choose whether to show a link to your account or one to create an account. It sends nothing and sets no cookie.
 
-We do not sell your data or use it for targeted advertising. We share it only with the providers in Appendix A, who process it for us under contract; when the law requires it; as part of a merger or sale of the business; or with your consent.
+**VS Code extension**. The extension translates on your machine and sends no code to anyone. If you turn on its telemetry (`legesher.telemetry.enabled`), it sends usage statistics: activation events, which commands you use, which languages you translate between, language changes (what prompted them, which settings level supplied the language, and whether the change succeeded), language detection outcomes (the language code and match score only), performance metrics, and error reports without code. It never sends your code or file contents, your name, email or IP address, project names or file paths, the names you define, or literal values from your code. The telemetry library adds a pseudonymous machine id and session id to each event. VS Code itself collects telemetry separately, under Microsoft's privacy statement.
 
-## 6. Where Your Data Is {#where-your-data-lives}
+### Personal Data We Collect or Receive to Train Our Models {#personal-data-we-collect-or-receive-to-train-our-models}
 
-Appendix A lists where each kind of provider handles your data. Most are in the United States, including the Translation API and enhanced mode. We protect transfers outside the DIFC with data processing agreements that include standard contractual clauses.
+**Your Inputs and Outputs**. Unless you opt out of training in your account settings, we may keep your Inputs and Outputs to improve the Services and train our models. If you opt out, your code is not kept or used for training, except Feedback you send us about it or Materials flagged for safety review ([Terms, Section 5](/terms#inputs-and-outputs)).
 
-## 7. How Long We Keep Data {#data-retention}
+**VS Code extension**. If you turn on `legesher.telemetry.contributeToMLTraining` (off by default), the extension sends feedback when you change a Legesher suggestion: the correction (for example, "media" to "promedio"), the kind of code element (function, variable or class) and the kind of operation (for example, arithmetic or string manipulation). It sends no code content and no file paths. Each event carries the same pseudonymous machine id and session id.
 
-| Data | Kept for |
-| --- | --- |
-| Account record | Until you delete your account |
-| API keys | A hash only, until you revoke the key or delete your account |
-| Repository connections | Until you disconnect the repository or delete your account |
-| Subscription records | Until you delete your account. Polar keeps invoices as long as accounting rules require |
-| Account usage events | Up to 2 years, or until you ask us to delete them |
-| Website analytics | Up to 2 years |
-| Server logs | 90 days |
-| Newsletter subscription | Until you unsubscribe |
-| Surveys and email | 1 year |
-| Usage records | Until you delete your account. Then the link to you is removed and only anonymous counts remain |
-| Backups | 30 days |
-| Problem reports | 1 year |
+## 2. Uses of Personal Data Permitted Under Applicable Data Protection Laws {#uses-of-personal-data}
 
-## 8. Contributed Translations {#community}
+We use data to keep Legesher secure and to meet legal obligations.
 
-You contribute translations by pull request to `legesher/language-packs` on GitHub. The word you offer, and a record that it was endorsed, join the public Legesher language corpus on Hugging Face, published under CC BY 4.0. Your name does not appear: you appear as an opaque identifier, and we never publish the link back to you.
+The extension's telemetry helps us improve the product. Its training feedback helps us improve translation accuracy for your language, understand how native speakers approach coding problems, and identify cultural and linguistic patterns in programming.
 
-You can ask us to erase the data that identifies you. Your translations stay in the corpus, with nothing linking them to you. We cannot remove a public pull request or issue you made under your own GitHub account.
+## 3. Recipients and Third-Party Data Sources {#how-we-share}
 
-## 9. Your Rights {#your-rights}
-
-Under the DIFC Data Protection Law (DIFC Law No. 5 of 2020), you can ask to access, correct, delete, restrict or move your data, object to how we use it (including for marketing), and withdraw consent. You also have the right not to be subject to decisions made only by automated processing that significantly affect you. Some rights apply only in certain situations. Using them never affects how we treat you.
-
-Email [support@legesher.com](mailto:support@legesher.com). You do not need an account. We respond within one month, or tell you within that month if we need up to two more.
-
-You can delete your account in Settings. To also delete your account usage events, ask us at the same address.
-
-You can complain to the DIFC Commissioner of Data Protection (commissioner@dp.difc.ae) or apply to the DIFC Courts.
-
-## 10. Children {#childrens-privacy}
-
-Accounts are for people aged at least 18, or the minimum age required to consent to use the Services in their location, whichever is higher ([Terms, Section 2](/terms#your-account)). If we learn that an account belongs to someone younger, we close it and delete its data. The command line, the language packs and the VS Code extension need no account.
-
-## 11. Security {#data-security}
-
-We encrypt data in transit, store API keys only as hashes, limit access to our systems and review our security each year. No system is completely secure.
-
-## 12. Changes {#changes}
-
-When we update this policy, we update its effective date. We tell you about material changes by email or on the website.
-
-## Appendix A: Service Providers {#service-providers}
+We do not sell your data or use it for targeted advertising. We share it only with the providers below, who process it for us under contract; when the law requires it; as part of a merger or sale of the business; or with your consent.
 
 | Provider | What it handles | Where |
 | --- | --- | --- |
-| Hosting and databases | The website, the account app, the Translation API and their databases | United States; the account app runs in Dubai or San Francisco |
+| Hosting and databases | The website, the documentation site, the account app, the Translation API and their databases | United States; the account app runs in Dubai or San Francisco |
 | Backups | Encrypted copies of the account database | United States |
 | Sign-in | Your email address, sign-in details and GitHub link | United States |
 | Email delivery | Account emails | United States |
@@ -139,6 +101,77 @@ When we update this policy, we update its effective date. We tell you about mate
 
 To find out which provider handles any of these, ask us (Section 9).
 
-## Appendix B: European Economic Area and United Kingdom {#eea-uk}
+## 4. Rights and Choices {#your-rights}
 
-If you are in the EEA or the UK, the GDPR or UK GDPR gives you the rights in Section 9, on the legal bases in Section 2. You can also complain to your local data protection authority or, in the UK, the [Information Commissioner's Office](https://ico.org.uk/make-a-complaint/).
+Under the DIFC Data Protection Law (DIFC Law No. 5 of 2020), you can ask to access, correct, delete, restrict or move your data, object to how we use it (including for marketing), and withdraw consent. You also have the right not to be subject to decisions made only by automated processing that significantly affect you. Some rights apply only in certain situations. Using them never affects how we treat you.
+
+Email [support@legesher.com](mailto:support@legesher.com). You do not need an account. We respond within one month, or tell you within that month if we need up to two more.
+
+You can delete your account in Settings. To also delete your account usage events, ask us at the same address.
+
+You can complain to the DIFC Commissioner of Data Protection (commissioner@dp.difc.ae) or apply to the DIFC Courts.
+
+You can withdraw consent at any time, for example by unsubscribing. You can turn off the VS Code extension's telemetry and training feedback at any time in VS Code settings; to delete what it has already sent, email [support@legesher.com](mailto:support@legesher.com).
+
+**Contributed translations**. You can ask us to erase the data that identifies you. Your translations stay in the corpus, with nothing linking them to you. We cannot remove a public pull request or issue you made under your own GitHub account.
+
+## 5. Data Transfers {#where-your-data-lives}
+
+Section 3 lists where each kind of provider handles your data. Most are in the United States, including the Translation API and enhanced mode. We protect transfers outside the DIFC with data processing agreements that include standard contractual clauses.
+
+## 6. Data Retention, Data Lifecycle, and Security Controls {#data-retention}
+
+| Data | Kept for |
+| --- | --- |
+| Account record | Until you delete your account |
+| API keys | A hash only, until you revoke the key or delete your account |
+| Repository connections | Until you disconnect the repository or delete your account |
+| Subscription records | Until you delete your account. Polar keeps invoices as long as accounting rules require |
+| Account usage events | Up to 2 years, or until you ask us to delete them |
+| Website analytics | Up to 2 years |
+| Server logs | 90 days |
+| Newsletter subscription | Until you unsubscribe |
+| Surveys and email | 1 year |
+| Usage records | Until you delete your account. Then the link to you is removed and only anonymous counts remain |
+| Backups | 30 days |
+| Problem reports | 1 year |
+| VS Code extension telemetry | 90 days |
+| VS Code extension training feedback | Indefinitely, pseudonymous |
+
+### Aggregated or De-Identified Information {#aggregated-or-de-identified-information}
+
+### Security Controls Relating to Our Processing of Personal Data {#data-security}
+
+We encrypt data in transit, store API keys only as hashes, limit access to our systems and review our security each year. No system is completely secure. The VS Code extension's telemetry is encrypted in transit (TLS 1.3) and at rest (AES-256).
+
+## 7. Children {#childrens-privacy}
+
+Accounts are for people aged at least 18, or the minimum age required to consent to use the Services in their location, whichever is higher ([Terms, Section 2](/terms#your-account)). If we learn that an account belongs to someone younger, we close it and delete its data. The command line, the language packs and the VS Code extension need no account.
+
+## 8. Changes to Our Privacy Policy {#changes}
+
+When we update this policy, we update its effective date. We tell you about material changes by email or on the website.
+
+## 9. Contact Information {#contact}
+
+Legesher Global Tech Ltd is responsible for your personal data. Our Data Protection Officer can be reached at [support@legesher.com](mailto:support@legesher.com). Our affiliates do not receive your personal data.
+
+## 10. Legal Bases for Processing {#legal-bases}
+
+| Data | Legal basis |
+| --- | --- |
+| Account | Contract |
+| Payments | Contract |
+| Code you send | Contract; legitimate interests for training, which you can opt out of |
+| Newsletter | Consent |
+| Surveys and email | Legitimate interests |
+| Website visits | Legitimate interests |
+| Account usage events | Legitimate interests |
+| Problem reports | Contract |
+| VS Code extension telemetry and training feedback | Consent (you turn each on) |
+
+## 11. Regional Supplemental Disclosures {#regional-disclosures}
+
+### European Economic Area and United Kingdom {#eea-uk}
+
+If you are in the EEA or the UK, the GDPR or UK GDPR gives you the rights in Section 4, on the legal bases in Section 10. You can also complain to your local data protection authority or, in the UK, the [Information Commissioner's Office](https://ico.org.uk/make-a-complaint/).
