@@ -3,9 +3,9 @@ import { join } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
 
-// The Cookie Policy promises that the website sets zero cookies and writes to
-// no client-side storage, honours Do Not Track and Global Privacy Control, and
-// counts visits with cookieless analytics. public/scripts/analytics.js is the
+// The Cookie Policy promises that the website counts visits with cookieless
+// analytics, which set no cookies and write to no client-side storage, and that
+// Do Not Track and Global Privacy Control are honoured. public/scripts/analytics.js is the
 // only script that could break those promises, so its PostHog configuration is
 // pinned here, option by option, against the page that makes them (CORE-1948).
 // A change to either file has to come with a change to the other.
@@ -19,7 +19,7 @@ const cookies = readFileSync(join(root, 'src', 'content', 'legal', 'cookies.mdx'
 const PROMISES = [
   {
     promise: 'no cookies and nothing stored in the browser',
-    sentence: /www\.legesher\.io sets no cookies and stores nothing in your browser/,
+    sentence: /cookieless analytics, which set no cookies and store nothing in your browser/,
     option: /persistence:\s*'memory'/,
   },
   { promise: 'Do Not Track is honoured', sentence: /Do Not Track/, option: /respect_dnt:\s*true/ },
