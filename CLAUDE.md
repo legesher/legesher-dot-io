@@ -59,13 +59,13 @@ npm run check              # astro check
 npm run build              # astro build
 ```
 
-Summary lines to expect (counts as of 2026-11-23). They grow with new tests and shrink only when a
+Summary lines to expect (counts as of 2026-11-25). They grow with new tests and shrink only when a
 page or a source file is removed: three built-page guards run once per built page, the legal-page
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  18 passed (18)` then `      Tests  346 passed (346)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  15 passed | 3 skipped (18)` then `      Tests  312 passed | 22 skipped (334)`
+- `npm test`: ` Test Files  18 passed (18)` then `      Tests  375 passed (375)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  15 passed | 3 skipped (18)` then `      Tests  329 passed | 31 skipped (360)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
