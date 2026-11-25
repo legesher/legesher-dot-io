@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-description: "What Legesher collects and why, how we use and share it, your rights and choices, where your data is handled and how long it is kept, including for the VS Code extension and the documentation site."
+description: "What Legesher collects and why, how we use and share it, your rights and choices, where your data is handled and how long it is kept."
 type: "Policy"
 audience: "All users"
 ---
@@ -26,18 +26,6 @@ We collect the following categories of personal data:
 
 When you provide Inputs you are responsible for ensuring you have the necessary rights, permissions, or authority to do so.
 
-**Translation API**. Your code is processed and returned. We do not log it.
-
-**Names kept for consistency**. In enhanced mode, so a name is translated the same way each time, we hold the names from a repository you identify, with their translations, in memory for your account only. They are never stored and are cleared when the service restarts.
-
-**Enhanced mode**. An AI system included in paid plans that list it. It sends the comments, docstrings, text strings and names from your code, never its structure, to our AI provider in the United States, and returns suggested translations. Its only purpose is translation, set by us, and it makes no decisions about you. The provider does not train on the content and deletes it within 30 days. We keep it only as described under Translation API. We follow the OECD AI Principles.
-
-**Connected repositories**. The Legesher GitHub App has read-only access to the repositories you choose. It reads their contents only to provide the features you use, and that code is handled like any code sent to the Translation API. Its access tokens are never stored. Uninstalling the App ends our access.
-
-**On your own machine**. The command line, the language packs and the VS Code extension translate on your machine and send no code to anyone. If your code must not leave your region, use them.
-
-**Contributed translations**. You contribute translations by pull request to `legesher/language-packs` on GitHub. The word you offer, and a record that it was endorsed, join the public Legesher language corpus on Hugging Face, published under CC BY 4.0. Your name does not appear: you appear as an opaque identifier, and we never publish the link back to you.
-
 ### Personal Data We Receive Automatically from Your Use of the Services {#personal-data-we-receive-automatically-from-your-use-of-the-services}
 
 When you use the Services, we also receive certain technical data automatically (described below, collectively “**Technical Information**”). This includes:
@@ -46,12 +34,6 @@ When you use the Services, we also receive certain technical data automatically 
 - Usage Information: We collect information about your use of the Services, such as the dates and times of access, browsing history, search, information about the links you click and about third-party applications, services, and content you integrate or interact with, pages you view, and other information about how you use the Services, and technology on the devices you use to access the Services.
 - Log and Troubleshooting Information: We collect information about how our Services are performing when you use them. This information includes log files. If you or your device experiences an error, we may collect information about the error, the time the error occurred, the feature being used, the state of the application when the error occurred, and any communications or content provided at the time the error occurred.
 - Cookies & Similar Technologies: We and our service providers use cookies, scripts, or similar technologies (“Cookies”) to manage the Services and to collect information about you and your use of the Services. These technologies help us to recognize you, customize or personalize your experience, and analyze the use of our Services to make them safer and more useful to you. For more details about how we use these technologies, and your opt-out controls and other options, please visit our [Cookie Policy](/cookies).
-
-**Usage records**. For each request we keep a pseudonymous record: your account or key (or, without an account, a salted hash of your network address), the time, tool, languages, size and outcome. If you name a repository, we keep a salted hash of its name. The record never holds your code. A salted hash is a one-way code: no one can turn it back into the original.
-
-**Documentation site**. docs.legesher.io is hosted on Vercel, which keeps standard server logs (IP addresses, request times and URLs). Its cookieless Vercel Web Analytics counts page views, referrers, country or region, device type and browser in aggregate, and stores no IP addresses or personal identifiers. If you are signed in to app.legesher.io, a script on the documentation site reads the sign-in cookie in your browser only to choose whether to show a link to your account or one to create an account. It sends nothing and sets no cookie.
-
-**VS Code extension**. The extension translates on your machine and sends no code to anyone. If you turn on its telemetry (`legesher.telemetry.enabled`), it sends usage statistics: activation events, which commands you use, which languages you translate between, language changes (what prompted them, which settings level supplied the language, and whether the change succeeded), language detection outcomes (the language code and match score only), performance metrics, and error reports without code. It never sends your code or file contents, your name, email or IP address, project names or file paths, the names you define, or literal values from your code. The telemetry library adds a pseudonymous machine id and session id to each event. VS Code itself collects telemetry separately, under Microsoft's privacy statement.
 
 ### Personal Data We Collect or Receive to Train Our Models {#personal-data-we-collect-or-receive-to-train-our-models}
 
@@ -63,8 +45,6 @@ Legesher obtains personal data from third party sources in order to improve our 
 - Feedback that users explicitly provide about our Services
 - Materials flagged for safety, security, or policy review
 - Data that we generate internally
-
-**VS Code extension**. If you turn on `legesher.telemetry.contributeToMLTraining` (off by default), the extension sends feedback when you change a Legesher suggestion: the correction (for example, "media" to "promedio"), the kind of code element (function, variable or class) and the kind of operation (for example, arithmetic or string manipulation). It sends no code content and no file paths. Each event carries the same pseudonymous machine id and session id.
 
 ## 2. Uses of Personal Data Permitted Under Applicable Data Protection Laws {#uses-of-personal-data}
 

@@ -67,9 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   automatically, and collected to train our models unless you opt out in your account settings),
   the purposes we use it for, the third parties who receive it or provide it, your rights and
   choices, data transfers, retention, de-identified data and security, children, changes, contact
-  information, and the legal bases for each purpose. It now also covers the VS Code extension and the
-  documentation site, which had their own privacy page on docs.legesher.io. One contact address,
-  support@legesher.com.
+  information, and the legal bases for each purpose. One contact address, support@legesher.com.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
   @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
   raised to >=22.12.0). One code change applied: CSP configuration graduated from
