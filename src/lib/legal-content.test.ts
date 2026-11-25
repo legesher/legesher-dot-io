@@ -36,6 +36,20 @@ describe('legal content', () => {
     expect(docs).toEqual(expect.arrayContaining(['terms', 'privacy']));
   });
 
+  // Every legal document opens Section 1, Who We Are, with the same sentence
+  // about Legesher, so no page describes the company differently.
+  it('every document opens Who We Are with the same sentence about Legesher', () => {
+    const opening = (slug: string): string => {
+      const lines = source(slug).split('\n');
+      const start = lines.indexOf('## 1. Who We Are {#who-we-are}');
+      if (start < 0) return `${slug} has no "## 1. Who We Are {#who-we-are}"`;
+      return lines.slice(start + 1).find((line) => line.trim() !== '') ?? '';
+    };
+    const sentences = Object.fromEntries(docs.map((slug) => [slug, opening(slug)]));
+    expect(new Set(Object.values(sentences)).size, JSON.stringify(sentences, null, 2)).toBe(1);
+    expect(Object.values(sentences)[0]).toMatch(/^Legesher is /);
+  });
+
   it.each(docs)('%s: every level-2 heading carries an explicit id', (slug) => {
     const missing = source(slug)
       .split('\n')
