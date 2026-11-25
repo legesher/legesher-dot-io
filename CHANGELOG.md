@@ -17,12 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   its introduction and no heading above it.
 - **Usage Policy.** A third legal document at `/usage-policy`, part of the Terms: what you may not do
   when you use Legesher, and how to report misuse. The footer links it beside the other two.
-- **Cookie Policy.** A fourth legal document at `/cookies`: how the website, the account app and the
-  documentation site use cookies (the website and documentation site set none; the account app's
-  strictly necessary cookies are listed), how to manage them, and Do Not Track and Global Privacy
-  Control. The cookie details move there from the Privacy Policy, and the footer links it.
+- **Cookie Policy.** A fourth legal document at `/cookies`: how Legesher uses cookies (necessary
+  cookies for signing in to the account app, cookieless analytics, no marketing cookies), how to
+  manage them, and Do Not Track and Global Privacy Control. The footer links it.
   `analytics-loader.test.ts` and `privacy-signals.test.ts` now check its sentences against the
-  analytics scripts.
+  analytics scripts. The Privacy Policy's cookie paragraphs and its table of cookie names are
+  removed.
 - **Subscriptions, fees and payments in the Terms (Section 4).** Fees and billing, additional fees,
   and subscriptions: their content, automatic renewal, cancellation at least 24 hours before a
   renewal, and fees paid up front with at least 30 days' notice of an increase. Payments are
