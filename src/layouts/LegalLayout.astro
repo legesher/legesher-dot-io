@@ -146,6 +146,26 @@ const ROW = 'grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 items-center border-t
   .legal-document > :global(:first-child) {
     margin-top: 0;
   }
+  /* A table whose cells hold lists (Privacy, Legal Bases): the lists sit
+     tight in their cells, and the columns are set so a short item such as
+     "Identity and Contact Data" keeps to one line on a wide screen */
+  .legal-document :global(td ul) {
+    margin: 0;
+    padding-left: 1rem;
+  }
+  .legal-document :global(td li) {
+    margin: 0;
+    padding-left: 0;
+  }
+  .legal-document :global(table:has(td ul) th:nth-child(1)) {
+    width: 44%;
+  }
+  .legal-document :global(table:has(td ul) th:nth-child(2)) {
+    width: 31%;
+  }
+  .legal-document :global(table:has(td ul) th:nth-child(3)) {
+    width: 25%;
+  }
   /* The PDF is this page printed: no site header or footer */
   @media print {
     :global(#main-header),
