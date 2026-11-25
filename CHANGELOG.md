@@ -42,14 +42,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   with disputes in the DIFC Courts. The Terms open with a welcome line and an introduction, then run
   in 13 numbered sections whose paragraphs open with a bold title: who we are, account creation and
   access, use of our Services (under the Usage Policy), subscriptions, fees and payments, inputs,
-  outputs, actions and the Legesher vocabulary (your code stays yours; you may use Outputs in your
-  projects; the vocabulary inside them stays ours), feedback, third-party services and links,
-  content moderation, software, ownership of the Services, disclaimer of warranties, limitations of
-  liability and indemnity, general terms (changes to the Services and the Terms, supplemental terms,
-  termination, brand use and legal compliance), and in case of disputes. Support requests go to
-  support@legesher.com and brand permission requests to marketing@legesher.com. No plan offers a
-  license to extract the vocabulary, train on it or redistribute it in bulk; those need a separate
-  written data agreement. The open-source software and datasets are covered by their own licenses.
+  outputs, actions and materials (you keep your Inputs and own your Outputs; we may use Materials to
+  improve the Services, including training models, unless you opt out), feedback, third-party
+  services and links, content moderation, software, ownership of the Services, disclaimer of
+  warranties, limitations of liability and indemnity, general terms (changes to the Services and the
+  Terms, supplemental terms, termination, brand use and legal compliance), and in case of disputes.
+  Support requests go to support@legesher.com and brand permission requests to
+  marketing@legesher.com. Using the Services to build a competing product, to reverse engineer how
+  they translate, or to train models to reproduce it is barred. The open-source software and
+  datasets are covered by their own licenses.
 - **Fonts served from the site.** The Noto fonts come from the `@fontsource-variable` packages
   (exact-pinned) in place of Google Fonts, so a page view sends nothing to a font service, and the
   Content Security Policy no longer allows Google's font and stylesheet origins.
