@@ -59,7 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the DIFC Data Protection Law. The policy opens with the sentence about Legesher and an
   introduction, then has 10 sections: the personal data we collect (provided directly, received
   automatically, and collected to train our models unless you opt out in your account settings),
-  the purposes we use it for, who receives it (with the service providers table), your rights and
+  the purposes we use it for, the third parties who receive it or provide it, your rights and
   choices, data transfers, retention, de-identified data and security, children, changes, contact
   information, and the legal bases. It now also covers the VS Code extension and the
   documentation site, which had their own privacy page on docs.legesher.io. One contact address,
