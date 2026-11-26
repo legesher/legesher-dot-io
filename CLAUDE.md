@@ -177,7 +177,9 @@ Facts behind those commands:
   `src/content/legal/pdfs.json` with a hash of those three, and with the PDF's own hash, and fails
   until you do. The script leaves a PDF alone when none of the three changed; after a change to the
   site's styles or the script's page settings, which the hash does not cover, run
-  `npm run legal:pdf -- --all`.
+  `npm run legal:pdf -- --all`. The script points every site link at `https://www.legesher.io`
+  before printing, since it prints from a local server; the same test fails on any PDF link that is
+  not `https://` or `mailto:`.
 - The `/go/*` short links in `vercel.json` are static JSON and cannot import `src/lib/links.ts`.
   Update both when a link rotates; the parity test catches a miss.
 - `output: 'static'` is the default for every page. A route that needs the server must opt out

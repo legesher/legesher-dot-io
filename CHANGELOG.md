@@ -151,7 +151,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- The website sets no cookies and writes nothing to browser storage; the Cookie Policy says so
+- The website's analytics set no cookies and write nothing to browser storage; the Cookie Policy's
+  Analytics row says so
 - Terms of Service caps liability (the greater of the amount paid in the six months before the
   claim arose and US$100)
 
