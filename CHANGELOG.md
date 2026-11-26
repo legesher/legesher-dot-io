@@ -9,20 +9,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **One layout for the legal pages.** The Terms of Service, Privacy Policy, Usage Policy and Cookie
+  Policy are written in Markdown (`src/content/legal`) and share one layout: the title and a
+  "Download PDF" button at the top, a numbered list of sections beside the text, and the document's
+  details (the effective date, type with its icon, an "All users" audience tag and language). On a phone the list folds into "On
+  this page", and a table wider than the text scrolls inside its own box. Each document opens with
+  its introduction and no heading above it.
+- **Usage Policy.** A third legal document at `/usage-policy`, part of the Terms: what you may not do
+  when you use Legesher, and how to report misuse. The footer links it beside the other two.
+- **Cookie Policy.** A fourth legal document at `/cookies`: how Legesher uses cookies (necessary
+  cookies for signing in to the account app, cookieless analytics, no marketing cookies), how to
+  manage them, and Do Not Track and Global Privacy Control. The footer links it.
+  `analytics-loader.test.ts` and `privacy-signals.test.ts` now check its sentences against the
+  analytics scripts. The Privacy Policy's cookie paragraphs and its table of cookie names are
+  removed.
+- **Subscriptions, fees and payments in the Terms (Section 4).** Fees and billing, additional fees,
+  and subscriptions: their content, automatic renewal, cancellation at least 24 hours before a
+  renewal, and fees paid up front with at least 30 days' notice of an increase. Payments are
+  non-refundable except as the Terms say or the law requires. `/refunds` redirects to Section 4.
+  `src/lib/page-dates.test.ts` guards that
+  every dated page reads its own `LAST_UPDATED` entry and that every entry is an ISO date the
+  formatter renders.
 - **PostHog newsletter funnel, behind a build-time key.** `public/scripts/analytics.js` is rendered
   by the layout only when the build carries `PUBLIC_POSTHOG_KEY`, and the Content Security Policy
   gains PostHog's origin only in that case. Memory-only persistence (no cookie, no client-side
   storage), no autocapture, pageviews, session recording, surveys or feature flags, Do Not Track
   respected, PostHog's own campaign and first-touch collection off. Five events: the newsletter form
-  in view, the submit, the successful subscription (then identify by email), a Docs link click, and a
-  corpus link click that no link carries yet. Two guards: `src/lib/analytics-csp.test.ts` (every
-  built page has the loader exactly when the policy allows it) and `src/lib/analytics-loader.test.ts`
-  (each privacy-page promise pinned to the option that keeps it). Without the key the built pages
+  in view, the submit, the successful subscription (no visitor is ever identified), a Docs link
+  click, and a corpus link click that no link carries yet. Two guards: `src/lib/analytics-csp.test.ts`
+  (every built page has the loader exactly when the policy allows it) and
+  `src/lib/analytics-loader.test.ts` (each Cookie Policy promise pinned to the option that keeps it). Without the key the built pages
   differ only by a `data-track` attribute on the two Docs links. `tsconfig.json` now includes the
   generated `.astro/types.d.ts`, so `astro check` can type `astro:env` imports.
+- **Do Not Track and Global Privacy Control turn analytics off.** When a browser sends either
+  signal, `public/scripts/privacy-signals.js` drops every Vercel Web Analytics and Speed Insights
+  event, and `public/scripts/analytics.js` returns before loading PostHog.
+  `src/lib/privacy-signals.test.ts` runs the script against each signal and checks the layout loads
+  it before both Vercel components.
 
 ### Changed
 
+- **Terms of Service, rewritten.** A contract with Legesher Global Tech Ltd, governed by DIFC law
+  with disputes in the DIFC Courts. The Terms open with a welcome line and an introduction, then run
+  in 13 numbered sections whose paragraphs open with a bold title: who we are, account creation and
+  access, use of our Services (under the Usage Policy), subscriptions, fees and payments, inputs,
+  outputs, actions and materials (you keep your Inputs and own your Outputs; we may use Materials to
+  improve the Services, including training models, unless you opt out), feedback, third-party
+  services and links, content moderation, software, ownership of the Services, disclaimer of
+  warranties, limitations of liability and indemnity, general terms (changes to the Services and the
+  Terms, supplemental terms, termination, brand use and legal compliance), and in case of disputes.
+  Support requests go to support@legesher.com and brand permission requests to
+  marketing@legesher.com. Using the Services to build a competing product, to reverse engineer how
+  they translate, or to train models to reproduce it is barred. The open-source software and
+  datasets are covered by their own licenses.
+- **Fonts served from the site.** The Noto fonts come from the `@fontsource-variable` packages
+  (exact-pinned) in place of Google Fonts, so a page view sends nothing to a font service, and the
+  Content Security Policy no longer allows Google's font and stylesheet origins.
+  `src/lib/self-hosted-fonts.test.ts` fails if any source file or built page names Google Fonts.
+- **Privacy Policy, rewritten.** Legesher Global Tech Ltd is responsible for personal data, under
+  the DIFC Data Protection Law. The policy opens with the sentence about Legesher and an
+  introduction, then has 10 sections: the personal data we collect (provided directly, received
+  automatically, and collected to train our models unless you opt out in your account settings),
+  the purposes we use it for, the third parties who receive it or provide it, your rights and
+  choices, data transfers, retention, de-identified data and security, children, changes, contact
+  information, and the legal bases for each purpose. One contact address, support@legesher.com.
 - **Upgraded the site framework to Astro 6 and React 19** (astro ^6.4.8, react/react-dom ^19.2.7,
   @astrojs/react ^5, @astrojs/mdx ^6, @astrojs/vercel ^10, @vercel/analytics ^2; Node floor
   raised to >=22.12.0). One code change applied: CSP configuration graduated from
@@ -49,13 +99,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   device, keeping the policy's no-client-side-storage commitment intact. A visit carrying no
   campaign parameters records nothing at all rather than a placeholder, so "not measured" stays
   distinguishable from "arrived directly". Disclosed in the Privacy Policy.
-- Company-wide **Privacy Policy** at [/privacy](https://www.legesher.io/privacy) covering website, products,
-  community, data retention, and full GDPR/CCPA/CPRA/state privacy law disclosures (CORE-542, CORE-581)
-- **Terms of Service** at [/terms](https://www.legesher.io/terms) documenting the open-core licensing
-  model (Apache 2.0 for code; Commercial License for Hosted Services, Curated Datasets, Curriculum),
-  four disclaimers, Delaware governing law, and contact routing (CORE-889)
-- Footer legal row linking to Privacy Policy and Terms of Service site-wide
-- `/.well-known/security.txt` (RFC 9116) exposing `security@legesher.com` as the canonical vulnerability
+- Company-wide **Privacy Policy** at [/privacy](https://www.legesher.io/privacy) (CORE-542, CORE-581);
+  its current text is described under Changed
+- **Terms of Service** at [/terms](https://www.legesher.io/terms) (CORE-889); its current text is
+  described under Changed
+- Footer legal row linking to the Privacy Policy, Terms of Service, Usage Policy and Cookie Policy
+  site-wide
+- `/.well-known/security.txt` (RFC 9116) exposing `support@legesher.com` as the vulnerability
   reporting contact
 - Canonical URL and `robots` meta tags on every page for consistent search-engine indexing
 - Astro `site` configured to `https://www.legesher.io` (matches the CNAME and the hostname used by
@@ -101,11 +151,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- Privacy Policy documents a zero-cookie posture: no cookies, no `localStorage` writes, no consent banner
-  required under GDPR or the ePrivacy Directive
-- Terms of Service caps liability (greater of twelve-month paid amount or USD $100) and includes AAA
-  arbitration for US users (individual only, no class actions)
-- Dedicated `security@legesher.com` contact route, exposed via `/.well-known/security.txt`
+- The website's analytics set no cookies and write nothing to browser storage; the Cookie Policy's
+  Analytics row says so
+- Terms of Service caps liability (the greater of the amount paid in the six months before the
+  claim arose and US$100)
 
 ## [2.0.0] - 2025-12-18
 

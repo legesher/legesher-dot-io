@@ -21,7 +21,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        'noto-mono': ['Noto Sans Mono', 'monospace'],
+        'noto-mono': ['Noto Sans Mono Variable', 'monospace'],
       },
       colors: {
         border: 'hsl(var(--border))',

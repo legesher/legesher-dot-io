@@ -1,4 +1,4 @@
-// Single source for each page's "last updated" date.
+// Single source for each page's date, which a legal page shows as "Effective".
 //
 // Consumed twice: the page renders it as human-readable text, and
 // astro.config.mjs emits it as <lastmod> in the sitemap. Keeping one constant
@@ -8,8 +8,10 @@
 //
 // ISO 8601, UTC.
 export const LAST_UPDATED = {
-  privacy: '2026-08-17',
-  terms: '2026-07-14',
+  cookies: '2026-11-26',
+  privacy: '2026-11-26',
+  terms: '2026-11-26',
+  'usage-policy': '2026-11-26',
 };
 
 /** '2026-08-10' -> 'August 10, 2026'. The sitemap consumes the ISO form directly. */

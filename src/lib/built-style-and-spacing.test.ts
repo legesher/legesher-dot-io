@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import config from '../../astro.config.mjs';
 import { LAST_UPDATED, formatLastUpdated } from './page-dates.mjs';
 
 // Two Astro 7 defaults that the rest of the suite does not see, checked on
@@ -11,8 +12,9 @@ import { LAST_UPDATED, formatLastUpdated } from './page-dates.mjs';
 //   hashes, so style-src would quietly let any inline style through. The
 //   policy must stay hash-only, with every inline <style> hashed.
 // - Since Astro 7.0 compressHTML defaults to 'jsx' rules, which drop the
-//   space between text and an inline element ("·Last updated"). The dated
-//   legal pages show it first.
+//   space between text and an inline element ("·Last updated", in the legal
+//   pages' old byline). No page shows that shape today, so a built-page check
+//   could not fail; the setting itself is checked instead.
 //
 // CI builds before it tests; locally the suites skip, by name, until
 // `npm run build` has run.
@@ -59,15 +61,22 @@ suite('style-src stays hash-only on every built page (needs npm run build)', () 
   });
 });
 
-suite('each dated page keeps the space in its byline (needs npm run build)', () => {
+describe('astro.config.mjs', () => {
+  it('keeps compressHTML true (Astro 7 defaults to jsx rules that drop spaces)', () => {
+    expect(config.compressHTML).toBe(true);
+  });
+});
+
+// The date shows once, as Effective in the document details
+// (legal-built.test.ts checks the row); no closing "Effective date" line repeats it.
+suite('each dated page shows its effective date once (needs npm run build)', () => {
   it.each(Object.entries(LAST_UPDATED))('%s', (slug, iso) => {
     const html = readFileSync(join(output, slug, 'index.html'), 'utf-8');
-    // Text between tags, joined: enough to see whether the byline's space
-    // survived. Not a sanitizer; nothing here is rendered.
+    // Text between tags, joined. Not a sanitizer; nothing here is rendered.
     const text = html
       .split(/<[^>]*>/)
       .join('')
       .replace(/\s+/g, ' ');
-    expect(text).toContain(`· Last updated: ${formatLastUpdated(iso)}`);
+    expect(text.split(formatLastUpdated(iso)).length - 1, `${slug}: times the date appears`).toBe(1);
   });
 });

@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import vercel from "@astrojs/vercel";
 import { loadEnv } from 'vite';
 import { LAST_UPDATED } from './src/lib/page-dates.mjs';
+import { satteri } from '@astrojs/markdown-satteri';
 
 // The PostHog loader (public/scripts/analytics.js) is rendered by Layout.astro
 // only when PUBLIC_POSTHOG_KEY is set at build time, and the policy is widened
@@ -24,7 +25,7 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "img-src 'self' data: https:",
-        "font-src 'self' data: https: https://fonts.gstatic.com",
+        "font-src 'self' data:",
         ["connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com", ...analyticsOrigins].join(' '),
         "object-src 'none'",
         "base-uri 'self'"
@@ -34,12 +35,19 @@ export default defineConfig({
       // emitted the hashes anyway, so browsers ignored 'unsafe-inline' and the
       // policy was hash-only; dropping it keeps that policy under Astro 7.
       styleDirective: {
-        resources: ["'self'", "https://fonts.googleapis.com"]
+        resources: ["'self'"]
       },
       scriptDirective: {
         resources: ["'self'", "https://va.vercel-scripts.com", ...analyticsOrigins]
       }
     }
+  },
+  // The legal pages are Markdown (src/content/legal). `attributes` lets a
+  // heading keep a fixed id ("## Governing Law {#governing-law}"), so their
+  // existing anchors do not move. Smart punctuation is off so the text renders
+  // exactly as written, with straight quotes where the source has them.
+  markdown: {
+    processor: satteri({ features: { attributes: true, smartPunctuation: false } }),
   },
   integrations: [
     // Tailwind 3 now runs through the root postcss.config.js (tailwindcss +
@@ -88,8 +96,8 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   // Astro 7 defaults to 'jsx' whitespace rules, which drop the line break
-  // between text and an inline element ("Limited ·<span>Last updated") and
-  // between inline siblings. `true` keeps Astro 6's lossless compression, so
+  // between text and an inline element ("Limited ·<span>Last updated", in
+  // the legal pages' old byline) and between inline siblings. `true` keeps Astro 6's lossless compression, so
   // the pages render exactly as they did.
   compressHTML: true,
   // Temporary: Vite 8's default CSS minifier (lightningcss) rounds some

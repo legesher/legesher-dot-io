@@ -1,0 +1,16 @@
+---
+import { getEntry, render } from 'astro:content';
+
+import LegalLayout from '../layouts/LegalLayout.astro';
+import LegalTable from '../components/LegalTable.astro';
+import { LAST_UPDATED } from '@/lib/page-dates.mjs';
+
+// The text is src/content/legal/cookies.mdx; the layout is LegalLayout.
+const entry = await getEntry('legal', 'cookies');
+if (!entry) throw new Error('src/content/legal/cookies.mdx is missing');
+const { Content, headings } = await render(entry);
+---
+
+<LegalLayout entry={entry} headings={headings} lastUpdated={LAST_UPDATED.cookies} pageTitle="Cookie Policy — Legesher">
+  <Content components={{ table: LegalTable }} />
+</LegalLayout>
