@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+import { stripHtmlComments } from './html-text';
+
 // Astro appends the Content Security Policy as the last <meta> in <head>.
 // The HTML parser closes <head> at the first element that is not allowed
 // there, and an Astro component that renders a custom element (the Vercel
@@ -13,13 +15,11 @@ import { describe, expect, it } from 'vitest';
 
 // The frontmatter is dropped (its comments may mention tags) and HTML comments
 // are stripped: a note that mentions a tag is not a tag.
-const layout = readFileSync(
-  join(import.meta.dirname, '..', 'layouts', 'Layout.astro'),
-  'utf-8',
-)
-  .replace(/\r/g, '')
-  .replace(/^---[\s\S]*?\n---\n/, '')
-  .replace(/<!--[\s\S]*?-->/g, '');
+const layout = stripHtmlComments(
+  readFileSync(join(import.meta.dirname, '..', 'layouts', 'Layout.astro'), 'utf-8')
+    .replace(/\r/g, '')
+    .replace(/^---[\s\S]*?\n---\n/, ''),
+);
 
 const HEAD_ELEMENTS = new Set([
   'meta',

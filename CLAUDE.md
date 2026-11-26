@@ -33,7 +33,8 @@ data. Page and layout changes are visual work and are reviewed as such.
   and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
   endpoint's validation, payload and Buttondown call, so the route stays thin), `attribution.ts`,
-  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, `pack-samples.json` (the education
+  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, `html-text.ts` (comment and tag
+  stripping for the tests that read HTML), `pack-samples.json` (the education
   page's sample program in every Python pack, generated with `legesher translate`), and the
   co-located `*.test.ts` suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.
@@ -65,8 +66,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  18 passed (18)` then `      Tests  407 passed (407)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  15 passed | 3 skipped (18)` then `      Tests  349 passed | 40 skipped (389)`
+- `npm test`: ` Test Files  19 passed (19)` then `      Tests  420 passed (420)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  16 passed | 3 skipped (19)` then `      Tests  362 passed | 40 skipped (402)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files

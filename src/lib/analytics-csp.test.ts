@@ -2,6 +2,8 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+import { stripHtmlComments } from './html-text';
+
 // The PostHog loader is optional: Layout.astro renders it only when the build
 // ran with PUBLIC_POSTHOG_KEY set, and astro.config.mjs widens the Content
 // Security Policy to PostHog's origin only in that same case (CORE-1948). A
@@ -57,7 +59,7 @@ suite('every built page loads PostHog only with a policy that allows it (needs n
   });
 
   it.each(pages)('%s', (page) => {
-    const html = readFileSync(join(output, page), 'utf-8').replace(/<!--[\s\S]*?-->/g, '');
+    const html = stripHtmlComments(readFileSync(join(output, page), 'utf-8'));
     const loaders = Array.from(html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)).filter(
       (m) => m[1] === LOADER_SRC,
     );
