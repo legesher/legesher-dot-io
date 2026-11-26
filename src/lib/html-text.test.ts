@@ -15,7 +15,7 @@ describe('stripHtmlComments', () => {
     expect(stripHtmlComments('<!-- one --!><link><!-- two -->')).toBe('<link>'));
 
   // The repeat is for code scanning: the browser would read "<!<!---->" as a bogus
-  // comment and keep "-- x -->y". This site's own output has no "<!" before a comment.
+  // comment and keep "-- x -->y". This site's own output has no partial opener before a comment.
   it('repeats until no comment opener is left, even when a removal joins the text around it', () =>
     expect(stripHtmlComments('<!<!---->-- x -->y')).toBe('y'));
 

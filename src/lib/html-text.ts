@@ -5,9 +5,10 @@
 // repeats its replacement until nothing changes, so removing one match can
 // never join the text on either side of it into a new match (the fix code
 // scanning asks for). For tags that changes nothing. For comments it departs
-// from the browser in one shape only: "<!" written right before a comment,
-// which the browser reads as a bogus comment ending at the next ">". This
-// site's source and build output do not contain it.
+// from the browser only when a partial opener ("<", "<!" or "<!-") comes right
+// before a comment: the browser keeps it as text or a bogus comment, while the
+// repeat joins it to the text after the comment. This site's source and build
+// output do not contain one.
 
 /**
  * Removes HTML comments, so a note that mentions a tag is not read as a tag.
