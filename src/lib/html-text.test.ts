@@ -14,7 +14,9 @@ describe('stripHtmlComments', () => {
   it('ends a comment at its first close, keeping the markup after it', () =>
     expect(stripHtmlComments('<!-- one --!><link><!-- two -->')).toBe('<link>'));
 
-  it('leaves no comment opener behind when removing one joins the text around it', () =>
+  // The repeat is for code scanning: the browser would read "<!<!---->" as a bogus
+  // comment and keep "-- x -->y". This site's own output has no "<!" before a comment.
+  it('repeats until no comment opener is left, even when a removal joins the text around it', () =>
     expect(stripHtmlComments('<!<!---->-- x -->y')).toBe('y'));
 
   it('keeps text that holds no comment', () =>

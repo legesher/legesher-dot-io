@@ -3,7 +3,11 @@
 // analytics-csp.test.ts). The input is always this site's own source or build
 // output, never a visitor's text, so these are not sanitizers. Each one
 // repeats its replacement until nothing changes, so removing one match can
-// never join the text on either side of it into a new match.
+// never join the text on either side of it into a new match (the fix code
+// scanning asks for). For tags that changes nothing. For comments it departs
+// from the browser in one shape only: "<!" written right before a comment,
+// which the browser reads as a bogus comment ending at the next ">". This
+// site's source and build output do not contain it.
 
 /**
  * Removes HTML comments, so a note that mentions a tag is not read as a tag.
