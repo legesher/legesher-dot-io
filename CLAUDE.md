@@ -33,7 +33,8 @@ data. Page and layout changes are visual work and are reviewed as such.
   and `ui/`, the shadcn-style React primitives.
 - `src/lib/`: `links.ts` (single source of outbound links), `subscribe.ts` (the subscribe
   endpoint's validation, payload and Buttondown call, so the route stays thin), `attribution.ts`,
-  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, `pack-samples.json` (the education
+  `validation.ts`, `page-dates.mjs` (sitemap `lastmod`), `utils.ts`, `html-text.ts` (comment and tag
+  stripping for the tests that read HTML), `pack-samples.json` (the education
   page's sample program in every Python pack, generated with `legesher translate`), and the
   co-located `*.test.ts` suites.
 - `src/styles/globals.css`: Tailwind directives, the Noto font imports and the theme tokens.

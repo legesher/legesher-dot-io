@@ -2,6 +2,8 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+import { stripHtmlComments, stripTags } from './html-text';
+
 // Companion to layout-head.test.ts, which reads the layout's source. This one
 // reads what the build produced, page by page, so a page that brings its own
 // <head>, or a component that renders a custom element into it, cannot push
@@ -40,7 +42,7 @@ suite('every built page keeps the Content Security Policy inside <head> (needs n
   });
 
   it.each(pages)('%s', (page) => {
-    const html = readFileSync(join(output, page), 'utf-8').replace(/<!--[\s\S]*?-->/g, '');
+    const html = stripHtmlComments(readFileSync(join(output, page), 'utf-8'));
     const headOpen = html.search(/<head[\s>]/i);
     const headClose = html.search(/<\/head>/i);
     const meta = html.search(/<meta[^>]+http-equiv=["']content-security-policy["']/i);
@@ -63,7 +65,7 @@ suite('every built page keeps the Content Security Policy inside <head> (needs n
     );
     expect(foreign, 'no element the parser would move to <body> precedes the CSP meta').toEqual([]);
     expect(
-      before.replace(/<[^>]*>/g, '').trim(),
+      stripTags(before).trim(),
       'no text precedes the CSP meta in <head>',
     ).toBe('');
   });
