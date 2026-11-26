@@ -48,7 +48,7 @@
     {
       "source": "/refunds",
       "destination": "/terms#payments",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/:path*",

@@ -46,7 +46,7 @@ data. Page and layout changes are visual work and are reviewed as such.
   set), `env.schema`, sitemap, Vercel adapter, `output: 'static'`, `trailingSlash: 'never'`,
   `build.format: 'file'`.
 - `tailwind.config.ts`, `postcss.config.js`, `components.json`, `vitest.config.ts`.
-- `vercel.json`: the `/go/*` redirects and the apex to `www` redirect.
+- `vercel.json`: the `/go/*` redirects, the apex to `www` redirect, and `/refunds` to `/terms#payments`.
 - `.github/`: `workflows/` (`ci.yml`, `security-audit.yml`, bot workflows), `dependabot.yml`,
   `PULL_REQUEST_TEMPLATE.md`, `SECURITY.md`, `CONTRIBUTING.md`, issue templates.
 
@@ -65,8 +65,8 @@ page or a source file is removed: three built-page guards run once per built pag
 guards once per document in `src/content/legal`, and the runtime-secret guard once per source file
 under `src/`.
 
-- `npm test`: ` Test Files  18 passed (18)` then `      Tests  403 passed (403)` after `npm run build`; without build output the built-page guards skip by name and the lines read
-  ` Test Files  15 passed | 3 skipped (18)` then `      Tests  345 passed | 40 skipped (385)`
+- `npm test`: ` Test Files  18 passed (18)` then `      Tests  407 passed (407)` after `npm run build`; without build output the built-page guards skip by name and the lines read
+  ` Test Files  15 passed | 3 skipped (18)` then `      Tests  349 passed | 40 skipped (389)`
 - `npm run check`: `- 0 errors` and `- 0 warnings` (hints are reported and do not fail the run). The
   error line is singular when there is one (`- 1 error`), so grep for `error`, not `errors`.
 - `npm run build`: `[build] Complete!` after the Vercel adapter copies static files
@@ -81,9 +81,10 @@ Facts behind those commands:
 - `tailwind.config.ts` scans `src/**` and excludes `!./src/**/*.test.ts`, so words in test prose
   never become utility classes in the shipped stylesheet. A change to the scan must keep the
   client bundle byte-identical to a build of `main`.
-- Fonts are Noto (Noto Sans, Noto Sans Display, Noto Sans Mono, Noto Sans Arabic) loaded from
-  Google Fonts in `globals.css`. The CSP in `astro.config.mjs` allowlists `fonts.googleapis.com`
-  and `fonts.gstatic.com`; a new font source needs a CSP edit as well. The policy is enforced:
+- Fonts are Noto (Noto Sans, Noto Sans Display, Noto Sans Mono, Noto Sans Arabic), served from the
+  site by the exact-pinned `@fontsource-variable` packages imported in `globals.css`. The CSP in
+  `astro.config.mjs` allows fonts from the site only (`font-src 'self' data:`), and
+  `src/lib/self-hosted-fonts.test.ts` fails if any source file or built page names Google Fonts. The policy is enforced:
   `style-src` carries Astro's hashes and no `'unsafe-inline'` (since Astro 7.2.5 a directive that lists
   it gets no hashes, which would allow any inline style), so an inline `style=""` attribute or an
   inline event handler is refused. The built HTML has none today.
@@ -132,11 +133,12 @@ Facts behind those commands:
   shows that shape today, so the setting itself is asserted).
 - Two guards keep the PostHog loader honest: `src/lib/analytics-csp.test.ts` reads every built page
   and asserts the loader is present exactly when the policy carries PostHog's origin, sits in
-  `<body>` after the content, and that a build without the key has no script that references PostHog
-  (the privacy page names it in prose);
-  `src/lib/analytics-loader.test.ts` pins each promise the privacy page makes (zero storage, Do Not
-  Track, Global Privacy Control, no session reconstruction, no profiling) to the loader option that
-  keeps it, the event schema to its five names, and forbids any way to name a visitor; it also runs
+  `<body>` after the content, and that a build without the key names PostHog nowhere, in a script or
+  in prose;
+  `src/lib/analytics-loader.test.ts` pins each promise the Cookie Policy makes (cookieless analytics
+  with nothing stored, Do Not Track, Global Privacy Control) to the loader option that keeps it and
+  the event schema to its five names, keeps session recording and autocapture off, and forbids any
+  way to name a visitor; it also runs
   the loader against a stand-in page to prove Do Not Track and Global Privacy Control stop it before
   any request, and that a capture reaches PostHog as a capture with no address; and it runs
   `public/scripts/newsletter.js` against a stand-in form to prove the subscriber's address and name

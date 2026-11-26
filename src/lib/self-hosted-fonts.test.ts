@@ -1,6 +1,5 @@
-// The privacy page says www.legesher.io sends visitors' data to no one it
-// does not list, and lists no font service: the fonts are served from the site
-// itself (the @fontsource-variable packages, imported in src/styles/globals.css).
+// www.legesher.io sends visitors' data to no font service: the fonts are
+// served from the site itself (the @fontsource-variable packages, imported in src/styles/globals.css).
 // This keeps any page, stylesheet or the Content Security Policy from reaching
 // Google Fonts again. The source check runs without a build; the built check
 // reads every built HTML and CSS file once `npm run build` has run.

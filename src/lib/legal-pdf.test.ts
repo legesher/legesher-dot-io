@@ -40,6 +40,15 @@ describe('legal PDFs', () => {
     expect(manifest[slug]?.pdf, `public${pdfHref(slug)} is not the file npm run legal:pdf made; run it again`).toBe(pdf);
   });
 
+  // Every link in a PDF must work for the reader who downloads it: the live site or an email
+  // address, never the local server the script printed from.
+  it.each(slugs)('%s: every link in the PDF is an https or mailto address', (slug) => {
+    const pdf = readFileSync(join(root, 'public', pdfHref(slug))).toString('latin1');
+    const uris = Array.from(pdf.matchAll(/\/URI \(([^)]*)\)/g), (m) => m[1]);
+    expect(uris.length, 'the PDF carries its links').toBeGreaterThan(0);
+    expect(uris.filter((uri) => !/^(https:\/\/|mailto:)/.test(uri))).toEqual([]);
+  });
+
   it('records no PDF for a document that does not exist', () => {
     expect(Object.keys(manifest).filter((slug) => !slugs.includes(slug))).toEqual([]);
   });

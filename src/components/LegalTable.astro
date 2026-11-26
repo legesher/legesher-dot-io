@@ -6,4 +6,4 @@
 // that every table on a legal page sits in this box.
 ---
 
-<div data-legal-table class="overflow-x-auto"><table {...Astro.props}><slot /></table></div>
+<div data-legal-table class="overflow-x-auto" tabindex="0" role="region" aria-label="Table"><table {...Astro.props}><slot /></table></div>

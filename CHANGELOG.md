@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **One layout for the legal pages.** The Terms and the Privacy Policy are written in Markdown
-  (`src/content/legal`) and share one layout: the title and a "Download PDF" button at the top, a
-  numbered list of sections beside the text, and the document's details (last updated, type with
-  its icon, an "All users" audience tag and language). On a phone the list folds into "On
+- **One layout for the legal pages.** The Terms of Service, Privacy Policy, Usage Policy and Cookie
+  Policy are written in Markdown (`src/content/legal`) and share one layout: the title and a
+  "Download PDF" button at the top, a numbered list of sections beside the text, and the document's
+  details (the effective date, type with its icon, an "All users" audience tag and language). On a phone the list folds into "On
   this page", and a table wider than the text scrolls inside its own box. Each document opens with
   its introduction and no heading above it.
 - **Usage Policy.** A third legal document at `/usage-policy`, part of the Terms: what you may not do
@@ -35,12 +35,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   gains PostHog's origin only in that case. Memory-only persistence (no cookie, no client-side
   storage), no autocapture, pageviews, session recording, surveys or feature flags, Do Not Track
   respected, PostHog's own campaign and first-touch collection off. Five events: the newsletter form
-  in view, the submit, the successful subscription (then identify by email), a Docs link click, and a
-  corpus link click that no link carries yet. Two guards: `src/lib/analytics-csp.test.ts` (every
-  built page has the loader exactly when the policy allows it) and `src/lib/analytics-loader.test.ts`
-  (each privacy-page promise pinned to the option that keeps it). Without the key the built pages
+  in view, the submit, the successful subscription (no visitor is ever identified), a Docs link
+  click, and a corpus link click that no link carries yet. Two guards: `src/lib/analytics-csp.test.ts`
+  (every built page has the loader exactly when the policy allows it) and
+  `src/lib/analytics-loader.test.ts` (each Cookie Policy promise pinned to the option that keeps it). Without the key the built pages
   differ only by a `data-track` attribute on the two Docs links. `tsconfig.json` now includes the
   generated `.astro/types.d.ts`, so `astro check` can type `astro:env` imports.
+- **Do Not Track and Global Privacy Control turn analytics off.** When a browser sends either
+  signal, `public/scripts/privacy-signals.js` drops every Vercel Web Analytics and Speed Insights
+  event, and `public/scripts/analytics.js` returns before loading PostHog.
+  `src/lib/privacy-signals.test.ts` runs the script against each signal and checks the layout loads
+  it before both Vercel components.
 
 ### Changed
 
@@ -94,12 +99,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   device, keeping the policy's no-client-side-storage commitment intact. A visit carrying no
   campaign parameters records nothing at all rather than a placeholder, so "not measured" stays
   distinguishable from "arrived directly". Disclosed in the Privacy Policy.
-- Company-wide **Privacy Policy** at [/privacy](https://www.legesher.io/privacy) covering website, products,
-  community, data retention, and full GDPR/CCPA/CPRA/state privacy law disclosures (CORE-542, CORE-581)
-- **Terms of Service** at [/terms](https://www.legesher.io/terms) documenting the open-core licensing
-  model (Apache 2.0 for code; Commercial License for Hosted Services, Curated Datasets, Curriculum),
-  four disclaimers, governing law, and contact routing (CORE-889)
-- Footer legal row linking to Privacy Policy and Terms of Service site-wide
+- Company-wide **Privacy Policy** at [/privacy](https://www.legesher.io/privacy) (CORE-542, CORE-581);
+  its current text is described under Changed
+- **Terms of Service** at [/terms](https://www.legesher.io/terms) (CORE-889); its current text is
+  described under Changed
+- Footer legal row linking to the Privacy Policy, Terms of Service, Usage Policy and Cookie Policy
+  site-wide
 - `/.well-known/security.txt` (RFC 9116) exposing `support@legesher.com` as the vulnerability
   reporting contact
 - Canonical URL and `robots` meta tags on every page for consistent search-engine indexing
@@ -146,9 +151,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- Privacy Policy documents a zero-cookie posture: no cookies, no `localStorage` writes, no consent banner
-  required under GDPR or the ePrivacy Directive
-- Terms of Service caps liability (greater of twelve-month paid amount or USD $100)
+- The website sets no cookies and writes nothing to browser storage; the Cookie Policy says so
+- Terms of Service caps liability (the greater of the amount paid in the six months before the
+  claim arose and US$100)
 
 ## [2.0.0] - 2025-12-18
 

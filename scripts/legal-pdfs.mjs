@@ -65,6 +65,14 @@ try {
     await page.goto(`${base}/${slug}`, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.emulateMedia({ media: 'print' });
+    // The page is served from a local server, so Chromium would make a site link such as
+    // "/privacy" absolute against 127.0.0.1. Point every site link at the live site instead;
+    // in-page "#..." links stay internal. legal-pdf.test.ts fails on any other link.
+    await page.evaluate((site) => {
+      for (const a of document.querySelectorAll('a[href^="/"]:not([href^="//"])')) {
+        a.href = new URL(a.getAttribute('href'), site).href;
+      }
+    }, 'https://www.legesher.io');
     await page.pdf({
       path,
       format: 'Letter',

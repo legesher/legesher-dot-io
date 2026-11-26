@@ -1,6 +1,6 @@
 // Do Not Track and Global Privacy Control for Vercel's analytics.
 //
-// The privacy page says that when your browser sends either signal, our
+// The Cookie Policy says that when your browser sends either signal, our
 // analytics send nothing. The PostHog loader (analytics.js) keeps that for
 // PostHog. Vercel Web Analytics and Speed Insights check neither signal, so
 // this script gives each of them a beforeSend that drops every event while a

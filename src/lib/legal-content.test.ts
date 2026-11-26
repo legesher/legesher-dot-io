@@ -139,6 +139,13 @@ describe('legal content', () => {
         m[2].split(LIST).map((ref) => ({ doc: m[1] ? 'terms' : slug, ref })),
       ),
       ...[...text.matchAll(/\b(?:in|under|as) (\d+\.\d+)\b/g)].map((m) => ({ doc: slug, ref: m[1] })),
+      // A range in a "Sections ..." sentence ("Sections 4 (...) and 9-13"): every number in it.
+      ...[...text.matchAll(/\bsections? [^.]*?\b(\d+)[-–](\d+)\b/gi)].flatMap((m) =>
+        Array.from({ length: Math.max(Number(m[2]) - Number(m[1]) + 1, 1) }, (_, i) => ({
+          doc: slug,
+          ref: String(Number(m[1]) + i),
+        })),
+      ),
     ];
     expect(refs.filter(({ doc, ref }) => !numbersIn(doc).has(ref)).map(({ doc, ref }) => `${doc} ${ref}`)).toEqual([]);
   });
